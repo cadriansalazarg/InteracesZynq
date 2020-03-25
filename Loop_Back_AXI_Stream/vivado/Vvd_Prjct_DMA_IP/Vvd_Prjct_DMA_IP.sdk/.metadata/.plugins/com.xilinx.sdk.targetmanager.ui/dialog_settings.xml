@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<section name="Workbench">
-	<item value="Auto Detect" key="Vvd_Prjct_DMA_IP_wrapper_hw_platform_0-device"/>
-	<item value="false" key="Vvd_Prjct_DMA_IP_wrapper_hw_platform_0-partial_bit"/>
-	<item value="" key="Vvd_Prjct_DMA_IP_wrapper_hw_platform_0-bmmFile"/>
-	<item value="Vvd_Prjct_DMA_IP_wrapper_hw_platform_0" key="programfpga.hwplatform"/>
-	<item value="Local" key="Vvd_Prjct_DMA_IP_wrapper_hw_platform_0-target"/>
-	<item value="Vvd_Prjct_DMA_IP_wrapper.bit" key="Vvd_Prjct_DMA_IP_wrapper_hw_platform_0-bitFile"/>
-</section>
