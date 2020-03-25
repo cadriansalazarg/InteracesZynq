@@ -1,4 +1,3 @@
-
 /***************************** Include Files *********************************/
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,13 +9,7 @@
 #include "xloopback.h"
 #include "xscugic.h"
 
-
 /************************** Constant Definitions *****************************/
-
-/*
- * Device hardware build related constants.
- */
-
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
 
 #define RX_INTR_ID		XPAR_FABRIC_AXIDMA_0_S2MM_INTROUT_VEC_ID
@@ -31,39 +24,26 @@
  */
 #define RESET_TIMEOUT_COUNTER	10000
 
-/**************************** Type Definitions *******************************/
 #define SIZE  8
-#define DMA_SIZE SIZE*4
+/**************************** Type Definitions *******************************/
+typedef int data;
 
-/***************** Macros (Inline Functions) Definitions *********************/
-
+/*************************** Global variables ********************************/
+const unsigned int num_tests = 1000000;
+const unsigned int dma_size = SIZE* sizeof(data);
+data input_bffr[SIZE] = {1,2,3,4,5,6,7,8};
+data output_bffr[SIZE];
 
 /************************** Function Prototypes ******************************/
-
-
-
-
 static void TxIntrHandler(void *Callback);
 static void RxIntrHandler(void *Callback);
-
-
-
-
 static int SetupIntrSystem(INTC * IntcInstancePtr,
 			   XAxiDma * AxiDmaPtr, u16 TxIntrId, u16 RxIntrId);
 static void DisableIntrSystem(INTC * IntcInstancePtr,
 					u16 TxIntrId, u16 RxIntrId);
-
-
 static void XLoopBackStart(void *InstancePtr);
-
 static int XLoopBackSetup();
-
 /************************** Variable Definitions *****************************/
-/*
- * Device instance definitions
- */
-
 
 static XAxiDma AxiDma;		/* Instance of the XAxiDma */
 
@@ -110,13 +90,8 @@ volatile int Error;
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status, i, j;
 	XAxiDma_Config *Config;
-
-	int input_bffr[SIZE] = {1,2,3,4,5,6,7,8};
-	int output_bffr[SIZE];
-
-
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
 
@@ -184,9 +159,9 @@ int main(void)
 	XLoopBackStart(&xloopback_dev);
 
 	//flush the cache
-	Xil_DCacheFlushRange((unsigned int)input_bffr,DMA_SIZE);
+	Xil_DCacheFlushRange((unsigned int)input_bffr,dma_size);
 	//Xil_DCacheFlushRange((unsigned int)B,dma_size);
-	Xil_DCacheFlushRange((unsigned int)output_bffr,DMA_SIZE);
+	Xil_DCacheFlushRange((unsigned int)output_bffr,dma_size);
 	xil_printf("\rCache cleared\n\r");
 
 	status = XLoopBackSetup();
@@ -195,51 +170,55 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	//transfer A to the Vivado HLS block
-	status = XAxiDma_SimpleTransfer(&AxiDma, (unsigned int) input_bffr, DMA_SIZE,
-			XAXIDMA_DMA_TO_DEVICE);
-	if (status != XST_SUCCESS) {
-		//print("Error: DMA transfer to Vivado HLS block failed\n");
-		return XST_FAILURE;
-	}
+	for (j=0; j<num_tests; j++){
+		XLoopBackStart(&xloopback_dev);
 
-	//get results from the Vivado HLS block
-	status = XAxiDma_SimpleTransfer(&AxiDma, (unsigned int) output_bffr, DMA_SIZE,
-			XAXIDMA_DEVICE_TO_DMA);
-	if (status != XST_SUCCESS) {
-		//print("Error: DMA transfer from Vivado HLS block failed\n");
-		return XST_FAILURE;
-	}
+		//transfer A to the Vivado HLS block
+		status = XAxiDma_SimpleTransfer(&AxiDma, (unsigned int) input_bffr, dma_size,
+				XAXIDMA_DMA_TO_DEVICE);
+		if (status != XST_SUCCESS) {
+			//print("Error: DMA transfer to Vivado HLS block failed\n");
+			return XST_FAILURE;
+		}
+
+		//get results from the Vivado HLS block
+		status = XAxiDma_SimpleTransfer(&AxiDma, (unsigned int) output_bffr, dma_size,
+				XAXIDMA_DEVICE_TO_DMA);
+		if (status != XST_SUCCESS) {
+			//print("Error: DMA transfer from Vivado HLS block failed\n");
+			return XST_FAILURE;
+		}
 
 
-	/*
-	 * Wait TX done and RX done
-	 */
-	while (!TxDone && !RxDone && !Error) {
-			/* NOP */
-	}
+		/*
+		 * Wait TX done and RX done
+		 */
+		while (!TxDone && !RxDone && !Error) {
+				/* NOP */
+		}
 
-	if (Error) {
-		xil_printf("Failed test transmit%s done, "
-		"receive%s done\r\n", TxDone? "":" not",
+		if (Error) {
+			xil_printf("Failed test transmit%s done, "
+					"receive%s done\r\n", TxDone? "":" not",
 						RxDone? "":" not");
 
-		goto Done;
+			goto Done;
+
+		}
+
+		// Validation *************************************************
+		for (i =0; i<SIZE;i++){
+			if(output_bffr[i] != input_bffr[i]){
+				xil_printf("Data validation failed\r\n");
+				goto Done;
+			}
+		}
 
 	}
-
-	// Validation *************************************************
-	for (int i =0; i<SIZE;i++)
-		if(output_bffr[i] != input_bffr[i])
-			printf("Error in element %d. Theoretical value: %d. Obtained value: %d \r\n", i, input_bffr[i], output_bffr[i]);
-
 	xil_printf("Successfully ran AXI DMA interrupt Example\r\n");
 
 
-	//for (int i =0; i<SIZE;i++)
-	//    	printf("Element %d is equal to: %d\r\n", i,output_bffr[i]);
 
-	/* Disable TX and RX Ring interrupts and return success */
 
 	DisableIntrSystem(&Intc, TX_INTR_ID, RX_INTR_ID);
 
@@ -434,45 +413,6 @@ static int SetupIntrSystem(INTC * IntcInstancePtr,
 {
 	int Status;
 
-#ifdef XPAR_INTC_0_DEVICE_ID
-
-	/* Initialize the interrupt controller and connect the ISRs */
-	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-
-		xil_printf("Failed init intc\r\n");
-		return XST_FAILURE;
-	}
-
-	Status = XIntc_Connect(IntcInstancePtr, TxIntrId,
-			       (XInterruptHandler) TxIntrHandler, AxiDmaPtr);
-	if (Status != XST_SUCCESS) {
-
-		xil_printf("Failed tx connect intc\r\n");
-		return XST_FAILURE;
-	}
-
-	Status = XIntc_Connect(IntcInstancePtr, RxIntrId,
-			       (XInterruptHandler) RxIntrHandler, AxiDmaPtr);
-	if (Status != XST_SUCCESS) {
-
-		xil_printf("Failed rx connect intc\r\n");
-		return XST_FAILURE;
-	}
-
-	/* Start the interrupt controller */
-	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS) {
-
-		xil_printf("Failed to start intc\r\n");
-		return XST_FAILURE;
-	}
-
-	XIntc_Enable(IntcInstancePtr, TxIntrId);
-	XIntc_Enable(IntcInstancePtr, RxIntrId);
-
-#else
-
 	XScuGic_Config *IntcConfig;
 
 
@@ -490,7 +430,6 @@ static int SetupIntrSystem(INTC * IntcInstancePtr,
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
 
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr, TxIntrId, 0xA0, 0x3);
 
@@ -516,9 +455,6 @@ static int SetupIntrSystem(INTC * IntcInstancePtr,
 
 	XScuGic_Enable(IntcInstancePtr, TxIntrId);
 	XScuGic_Enable(IntcInstancePtr, RxIntrId);
-
-
-#endif
 
 	/* Enable interrupts from the hardware */
 
@@ -547,14 +483,7 @@ static int SetupIntrSystem(INTC * IntcInstancePtr,
 *
 ******************************************************************************/
 static void DisableIntrSystem(INTC * IntcInstancePtr,
-					u16 TxIntrId, u16 RxIntrId)
-{
-#ifdef XPAR_INTC_0_DEVICE_ID
-	/* Disconnect the interrupts for the DMA TX and RX channels */
-	XIntc_Disconnect(IntcInstancePtr, TxIntrId);
-	XIntc_Disconnect(IntcInstancePtr, RxIntrId);
-#else
+					u16 TxIntrId, u16 RxIntrId){
 	XScuGic_Disconnect(IntcInstancePtr, TxIntrId);
 	XScuGic_Disconnect(IntcInstancePtr, RxIntrId);
-#endif
 }
