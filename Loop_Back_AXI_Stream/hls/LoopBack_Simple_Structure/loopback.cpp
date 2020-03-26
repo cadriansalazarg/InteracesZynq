@@ -1,4 +1,4 @@
-#include "loopback.h"
+#include "loopback.hpp"
 
 void loopback(hls::stream<AXISTREAM32> &input, hls::stream<AXISTREAM32> &output){
 //#pragma HLS INTERFACE axis register both port=output
