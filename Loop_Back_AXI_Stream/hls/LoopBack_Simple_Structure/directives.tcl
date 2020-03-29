@@ -6,3 +6,14 @@
 set_directive_interface -mode axis -register -register_mode both "loopback" input
 set_directive_interface -mode axis -register_mode off "loopback" output
 set_directive_interface -mode s_axilite "loopback" 
+
+
+# Se el aplica pipeline a los dos for que tiene la estructura
+set_directive_pipeline "loopback/Productor"
+set_directive_pipeline "loopback/Consumidor"
+
+
+############################################################
+# Directiva de Dataflow utilizada
+
+set_directive_dataflow "loopback"
