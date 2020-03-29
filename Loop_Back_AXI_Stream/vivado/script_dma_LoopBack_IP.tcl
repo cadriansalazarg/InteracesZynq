@@ -145,6 +145,21 @@ set_property -dict [list CONFIG.c_include_sg {0}] [get_bd_cells axi_dma_0]
 delete_bd_objs [get_bd_intf_nets axi_dma_0_M_AXI_SG]
 endgroup
 
+# Se ajusta el valor de Width Register Length Buffer a 16, se supone que el máximo tamaño de datos que va a enviar plasticNet es 
+# 8kB, por lo tanto, dado que  8kB es equivalente 8192B, lo que implica que son 65536 bits, y considerando que un entero tiene 32 bits,
+# esto significa que se pueden enviar un máximo de 2048 enteros. El Width Register Length Buffer define el tamaño en bits del buffer
+# que voy a utilizar, por lo tanto, si este parámetro se coloca en 16, el total de bits que voy a poder enviar es 2^16,lo cual es equivalente
+# a 65536 bits. Por lo tanto, eeste párametro debe ajustarse a 16, considerando que el máximo mensaje a enviar por PlasticNet es 8kB.
+
+# Leer el tutorial DMA completo para entender como funciona https://www.xilinx.com/support/documentation/ip_documentation/axi_dma/v7_1/pg021_axi_dma.pdf
+
+# Una guía muy útil se muestra en: https://forums.xilinx.com/t5/Processor-System-Design/Axi-DMA-correct-parameters/td-p/639576
+# Aquí se explican estos parámetros y como setearlos adecuadamente
+
+startgroup
+set_property -dict [list CONFIG.c_sg_length_width {16}] [get_bd_cells axi_dma_0]
+endgroup
+
 
 # Se habilitan las interrupciones del Zynq
 
