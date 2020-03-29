@@ -8,6 +8,8 @@
 #include "xdebug.h"
 #include "xloopback.h"
 #include "xscugic.h"
+#include "xtmrctr.h"
+
 
 /************************** Constant Definitions *****************************/
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
@@ -17,6 +19,8 @@
 
 #define INTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
 
+#define XPAR_AXI_TIMER_DEVICE_ID 		(XPAR_AXI_TIMER_0_DEVICE_ID)
+
 #define INTC		XScuGic
 #define INTC_HANDLER	XScuGic_InterruptHandler
 
@@ -24,13 +28,15 @@
  */
 #define RESET_TIMEOUT_COUNTER	10000000
 
-#define SIZE  32 // No sirve para valores mayores de 64, 64 es el límite, corregir este error
+#define SIZE  2048 // El maximo valor de SIZe lo define el parámetro Width of Length register buffer en el AXI DMA en Vivado, de momento está en 16 y por lo tanto el máximo es 2048
 /**************************** Type Definitions *******************************/
 typedef int data;
 
 /*************************** Global variables ********************************/
-const unsigned int num_tests = 1000000;
+const unsigned int num_tests = 100;
 unsigned int dma_length = SIZE;
+
+
 data input_bffr[SIZE];
 data output_bffr[SIZE];
 
@@ -55,6 +61,11 @@ static XLoopback_Config xloopback_config = {
 	0,
 	XPAR_LOOPBACK_0_S_AXI_AXILITES_BASEADDR
 };
+
+static XTmrCtr timer_dev; /* Instancia del AXI Timer  */
+
+//static int XLoopBackSetup();
+
 
 /*
  * Flags interrupt handlers use to notify the application context the events.
@@ -93,6 +104,14 @@ int main(void)
 	int Status, i, j;
 	XAxiDma_Config *Config;
 
+	//data input_bffr[SIZE];
+	//data output_bffr[SIZE];
+
+	unsigned int init_time, curr_time, calibration;
+	unsigned int begin_time;
+	unsigned int end_time;
+	unsigned int run_time = 0;
+
 	for (i=0; i<dma_length; i++)
 		input_bffr[i] = i;
 
@@ -115,6 +134,32 @@ int main(void)
 
 	if(XAxiDma_HasSg(&AxiDma)){
 		xil_printf("Device configured as SG mode \r\n");
+		return XST_FAILURE;
+	}
+
+	// Setup HW timer
+	Status = XTmrCtr_Initialize(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	if(Status != XST_SUCCESS){
+		print("Error: timer setup failed\n");
+		return XST_FAILURE;
+	}
+	XTmrCtr_SetOptions(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID, XTC_ENABLE_ALL_OPTION);
+
+	//Status = XLoopback_CfgInitialize(&xloopback_dev,&xloopback_config);
+	//if(Status != XST_SUCCESS){
+	//	xil_printf("IP Initialization failed\n");
+	//	return XST_FAILURE;
+	//}
+
+	//Status = XLoopback_CfgInitialize(&xloopback_dev,&xloopback_config);
+	//	if(Status != XST_SUCCESS){
+	//		xil_printf("IP Initialization failed\n");
+	//		return XST_FAILURE;
+	//	}
+
+	Status = XLoopBackSetup();
+	if(Status != XST_SUCCESS){
+		print("Error: example setup failed\n");
 		return XST_FAILURE;
 	}
 
@@ -151,17 +196,10 @@ int main(void)
 	* is enabled
 	*/
 
-
-
-	int status = XLoopBackSetup();
-	if(status != XST_SUCCESS){
-		print("Error: example setup failed\n");
-		return XST_FAILURE;
-	}
-
-	XLoopback_Set_len_dma(&xloopback_dev, dma_length);
-
-	XLoopBackStart(&xloopback_dev);
+	//if(Status != XST_SUCCESS){
+	//	print("Error: example setup failed\n");
+	//	return XST_FAILURE;
+	//}
 
 	//flush the cache
 	Xil_DCacheFlushRange((unsigned int)input_bffr,dma_length*sizeof(int));
@@ -169,28 +207,38 @@ int main(void)
 	Xil_DCacheFlushRange((unsigned int)output_bffr,dma_length*sizeof(int));
 	xil_printf("\rCache cleared\n\r");
 
-	status = XLoopBackSetup();
-	if(status != XST_SUCCESS){
-		print("Error: example setup failed\n");
-		return XST_FAILURE;
-	}
+	XLoopback_Set_len_dma(&xloopback_dev, dma_length);
+
+
+
+	// Calibrate HW timer
+	XTmrCtr_Reset(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	init_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	curr_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	calibration = curr_time - init_time;
+
+	// Se inicia el timer para la  medición
+	XTmrCtr_Reset(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	begin_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+
+
 
 
 	for (j=0; j<num_tests; j++){
 		XLoopBackStart(&xloopback_dev);
 
 		//transfer A to the Vivado HLS block
-		status = XAxiDma_SimpleTransfer(&AxiDma, (unsigned int) input_bffr, dma_length*sizeof(int),
+		Status = XAxiDma_SimpleTransfer(&AxiDma, (unsigned int) input_bffr, dma_length*sizeof(int),
 				XAXIDMA_DMA_TO_DEVICE);
-		if (status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			//print("Error: DMA transfer to Vivado HLS block failed\n");
 			return XST_FAILURE;
 		}
 
 		//get results from the Vivado HLS block
-		status = XAxiDma_SimpleTransfer(&AxiDma, (unsigned int) output_bffr, dma_length*sizeof(int),
+		Status = XAxiDma_SimpleTransfer(&AxiDma, (unsigned int) output_bffr, dma_length*sizeof(int),
 				XAXIDMA_DEVICE_TO_DMA);
-		if (status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			//print("Error: DMA transfer from Vivado HLS block failed\n");
 			return XST_FAILURE;
 		}
@@ -221,6 +269,15 @@ int main(void)
 		}
 
 	}
+
+
+	// Se finaliza la lectura del Timer y se obtienen los resultados
+
+	end_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	run_time = end_time - begin_time - calibration;
+	xil_printf("\nTotal run time is %d cycles over %d tests.\r\n",
+					run_time/num_tests, num_tests);
+
 	xil_printf("Successfully ran AXI DMA interrupt Example\r\n");
 
 
@@ -236,7 +293,9 @@ Done:
 }
 
 
-
+static int XLoopBackSetup(){
+	return XLoopback_CfgInitialize(&xloopback_dev,&xloopback_config);
+}
 
 static void XLoopBackStart(void *InstancePtr){
 	XLoopback *pExample = (XLoopback *)InstancePtr;
@@ -245,9 +304,6 @@ static void XLoopBackStart(void *InstancePtr){
 	XLoopback_Start(pExample);
 }
 
-static int XLoopBackSetup(){
-	return XLoopback_CfgInitialize(&xloopback_dev,&xloopback_config);
-}
 
 
 /*****************************************************************************/

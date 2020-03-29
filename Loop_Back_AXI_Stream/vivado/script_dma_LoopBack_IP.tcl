@@ -7,6 +7,12 @@
 ## https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug871-vivado-high-level-synthesis-tutorial.pdf
 ## http://www.fpgadeveloper.com/2014/08/using-the-axi-dma-in-vivado.html
 
+
+## Comando Linux ejecutado dentro de un tcl file para borrar algún proyecto anterior que impida que este sea lanzado
+
+exec rm -rf Vvd_Prjct_DMA_IP/ vivado.*
+
+
 set design_name Vvd_Prjct_DMA_IP
 
 # Set the reference directory for source file relative paths (by default the value is script directory path)

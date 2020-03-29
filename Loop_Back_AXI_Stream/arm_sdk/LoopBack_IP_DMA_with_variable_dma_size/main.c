@@ -7,16 +7,18 @@
 #include "xdebug.h"
 #include "xloopback.h"
 #include "xscugic.h"
+#include "xtmrctr.h"
 
 /**************************** Type Definitions *******************************/
-
+#define XPAR_AXI_TIMER_DEVICE_ID 		(XPAR_AXI_TIMER_0_DEVICE_ID)
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
-#define SIZE 64 // This variable define the size of the dma channel.Dont be greater than the depth of the bus_local define in the directive.tcl file
+
+#define SIZE 2048 // This variable define the size of the dma channel.Dont be greater than the depth of the bus_local define in the directive.tcl file
 
 /*************************** Global variables *******************************/
 
 
-const unsigned int num_tests = 1000000;
+const unsigned int num_tests = 100000;
 unsigned int dma_length = SIZE;
 
 int input_bffr[SIZE];  // Deben ser globales porque sino algunas veces en el SDK se cuelga el DMA y lee valores erroneos
@@ -33,6 +35,8 @@ void XLoopBackStart(void *InstancePtr);
 XAxiDma AxiDma;
 
 XLoopback xloopback_dev;
+
+XTmrCtr timer_dev;
 
 XLoopback_Config xloopback_config = {
 	0,
@@ -75,6 +79,11 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 	int Status;
 	unsigned int j,i;
 
+	unsigned int init_time, curr_time, calibration;
+	unsigned int begin_time;
+	unsigned int end_time;
+	unsigned int run_time = 0;
+
 	for (j=0; j<dma_length;j++) // initialization input array
 		input_bffr[j] = j;
 
@@ -95,6 +104,14 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
+	// Setup HW timer
+	Status = XTmrCtr_Initialize(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	if(Status != XST_SUCCESS){
+		print("Error: timer setup failed\n");
+		return XST_FAILURE;
+	}
+	XTmrCtr_SetOptions(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID, XTC_ENABLE_ALL_OPTION);
+
 	Status = XLoopback_CfgInitialize(&xloopback_dev,&xloopback_config);
 	if(Status != XST_SUCCESS){
 		xil_printf("IP Initialization failed\n");
@@ -110,6 +127,17 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 
 	XLoopback_Set_len_dma(&xloopback_dev, dma_length);
 
+
+
+	// Calibrate HW timer
+	XTmrCtr_Reset(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	init_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	curr_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	calibration = curr_time - init_time;
+
+	// Se inicia el timer para la  medición
+	XTmrCtr_Reset(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	begin_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
 
 
 	for (j=0; j<num_tests;j++){ // Execute different number of tests
@@ -141,6 +169,13 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 				return XST_FAILURE;
 		}
 	}
+
+	// Se finaliza la lectura del Timer y se obtienen los resultados
+
+	end_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	run_time = end_time - begin_time - calibration;
+	xil_printf("\nTotal run time is %d cycles over %d tests.\r\n",
+					run_time/num_tests, num_tests);
 
 	return XST_SUCCESS;
 }
