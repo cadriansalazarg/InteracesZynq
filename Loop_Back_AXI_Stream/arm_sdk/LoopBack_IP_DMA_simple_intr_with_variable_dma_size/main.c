@@ -159,7 +159,7 @@ int main(void)
 
 	Status = XLoopBackSetup();
 	if(Status != XST_SUCCESS){
-		print("Error: example setup failed\n");
+		print("Error: Customized IP setup failed\n");
 		return XST_FAILURE;
 	}
 
@@ -278,7 +278,7 @@ int main(void)
 	xil_printf("\nTotal run time is %d cycles over %d tests.\r\n",
 					run_time/num_tests, num_tests);
 
-	xil_printf("Successfully ran AXI DMA interrupt Example\r\n");
+	xil_printf("Successfully ran AXI DMA interrupt Example with variable DMA Size \r\n");
 
 
 

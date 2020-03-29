@@ -62,11 +62,11 @@ int main()
 	Status = XAxiDma_SimplePollExample(DMA_DEV_ID);
 
 	if (Status != XST_SUCCESS) {
-		xil_printf("XAxiDma_SimplePoll Example Failed\r\n");
+		xil_printf("XAxiDma_SimplePoll Example with variable DMA Size Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Successfully ran XAxiDma_SimplePoll Example\r\n");
+	xil_printf("Successfully ran XAxiDma_SimplePoll Example with variable DMA Size \r\n");
 
 	xil_printf("--- Exiting main() --- \r\n");
 
