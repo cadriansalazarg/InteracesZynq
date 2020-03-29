@@ -7,17 +7,20 @@
 #include "xdebug.h"
 #include "xloopback.h"
 #include "xscugic.h"
+#include "xtmrctr.h"
 
 /**************************** Type Definitions *******************************/
-
+#define XPAR_AXI_TIMER_DEVICE_ID 		(XPAR_AXI_TIMER_0_DEVICE_ID)
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
-#define SIZE 8
+
+#define SIZE 8 // Como el tamaño está alambrado en hardware, debe asegurarse que está variable coincida con el valor de SIZE seleccionado en el HLS cuando se creo el IP
+
 
 /*************************** Global variables *******************************/
 
 const unsigned int dma_size = SIZE*4;
 const unsigned int num_tests = 1000000;
-int input_bffr[SIZE] = {1,2,3,4,5,6,7,8}; // Deben ser globales porque sino algunas veces en el SDK se cuelga el DMA y lee valores erroneos
+int input_bffr[SIZE]; // Deben ser globales porque sino algunas veces en el SDK se cuelga el DMA y lee valores erroneos
 int output_bffr[SIZE]; // Deben ser globales porque sino algunas veces en el SDK se cuelga el DMA y lee valores erroneos
 /************************** Function Prototypes ******************************/
 
@@ -32,6 +35,8 @@ XAxiDma AxiDma;
 
 XLoopback xloopback_dev;
 
+XTmrCtr timer_dev;
+
 XLoopback_Config xloopback_config = {
 	0,
 	XPAR_LOOPBACK_0_S_AXI_AXILITES_BASEADDR
@@ -40,6 +45,7 @@ XLoopback_Config xloopback_config = {
 //Interrupt Controller Instance
 XScuGic ScuGic;
 
+
 volatile static int RunExample = 0;
 volatile static int ResultExample = 0;
 
@@ -47,6 +53,9 @@ volatile static int ResultExample = 0;
 int main()
 {
 	int Status;
+
+	for(Status=0;Status<SIZE;Status++)
+		input_bffr[Status] = Status;
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
 
@@ -72,6 +81,11 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 	int Status;
 	unsigned int j,i;
 
+	unsigned int init_time, curr_time, calibration;
+	unsigned int begin_time;
+	unsigned int end_time;
+	unsigned int run_time = 0;
+
 	CfgPtr = XAxiDma_LookupConfig(DeviceId);
 	if (!CfgPtr) {
 		xil_printf("No config found for %d\r\n", DeviceId);
@@ -89,6 +103,14 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
+	// Setup HW timer
+	Status = XTmrCtr_Initialize(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	if(Status != XST_SUCCESS){
+		print("Error: timer setup failed\n");
+		return XST_FAILURE;
+	}
+	XTmrCtr_SetOptions(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID, XTC_ENABLE_ALL_OPTION);
+
 	Status = XLoopback_CfgInitialize(&xloopback_dev,&xloopback_config);
 	if(Status != XST_SUCCESS){
 		xil_printf("IP Initialization failed\n");
@@ -102,6 +124,15 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 	XAxiDma_IntrDisable(&AxiDma, XAXIDMA_IRQ_ALL_MASK,
 						XAXIDMA_DMA_TO_DEVICE);
 
+	// Calibrate HW timer
+	XTmrCtr_Reset(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	init_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	curr_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	calibration = curr_time - init_time;
+
+	// Se inicia el timer para la  medición
+	XTmrCtr_Reset(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	begin_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
 
 	for (j=0; j<num_tests;j++){
 		XLoopBackStart(&xloopback_dev);
@@ -132,6 +163,14 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 				return XST_FAILURE;
 		}
 	}
+
+	// Se finaliza la lectura del Timer y se obtienen los resultados
+
+	end_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	run_time = end_time - begin_time - calibration;
+	xil_printf("\nTotal run time is %d cycles over %d tests.\r\n",
+					run_time/num_tests, num_tests);
+
 
 	return XST_SUCCESS;
 }

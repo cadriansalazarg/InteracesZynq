@@ -8,6 +8,7 @@
 #include "xdebug.h"
 #include "xloopback.h"
 #include "xscugic.h"
+#include "xtmrctr.h"
 
 /************************** Constant Definitions *****************************/
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
@@ -20,18 +21,20 @@
 #define INTC		XScuGic
 #define INTC_HANDLER	XScuGic_InterruptHandler
 
+#define XPAR_AXI_TIMER_DEVICE_ID 		(XPAR_AXI_TIMER_0_DEVICE_ID)
+
 /* Timeout loop counter for reset
  */
 #define RESET_TIMEOUT_COUNTER	10000
 
-#define SIZE  8
+#define SIZE  8 // Como el tamaño está alambrado en hardware, debe asegurarse que está variable coincida con el valor de SIZE seleccionado en el HLS cuando se creo el IP
 /**************************** Type Definitions *******************************/
 typedef int data;
 
 /*************************** Global variables ********************************/
 const unsigned int num_tests = 1000000;
 const unsigned int dma_size = SIZE* sizeof(data);
-data input_bffr[SIZE] = {1,2,3,4,5,6,7,8};
+data input_bffr[SIZE];
 data output_bffr[SIZE];
 
 /************************** Function Prototypes ******************************/
@@ -48,6 +51,8 @@ static int XLoopBackSetup();
 static XAxiDma AxiDma;		/* Instance of the XAxiDma */
 
 static INTC Intc;	/* Instance of the Interrupt Controller */
+
+static XTmrCtr timer_dev; /* Instancia del AXI Timer  */
 
 static XLoopback xloopback_dev;
 
@@ -93,6 +98,14 @@ int main(void)
 	int Status, i, j;
 	XAxiDma_Config *Config;
 
+	for(i=0;i<SIZE;i++)
+		input_bffr[i] = i;
+
+	unsigned int init_time, curr_time, calibration;
+	unsigned int begin_time;
+	unsigned int end_time;
+	unsigned int run_time = 0;
+
 	xil_printf("\r\n--- Entering main() --- \r\n");
 
 	Config = XAxiDma_LookupConfig(DMA_DEV_ID);
@@ -112,6 +125,20 @@ int main(void)
 
 	if(XAxiDma_HasSg(&AxiDma)){
 		xil_printf("Device configured as SG mode \r\n");
+		return XST_FAILURE;
+	}
+
+	// Setup HW timer
+	Status = XTmrCtr_Initialize(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	if(Status != XST_SUCCESS){
+		print("Error: timer setup failed\n");
+		return XST_FAILURE;
+	}
+	XTmrCtr_SetOptions(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID, XTC_ENABLE_ALL_OPTION);
+
+	Status = XLoopback_CfgInitialize(&xloopback_dev,&xloopback_config);
+	if(Status != XST_SUCCESS){
+		xil_printf("IP Initialization failed\n");
 		return XST_FAILURE;
 	}
 
@@ -170,6 +197,16 @@ int main(void)
 		return XST_FAILURE;
 	}
 
+	// Calibrate HW timer
+	XTmrCtr_Reset(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	init_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	curr_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	calibration = curr_time - init_time;
+
+	// Se inicia el timer para la  medición
+	XTmrCtr_Reset(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	begin_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+
 	for (j=0; j<num_tests; j++){
 		XLoopBackStart(&xloopback_dev);
 
@@ -215,9 +252,15 @@ int main(void)
 		}
 
 	}
+	// Se finaliza la lectura del Timer y se obtienen los resultados
+
+	end_time = XTmrCtr_GetValue(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
+	run_time = end_time - begin_time - calibration;
+
 	xil_printf("Successfully ran AXI DMA interrupt Example\r\n");
 
-
+	xil_printf("\nTotal run time is %d cycles over %d tests.\r\n",
+						run_time/num_tests, num_tests);
 
 
 	DisableIntrSystem(&Intc, TX_INTR_ID, RX_INTR_ID);

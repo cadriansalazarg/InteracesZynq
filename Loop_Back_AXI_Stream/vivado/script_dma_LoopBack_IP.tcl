@@ -75,6 +75,12 @@ create_bd_cell -type ip -vlnv xilinx.com:hls:loopback:1.0 loopback_0
 endgroup
 
 
+# Se agrega el IP del AXI Timer
+
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:axi_timer:2.0 axi_timer_0
+endgroup
+
 
 # Se agrega el DMA
 
@@ -167,6 +173,10 @@ startgroup
 set_property -dict [list CONFIG.PCW_USE_FABRIC_INTERRUPT {1} CONFIG.PCW_IRQ_F2P_INTR {1}] [get_bd_cells processing_system7_0]
 endgroup
 
+# Se auto interconecta el módulo de AXI Timer, el reloj, el reset y el puerto de AXI_Lite
+
+apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {/processing_system7_0/FCLK_CLK0 (100 MHz)} Clk_slave {Auto} Clk_xbar {/processing_system7_0/FCLK_CLK0 (100 MHz)} Master {/processing_system7_0/M_AXI_GP0} Slave {/axi_timer_0/S_AXI} intc_ip {/ps7_0_axi_periph} master_apm {0}}  [get_bd_intf_pins axi_timer_0/S_AXI]
+
 
 # Se agrega el elemento concat, para agregar las tres interrupciones y poderlas conectar al puerto de interrupciones del Zynq
 
@@ -174,9 +184,10 @@ startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0
 endgroup
 
-# Por defecto aparecen dos puertos, pero como se tienen dos interrupciones del DMA más una interrupción del IP, se le extiende el número de puertos a 3 al bloque concat
+# Por defecto aparecen dos puertos, pero como se tienen dos interrupciones del DMA más una interrupción del IP y una interrupción 
+# del timer, entonces se extiende el número de puertos a 4 del bloque concat 
 
-set_property -dict [list CONFIG.NUM_PORTS {3}] [get_bd_cells xlconcat_0]
+set_property -dict [list CONFIG.NUM_PORTS {4}] [get_bd_cells xlconcat_0]
 
 # Se conecta el puerto de interrupción del Zynq a la salida del módulo concat
 
@@ -187,6 +198,7 @@ connect_bd_net [get_bd_pins xlconcat_0/dout] [get_bd_pins processing_system7_0/I
 connect_bd_net [get_bd_pins axi_dma_0/s2mm_introut] [get_bd_pins xlconcat_0/In0]
 connect_bd_net [get_bd_pins axi_dma_0/mm2s_introut] [get_bd_pins xlconcat_0/In1]
 connect_bd_net [get_bd_pins loopback_0/interrupt] [get_bd_pins xlconcat_0/In2]
+connect_bd_net [get_bd_pins axi_timer_0/interrupt] [get_bd_pins xlconcat_0/In3]
 
 # Se regenera el layout para que este de forma estándar sin importar la PC
 
