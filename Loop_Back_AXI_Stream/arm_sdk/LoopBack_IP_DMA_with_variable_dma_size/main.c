@@ -13,7 +13,7 @@
 #define XPAR_AXI_TIMER_DEVICE_ID 		(XPAR_AXI_TIMER_0_DEVICE_ID)
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
 
-#define SIZE 1024 // This variable define the size of the dma channel.Dont be greater than the depth of the bus_local define in the directive.tcl file
+#define SIZE 2048 // This variable define the size of the dma channel.Dont be greater than the depth of the bus_local define in the directive.tcl file
 
 /*************************** Global variables *******************************/
 
@@ -108,7 +108,7 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 	// Setup HW timer
 	Status = XTmrCtr_Initialize(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
 	if(Status != XST_SUCCESS){
-		print("Error: timer setup failed\n");
+		xil_printf("Error: timer setup failed\n");
 		return XST_FAILURE;
 	}
 	XTmrCtr_SetOptions(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID, XTC_ENABLE_ALL_OPTION);
@@ -117,7 +117,7 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 
 	Status = XLoopBackSetup();
 	if(Status != XST_SUCCESS){
-		xil_printf("IP Initialization failed \r\n");
+		xil_printf("Customized IP Initialization failed \r\n");
 		return XST_FAILURE;
 	}
 

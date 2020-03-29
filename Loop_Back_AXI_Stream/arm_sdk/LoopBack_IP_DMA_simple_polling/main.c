@@ -107,7 +107,7 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 	// Setup HW timer
 	Status = XTmrCtr_Initialize(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
 	if(Status != XST_SUCCESS){
-		print("Error: timer setup failed\n");
+		xil_printf("Error: timer setup failed\n");
 		return XST_FAILURE;
 	}
 	XTmrCtr_SetOptions(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID, XTC_ENABLE_ALL_OPTION);

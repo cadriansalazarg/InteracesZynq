@@ -33,7 +33,7 @@
 typedef int data;
 
 /*************************** Global variables ********************************/
-const unsigned int num_tests = 100;
+const unsigned int num_tests = 10000;
 unsigned int dma_length = SIZE;
 
 
@@ -140,7 +140,7 @@ int main(void)
 	// Setup HW timer
 	Status = XTmrCtr_Initialize(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
 	if(Status != XST_SUCCESS){
-		print("Error: timer setup failed\n");
+		xil_printf("Error: timer setup failed\n");
 		return XST_FAILURE;
 	}
 	XTmrCtr_SetOptions(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID, XTC_ENABLE_ALL_OPTION);
@@ -159,7 +159,7 @@ int main(void)
 
 	Status = XLoopBackSetup();
 	if(Status != XST_SUCCESS){
-		print("Error: Customized IP setup failed\n");
+		xil_printf("Error: Customized IP setup failed \r\n");
 		return XST_FAILURE;
 	}
 
