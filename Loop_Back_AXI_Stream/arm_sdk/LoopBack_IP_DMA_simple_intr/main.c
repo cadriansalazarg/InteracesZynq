@@ -131,14 +131,15 @@ int main(void)
 	// Setup HW timer
 	Status = XTmrCtr_Initialize(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
 	if(Status != XST_SUCCESS){
-		print("Error: timer setup failed\n");
+		xil_printf("Error: timer setup failed\n");
 		return XST_FAILURE;
 	}
 	XTmrCtr_SetOptions(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID, XTC_ENABLE_ALL_OPTION);
-
-	Status = XLoopback_CfgInitialize(&xloopback_dev,&xloopback_config);
+	
+	
+	Status = XLoopBackSetup();
 	if(Status != XST_SUCCESS){
-		xil_printf("IP Initialization failed\n");
+		xil_printf("Error: IP LoopBack setup failed \r\n");
 		return XST_FAILURE;
 	}
 
@@ -177,13 +178,8 @@ int main(void)
 
 
 
-	int status = XLoopBackSetup();
-	if(status != XST_SUCCESS){
-		print("Error: example setup failed\n");
-		return XST_FAILURE;
-	}
+	
 
-	XLoopBackStart(&xloopback_dev);
 
 	//flush the cache
 	Xil_DCacheFlushRange((unsigned int)input_bffr,dma_size);
@@ -191,11 +187,7 @@ int main(void)
 	Xil_DCacheFlushRange((unsigned int)output_bffr,dma_size);
 	xil_printf("\rCache cleared\n\r");
 
-	status = XLoopBackSetup();
-	if(status != XST_SUCCESS){
-		print("Error: example setup failed\n");
-		return XST_FAILURE;
-	}
+	
 
 	// Calibrate HW timer
 	XTmrCtr_Reset(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID);
@@ -211,17 +203,17 @@ int main(void)
 		XLoopBackStart(&xloopback_dev);
 
 		//transfer A to the Vivado HLS block
-		status = XAxiDma_SimpleTransfer(&AxiDma, (unsigned int) input_bffr, dma_size,
+		Status = XAxiDma_SimpleTransfer(&AxiDma, (unsigned int) input_bffr, dma_size,
 				XAXIDMA_DMA_TO_DEVICE);
-		if (status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			//print("Error: DMA transfer to Vivado HLS block failed\n");
 			return XST_FAILURE;
 		}
 
 		//get results from the Vivado HLS block
-		status = XAxiDma_SimpleTransfer(&AxiDma, (unsigned int) output_bffr, dma_size,
+		Status = XAxiDma_SimpleTransfer(&AxiDma, (unsigned int) output_bffr, dma_size,
 				XAXIDMA_DEVICE_TO_DMA);
-		if (status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			//print("Error: DMA transfer from Vivado HLS block failed\n");
 			return XST_FAILURE;
 		}

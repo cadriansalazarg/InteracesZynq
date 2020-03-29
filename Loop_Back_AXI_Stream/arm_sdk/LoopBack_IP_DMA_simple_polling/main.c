@@ -26,6 +26,7 @@ int output_bffr[SIZE]; // Deben ser globales porque sino algunas veces en el SDK
 
 int XAxiDma_SimplePollExample(u16 DeviceId);
 void XLoopBackStart(void *InstancePtr);
+int XLoopBackSetup();
 
 /************************** Variable Definitions *****************************/
 /*
@@ -52,10 +53,10 @@ volatile static int ResultExample = 0;
 
 int main()
 {
-	int Status;
+	int Status,k;
 
-	for(Status=0;Status<SIZE;Status++)
-		input_bffr[Status] = Status;
+	for(k=0;k<SIZE;k++)
+		input_bffr[k] = k;
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
 
@@ -111,9 +112,9 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 	}
 	XTmrCtr_SetOptions(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID, XTC_ENABLE_ALL_OPTION);
 
-	Status = XLoopback_CfgInitialize(&xloopback_dev,&xloopback_config);
+	Status = XLoopBackSetup();
 	if(Status != XST_SUCCESS){
-		xil_printf("IP Initialization failed\n");
+		xil_printf("IP Initialization failed \r\n");
 		return XST_FAILURE;
 	}
 
@@ -181,4 +182,8 @@ void XLoopBackStart(void *InstancePtr){
 	XLoopback_InterruptEnable(pExample,1);
 	XLoopback_InterruptGlobalEnable(pExample);
 	XLoopback_Start(pExample);
+}
+
+int XLoopBackSetup(){
+	return XLoopback_CfgInitialize(&xloopback_dev,&xloopback_config);
 }
