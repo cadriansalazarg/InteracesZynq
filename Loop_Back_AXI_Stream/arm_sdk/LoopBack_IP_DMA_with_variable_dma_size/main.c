@@ -13,12 +13,12 @@
 #define XPAR_AXI_TIMER_DEVICE_ID 		(XPAR_AXI_TIMER_0_DEVICE_ID)
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
 
-#define SIZE 2048 // This variable define the size of the dma channel.Dont be greater than the depth of the bus_local define in the directive.tcl file
+#define SIZE 1024 // This variable define the size of the dma channel.Dont be greater than the depth of the bus_local define in the directive.tcl file
 
 /*************************** Global variables *******************************/
 
 
-const unsigned int num_tests = 100000;
+const unsigned int num_tests = 10000;
 unsigned int dma_length = SIZE;
 
 int input_bffr[SIZE];  // Deben ser globales porque sino algunas veces en el SDK se cuelga el DMA y lee valores erroneos
@@ -27,6 +27,7 @@ int output_bffr[SIZE]; // Deben ser globales porque sino algunas veces en el SDK
 
 int XAxiDma_SimplePollExample(u16 DeviceId);
 void XLoopBackStart(void *InstancePtr);
+int XLoopBackSetup();
 
 /************************** Variable Definitions *****************************/
 /*
@@ -112,9 +113,11 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 	}
 	XTmrCtr_SetOptions(&timer_dev, XPAR_AXI_TIMER_DEVICE_ID, XTC_ENABLE_ALL_OPTION);
 
-	Status = XLoopback_CfgInitialize(&xloopback_dev,&xloopback_config);
+
+
+	Status = XLoopBackSetup();
 	if(Status != XST_SUCCESS){
-		xil_printf("IP Initialization failed\n");
+		xil_printf("IP Initialization failed \r\n");
 		return XST_FAILURE;
 	}
 
@@ -187,3 +190,8 @@ void XLoopBackStart(void *InstancePtr){
 	XLoopback_InterruptGlobalEnable(pExample);
 	XLoopback_Start(pExample);
 }
+
+int XLoopBackSetup(){
+	return XLoopback_CfgInitialize(&xloopback_dev,&xloopback_config);
+}
+
