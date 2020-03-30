@@ -1,6 +1,6 @@
 # Descripción de la carpeta
 
-Esta carpeta contiene el código fuente que se encarga de generar el loopback en su versión basada en una estructura productor consumidor. En esta versión el tamaño del loopback es fijo, y definido por el macro SIZE contenido dentro del archivo loopback.hpp. Además, dado que se crea un buffer interno, el tamaño de este buffer se controla mediante el parámetro  depth de la directiva ```set_directive_stream -depth 2048 -dim 1 "loopback" bus_local``` localizada dentro del archivo directive_PC.tcl.
+Esta carpeta contiene el código fuente que se encarga de generar el loopback en su versión basada en una estructura productor consumidor. En esta versión el tamaño del loopback es fijo, y definido por el macro SIZE contenido dentro del archivo loopback.hpp. Además, dado que se crea un buffer interno, el tamaño de este buffer se controla mediante el parámetro  depth de la directiva ```set_directive_stream -depth 8 -dim 1 "loopback" bus_local``` localizada dentro del archivo directive_PC.tcl.
 
 ## Lista de documentos
 
@@ -29,7 +29,7 @@ vivado_hls -p hls_loop_back_axi_stream_prj/
 
 ## Tareas pendientes
 
-Explorar adecuadamente el funcionamiento de los parámetros depth y dim de la directiva ```set_directive_stream -depth 2048 -dim 1 "loopback" bus_local```. Con el fin de conocer si se está utilizando bien o no.
+Explorar adecuadamente el funcionamiento de los parámetros depth y dim de la directiva ```set_directive_stream -depth 8 -dim 1 "loopback" bus_local```. Con el fin de conocer si se está utilizando bien o no.
 
 ## Autores
 
