@@ -10,6 +10,10 @@ vivado &
 ```
 Una vez abierto Vivado, se deberá seleccionar la pestaña de Tools y se elige la opción de Run Tcl Script, luego se selecciona el script tcl contenido dentro de esta carpeta y nombrado como script_dma_LoopBack_IP.tcl. Así, todo el proyecto se generará hasta que finalmente,el bitstream sea generado.
 
+## Posibles errores en la ejecución del script
+
+Ambos scripts consideran que la PC donde se ejecuta puede realizar 8 jobs. Si la PC solo es capaz de ejecutar 4 de forma simultánea la ejecución va dar un error y de deberá buscar dentro del script la palabra jobs 8 y reemplazarla por jobs 4. Adicionalmente, en caso contrario donde este script se ejecute en una PC muy potente, se recomienda subir los jobs a lo máximo que da la PC para maximizar el rendimiento.
+
 ## Autores
 
 Los principales autores de este trabajo son:
