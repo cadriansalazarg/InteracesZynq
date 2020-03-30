@@ -1,6 +1,6 @@
 # Descripción de esta carpeta
 
-El software contenido dentro de esta carpeta está pensado para ser ejecutado en cualquiera de los dos casos donde se creo un hardware de un Loopback personalizado en Vivado HLS, donde el tamaño de los arreglos de entrada es fijo. Este código funciona utilizando interrupciones. El hardware se ejecutará repetidamente la cantidad de veces determinadas por la variable const unsigned int num_tests = 1000000; por lo tanto aquí, el hardware será testeado 1000000 veces.
+El software contenido dentro de esta carpeta está pensado para ser ejecutado en cualquiera de los dos casos donde se creo un hardware de un Loopback personalizado en Vivado HLS, donde el tamaño de los arreglos de entrada es fijo. Este código funciona utilizando sondeo (polling). El hardware se ejecutará repetidamente la cantidad de veces determinadas por la variable const unsigned int num_tests = 1000000; por lo tanto aquí, el hardware será testeado 1000000 veces.
 
 ## Consideraciones a tener en cuenta
 
