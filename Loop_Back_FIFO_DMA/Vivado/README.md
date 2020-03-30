@@ -13,6 +13,9 @@ Dentro de esta carpeta se encuentran dos scripts tcl llamados script_dma.tcl y s
 * Para ejecutar el script, click en la pestaña Tools y se selecciona la opción Run TCL Script. Luego se selecciona alguno de los dos scripts que se desea ejecutar. Si se quiere crear un proyecto donde el dma opere utilizando Scatter/Gather se selecciona el archivo script_dma_sg.tcl miéntras que si por el contrario se desea crear un proyecto que opere sin Scatter/Gather se selecciona el script script_dma.tcl.
 * Espere hasta que el bitstream haya sido generado correctamente.
 
+## Posibles errores
+
+Ambos scripts consideran que la PC donde se ejecuta puede realizar 8 jobs. Si la PC solo es capaz de ejecutar 4 de forma simultánea la ejecución va dar un error y de deberá buscar dentro del script la palabra jobs 8 y reemplazarla por jobs 4. Adicionalmente, en caso contrario donde este script se ejecute en una PC muy potente, se recomienda subir los jobs a lo máximo que da la PC para maximizar el rendimiento.
 
 ## Autores
 

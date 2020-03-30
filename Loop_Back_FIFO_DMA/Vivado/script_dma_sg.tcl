@@ -77,7 +77,7 @@ apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config {Slave "/processing_sy
 create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo axis_data_fifo_0
 connect_bd_intf_net [get_bd_intf_pins axi_dma_0/M_AXIS_MM2S] [get_bd_intf_pins axis_data_fifo_0/S_AXIS]
 connect_bd_intf_net [get_bd_intf_pins axis_data_fifo_0/M_AXIS] [get_bd_intf_pins axi_dma_0/S_AXIS_S2MM]
-connect_bd_net [get_bd_pins axis_data_fifo_0/s_axis_aresetn] [get_bd_pins rst_ps7_0_102M/peripheral_aresetn]
+connect_bd_net [get_bd_pins axis_data_fifo_0/s_axis_aresetn] [get_bd_pins rst_ps7_0_100M/peripheral_aresetn]
 connect_bd_net -net [get_bd_nets processing_system7_0_FCLK_CLK0] [get_bd_pins axis_data_fifo_0/s_axis_aclk] [get_bd_pins processing_system7_0/FCLK_CLK0]
 
 # Connect interrupts
@@ -142,7 +142,7 @@ catch { config_ip_cache -export [get_ips -all zedboard_axi_dma_auto_us_2] }
 catch { config_ip_cache -export [get_ips -all zedboard_axi_dma_auto_pc_1] }
 export_ip_user_files -of_objects [get_files $origin_dir/$design_name/zedboard_axi_dma.srcs/sources_1/bd/zedboard_axi_dma/zedboard_axi_dma.bd] -no_script -sync -force -quiet
 create_ip_run [get_files -of_objects [get_fileset sources_1] $origin_dir/$design_name/zedboard_axi_dma.srcs/sources_1/bd/zedboard_axi_dma/zedboard_axi_dma.bd]
-launch_runs -jobs 4 {zedboard_axi_dma_processing_system7_0_0_synth_1 zedboard_axi_dma_axi_dma_0_0_synth_1 zedboard_axi_dma_rst_ps7_0_102M_0_synth_1 zedboard_axi_dma_xbar_0_synth_1 zedboard_axi_dma_axis_data_fifo_0_0_synth_1 zedboard_axi_dma_auto_pc_0_synth_1 zedboard_axi_dma_auto_us_0_synth_1 zedboard_axi_dma_auto_us_1_synth_1 zedboard_axi_dma_auto_us_2_synth_1 zedboard_axi_dma_auto_pc_1_synth_1}
+launch_runs -jobs 8 {zedboard_axi_dma_processing_system7_0_0_synth_1 zedboard_axi_dma_axi_dma_0_0_synth_1 zedboard_axi_dma_rst_ps7_0_102M_0_synth_1 zedboard_axi_dma_xbar_0_synth_1 zedboard_axi_dma_axis_data_fifo_0_0_synth_1 zedboard_axi_dma_auto_pc_0_synth_1 zedboard_axi_dma_auto_us_0_synth_1 zedboard_axi_dma_auto_us_1_synth_1 zedboard_axi_dma_auto_us_2_synth_1 zedboard_axi_dma_auto_pc_1_synth_1}
 
 
 update_compile_order -fileset sources_1
@@ -162,8 +162,8 @@ add_files -norecurse $origin_dir/$design_name/zedboard_axi_dma.srcs/sources_1/bd
 
 
 
-launch_runs synth_1 -jobs 4
+launch_runs synth_1 -jobs 8
 
 
-launch_runs impl_1 -to_step write_bitstream -jobs 4
+launch_runs impl_1 -to_step write_bitstream -jobs 8
 
