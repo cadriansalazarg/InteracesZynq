@@ -1,8 +1,11 @@
 # Creación del proyecto en Vivado
 
+En este proyecto se agrega el Zynq Processing, se agrega un IP del DMA y se agrega un IP de un FIFO. De esta forma todo se interconecta de manera que se genere un LoopBack, donde finalmente desde el SDK, se enviará una trama de datos los cuales pasaran por el DMA hacia el FIFO y el FIFO los reenviará nuevamente hacia al DMA y finalmente llegarán hasta el Zynq nuevamente donde se validaran y se comprobará si la transmisión fue exitosa o no. El DMA se configura con o sin Scatter/Gather, razón por la cual existen dos  scripts dentro de está carpeta uno para versión y otro para otra.
+
 ## Descripción de la carpeta
 
-Dentro de esta carpeta se encuentran dos scripts tcl llamados script_dma.tcl y script_dma_sg.tcl. El primero crea un proyecto llamado zedboard_axi_dma donde el DMA se configura sin utilizar el modo Scatter/Gather y el segundo crea el mismo proyecto pero configura el DMA para utilizar el modo Scatter/Gather.
+Dentro de esta carpeta se encuentran dos scripts tcl llamados script_dma.tcl y script_dma_sg.tcl. El primero crea un proyecto llamado zedboard_axi_dma donde el DMA se configura sin utilizar el modo Scatter/Gather y el segundo crea el mismo proyecto pero configura el DMA para utilizar el modo Scatter/Gather. 
+
 
 ## Ejecución del script que controla el proyecto
 
