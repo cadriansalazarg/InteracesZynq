@@ -15,7 +15,7 @@ Finalmente, se crearon distintas versiones de software que corren sobre el Zynq 
 
 A continuación se muestra una figura que ilustra desde una perspectiva de alto nivel el funcionamiento del sistema.
 
-![LoopBack personalizado generado en HLS y donde la comunicación con el Zynq se realiza por DMA](https://raw.githubusercontent.com/cadriansalazarg/InteracesZynq/master/Loop_Back_AXI_Stream/images/LoopBack%20AXI%20Stream.png)
+![LoopBack personalizado generado en HLS y donde la comunicación con el Zynq se realiza por DMA](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Loop_Back_AXI_Stream/images/LoopBack%20AXI%20Stream.png)
 
 ## Plataforma de hardware
 
@@ -75,5 +75,5 @@ Los principales autores de este trabajo son:
 * **Kaleb Alfaro-Badilla** - *Guía y supervisión* - 
 * **Carlos Salazar-García** - *Documentación y Desarrollo* -
 
-También puedes observar la lista de todos los [contribuyentes](https://github.com/cadriansalazarg/InteracesZynq/contributors) quíenes han participado en este proyecto. 
+También puedes observar la lista de todos los [contribuyentes](https://github.com/cadriansalazarg/InterfacesZynq/contributors) quíenes han participado en este proyecto. 
 
