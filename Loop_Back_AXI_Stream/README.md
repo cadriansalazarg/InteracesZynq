@@ -17,5 +17,49 @@ A continuación se muestra una figura que ilustra desde una perspectiva de alto 
 
 ![LoopBack personalizado generado en HLS y donde la comunicación con el Zynq se realiza por DMA](https://raw.githubusercontent.com/cadriansalazarg/InteracesZynq/master/Loop_Back_AXI_Stream/images/LoopBack%20AXI%20Stream.png)
 
+## Plataforma de hardware
 
+Para verificar el funcionamiento del sistema, todo el sistema fue testeado  utilizando una tarjeta de evaluación ZedBoard.
+
+## Herramienta de software
+
+Como herramienta de diseño del software embebido en el cual se creó todo el proyecto se utilizó Vivado HLS, Vivado y Vivado SDK en su versión 2018.3. Además todas estas herramientas se ejecutaron sobre Ubuntu 16.04.6 LTS. 
+
+## Descripción de las carpetas
+
+Dentro de este repositorio se encuentran cuatro carpetas llamadas hls, vivado, arm_sdk e imágenes. La primera es la encargada de generar el Ip customizado del loopback, la segunda encargada de crear todo el proyecto de Vivado automáticamente mediante un script tcl. En la tercera se encuentran las diferentes versiones del software embebido que corre sobre el ARM y la última carpeta simplemente fue creada para agregar las imágenes como la utilizada en esta descripción por lo tanto, no aport valor para crear el proyecto.
+
+## Descripción de pasos 
+
+_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
+
+_Dí cómo será ese paso_
+
+```
+Da un ejemplo
+```
+
+_Y repite_
+
+```
+hasta finalizar
+
+```
+
+
+A continuación se enlistan las tareas pendientes que se deben realizar:
+
+* Limitar el máximo de las transferencias por AXI Stream, directamente desde el Vivado HLS, ya que de momento estas parecen no tener límite y más bien es Vivado quien lo limita mediante el parámetro del DMA Width of Length Buffer Register.
+* Realizar una medición de tiempo de todas las versiones descritas aquí con el AXI Timer, así como el número de recursos utilizados para conocer cuales versiones son más eficientes.
+* De acuerdo con el foro web descrito  [aquí](https://forums.xilinx.com/t5/Processor-System-Design/Axi-DMA-correct-parameters/td-p/639576). Para mejorar el rendimiento de las transferencias DMA se recomienda usar Scatter/Gather y aumentar el tamaño del parámetro del DMA llamado Max Burst Size, por lo tanto queda pendiente, elaborar una versión que utilice el modo Scatter/Gather del DMA y se compare su rendimiento contra la versión que ya es funcional de este repositorio.
+* Manejar estas transferencias DMA y el control de los diferentes IPs utilizando directamente Linux en lugar del SDK como se utiliza aquí.
+
+## Autores
+
+Los principales autores de este trabajo son:
+
+* **Kaleb Alfaro-Badilla** - *Guía y supervisión* - 
+* **Carlos Salazar-García** - *Documentación y Desarrollo* -
+
+También puedes observar la lista de todos los [contribuyentes](https://github.com/cadriansalazarg/InterfacesZynq/contributors) quíenes han participado en este proyecto. 
 
