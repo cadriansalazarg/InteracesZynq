@@ -31,6 +31,8 @@ Dentro de este repositorio se encuentran cuatro carpetas llamadas hls, vivado, a
 
 ## Descripción de pasos 
 
+Los pasos para la ejecución de este proyecto se citan abajo o si lo desea puede acceder al video que se muestra disponible [aquí](https://youtu.be/lfyQgXghWSA) donde se presentan estos mismos pasos siendo ejecutados.
+
 _Lo primero que se debe hacer es crear  el IP personalizado, en Vivado HLS por lo tanto, dirijase en la consola de Linux hacia el interior de la carpeta hls._
 ```
 cd hls
