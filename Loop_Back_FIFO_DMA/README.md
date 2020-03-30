@@ -6,7 +6,7 @@ Este proyecto presenta un caso de estudio tomado del sitio web disponible [aquí
 
 A continuación se muestra una figura que ilustra desde una perspectiva de alto nivel el funcionamiento del sistema.
 
-![Loopback utilizando una IP de XIlinx de FIFO donde se realizand transferencias desde y hacia el Zynq mediante el uso del DMA](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Loop_Back_AXI_FIFO_DMA/Picture/LoopBack_AXI4_Stream_Data_FIFO.png)
+![Loopback utilizando una IP de XIlinx de FIFO donde se realizand transferencias desde y hacia el Zynq mediante el uso del DMA](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Loop_Back_FIFO_DMA/Picture/LoopBack_AXI4_Stream_Data_FIFO.png)
 
 ## Versión de Vivado utilizada
 
