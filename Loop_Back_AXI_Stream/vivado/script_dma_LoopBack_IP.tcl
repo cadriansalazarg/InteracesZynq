@@ -258,10 +258,7 @@ add_files -norecurse Vvd_Prjct_DMA_IP/Vvd_Prjct_DMA_IP.srcs/sources_1/bd/Vvd_Prj
 
 launch_runs synth_1 -jobs 8
 
-# Se implementa el diseño
 
-launch_runs impl_1 -jobs 8
-
-# Se genera el bitstream
+# Se implementa el diseño y se genera el bitstream
 
 launch_runs impl_1 -to_step write_bitstream -jobs 8
