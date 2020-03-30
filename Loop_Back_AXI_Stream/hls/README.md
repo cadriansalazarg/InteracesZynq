@@ -20,3 +20,11 @@ En las pruebas realizadas hasta el momento, en la estructura productor consumido
 
 La única limitación encontrada hasta este momento es que el tamaño de datos a transferir no puede ser mayor a 2048 enteros. Sin embargo, se debe mencionar que esto no es una limitación del IP customizado, ya que este puede ser mayor simplemente cambiando el macro SIZE o el parámetro depth de la directiva ```set_directive_stream -depth 2048 -dim 1 "loopback" bus_local```. En realidad la limitación es del Vivado, ya que el parámetro  *Width of buffer length register* fue seleccionado a un valor igual a 16. Esto significa que se pueden recibir 2^16 bits, es decir, 65536 bits, que es justamente la misma cantidad de bits contenida en 2048 enteros. El máximo valor valor que se le puede colocar al parámetro Width of buffer length register es 26. Por lo tanto, esto sugiere que aún se puede incrementar bastante más el tamaño de los arreglos, pero para propositos del desarrollo de este IP, se considero que el envió de 8kB de datos es suficiente.
 
+## Autores
+
+Los principales autores de este trabajo son:
+
+* **Kaleb Alfaro-Badilla** - *Guía y supervisión* - 
+* **Carlos Salazar-García** - *Documentación y Desarrollo* -
+
+También puedes observar la lista de todos los [contribuyentes](https://github.com/cadriansalazarg/InteracesZynq/contributors) quíenes han participado en este proyecto. 
