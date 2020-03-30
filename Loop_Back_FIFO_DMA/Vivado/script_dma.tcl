@@ -77,7 +77,7 @@ apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config {Slave "/processing_sy
 create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo axis_data_fifo_0
 connect_bd_intf_net [get_bd_intf_pins axi_dma_0/M_AXIS_MM2S] [get_bd_intf_pins axis_data_fifo_0/S_AXIS]
 connect_bd_intf_net [get_bd_intf_pins axis_data_fifo_0/M_AXIS] [get_bd_intf_pins axi_dma_0/S_AXIS_S2MM]
-connect_bd_net [get_bd_pins axis_data_fifo_0/s_axis_aresetn] [get_bd_pins rst_ps7_0_102M/peripheral_aresetn]
+connect_bd_net [get_bd_pins axis_data_fifo_0/s_axis_aresetn] [get_bd_pins rst_ps7_0_100M/peripheral_aresetn]
 connect_bd_net -net [get_bd_nets processing_system7_0_FCLK_CLK0] [get_bd_pins axis_data_fifo_0/s_axis_aclk] [get_bd_pins processing_system7_0/FCLK_CLK0]
 
 # Connect interrupts
@@ -133,4 +133,36 @@ regenerate_bd_layout
 
 save_bd_design
 
+# Se le da click a la opción Generate Output Product
+
+generate_target all [get_files  zedboard_axi_dma/zedboard_axi_dma.srcs/sources_1/bd/zedboard_axi_dma/zedboard_axi_dma.bd]
+catch { config_ip_cache -export [get_ips -all zedboard_axi_dma_processing_system7_0_0] }
+catch { config_ip_cache -export [get_ips -all zedboard_axi_dma_axi_dma_0_0] }
+catch { config_ip_cache -export [get_ips -all zedboard_axi_dma_rst_ps7_0_100M_0] }
+catch { config_ip_cache -export [get_ips -all zedboard_axi_dma_xbar_0] }
+catch { config_ip_cache -export [get_ips -all zedboard_axi_dma_axis_data_fifo_0_0] }
+catch { config_ip_cache -export [get_ips -all zedboard_axi_dma_auto_pc_0] }
+catch { config_ip_cache -export [get_ips -all zedboard_axi_dma_auto_us_0] }
+catch { config_ip_cache -export [get_ips -all zedboard_axi_dma_auto_us_1] }
+catch { config_ip_cache -export [get_ips -all zedboard_axi_dma_auto_pc_1] }
+
+export_ip_user_files -of_objects [get_files zedboard_axi_dma/zedboard_axi_dma.srcs/sources_1/bd/zedboard_axi_dma/zedboard_axi_dma.bd] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] zedboard_axi_dma/zedboard_axi_dma.srcs/sources_1/bd/zedboard_axi_dma/zedboard_axi_dma.bd]
+launch_runs -jobs 8 {zedboard_axi_dma_processing_system7_0_0_synth_1 zedboard_axi_dma_axi_dma_0_0_synth_1 zedboard_axi_dma_rst_ps7_0_100M_0_synth_1 zedboard_axi_dma_xbar_0_synth_1 zedboard_axi_dma_axis_data_fifo_0_0_synth_1 zedboard_axi_dma_auto_pc_0_synth_1 zedboard_axi_dma_auto_us_0_synth_1 zedboard_axi_dma_auto_us_1_synth_1 zedboard_axi_dma_auto_pc_1_synth_1}
+
+export_simulation -of_objects [get_files zedboard_axi_dma/zedboard_axi_dma.srcs/sources_1/bd/zedboard_axi_dma/zedboard_axi_dma.bd] -directory zedboard_axi_dma/zedboard_axi_dma.ip_user_files/sim_scripts -ip_user_files_dir zedboard_axi_dma/zedboard_axi_dma.ip_user_files -ipstatic_source_dir zedboard_axi_dma/zedboard_axi_dma.ip_user_files/ipstatic -lib_map_path [list {modelsim=zedboard_axi_dma/zedboard_axi_dma.cache/compile_simlib/modelsim} {questa=zedboard_axi_dma/zedboard_axi_dma.cache/compile_simlib/questa} {ies=zedboard_axi_dma/zedboard_axi_dma.cache/compile_simlib/ies} {xcelium=zedboard_axi_dma/zedboard_axi_dma.cache/compile_simlib/xcelium} {vcs=zedboard_axi_dma/zedboard_axi_dma.cache/compile_simlib/vcs} {riviera=zedboard_axi_dma/zedboard_axi_dma.cache/compile_simlib/riviera}] -use_ip_compiled_libs -force -quiet
+
+# Se genera automáticamente el Wrapper
+make_wrapper -files [get_files zedboard_axi_dma/zedboard_axi_dma.srcs/sources_1/bd/zedboard_axi_dma/zedboard_axi_dma.bd] -top
+add_files -norecurse zedboard_axi_dma/zedboard_axi_dma.srcs/sources_1/bd/zedboard_axi_dma/hdl/zedboard_axi_dma_wrapper.v
+
+
+# Se sintetiza el diseño
+launch_runs synth_1 -jobs 8
+
+# Se implementa el diseño
+launch_runs impl_1 -jobs 8
+
+# Se genera el bitstream
+launch_runs impl_1 -to_step write_bitstream -jobs 8
 
