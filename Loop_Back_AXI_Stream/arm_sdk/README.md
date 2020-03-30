@@ -10,7 +10,7 @@ Dentro de esta carpeta se encuentrans 4 subcarpetas, las cuales contienen difere
 * *LoopBack_IP_DMA_simple_polling_with_variable_dma_size:* Esta versión debe utilizarse cuando el IP generado en Vivado HLS fue la versión donde el tamaño del arreglo de entrada es variable y controlado mediante una variable llamada len_dma. Esta versión  es para tamaños del DMA variable. En este caso, la recepción de los datos se realiza vía sondeo (polling), por lo que no se utilizan las interrupciones.
 * *LoopBack_IP_DMA_simple_intr_with_variable_dma_size:* Esta versión debe utilizarse cuando el IP generado en Vivado HLS fue la versión donde el tamaño del arreglo de entrada es variable y controlado mediante una variable llamada len_dma. Esta versión  es para tamaños del DMA variable. En este caso, la recepción de los datos se realiza vía interrupciones.
 
-## Utilización de este código
+## Ejecución del software sobre la Zynq utilizando Vivado SDK
 
 * Lo primero que se debe de hacer es en Vivado darle File, luego Export y finalmente Export Hardware. Se le debe dar click a incluir el bitstream y se le da OK.
 * Luego se abre Vivado SDK dándole click a File y luego Launch SDK. De esta forma se abrirá Vivado SDK.
@@ -23,6 +23,12 @@ Dentro de esta carpeta se encuentrans 4 subcarpetas, las cuales contienen difere
 * Seleccione el código que desea ejecutar sobre el microprocesador ARM contenido dentro de cualquiera de las 4 carpetas que tiene este folder. Recuerde elegir esta segun las caractersticas con que generó el hardware personalizado en Vivado HLS. Abra el archivo main.c de cualquiera de las subcarpetas y copie su contenido, y reemplacelo por el contenido del archivo helloworld.c
 * Reconstruya el proyecto dándole click derecho a la carpeta color azúl y seleccionando la opción Clean Project.
 * Finalmente ejecute el software sobre la ZedBoard, dándole click derecho a la  carpeta color azúl y seleccionando la opción *Run as* y luego dele click a la opción *Launch on Hardware (System Debugger)*.
+
+## Cuidados al ejecutar el software
+
+En aquellos casos donde el hardware fue creado utilizando cualquiera de los dos IP cores customizados donde el tamaño del arreglo es definido. Asegurese de que el macro SIZE en los archivos tanto el que opera con polling como el que opera con interrupciones tenga el mismo SIZE que el definido en la creación del hardware, De lo contrario, los tamaños del hardware y del software en el SDK no coincidiran y exisitirá un error.
+
+Para aquellos casos donde el tamaño de los arreglos es de tamaño variable, asegurese de no exceder el valor del macro SIZE de 2048, ya que por defecto el tamaño máximo del buffer del DMA es de 2048 enteros. Solo se podrá exceder el tamaño cuando el parámetro del DMA Width of buffer length register  fue correctamente editado.
 
 ## Autores
 
