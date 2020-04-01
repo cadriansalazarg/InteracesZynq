@@ -1,6 +1,7 @@
 # Descripción del contenido de esta carpeta
 
-En esta carpeta se encuentra contenido el script tcl que se encarga de generar todo el proyecto en Vivado. En dicho proyecto de Vivado, se agrega el Zynq como elemento de procesamiento de software, se agrega el IP core personalzado del LoopBack, un AXI DMA para la comunicación entre el IP y el Zynq. Además, se utiliza AXI_Lite para el control del IP personalizado, el DMA y un AXI Timer, el cual será utilizado para medir el tiempo de procesamiento. Además se interconectan todas las interrupciones tanto del DMA como del IP. Finalmente se realiza la interconexión adecuada de todo y se setean los parámetros necesarios para que todo funcione.
+En esta carpeta se encuentra contenido el script tcl que se encarga de generar todo el proyecto en Vivado. En dicho proyecto de Vivado, se agrega el Zynq como elemento de procesamiento de software, se agrega el IP core personalzado del LoopBack, un AXI DMA para la comunicación entre el IP y el Zynq. Además, se muestra como realizar la interconección del IP utilizando ap_ctrl_chain de manera que el IP siempre este trabajando pero todo su control sea desde hardware.El DMA y el AXI Timer son gobernados utilizando AXILite. 
+
 
 ## Configuración del proyecto
 
