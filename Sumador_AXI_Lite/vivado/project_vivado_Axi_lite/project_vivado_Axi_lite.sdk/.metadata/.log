@@ -1,0 +1,32 @@
+
+!ENTRY com.xilinx.sdk.utils 1 0 2020-04-02 00:55:28.069
+!MESSAGE Executed Webtalk command
+
+!ENTRY com.xilinx.sdk.utils 0 0 2020-04-02 00:55:28.073
+!MESSAGE XSCT Command: [disconnect tcfchan#3], Thread: Thread-291
+
+!ENTRY com.xilinx.sdk.utils 0 0 2020-04-02 00:55:28.075
+!MESSAGE XSCT command with result: [disconnect tcfchan#3], Result: [null, ]. Thread: Thread-291
+
+!ENTRY org.eclipse.ui.ide 4 4 2020-04-02 00:55:30.978
+!MESSAGE Problems saving workspace
+
+!ENTRY org.eclipse.ui.ide 4 1 2020-04-02 00:55:30.978
+!MESSAGE Problems occurred while trying to save the state of the workbench.
+!SUBENTRY 1 org.eclipse.core.resources 4 568 2020-04-02 00:55:30.978
+!MESSAGE Could not write workspace metadata '/home/carlositcr/InterfacesZynq/Sumador_AXI_Lite/vivado/project_vivado_Axi_lite/project_vivado_Axi_lite.sdk/.metadata/.plugins/org.eclipse.core.resources/.root/1.tree'.
+!STACK 0
+java.io.FileNotFoundException: /home/carlositcr/InterfacesZynq/Sumador_AXI_Lite/vivado/project_vivado_Axi_lite/project_vivado_Axi_lite.sdk/.metadata/.plugins/org.eclipse.core.resources/.root/1.tree (No such file or directory)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at org.eclipse.core.internal.localstore.SafeFileOutputStream.<init>(SafeFileOutputStream.java:51)
+	at org.eclipse.core.internal.resources.SaveManager.saveTree(SaveManager.java:1408)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1190)
+	at org.eclipse.core.internal.resources.Workspace.save(Workspace.java:2283)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor$4.run(IDEWorkbenchAdvisor.java:456)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:119)
+
+!ENTRY org.eclipse.core.resources 2 10035 2020-04-02 00:55:31.125
+!MESSAGE The workspace will exit with unsaved changes in this session.
