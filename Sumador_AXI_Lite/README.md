@@ -10,12 +10,9 @@ Este proyecto consiste en la creación de un IP personalizado en Vivado HLS de u
 
 Un pseudocódigo de la función del HLS se muestra aquí:
 ```C
-void adder(float A[SIZE],float B[SIZE],float Q[SIZE],int DataInput,int *DataOutput)
-{
-	SumaElementos: for(int i = 0; i < SIZE; i++)
-	{
+void adder(float A[SIZE],float B[SIZE],float Q[SIZE],int DataInput,int *DataOutput){
+	for(int i = 0; i < SIZE; i++)
 		Q[i] = A[i] + B[i];
-	}
 	*DataOutput = DataInput;
 }
 
