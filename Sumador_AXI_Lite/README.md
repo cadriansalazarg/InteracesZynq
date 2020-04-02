@@ -27,7 +27,9 @@ Finalmente utilizando el Vivado SDK, se desarrolla un software el cual envía un
 
 A continuación se muestra una figura que ilustra desde una perspectiva de alto nivel el funcionamiento del sistema.
 
-![LoopBack personalizado generado en HLS y donde la comunicación con el Zynq se realiza por DMA](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Loop_Back_AXI_Stream/images/LoopBack%20AXI%20Stream.png)
+![Sumador personalizado generado en HLS donde todas las interfaces son generadas con AXI4-Lite, de esta forma se realiza la comunicación con el Zynq](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Sumador_AXI_Lite/imagen/Sumador_AXI_4Lite.png)
+
+
 
 ## Plataforma de hardware
 
