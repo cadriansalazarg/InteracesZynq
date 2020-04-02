@@ -1,4 +1,4 @@
-# Creación de un LoopBack utilizando HLS Stream
+# Creación de un Sumador utilizando la interfaz AXI4-Lite
 
 ## Objetivo del proyecto
 
@@ -9,7 +9,7 @@ El objetivo de este proyecto es familiarizarse con el flujo de trabajo de las in
 Este proyecto consiste en la creación de un IP personalizado en Vivado HLS de un sumador, donde como operandos de entrada se utilizan dos arreglos los cuales se suman y se almacenan en otro arreglo de la forma Q[i] = A[i] + B[i]. El tamaño de cada arreglo es de 10 elementos y los datos son de tipo flotante. Adicionalmente se envía un elemento de tipo entero el cual se devuelve directamente de la forma DataOutput = DataInput.
 
 Un pseudocódigo de la función del HLS se muestra aquí:
-```
+```C
 void adder(float A[SIZE],float B[SIZE],float Q[SIZE],int DataInput,int *DataOutput)
 {
 	SumaElementos: for(int i = 0; i < SIZE; i++)
