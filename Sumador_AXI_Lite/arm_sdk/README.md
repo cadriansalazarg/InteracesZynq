@@ -1,6 +1,6 @@
 # Descripción de esta carpeta
 
-Esta carpeta contiene el software que deber ejecutar sobre el procesador Zynq utilizando Vivado SDK. Aquí el software diseñado siempre envíaun arreglo de 2048 enteros, y finalmente, el software queda a la espera aplicando sondeo del DMA, hasta que los datos retornan. Posterior a ello, se realiza una validación de los datos para comprobar que llegaron correctamente y finaliza un paso de simulación. El número de pasos de simulación se controla mediante la variable num_tests.
+Esta carpeta contiene el software que deber ejecutar sobre el procesador Zynq utilizando Vivado SDK. Aquí el software diseñado envía dos arreglos cada uno con 10 elementos de tipo flotantes hacia elIP vía AXI4-Lite, luego inicia el IP e igualmente inicia el AXI Timer para medir el tiempo. Para recibir el dato, este se recibde de dos formas, ya sea con interrupciones o con sondeo (polling), esta acción se controla mediante la constante InterruptEnable_IP, cuando está es true opera con interrupción y cuando esta es false opera con sondeo. Cuando los datos son recibidos, se detiene el Timer, se imprime la medición de tiempo y se comparan los resultados obtenidos con un modelo de referencia ejecutado en el propio Zynq.
 
 ## Autores
 
