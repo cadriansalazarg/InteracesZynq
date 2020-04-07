@@ -1,17 +1,6 @@
 # Descripción del contenido de esta carpeta
 
-En esta carpeta se encuentra contenido el script tcl que se encarga de generar todo el proyecto en Vivado. En dicho proyecto de Vivado, se agrega el Zynq como elemento de procesamiento de software, se agrega el IP core personalzado del Sumador, y un AXI TImer. Toda la comunicación entre estos dos últimos y el Zynq se realiza por AXI4-Lite.
-
-
-## Configuración del proyecto
-
-Para crear el proyecto en Vivado lo primero que se debe hacer es abrir Vivado dentro de esta carpeta.
-```
-vivado &
-```
-Una vez abierto Vivado, se deberá seleccionar la pestaña de Tools y se elige la opción de Run Tcl Script, luego se selecciona el script tcl contenido dentro de esta carpeta y nombrado como script_vivado.tcl. Así, todo el proyecto se generará hasta que finalmente,el bitstream sea generado.
-
-
+En esta carpeta se encuentra contenido el código fuente del inversor llamado inverter.v descrito en el lenguaje de descripción de hardware Verilog. Este inversor se integra dentro de este proyecto para invertir las banderas full y empty del IP propietario de Xilinx llamado FIFO Generator y así, reparar los problemas de incompatibilidad entre el IP  personalizado generado en HLS y el FIFO Generator.
 
 ## Autores
 
