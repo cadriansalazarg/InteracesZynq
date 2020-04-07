@@ -1,31 +1,42 @@
-# Creación de un Sumador utilizando la interfaz AXI4-Lite
+# Creación de un proyecto báscio de uso de la interfaz ap_fifo en conjunto con la interfaz AXI Lite
 
 ## Objetivo del proyecto
 
-El objetivo de este proyecto es familiarizarse con el flujo de trabajo de las interfaces AXI Lite utilizando IPs personalizados creados en Vivado HLS.
+El objetivo de este proyecto es familiarizarse con el flujo de trabajo de las interfaces ap_fifo utilizando IPs personalizados creados en Vivado HLS.
 
 ## Descripción del proyecto
 
-Este proyecto consiste en la creación de un IP personalizado en Vivado HLS de un sumador, donde como operandos de entrada se utilizan dos arreglos los cuales se suman y se almacenan en otro arreglo de la forma Q[i] = A[i] + B[i]. El tamaño de cada arreglo es de 10 elementos y los datos son de tipo flotante. Adicionalmente se envía un elemento de tipo entero el cual se devuelve directamente de la forma DataOutput = DataInput.
+Este proyecto consiste en la creación de un IP personalizado en Vivado HLS donde un arreglo de tamaño definido por el macro SIZE es recibido por el IP vía AXI LITE, enviado desde el procesador Zynq. Este arreglo es enviado, sale del IP pero ahora mediante una interfaz ap_fifo. Estos datos, se almacenan dentro de un FIFO (se utilizó el IP de Xilinx IP Generator) y la salida de este FIFO, se conecta nuevamente a un puerto de entrada del IP personalizado, igualmente utilizando la interfaz FIFO. Una vez dentro del IP estos datos, son enviados vía AXI Lite hacia el Zynq nuevamente. Dentro del Zynq, se valida que dichos datos sean igual a los enviados originalmente, y en caso de serlo, finaliza la ejecución sin dar ningún error. El Zynq recibe los datos usando ambos, sondeo o interrupciones.
 
 Un pseudocódigo de la función del HLS se muestra aquí:
 ```C
-void adder(float A[SIZE],float B[SIZE],float Q[SIZE],int DataInput,int *DataOutput){
-	for(int i = 0; i < SIZE; i++)
-		Q[i] = A[i] + B[i];
-	*DataOutput = DataInput;
+void customized_IP_block( hls::stream<data_t>& in_fifo,
+                     hls::stream<data_t>& out_fifo,
+                     data_t input_axi_lite[SIZE],
+                     data_t output_axi_lite[SIZE]){
+	int i = 0;
+	int j = 0;
+	
+	SendData_To_FIFO: for (i=0; i<SIZE; i++) 
+		out_fifo.write(input_axi_lite[i]);
+     
+	Receive_From_FIFO: while(!in_fifo.empty()){
+		output_axi_lite[j] = in_fifo.read();
+		j++;}
 }
-
 ```
 
-Todos los puertos de entrada y salida se declaran con una interfaz AXI Lite, por lo que este proyecto muestra como usar dicha interfaz. Finalmente, utilizando Vivado, se isntancia el IP junto con el procesador Zynq y un módulo de AXI Timer el cual se comunica igualmente por  AXILite de forma que se mida el tiempo de las transacciones. 
 
-Finalmente utilizando el Vivado SDK, se desarrolla un software el cual envía un vector de datos utilizando AXI Lite hacia el IP, luego inicializa el IP y finalmente inicia la operación del IP. CUando los datos están listos, estos pueden ser leídos ya sea por interrupción o por sondeo (polling) depende de como se setea el parámetro llamado InterruptEnable_IP, si este es verdadero funciona con interrupciones, en cambio, si este es falso el IP opera con sondeo (polling).
 
-A continuación se muestra una figura que ilustra desde una perspectiva de alto nivel el funcionamiento del sistema.
+A continuación se muestra una figura que ilustra desde una perspectiva de alto nivel el funcionamiento del sistema. 
 
-![Sumador personalizado generado en HLS donde todas las interfaces son generadas con AXI4-Lite, de esta forma se realiza la comunicación con el Zynq](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Sumador_AXI_Lite/imagen/Sumador_AXI_4Lite.png)
+![Sumador personalizado generado en HLS donde todas las interfaces son generadas con AXI4-Lite, de esta forma se realiza la comunicación con el Zynq](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Uso_Interfaz_ap_fifo/images/ap_fifo_simple _use.png)
 
+Preste especial atención a la conexión entre los puertos generados por el HLS con una interfaz ap_fifo y la FIFO, ya que por naturaleza ***existe una incompatibilidad entre los puertos full y empty***, ya que el HLS genera estas banderas negadas, mientras que el IP de Xilinx, el FIFO generator, utiliza estas banderas sin negar, por lo tanto, se requiere de dos inversores para reparar este problema.
+
+Adicionalmente, ***el reset del IP FIFO Generator funciona con la polaridad invertida al del resto de los IPs***, por lo tanto, se utiliza un reset que opere con la polaridad invertida.
+
+Finalmente, en el modo de lectura de la FIFO, en sus configuraciones, ***no deberá utilizarse la opción estandar***, sino más bien ***el modo de lectura First Word Fall Through***, ya que sino, se cambia, existirá una incompatibilidad entre el HLS el FIFO, y siempre quedará colgado el último elemento dentro de la FIFO y por lo tanto, la aplicación se caerá.
 
 
 ## Plataforma de hardware
@@ -38,11 +49,11 @@ Como herramienta de diseño del software embebido en el cual se creó todo el pr
 
 ## Descripción de las carpetas
 
-Dentro de este repositorio se encuentran cuatro carpetas llamadas hls, vivado, arm_sdk e imágenes. La primera es la encargada de generar el Ip customizado del loopback, la segunda encargada de crear todo el proyecto de Vivado automáticamente mediante un script tcl. En la tercera se encuentran las diferentes versiones del software embebido que corre sobre el ARM y la última carpeta simplemente fue creada para agregar las imágenes como la utilizada en esta descripción por lo tanto, no aport valor para crear el proyecto.
+Dentro de este repositorio se encuentran cuatro carpetas llamadas hls, vivado, sdk e images. La primera es la encargada de generar el Ip customizado que utiliza la interfaz ap_fifo y al interfaz AXI Lite, la segunda se encarga de crear todo el proyecto de Vivado automáticamente mediante un script tcl y el código en Verilog del inversor. En la tercera se encuentran el software embebido que corre sobre el Zynq y la última carpeta simplemente fue creada para agregar las imágenes como la utilizada en esta descripción por lo tanto, no aport valor para crear el proyecto.
 
 ## Descripción de pasos 
 
-Los pasos para la ejecución de este proyecto se muestran de forma detallada [aquí](https://youtu.be/otCnqQpB8kA).
+Los pasos para la ejecución de este proyecto se muestran de forma detallada [aquí](https://youtu.be/PeXQbFlYlIE).
 
 ## Autores
 
