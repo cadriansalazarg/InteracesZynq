@@ -13,6 +13,7 @@ Dicha salida out_fifo se conecta con un IP de Xilinx de una FIFO (se utilizó el
 A continuación se muestra una figura que ilustra el diseño modular del sistema implementado aquí.
 
 ![Diseño modular que muestra el uso de la interfaz ap_fifo en conjunto con la interfaz AXI Lite mediante la implementación de un loopback](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Uso_Interfaz_ap_fifo/images/ap_fifo_simple_use.png)
+
 Figura 1: Diseño modular del sistema implementado en esta carpeta.
 
 Por último, dentro del Zynq, se valida que dichos datos sean igual a los enviados al inicio, y en caso de serlo, finaliza la ejecución sin dar ningún error. El Zynq recibe los datos usando ambos, sondeo o interrupciones. Por lo tanto, se puede concluir, que en realidad lo que se genera aquí es un loopback donde se utiliza desde el protocolo AXI Lite, las interfaces de E/S ap_fifo y las FIFOs que proporciona Xilinx, todo esto testeado mediante la implementación de un LoopBack de un arreglo de datos.
@@ -65,6 +66,7 @@ Los pasos para la ejecución de este proyecto se muestran de forma detallada [aq
 El diagrama de bloques generado por Vivado de este proyecto deberá verse muy similar al que se muestra en la siguiente figura:
 
 ![Diagrama de bloques que muestra el uso de la interfaz ap_fifo en conjunto con la interfaz AXI Lite mediante la implementación de un loopback](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Uso_Interfaz_ap_fifo/images/Block_Diagram_Simple_Use_of_ap_fifo.png)
+
 Figura 2: Captura de pantalla del diagrama de bloques generado en Vivado.
 
 ## Autores
