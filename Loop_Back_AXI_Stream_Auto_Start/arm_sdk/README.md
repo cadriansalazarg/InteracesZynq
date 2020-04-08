@@ -4,7 +4,7 @@ Esta carpeta contiene el software que deber ejecutar sobre el procesador Zynq ut
 
 ## Descripción de los arhivos contenidos aquí
 
-Dentro de esta carpeta se encuentran dos versiones, una que opera con interrupciones y otra que opera con sondeo.
+Dentro de esta carpeta se encuentran dos versiones, una que opera con interrupciones y otra que opera con sondeo. Ambas trabajan sin utilizar la opción de Scatter/Gather.
 
 1) ***softwareSDK_polling.c:*** Versión del software que opera utilizando sondeo.
 2) ***softwareSDK_interrupciones.c:*** Versión de software que opera utilizando interrupciones.
