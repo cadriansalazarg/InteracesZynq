@@ -16,7 +16,7 @@ Ambas versiones del software, utilizan el AXI Timer, cuando se encuentra definid
 1) Click derecho sobre la carpeta de la aplicación del proyecto (carpea color azúl) y se selecciona la opción C/C++ Build Settings.
 2) En la pestaña de Tool Setting, se selecciona ARM v7 gcc compiler y se agrega la bandera en el Command line pattern, justo después de la opción $(FLAGS), de manera que quede de la siguiente forma ```${COMMAND} ${FLAGS} -DTIMER_AVAILABLE  ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}```. Si todo está correcto, debe observarse igual a como se observa en la siguiente imagen.
 
-![LoopBack personalizado generado en HLS y donde la comunicación con el Zynq se realiza por DMA](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Loop_Back_AXI_Stream_Auto_Start/images/LoopBack_AXI_Stream_Auto_Start.png)
+![LoopBack personalizado generado en HLS y donde la comunicación con el Zynq se realiza por DMA](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Loop_Back_AXI_Stream_Auto_Start/images/Captura_Pantalla_Agregar_Macro_SDK.png)
 
 Figura 1. Captura de pantalla donde se muestra como se debe configurar el compilador del Vivado SDK para habilitar el macro TIMER_AVAILABLE y así, habilitar el timer.
 
