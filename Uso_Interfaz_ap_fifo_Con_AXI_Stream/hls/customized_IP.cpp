@@ -15,7 +15,7 @@ void customized_IP_block(hls::stream<AXISTREAM32> &input, hls::stream<AXISTREAM3
 void productor(hls::stream<data_t>& out_fifo, hls::stream<AXISTREAM32> &input) {
 	Loop_Productor: for (int i = 0; i < SIZE; i++) {
 		auto a = input.read();
-		while(out_fifo.full());
+		//while(out_fifo.full());
 		out_fifo.write(a.data);
 	}
 }

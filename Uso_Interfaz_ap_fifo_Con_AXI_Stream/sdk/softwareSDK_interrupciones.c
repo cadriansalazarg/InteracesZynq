@@ -38,9 +38,9 @@
  */
 #define MAX_PKT_LEN		0x800  // Number of u32 data to be transmitted (2048 elementos de tipo u32)
 
-#define MAX_PKT_LEN_IN_BYTES	0x2000  //Total de bytes por transferencia, en este caso, como el tipo de dato es u32, se multiplica por 4 para sacar el número de bytes (2048 por 4)
+#define MAX_PKT_LEN_IN_BYTES	MAX_PKT_LEN*4  //Total de bytes por transferencia, en este caso, como el tipo de dato es u32, se multiplica por 4 para sacar el número de bytes (2048 por 4)
 
-#define NUMBER_OF_TRANSFERS	2 // En cada transferencia se envía un arreglo con un tamaño igual a MAX_PKT_LEN elementos y se recibe estos datos, esto representa una transferencia. Este parámetro define cuantas veces se quiere ejecutar dicha transferencia
+#define NUMBER_OF_TRANSFERS	1000 // En cada transferencia se envía un arreglo con un tamaño igual a MAX_PKT_LEN elementos y se recibe estos datos, esto representa una transferencia. Este parámetro define cuantas veces se quiere ejecutar dicha transferencia
 
 /* The interrupt coalescing threshold and delay timer threshold
  * Valid range is 1 to 255

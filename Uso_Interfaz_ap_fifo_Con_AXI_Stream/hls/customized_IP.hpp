@@ -2,7 +2,7 @@
 #include<ap_int.h>
 
 #define SIZE 2048
-#define NUM_OF_TESTS 5
+#define NUM_OF_TESTS 1000
 
 typedef int	data_t;
 
