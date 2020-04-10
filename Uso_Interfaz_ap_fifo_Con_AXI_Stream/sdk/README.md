@@ -4,7 +4,7 @@ Esta carpeta contiene el software que deber ejecutar sobre el procesador Zynq ut
 
 ## Descripción de los arhivos contenidos aquí
 
-Dentro de esta carpeta se encuentran dos versiones, una que opera con interrupciones y otra que opera con sondeo.
+Dentro de esta carpeta se encuentran dos versiones, una que opera con interrupciones y otra que opera con sondeo. Ambas trabajan sin utilizar la opción de Scatter/Gather.
 
 1) ***softwareSDK_polling.c:*** Versión del software que opera utilizando sondeo.
 2) ***softwareSDK_interrupciones.c:*** Versión de software que opera utilizando interrupciones.
@@ -15,6 +15,11 @@ Ambas versiones del software, utilizan el AXI Timer, cuando se encuentra definid
 
 1) Click derecho sobre la carpeta de la aplicación del proyecto (carpea color azúl) y se selecciona la opción C/C++ Build Settings.
 2) En la pestaña de Tool Setting, se selecciona ARM v7 gcc compiler y se agrega la bandera en el Command line pattern, justo después de la opción $(FLAGS), de manera que quede de la siguiente forma ```${COMMAND} ${FLAGS} -DTIMER_AVAILABLE  ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}```. Si todo está correcto, debe observarse igual a como se observa en la siguiente imagen.
+
+![LoopBack personalizado generado en HLS y donde la comunicación con el Zynq se realiza por DMA](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Loop_Back_AXI_Stream_Auto_Start/images/Captura_Pantalla_Agregar_Macro_SDK.png)
+
+Figura 1. Captura de pantalla donde se muestra como se debe configurar el compilador del Vivado SDK para habilitar el macro TIMER_AVAILABLE y así, habilitar el timer.
+
 3) Se le da click en Apply y se le da luego OK.
 4) Luego se le da click derecho nuevamente a la carpeta de aplicación y se selecciona la opción, Clean Project. Así, es posible limpiar todo el proyecto y que se compilen el proyecto con el nuevo macro agregado.
 5) Se ejecuta el proyecto, dandole click derecho al proyecto, seleccionado la opción Run As y escogiendo la opción Launch on Hardware (System Debugger).
