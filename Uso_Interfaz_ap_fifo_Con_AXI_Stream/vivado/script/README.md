@@ -1,15 +1,11 @@
 # Descripción del contenido de esta carpeta
 
-En esta carpeta se encuentra contenido el script tcl que se encarga de generar todo el proyecto en Vivado. En dicho proyecto de Vivado, se agrega el Zynq como elemento de procesamiento de software, se agrega el IP core personalzado del Sumador, y un AXI TImer. Toda la comunicación entre estos dos últimos y el Zynq se realiza por AXI4-Lite.
+Esta carpeta contiene el script tcl llamado script_To_Create_Vivado_project.tcl que se encarga de construir todo el proyecto en Vivado. 
 
 
-## Configuración del proyecto
+## Sugerencias
 
-Para crear el proyecto en Vivado lo primero que se debe hacer es abrir Vivado dentro de esta carpeta.
-```
-vivado &
-```
-Una vez abierto Vivado, se deberá seleccionar la pestaña de Tools y se elige la opción de Run Tcl Script, luego se selecciona el script tcl contenido dentro de esta carpeta y nombrado como script_vivado.tcl. Así, todo el proyecto se generará hasta que finalmente,el bitstream sea generado.
+Preste especial atención a lo que realiza el script y como se realiza la interconexión del IP personalizado generado en HLS con el IP propietario de Xilinx llamado FIFO Generator.
 
 
 
