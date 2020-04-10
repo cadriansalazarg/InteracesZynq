@@ -53,13 +53,16 @@ void consumidor(hls::stream<data_t>& in_fifo, hls::stream<AXISTREAM32> &output) 
 
 Preste especial atención a la conexión entre los puertos generados por el HLS con una interfaz ap_fifo y la FIFO, ya que por naturaleza ***existe una incompatibilidad entre los puertos full y empty***, ya que el HLS genera estas banderas negadas, mientras que el IP de Xilinx, el FIFO generator, utiliza estas banderas sin negar, por lo tanto, se requiere de dos inversores para reparar este problema.
 
-Adicionalmente, ***el reset del IP FIFO Generator funciona con la polaridad invertida al del resto de los IPs***, por lo tanto, se utiliza un reset que opere con la polaridad invertida.
+***El reset del IP FIFO Generator funciona con la polaridad invertida al del resto de los IPs***, por lo tanto, se utiliza un reset que opere con la polaridad invertida.
 
-Finalmente, en el modo de lectura de la FIFO, en sus configuraciones, ***no deberá utilizarse la opción estandar***, sino más bien ***el modo de lectura First Word Fall Through***, ya que sino, se cambia, existirá una incompatibilidad entre el HLS el FIFO, y siempre quedará colgado el último elemento dentro de la FIFO y por lo tanto, la aplicación se caerá.
+En el modo de lectura de la FIFO, en sus configuraciones, ***no deberá utilizarse la opción estandar***, sino más bien ***el modo de lectura First Word Fall Through***, ya que sino, se cambia, existirá una incompatibilidad entre el HLS el FIFO, y siempre quedará colgado el último elemento dentro de la FIFO y por lo tanto, la aplicación se caerá.
 
-Adicionalmente, la profundidad de la FIFO (parámetro ***Write Depth***) deberá tener ***al menos la misma profundidad que el número de elementos que se va a enviar a través del arreglo***, en este caso definido por el macro SIZE en Vivado HLS, el cuál es 2048, de lo contrario, se generará congestionamiento de datos y el IP no podrá procesarlos todos de forma simultanea.
+La profundidad de la FIFO (parámetro ***Write Depth***) deberá tener ***al menos la misma profundidad que el número de elementos que se va a enviar a través del arreglo***, en este caso definido por el macro SIZE en Vivado HLS, el cuál es 2048, de lo contrario, se generará congestionamiento de datos y el IP no podrá procesarlos todos de forma simultanea.
 
 El parámetro ***Width of Buffer Length Register*** del IP AXI DMA, también debe de ajustarse cuidadosamente para evitar congestionamiento, en este caso se ajustó en 16, ya que se van a enviar 2^16 bits por el canal (2048 enteros, por lo tanto 2048*32 bits). Pero en caso de  que se quiera modificar el número de elementos enviados por el arreglo, se deberá determinar cual es el mínimo número permitido para este parámetro, mediante un cálculo de cuantos bits se requieren como máximo transferir por el canal.
+
+Observe que todo el ***control del IP se realiza mediante la interfaz ap_ctrl_chain***, por lo tanto, el IP es completamente controlado desde el hardware, y ***está en una configuración de auto reinicio***, por lo tanto, siempre que le lleguen datos válidos por parte del DMA, o que la FIFO no esté vacía, este iniciará las transacciones.
+
 
 
 ## Plataforma de hardware
