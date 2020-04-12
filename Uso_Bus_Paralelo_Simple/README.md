@@ -17,17 +17,17 @@ void customized_IP_block( hls::stream<data_t>& out_fifo_drvr_0,
                      data_t input_port_axi_lite_drvr_0[SIZE],
                      data_t input_port_axi_lite_drvr_1[SIZE]){				
     
-    Loop1: for (int i=0;i<SIZE;i++) { // Se envían los datos hacia el fifo
+    Loop1: for (int i=0;i<SIZE;i++) { 
 		out_fifo_drvr_0.write(input_port_axi_lite_drvr_0[i]); 
 		out_fifo_drvr_1.write(input_port_axi_lite_drvr_1[i]);
     } 
     
-    Loop2: for (int i=0;i<SIZE;i++) { // Se envían los datos hacia el fifo
+    Loop2: for (int i=0;i<SIZE;i++) { 
 		while(in_fifo_drvr_1.empty());
 		output_port_axi_lite_drvr_1[i] = in_fifo_drvr_1.read();
     } 
     
-    Loop3: for (int i=0;i<SIZE;i++) { // Se envían los datos hacia el fifo
+    Loop3: for (int i=0;i<SIZE;i++) { 
 		while(in_fifo_drvr_0.empty());
 		output_port_axi_lite_drvr_0[i] = in_fifo_drvr_0.read();
     } 
@@ -53,7 +53,7 @@ Figura 1: Diseño modular del sistema implementado en esta carpeta.
 
 Observe que la lectura de los FIFOs se realiza de lasiguiente forma:
 ```C
-for (int i=0;i<SIZE;i++) { // Se envían los datos hacia el fifo
+for (int i=0;i<SIZE;i++) { 
    while(in_fifo_drvr_0.empty());
    output_port_axi_lite_drvr_0[i] = in_fifo_drvr_0.read();
 }
@@ -92,7 +92,7 @@ Los pasos para la ejecución de este proyecto se muestran de forma detallada [aq
 
 El diagrama de bloques generado por Vivado de este proyecto deberá verse muy similar al que se muestra en la siguiente figura:
 
-![Diagrama de bloques que muestra el uso de la interfaz ap_fifo en conjunto con la interfaz AXI Lite mediante la implementación de un loopback](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Uso_Interfaz_ap_fifo/images/Block_Diagram_Simple_Use_of_ap_fifo.png)
+![Diagrama de bloques que muestra el uso de la interfaz ap_fifo en conjunto con la interfaz AXI Lite mediante la implementación de un loopback](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Uso_Bus_Paralelo_Simple/images/Block_Diagram_Simple_Use_of_ap_fifo.png)
 
 Figura 2: Captura de pantalla del diagrama de bloques generado en Vivado.
 
