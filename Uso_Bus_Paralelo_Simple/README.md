@@ -90,12 +90,6 @@ Dentro de este repositorio se encuentran cuatro carpetas llamadas hls, vivado, s
 
 Los pasos para la ejecución de este proyecto se muestran de forma detallada [aquí](https://youtu.be/PeXQbFlYlIE).
 
-El diagrama de bloques generado por Vivado de este proyecto deberá verse muy similar al que se muestra en la siguiente figura:
-
-![Diagrama de bloques que muestra el uso de la interfaz ap_fifo en conjunto con la interfaz AXI Lite mediante la implementación de un loopback](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Uso_Bus_Paralelo_Simple/images/Block_Diagram_Simple_Use_of_ap_fifo.png)
-
-Figura 2: Captura de pantalla del diagrama de bloques generado en Vivado.
-
 ## Autores
 
 Los principales autores de este trabajo son:
