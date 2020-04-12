@@ -1,0 +1,109 @@
+$date
+        2019-May-10 15:41:14
+$end
+$version
+        Vivado v2018.3 (64-bit)
+$end
+$timescale
+        1ps
+$end
+$scope module dut $end
+$var reg 32 " design_1_i/sumador_0_out_fifo_din [31:0] $end
+$var reg 1 B design_1_i/fifo_generator_0_full $end
+$var reg 1 C design_1_i/sumador_0_out_fifo_write $end
+$var reg 32 D design_1_i/fifo_generator_0_dout [31:0] $end
+$var reg 1 d design_1_i/fifo_generator_0_empty $end
+$var reg 1 e design_1_i/sumador_0_in_fifo_read $end
+$var reg 1 f _TRIGGER $end
+$var reg 1 g _WINDOW $end
+$var reg 1 h _GAP $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 "
+0B
+0C
+b0 D
+1d
+0e
+0f
+1g
+0h
+$end
+#221
+b1 "
+1C
+#222
+b10 "
+0d
+#223
+b11 "
+#224
+b100 "
+#225
+b101 "
+#226
+b110 "
+#227
+b111 "
+#228
+b1000 "
+#229
+b1001 "
+#230
+b1010 "
+#231
+b1011 "
+#232
+b1100 "
+#233
+b1101 "
+#234
+b1110 "
+#235
+b1111 "
+#236
+b10000 "
+#237
+b1 "
+1B
+0C
+#239
+1e
+#240
+0B
+b1 D
+#241
+b10 D
+#242
+b11 D
+#243
+b100 D
+#244
+b101 D
+#245
+b110 D
+#246
+b111 D
+#247
+b1000 D
+#248
+b1001 D
+#249
+b1010 D
+#250
+b1011 D
+#251
+b1100 D
+#252
+b1101 D
+#253
+b1110 D
+#254
+b1111 D
+#255
+b10000 D
+1d
+0e
+1f
