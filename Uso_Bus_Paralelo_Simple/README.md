@@ -45,7 +45,7 @@ Como aspecto adicional, un AXI Timer fue incorporado en el diseño para realizar
 
 A continuación se muestra una figura que ilustra el diseño modular del sistema implementado aquí.
 
-![Diseño modular que muestra el uso del bus paralelo ysu integración en el Block Design de Vivado](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Uso_Bus_Paralelo_Simple/images/ap_fifo_simple_use.png)
+![Diseño modular que muestra el uso del bus paralelo ysu integración en el Block Design de Vivado](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Uso_Bus_Paralelo_Simple/images/Uso_Bus_Paralelo_simple.png)
 
 Figura 1: Diseño modular del sistema implementado en esta carpeta.
 
