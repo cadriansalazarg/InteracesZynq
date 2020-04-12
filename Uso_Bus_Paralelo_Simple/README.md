@@ -1,42 +1,53 @@
-# Creación de un proyecto básico que muestra el uso de la interfaz ap_fifo en conjunto con la interfaz AXI Lite
+# Creación de un proyecto básico que muestra el uso del bus paralelo integrado en el ambiente del block design de Vivado
 
 ## Objetivo del proyecto
 
-El objetivo de este proyecto es familiarizarse con el flujo de trabajo de las interfaces ap_fifo utilizando IPs personalizados creados en Vivado HLS.
+El objetivo de este proyecto es familiarizarse con el flujo de trabajo que debe usarse cuando se utiliza el bus paralelo implementado por Ronny García, así como todos los detalles de la comunicación, entre el bus y IP personalizados creados en Vivado HLS mediante el uso de interfaces ap_fifo y FIFOs genéricos propietarios de Xilinx.
 
 ## Descripción del proyecto
 
-Este proyecto consiste en la creación de un IP personalizado en Vivado HLS donde el flujo de datos va de la siguiente forma: Primero un arreglo de tamaño definido por el macro SIZE es recibido por el IP vía AXI LITE, el cual es enviado desde el procesador Zynq. Una vez que se recibe este arreglo, el mismo se envía directamente hacia la salida out_fifo, la cual es declarada como una interfaz de tipo ap_fifo. 
+Este proyecto pretende mostrar una aplicación sencilla donde se utiliza el bus parelelo implementado por el Ing. Ronny García. Para ello se desarrolló una aplicación simple que emula dos dispositivos que se conectan al bus y se comparten información entre ellos. Para hacer esto se creo un IP en Vivado HLS cuyo pseudocódigo se muestra a continuación:
+```C
+void customized_IP_block( hls::stream<data_t>& out_fifo_drvr_0,
+                     hls::stream<data_t>& in_fifo_drvr_0,
+                     hls::stream<data_t>& out_fifo_drvr_1,
+                     hls::stream<data_t>& in_fifo_drvr_1,
+                     data_t output_port_axi_lite_drvr_0[SIZE],
+                     data_t output_port_axi_lite_drvr_1[SIZE],
+                     data_t input_port_axi_lite_drvr_0[SIZE],
+                     data_t input_port_axi_lite_drvr_1[SIZE]){				
+    
+    Loop1: for (int i=0;i<SIZE;i++) { // Se envían los datos hacia el fifo
+		out_fifo_drvr_0.write(input_port_axi_lite_drvr_0[i]); 
+		out_fifo_drvr_1.write(input_port_axi_lite_drvr_1[i]);
+    } 
+    
+    Loop2: for (int i=0;i<SIZE;i++) { // Se envían los datos hacia el fifo
+		while(in_fifo_drvr_1.empty());
+		output_port_axi_lite_drvr_1[i] = in_fifo_drvr_1.read();
+    } 
+    
+    Loop3: for (int i=0;i<SIZE;i++) { // Se envían los datos hacia el fifo
+		while(in_fifo_drvr_0.empty());
+		output_port_axi_lite_drvr_0[i] = in_fifo_drvr_0.read();
+    } 
+}
+```
+Como se observa en el pseudocódigo, la apliación en HLS recibirá dos arreglos de entrada, uno es el arreglo del driver 0, y el otro es el arreglo del driver 1. Estos arreglos se reciben vía AXI Lite. Seguidamente, ambos arreglos son enviados vía dos interfaces ap_fifo llamadas out_fifo_drvr_0 y out_fifo_drvr_1, una para cada arreglo, respectivamente.
 
-Dicha salida out_fifo se conecta con un IP de Xilinx de una FIFO (se utilizó el IP de Xilinx FIFO Generator), por lo tanto, todo el arreglo es copiado en dicha FIFO. Posteriormente, la salida de esta FIFO, se conecta a la entrada del IP llamada in_fifo, cuya interfaz es igualmente de tipo ap_fifo. Así, los datos, son devueltos nuevamente de la FIFO hacia el IP personalizado, donde este finalmente reenviará este arreglo de datos hacia el Zynq vía AXI Lite.
+El arreglo que se envía por el puerto out_fifo_drvr_0, será escrito en una FIFO genérica la cuál es un IP propietario de Xilinx. Dicho arreglo será leído dentro de la FIFO por el bus paralelo, y el bus se encargará de escribir este arreglo en otra FIFO, cuyo puerto de lectura se conecta a la entrada del puerto in_fifo_drvr_1, cuya interfaz es igualmente de tipo ap_fifo. De esta forma, nótese que el arreglo que se encontraba en el driver 0, se desplaza hacia el driver 1. De la misma forma, el arreglo que se encuentra en el driver 1 es desplazado hacia el driver 0. Dentro del mensaje a transmitir por cada driver, los primeros 8 bits representan el destino del mensaje, así, si el mensaje inicia con 0x00, el destino será el driver 0, y si el mensaje inicia con 0x01, el destino será el driver 1. Adicionalmente, los siguientes 8 bits representan la fuente del mensaje, debe aclararse que para efectos prácticos del uso del bus, lo único que es estrictamente obligatorio de enviar, es el destino en los primeros 8 bits, la fuente puede ser omitida, en caso de que la aplicación no la necesite.
+
+Finalmente, una vez que ambos arreglos llegan al IP nuevamente, pero ahora, el arreglo del driver 0 se encuentra contenido en el driver 1, y el del driver 1 se encuentra contenido en el driver 0. Ambos arreglos son enviados vía AXI Lite hacia el procesador Zynq nuevamente.
+
+En el Zynq, tan pronto como los datos son recibidos, esto puede ser completados vía sondeo o por interrupciones, se valida que efectivamente en el driver 0 se encuentre contenido el arreglo que inicialmente fue enviado por el driver 1 y en el caso del driver 1, se valida que el arreglo que este contiene sea el que fue enviado inicialmente por el driver 0.
+
+Como aspecto adicional, un AXI Timer fue incorporado en el diseño para realizar mediciones de tiempo.
 
 A continuación se muestra una figura que ilustra el diseño modular del sistema implementado aquí.
 
-![Diseño modular que muestra el uso de la interfaz ap_fifo en conjunto con la interfaz AXI Lite mediante la implementación de un loopback](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Uso_Interfaz_ap_fifo/images/ap_fifo_simple_use.png)
+![Diseño modular que muestra el uso del bus paralelo ysu integración en el Block Design de Vivado](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Uso_Bus_Paralelo_Simple/images/ap_fifo_simple_use.png)
 
 Figura 1: Diseño modular del sistema implementado en esta carpeta.
-
-Por último, dentro del Zynq, se valida que dichos datos sean igual a los enviados al inicio, y en caso de serlo, finaliza la ejecución sin dar ningún error. El Zynq recibe los datos usando ambos, sondeo o interrupciones. Por lo tanto, se puede concluir, que en realidad lo que se genera aquí es un loopback donde se utiliza desde el protocolo AXI Lite, las interfaces de E/S ap_fifo y las FIFOs que proporciona Xilinx, todo esto testeado mediante la implementación de un LoopBack de un arreglo de datos.
-
-Adcionalmente, se proporciona aquí un pseudocódigo de la función implementada en C utilizando síntesis de alto nivel (HLS):
-```C
-void customized_IP_block( hls::stream<data_t>& in_fifo,
-                     hls::stream<data_t>& out_fifo,
-                     data_t input_axi_lite[SIZE],
-                     data_t output_axi_lite[SIZE]){
-	int i = 0;
-	int j = 0;
-	
-	SendData_To_FIFO: for (i=0; i<SIZE; i++) 
-		out_fifo.write(input_axi_lite[i]);
-     
-	Receive_From_FIFO: while(!in_fifo.empty()){
-		output_axi_lite[j] = in_fifo.read();
-		j++;}
-}
-```
-
-
 
 ## Consideraciones importantes sobre el diagrama de bloques del sistema
 
