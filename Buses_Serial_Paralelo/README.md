@@ -44,7 +44,15 @@ Para que el bus paralelo conozca el destino al que se debe enviar un paquete de 
 
 2) Los primeros 8 bits más significativos en el mensaje que se coloca en el puerto de entrada D_pop, representan el destino del paquete. Así, por ejemplo, si se quiere enviar un paquete de tamaño igual a 32 bits, desde el driver 0 hasta el driver 3, los primeros 8 bits del mensaje a enviar por el driver 0 en su puerto D_pop deberán ser iguales a 03. Así, el mensaje  que envia el driver 0 deberá ser igual a D_pop[31:0] = 0x03XXXXXX.
 
+3) Si los drivers tienen más de un bus (parámetro bus es mayor que 1), Sí los datos se envían por un bus, los datos llegarán siempre al destino exactamente en el mismo bus. Así por ejemplo, si se tienen dos drivers, con 4 buses cada uno, si se envía un dato desde el driver 1 hacia el driver 2, utilizando el bus 3, los datos llegaran al destino exactamente por el mismo bus. 
 
+
+### Evaluación del desempeño del bus
+
+| Alineado a la izquierda | Alineado en el centro | Alineado a la derecha |
+| :---         |     :---:      |          ---: |
+| git status   | git status     | git status    |
+| git diff     | git diff       | git diff      |
 
 
 
