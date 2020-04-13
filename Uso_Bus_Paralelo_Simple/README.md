@@ -1,16 +1,53 @@
-# Interfaces de bus paralelo y serial
- 
-## Objetivo de la carpetaa
+# Creación de un proyecto básico que muestra el uso del bus paralelo integrado en el ambiente del block design de Vivado
 
-Comprender la forma en la que operan las tres interfaces de bus elaboradas por el Ing. Ronny García-Ramírez mediante su uso a través de tres diferentes testbench (uno para cada interfaz) elaborados en SystemVerilog.
+## Objetivo del proyecto
 
-## Descripción del bus paralelo
+El objetivo de este proyecto es familiarizarse con el flujo de trabajo que debe usarse cuando se utiliza el bus paralelo implementado por Ronny García, así como todos los detalles de la comunicación, entre el bus y IP personalizados creados en Vivado HLS mediante el uso de interfaces ap_fifo y FIFOs genéricos propietarios de Xilinx.
 
-La interfaz de bus paralelo, tienen la descripción de entradas y salidas que se muestra a continuación
+## Descripción del proyecto
 
-![Diagrama de entradas y salidas del bus paralelo](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Buses_Serial_Paralelo/images/Interfaz_Bus_Paralelo.png)
+Este proyecto pretende mostrar una aplicación sencilla donde se utiliza el bus parelelo implementado por el Ing. Ronny García. Para ello se desarrolló una aplicación simple que emula dos dispositivos que se conectan al bus y se comparten información entre ellos. Para hacer esto se creo un IP en Vivado HLS cuyo pseudocódigo se muestra a continuación:
+```C
+void customized_IP_block( hls::stream<data_t>& out_fifo_drvr_0,
+                     hls::stream<data_t>& in_fifo_drvr_0,
+                     hls::stream<data_t>& out_fifo_drvr_1,
+                     hls::stream<data_t>& in_fifo_drvr_1,
+                     data_t output_port_axi_lite_drvr_0[SIZE],
+                     data_t output_port_axi_lite_drvr_1[SIZE],
+                     data_t input_port_axi_lite_drvr_0[SIZE],
+                     data_t input_port_axi_lite_drvr_1[SIZE]){				
+    
+    Loop1: for (int i=0;i<SIZE;i++) { 
+		out_fifo_drvr_0.write(input_port_axi_lite_drvr_0[i]); 
+		out_fifo_drvr_1.write(input_port_axi_lite_drvr_1[i]);
+    } 
+    
+    Loop2: for (int i=0;i<SIZE;i++) { 
+		while(in_fifo_drvr_1.empty());
+		output_port_axi_lite_drvr_1[i] = in_fifo_drvr_1.read();
+    } 
+    
+    Loop3: for (int i=0;i<SIZE;i++) { 
+		while(in_fifo_drvr_0.empty());
+		output_port_axi_lite_drvr_0[i] = in_fifo_drvr_0.read();
+    } 
+}
+```
+Como se observa en el pseudocódigo, la apliación en HLS recibirá dos arreglos de entrada, uno es el arreglo del driver 0, y el otro es el arreglo del driver 1. Estos arreglos se reciben vía AXI Lite. Seguidamente, ambos arreglos son enviados vía dos interfaces ap_fifo llamadas out_fifo_drvr_0 y out_fifo_drvr_1, una para cada arreglo, respectivamente.
 
-Figura 1: Diagrama de entradas y salidas del bus paralelo.
+El arreglo que se envía por el puerto out_fifo_drvr_0, será escrito en una FIFO genérica la cuál es un IP propietario de Xilinx. Dicho arreglo será leído dentro de la FIFO por el bus paralelo, y el bus se encargará de escribir este arreglo en otra FIFO, cuyo puerto de lectura se conecta a la entrada del puerto in_fifo_drvr_1, cuya interfaz es igualmente de tipo ap_fifo. De esta forma, nótese que el arreglo que se encontraba en el driver 0, se desplaza hacia el driver 1. De la misma forma, el arreglo que se encuentra en el driver 1 es desplazado hacia el driver 0. Dentro del mensaje a transmitir por cada driver, los primeros 8 bits representan el destino del mensaje, así, si el mensaje inicia con 0x00, el destino será el driver 0, y si el mensaje inicia con 0x01, el destino será el driver 1. Adicionalmente, los siguientes 8 bits representan la fuente del mensaje, debe aclararse que para efectos prácticos del uso del bus, lo único que es estrictamente obligatorio de enviar, es el destino en los primeros 8 bits, la fuente puede ser omitida, en caso de que la aplicación no la necesite.
+
+Finalmente, una vez que ambos arreglos llegan al IP nuevamente, pero ahora, el arreglo del driver 0 se encuentra contenido en el driver 1, y el del driver 1 se encuentra contenido en el driver 0. Ambos arreglos son enviados vía AXI Lite hacia el procesador Zynq nuevamente.
+
+En el Zynq, tan pronto como los datos son recibidos, esto puede ser completados vía sondeo o por interrupciones, se valida que efectivamente en el driver 0 se encuentre contenido el arreglo que inicialmente fue enviado por el driver 1 y en el caso del driver 1, se valida que el arreglo que este contiene sea el que fue enviado inicialmente por el driver 0.
+
+Como aspecto adicional, un AXI Timer fue incorporado en el diseño para realizar mediciones de tiempo.
+
+A continuación se muestra una figura que ilustra el diseño modular del sistema implementado aquí.
+
+![Diseño modular que muestra el uso del bus paralelo ysu integración en el Block Design de Vivado](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Uso_Bus_Paralelo_Simple/images/Uso_Bus_Paralelo_simple.png)
+
+Figura 1: Diseño modular del sistema implementado en esta carpeta.
 
 ## Consideraciones importantes sobre el proyecto que construye este sistema
 
@@ -61,4 +98,3 @@ Los principales autores de este trabajo son:
 * **Carlos Salazar-García** - *Documentación y Desarrollo* -
 
 También puedes observar la lista de todos los [contribuyentes](https://github.com/cadriansalazarg/InterfacesZynq/contributors) quíenes han participado en este proyecto. 
-
