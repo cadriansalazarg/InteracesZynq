@@ -1,6 +1,6 @@
 # Interfaces de bus paralelo y serial
-
-## Objetivo de la carpeta
+ 
+## Objetivo de la carpetaa
 
 Comprender la forma en la que operan las tres interfaces de bus elaboradas por el Ing. Ronny García-Ramírez mediante su uso a través de tres diferentes testbench (uno para cada interfaz) elaborados en SystemVerilog.
 
