@@ -36,6 +36,17 @@ Se describe a continuación la descripción de las entradas y salidas que posee 
 
 ### Funcionamiento del bus 
 
+Cada vez que se quiere usar los servicios del bus paralelo, todos los drivers que van a utilizar el bus, deberán hacerlo a través de interfaces FIFOs estándares. Se requiere por cada  driver 2*N fifos, donde N representa el número de buses que tiene el sistema. Así, si se configura el bus paralelo por ejemplo con dos drivers y un único bus. Se requeriran 4 FIFOs, dos en el driver 1, uno para escribir en el bus y otro para leer datos que provienen del bus y dos en el driver 0, uno para escribir en el bus y otro para leer datos que provienen del bus.
+
+Para que el bus paralelo conozca el destino al que se debe enviar un paquete de datos, se tienen que conocer la siguiente información:
+
+1) Primero cada driver tiene su propio identificador de destino, iniciando en 0  y así continua en funcion del número de drivers. Así, si se tiene 4 drivers por ejemplo, el primero tendrá el ID igual a cero, el segundo tendrá el ID igual a 1, el tercero tendrá el ID 2 y el cuarto ID tiene el ID igual a 3. 
+
+2) Los primeros 8 bits más significativos en el mensaje que se coloca en el puerto de entrada D_pop, representan el destino del paquete. Así, por ejemplo, si se quiere enviar un paquete de tamaño igual a 32 bits, desde el driver 0 hasta el driver 3, los primeros 8 bits del mensaje a enviar por el driver 0 en su puerto D_pop deberán ser iguales a 03. Así, el mensaje  que envia el driver 0 deberá ser igual a D_pop[31:0] = 0x03XXXXXX.
+
+
+
+
 
 ## Consideraciones importantes sobre el proyecto que construye este sistema
 
