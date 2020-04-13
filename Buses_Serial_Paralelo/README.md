@@ -49,10 +49,10 @@ Para que el bus paralelo conozca el destino al que se debe enviar un paquete de 
 
 ### Evaluación del desempeño del bus
 
-| Número de drivers | Mejor caso | Peor caso |
-| :---         |     :---:      |          ---: |
-| git status   | git status     | git status    |
-| git diff     | git diff       | git diff      |
+| Número de drivers | Mejor caso(# de ciclos) | Peor caso (# de ciclos) |
+| :---              |     :---:               |          ---:           |
+| 2                 | git status              | git status              |
+| 3                 | git diff                | git diff                |
 
 
 
