@@ -4,13 +4,16 @@
 
 Comprender la forma en la que operan las tres interfaces de bus elaboradas por el Ing. Ronny García-Ramírez mediante su uso a través de tres diferentes testbench (uno para cada interfaz) elaborados en SystemVerilog.
 
-## Descripción del bus paralelo
+## Interfaz de bus paralelo
 
 La interfaz de bus paralelo, tienen la descripción de entradas y salidas que se muestra a continuación
 
 ![Diagrama de entradas y salidas del bus paralelo](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Buses_Serial_Paralelo/images/Interfaz_Bus_Paralelo.png)
 
 Figura 1: Diagrama de entradas y salidas del bus paralelo.
+
+
+### Parámetros del bus
 
 Para el uso del bus se cuenta con una serie de parámetros los cuales se describen a continuación:
 
@@ -19,13 +22,20 @@ Para el uso del bus se cuenta con una serie de parámetros los cuales se describ
 ***3) BITS:*** Especifica el número de bits que va tener cada mensaje que se transfiere a traves del bus. El tener más o menos bits, no afecta los ciclos de reloj que dura el envió de los mensajes.
 ***4) BUSES:*** Especifica el número de buses con los que contará cada driver para paralelizar la comunicación. Si se tienen dos buses, el ancho de banda se duplica, si se tienen 3 buses se triplica y así sucesivamente. Este duplicado de ancho de banda desde luego viene a un costo de área, por lo que se debe analizar adecuadamente cuando se va a utilizar. Incrementar el número de buses presentes en cada driver, no afecta la cantidad de ciclos de reloj que toma las transacciones.
 
-Adicionalmente se describe a continuación la descripción de las entradas y salidas que posee el bus:
+### Puertos de Entrada/Salida del bus
+
+Se describe a continuación la descripción de las entradas y salidas que posee el bus:
 
 ***1) CLK:*** Entrada del reloj principal del sistema.
 ***2) Reset:*** Entrada del reset del sistema, activa en alto.
-***3) D_pop:*** Entrada de datos del sistema, aquí se transportan los datos que serán enviados utilizando los servicios del bus paralelo. El ancho de este puerto es definido por le valor del parámetro bits.  Cada driver tendrá N diferentes puertos D_pop, donde N es igual al número de buses (definido por el parámetro buses) que se están utilizando.
+***3) D_pop:*** Puerto de entrada de datos del bus, aquí entran al bus los datos que utilizarán los servicios del bus paralelo. El ancho de este puerto es definido por el valor del parámetro bits.  Cada driver tendrá N diferentes puertos D_pop, donde N es igual al número de buses (definido por el parámetro buses) que se están utilizando.
 ***4) pndng:*** Es una bandera de entrada del bus, la cual es usada para recibir los mensajes. Siempre que está en alto, significa que el FIFO a la entrada, tiene datos pendientes que deberán ser leídos por el bus. Es el puerto que deberá conectarse a la bandera de salida del FIFO en su puerto de lectura llamada no empty. Por cada driver se tendrá N diferentes banderas pndng, donde N es igual al número de buses (definido por el parámetro buses) que se están utilizando. 
-***4) pop:*** Es una bandera de salida del bus, utilizado para indicarle al FIFO conectada a la entrada, cuando se está realizando una lectura de los datos. De esta forma, se lee el dato y se escribe en este momento el bus. Dicha bandera de salida, siempre se conecta a la bandera de entrada de la FIFO llamada
+***5) pop:*** Es una bandera de salida del bus, utilizado para indicarle al FIFO conectada a la entrada, cuando se está realizando una lectura de los datos. De esta forma, se lee el dato y se escribe en este momento el bus. Dicha bandera de salida, siempre se conecta a la bandera de entrada de la FIFO en su puerto de lectura llamada read.
+***6) D_push:*** Puerto de salida de datos del bus, aquí salen del bus los datos que utilizaron los servicios del bus paralelo. El ancho de este puerto es definido por el valor del parámetro bits.  Cada driver tendrá N diferentes puertos D_pop, donde N es igual al número de buses (definido por el parámetro buses) que se están utilizando.
+***5) push:*** Es una bandera de salida del bus, utilizado para indicarle al FIFO conectada a la salida, cuando se está realizando una escritura de un dato en la FIFO proveniente del bus. De esta forma, cuando el dato está a la salida del bus, luego de ser transportado, desde un driver hacia otro, está bandera le indica al FIFO del driver destino, que el dato que se encuentra en el puerto de salida D_push debe ser escrito en la FIFO. Dicha bandera de salida, siempre se conecta a la bandera de entrada de la FIFO en su puerto de escritura llamada write.
+
+### Funcionamiento del bus 
+
 
 ## Consideraciones importantes sobre el proyecto que construye este sistema
 
