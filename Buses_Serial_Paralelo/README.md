@@ -250,9 +250,9 @@ Cuando ***se realiza una transmisión en modo broadcast***, en este modo, el dri
 
 Otro detalle adicional, es que ***aunque un driver tenga múltiples datos que ser enviados a través del bus, solo se atenderá uno a la vez y hasta que la entrega de este no sea concluída, no se realizará la lectura de un nuevo mensaje, esto sin importar de que la bandera de pndng este en alto***. Para ser más exactos, una vez que el dato es entregado al driver receptor, es decir, el bus pone en alto la bandera push en el driver receptor, la siguente solicitud pendiente en el driver emisor, será atendida exactamente tres ciclos de reloj después. En la Figura 2 se muestra un diagrama de tiempos que muestra este efecto.
 
-![Tiempo que dura en atenderse un nuevo dato](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Buses_Serial_Paralelo/images/Lectura_Bandera_Pop_Serial.png)
+![Tiempo que dura en atenderse un nuevo dato](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Buses_Serial_Paralelo/images/Lectura_Bandera_Pop_Serial_Sin_arbitro.png)
 
-Figura 4: Diagrama de tiempo donde se muestra al dirver 1 realizando una transmisión al driver 2. En este diagrama se observa que cuando el driver 2 recibe el mensaje, es decir, el bus levanta la bandera push en el driver 2, exactamente 3 ciclos de relojs después, el driver 1 atenderá la nueva solicitud de envió que tiene pendiente. 
+Figura 6: Diagrama de tiempo donde se muestra al dirver 1 realizando una transmisión al driver 2. En este diagrama se observa que cuando el driver 2 recibe el mensaje, es decir, el bus levanta la bandera push en el driver 2, exactamente 3 ciclos de relojs después, el driver 1 atenderá la nueva solicitud de envió que tiene pendiente. 
 
 
 ### Evaluación del desempeño del bus
@@ -265,7 +265,7 @@ Para evaluar el rendimiento del bus paralelo se varío el número de drivers y s
 
 ***El peor caso***, se presenta cuando el bus estaba vacío, y de repente, todos los drivers en el mismo instante de tiempo quieren escribir en el bus, por lo tanto, los mensajes se iran entregando a través del tiempo hacia los diferentes destinos, y exactamente el último dato en ser entregado, representa el peor caso.
 
-Tabla 2: Mejor caso, caso promedio y peor caso en función del número de bits que tiene el mensaje (defino por el parámetro pckg_sz). Estos datos se obtuvieron para el bus serial con árbitro en una configuración de dos drivers.
+Tabla 4: Mejor caso, caso promedio y peor caso en función del número de bits que tiene el mensaje (defino por el parámetro pckg_sz). Estos datos se obtuvieron para el bus serial con árbitro en una configuración de dos drivers.
 
 | Número de bits    | Mejor caso(# de ciclos) | Caso Promedio(# de ciclos) | Peor caso (# de ciclos) |
 | :---              |     :---:               |         :---:              |          ---:           | 
@@ -277,7 +277,7 @@ Tabla 2: Mejor caso, caso promedio y peor caso en función del número de bits q
 | 1024              | 1027                    | 2053                       | 2055                    |
 
 
-Tabla 3: Mejor caso, caso promedio y peor caso en función del número de drivers. Estos datos se obtuvieron para el bus serial con árbitro en una configuración con tamaño de paquete igual a 32 bits (pckg_sz =32).
+Tabla 5: Mejor caso, caso promedio y peor caso en función del número de drivers. Estos datos se obtuvieron para el bus serial con árbitro en una configuración con tamaño de paquete igual a 32 bits (pckg_sz =32).
 
 | Número de drivers | Mejor caso(# de ciclos) | Caso Promedio(# de ciclos) | Peor caso (# de ciclos) |
 | :---              |     :---:               |         :---:              |          ---:           | 
