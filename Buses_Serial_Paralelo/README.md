@@ -60,7 +60,11 @@ Finalmente, ***el bus es capaz de leer en el mismo instante, mensajes de múltip
 
 Cuando ***se realiza una transmisión en modo broadcast***, en este modo, el driver emisor colocará en los primeros 8 bits el identificador de broadcast, una vez que el mensaje es leído por el bus, el mensaje será entregado en el mismo instante de tiempo a todos los drivers restantes en la red a excepción del driver transmisor, esto significa que en el mismo instante de tiempo, todos los drivers diferentes al emisor conectados al bus, se les proporcionará el mensaje en su puerto D_push y se levantará la bandera push en el mismo instante de tiempo.
 
-Otro detalle adicional, es que ***aunque un driver tenga múltiples datos que ser enviados a través del bus, solo se atenderá uno a la vez y hasta que la entrega de este no sea concluída, no se realizará la lectura de un nuevo mensaje, esto sin importar de que la bandera de pndng este en alto***.
+Otro detalle adicional, es que ***aunque un driver tenga múltiples datos que ser enviados a través del bus, solo se atenderá uno a la vez y hasta que la entrega de este no sea concluída, no se realizará la lectura de un nuevo mensaje, esto sin importar de que la bandera de pndng este en alto***. Para ser más exactos, una vez que el dato es entregado al driver receptor, es decir, el bus pone en alto la bandera push en el driver receptor, la siguente solicitud pendiente en el driver emisor, será atendida exactamente dos ciclos de reloj después.
+
+![Tiempo que dura en atenderse un nuevo dato](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Buses_Serial_Paralelo/images/Lectura_Bandera_Pop.png)
+
+Figura 1: Diagrama de tiempo donde se muestra que el driver 0 realiza una transmisión de tipo Broadcast a los drivers 1, 2 y 3, Tan pronto como la bandera push le indica a los drivers receptores 1, 2 y 3, dos ciclos de reloj después, el driver 0, atiende la nueva solicitud pendiente, levantando la bandera pop.
 
 
 ### Evaluación del desempeño del bus
