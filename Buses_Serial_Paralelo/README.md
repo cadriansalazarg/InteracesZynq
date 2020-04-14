@@ -49,12 +49,19 @@ Para que el bus paralelo conozca el destino al que se debe enviar un paquete de 
 
 ### Evaluación del desempeño del bus
 
-| Número de drivers | Mejor caso(# de ciclos) | Peor caso (# de ciclos) |
-| :---              |     :---:               |          ---:           |
-| 2                 | git status              | git status              |
-| 3                 | git diff                | git diff                |
-
-
+| Número de drivers | Mejor caso(# de ciclos) | Caso Promedio(# de ciclos) | Peor caso (# de ciclos) |
+| :---              |     :---:               |         :---:              |          ---:           | 
+| 2                 | 4                       | 9                          | 8                       |
+| 3                 | 4                       | 14                         | 13                      |
+| 4                 | 4                       | 18                         | 19                      |
+| 5                 | 4                       | 24                         | 23                      |
+| 6                 | 4                       | 28                         | 29                      |
+| 7                 | 4                       | 33                         | 34                      |
+| 8                 | 4                       | 38                         | 39                      |
+| 9                 | 4                       | 43                         | 44                      |
+| 10                | 4                       | 48                         | 49                      |
+| 11                | 4                       | 53                         | 54                      |
+| 12                | 4                       | 58                         | 59                      |
 
 ## Consideraciones importantes sobre el proyecto que construye este sistema
 
