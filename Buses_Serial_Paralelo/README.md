@@ -18,8 +18,11 @@ Figura 1: Diagrama de entradas y salidas del bus paralelo.
 Para el uso del bus se cuenta con una serie de parámetros los cuales se describen a continuación:
 
 ***1) BROADCAST:*** Es un parámetro de 8 bits el cual representa la dirección de la funcionalidad de broadcast. Por defecto se coloca este parámetro en el valor de 0xFF.
+
 ***2) DRVRS:*** Este parámetro especifica el número de drivers o dispositivos que van a conectarse a la interfaz de bus paralela. Para que el bus en sí mismo tenga sentido, este parámetro deberá colocarse en un valor mínimo igual a dos. El máximo teórico de dispositivos que se pueden conectar es de 128 dispositivos. El tener más drivers, afecta la cantidad de ciclos que dura el envio de un mensaje a través del bus.
+
 ***3) BITS:*** Especifica el número de bits que va tener cada mensaje que se transfiere a traves del bus. El tener más o menos bits, no afecta los ciclos de reloj que dura el envió de los mensajes.
+
 ***4) BUSES:*** Especifica el número de buses con los que contará cada driver para paralelizar la comunicación. Si se tienen dos buses, el ancho de banda se duplica, si se tienen 3 buses se triplica y así sucesivamente. Este duplicado de ancho de banda desde luego viene a un costo de área, por lo que se debe analizar adecuadamente cuando se va a utilizar. Incrementar el número de buses presentes en cada driver, no afecta la cantidad de ciclos de reloj que toma las transacciones.
 
 ### Puertos de Entrada/Salida del bus
@@ -27,11 +30,17 @@ Para el uso del bus se cuenta con una serie de parámetros los cuales se describ
 Se describe a continuación la descripción de las entradas y salidas que posee el bus:
 
 ***1) CLK:*** Entrada del reloj principal del sistema.
+
 ***2) Reset:*** Entrada del reset del sistema, activa en alto.
+
 ***3) D_pop:*** Puerto de entrada de datos del bus, aquí entran al bus los datos que utilizarán los servicios del bus paralelo. El ancho de este puerto es definido por el valor del parámetro bits.  Cada driver tendrá N diferentes puertos D_pop, donde N es igual al número de buses (definido por el parámetro buses) que se están utilizando.
+
 ***4) pndng:*** Es una bandera de entrada del bus, la cual es usada para recibir los mensajes. Siempre que está en alto, significa que el FIFO a la entrada, tiene datos pendientes que deberán ser leídos por el bus. Es el puerto que deberá conectarse a la bandera de salida del FIFO en su puerto de lectura llamada no empty. Por cada driver se tendrá N diferentes banderas pndng, donde N es igual al número de buses (definido por el parámetro buses) que se están utilizando. 
+
 ***5) pop:*** Es una bandera de salida del bus, utilizado para indicarle al FIFO conectada a la entrada, cuando se está realizando una lectura de los datos. De esta forma, se lee el dato y se escribe en este momento el bus. Dicha bandera de salida, siempre se conecta a la bandera de entrada de la FIFO en su puerto de lectura llamada read.
+
 ***6) D_push:*** Puerto de salida de datos del bus, aquí salen del bus los datos que utilizaron los servicios del bus paralelo. El ancho de este puerto es definido por el valor del parámetro bits.  Cada driver tendrá N diferentes puertos D_pop, donde N es igual al número de buses (definido por el parámetro buses) que se están utilizando.
+
 ***5) push:*** Es una bandera de salida del bus, utilizado para indicarle al FIFO conectada a la salida, cuando se está realizando una escritura de un dato en la FIFO proveniente del bus. De esta forma, cuando el dato está a la salida del bus, luego de ser transportado, desde un driver hacia otro, está bandera le indica al FIFO del driver destino, que el dato que se encuentra en el puerto de salida D_push debe ser escrito en la FIFO. Dicha bandera de salida, siempre se conecta a la bandera de entrada de la FIFO en su puerto de escritura llamada write.
 
 ### Funcionamiento del bus 
