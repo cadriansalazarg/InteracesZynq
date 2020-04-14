@@ -105,7 +105,7 @@ La interfaz de bus serial con árbitro, tienen la descripción de entradas y sal
 
 ![Diagrama de entradas y salidas del bus serial con árbitro](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Buses_Serial_Paralelo/images/Interfaz_Bus_Serial_con_Arbitro.png)
 
-Figura 1: Diagrama de entradas y salidas del bus serial con árbitro.
+Figura 3: Diagrama de entradas y salidas del bus serial con árbitro.
 
 
 ### Parámetros del bus
@@ -155,7 +155,7 @@ Otro detalle adicional, es que ***aunque un driver tenga múltiples datos que se
 
 ![Tiempo que dura en atenderse un nuevo dato](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Buses_Serial_Paralelo/images/Lectura_Bandera_Pop_Serial.png)
 
-Figura 2: Diagrama de tiempo donde se muestra al dirver 1 realizando una transmisión al driver 2. En este diagrama se observa que cuando el driver 2 recibe el mensaje, es decir, el bus levanta la bandera push en el driver 2, exactamente 3 ciclos de relojs después, el driver 1 atenderá la nueva solicitud de envió que tiene pendiente. 
+Figura 4: Diagrama de tiempo donde se muestra al dirver 1 realizando una transmisión al driver 2. En este diagrama se observa que cuando el driver 2 recibe el mensaje, es decir, el bus levanta la bandera push en el driver 2, exactamente 3 ciclos de relojs después, el driver 1 atenderá la nueva solicitud de envió que tiene pendiente. 
 
 
 ### Evaluación del desempeño del bus
@@ -168,39 +168,29 @@ Para evaluar el rendimiento del bus paralelo se varío el número de drivers y s
 
 ***El peor caso***, se presenta cuando el bus estaba vacío, y de repente, todos los drivers en el mismo instante de tiempo quieren escribir en el bus, por lo tanto, los mensajes se iran entregando a través del tiempo hacia los diferentes destinos, y exactamente el último dato en ser entregado, representa el peor caso.
 
+Tabla 2: Mejor caso, caso promedio y peor caso en función del número de bits que tiene el mensaje (defino por el parámetro pckg_sz). Estos datos se obtuvieron para el bus serial con árbitro en una configuración de dos drivers.
+
+| Número de bits    | Mejor caso(# de ciclos) | Caso Promedio(# de ciclos) | Peor caso (# de ciclos) |
+| :---              |     :---:               |         :---:              |          ---:           | 
+| 32                | 35                      | 69                         | 71                      |
+| 64                | 67                      | 133                        | 135                     |
+| 128               | 131                     | 261                        | 263                     |
+| 256               | 259                     | 517                        | 519                     |
+| 512               | 515                     | 1029                       | 1031                    |
+| 1024              | 1027                    | 2053                       | 2055                    |
+
+
+Tabla 2: Mejor caso, caso promedio y peor caso en función del número de drivers q. Estos datos se obtuvieron para el bus serial con árbitro en una configuración con tamaño de paquete igual a 32 bits (pckg_sz =32).
+
 | Número de drivers | Mejor caso(# de ciclos) | Caso Promedio(# de ciclos) | Peor caso (# de ciclos) |
 | :---              |     :---:               |         :---:              |          ---:           | 
-| 2                 | 4                       | 9                          | 8                       |
-| 3                 | 4                       | 14                         | 13                      |
-| 4                 | 4                       | 18                         | 19                      |
-| 5                 | 4                       | 24                         | 23                      |
-| 6                 | 4                       | 28                         | 29                      |
-| 7                 | 4                       | 33                         | 34                      |
-| 8                 | 4                       | 38                         | 39                      |
-| 9                 | 4                       | 43                         | 44                      |
-| 10                | 4                       | 48                         | 49                      |
-| 11                | 4                       | 53                         | 54                      |
-| 12                | 4                       | 58                         | 59                      |
-| 13                | 4                       | 63                         | 64                      |
-| 14                | 4                       | 68                         | 69                      |
-| 15                | 4                       | 73                         | 74                      |
-| 16                | 4                       | 78                         | 79                      |
-
-Observe que en esta evaluación no se varío el número de bits ni el número de buses, esto es porque estas métricas son invariantes ante el número de bits del mensaje a transmitir y la cantidad de buses para cada driver. Así, por ejemplo sí se utilizan 4 drivers y se transmiten mensajes de 1024 bits, de acuerdo con la tabla, en el mejor caso, esta transmisión durará igualmente 4 ciclos de reloj, por lo que esta métrica es invariante. Lo que si es claro, es que evidentemente el renidmiento mejora ya que no es lo mismo transportar en 4 ciclos de reloj 32 bits que 1024 bits. Por lo tanto, esto es un detalle de suma importancia para mejorar el rendimiento del sistema. Lo mismo sucede si cada driver tiene por ejemplo dos buses, no es lo mismo transportar 32 bits en un único bus, a transportar 32 bits en un bus y 32 bits en otro bus, donde la transacción durará los mismos 4 ciclos de reloj, pero se estará transportando el doble de datos.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+| 2                 | 35                      | 69                         | 71                      |
+| 3                 | 35                      | 105                        | 107                     |
+| 4                 | 35                      | 141                        | 143                     |
+| 5                 | 35                      | 177                        | 179                     |
+| 6                 | 35                      | 213                        | 215                     |
+| 7                 | 35                      | 249                        | 251                     |
+| 8                 | 35                      | 285                        | 287                     |
 
 
 
