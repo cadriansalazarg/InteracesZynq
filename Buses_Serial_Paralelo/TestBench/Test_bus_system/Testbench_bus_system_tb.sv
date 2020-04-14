@@ -94,7 +94,6 @@ module Sim_bs_systm_bs_gnrtr;
         for(i=0;i<`DRVRS;i=i+1)begin
             if( push[i] == 1 )begin
                 $display("At time %t: in driver %g  message saved. target: %g source: %g  ID:  %g",$time,i, D_push[i][`PCKG_SZ-1:`PCKG_SZ-8], D_push[i][`PCKG_SZ-9:`PCKG_SZ-16],D_push[i][`PCKG_SZ-17:`PCKG_SZ-32]);
-                pndng[i] = {1'b1};
             end
         end
         
@@ -103,7 +102,6 @@ module Sim_bs_systm_bs_gnrtr;
             if( pop[i] == 1 )begin
                 $display("At time %t: in driver %g message pop. target: %g  source:  %g  ID:  %g",$time,i, D_pop[i][`PCKG_SZ-1:`PCKG_SZ-8], D_pop[i][`PCKG_SZ-9:`PCKG_SZ-16],D_pop[i][`PCKG_SZ-17:`PCKG_SZ-32]);
                 counter[i] = counter[i]+1;
-                pndng[i] = {1'b0};
             end       
         end
     endtask
