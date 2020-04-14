@@ -47,7 +47,22 @@ Para que el bus paralelo conozca el destino al que se debe enviar un paquete de 
 3) Si los drivers tienen más de un bus (parámetro bus es mayor que 1), Sí los datos se envían por un bus, los datos llegarán siempre al destino exactamente en el mismo bus. Así por ejemplo, si se tienen dos drivers, con 4 buses cada uno, si se envía un dato desde el driver 1 hacia el driver 2, utilizando el bus 3, los datos llegaran al destino exactamente por el mismo bus. 
 
 
+Finalmente, ***el bus es capaz de leer en el mismo instante, mensajes de múltiples drivers, pero solo es capaz de entregar un único mensaje en el mismo instante de tiempo a un único driver***. Así las cosas, por ejemplo, si se tienen cuatro drivers, y los cuatro drivers colocan su bandera de pndng en alto para indicarle al bus que deben de transmitir un mensaje en el mismo instante de tiempo, el bus leerá a los 4 drivers en el mismo flanco de reloj, es decir, le enviará un uno en la bandera de pop a los cuatro drivers, pero a la hora de entregar los mensajes, el bus es incapaz de completar las 4 solicitudes en el mismo instante de tiempo, por lo tanto, el bus irá entregando un mensaje a un driver, luego en otro instante entregará el otro y así, hasta acabar con el último mensaje.Pero de nuevo, esto ocurrirá en instantes de tiempo diferentes, a diferencia de lo que sucede con la lectura que sí puede ser simultanea.
+
+Cuando ***se realiza una transmisión en modo broadcast***, en este modo, el driver emisor colocará en los primeros 8 bits el identificador de broadcast, una vez que el mensaje es leído por el bus, el mensaje será entregado en el mismo instante de tiempo a todos los drivers restantes en la red a excepción del driver transmisor, esto significa que en el mismo instante de tiempo, todos los drivers diferentes al emisor conectados al bus, se les proporcionará el mensaje en su puerto D_push y se levantará la bandera push en el mismo instante de tiempo.
+
+Otro detalle adicional, es que ***aunque un driver tenga múltiples datos que ser enviados a través del bus, solo se atenderá uno a la vez y hasta que la entrega de este no sea concluída, no se realizará la lectura de un nuevo mensaje, esto sin importar de que la bandera de pndng este en alto***.
+
+
 ### Evaluación del desempeño del bus
+
+Para evaluar el rendimiento del bus paralelo se varío el número de drivers y se determinaron tres métricas, el mejor caso, el caso promedio y el peor caso, todos estos casos medidos en números de ciclos de reloj. 
+
+***El mejor caso***, es aquel que se presenta cuando un driver intenta acceder al bus, y el bus está completamente desocupado, es decir, ninguno de los otros drivers está utilizando el bus, es decir, es una escritura en el bus cuando este se encuentra completamente libre. 
+
+***El caso promedio***, es aquel que se presenta cuando todos los drivers están usando el bus y además, cada driver tiene  datos pendientes por ser procesados, que están a la espera de ser leído por el bus.
+
+***El peor caso***, se presenta cuando el bus estaba vacío, y de repente, todos los drivers en el mismo instante de tiempo quieren escribir en el bus, por lo tanto, los mensajes se iran entregando a través del tiempo hacia los diferentes destinos, y exactamente el último dato en ser entregado, representa el peor caso.
 
 | Número de drivers | Mejor caso(# de ciclos) | Caso Promedio(# de ciclos) | Peor caso (# de ciclos) |
 | :---              |     :---:               |         :---:              |          ---:           | 
@@ -62,6 +77,12 @@ Para que el bus paralelo conozca el destino al que se debe enviar un paquete de 
 | 10                | 4                       | 48                         | 49                      |
 | 11                | 4                       | 53                         | 54                      |
 | 12                | 4                       | 58                         | 59                      |
+| 13                | 4                       | 63                         | 64                      |
+| 14                | 4                       | 68                         | 69                      |
+| 15                | 4                       | 73                         | 74                      |
+| 16                | 4                       | 78                         | 79                      |
+
+Observe que en esta evaluación no se varío el número de bits ni el número de buses, esto es porque estas métricas son invariantes ante el número de bits del mensaje a transmitir y la cantidad de buses para cada driver. Así, por ejemplo sí se utilizan 4 drivers y se transmiten mensajes de 1024 bits, de acuerdo con la tabla, en el mejor caso, esta transmisión durará igualmente 4 ciclos de reloj, por lo que esta métrica es invariante. Lo que si es claro, es que evidentemente el renidmiento mejora ya que no es lo mismo transportar en 4 ciclos de reloj 32 bits que 1024 bits. Por lo tanto, esto es un detalle de suma importancia para mejorar el rendimiento del sistema. Lo mismo sucede si cada driver tiene por ejemplo dos buses, no es lo mismo transportar 32 bits en un único bus, a transportar 32 bits en un bus y 32 bits en otro bus, donde la transacción durará los mismos 4 ciclos de reloj, pero se estará transportando el doble de datos.
 
 ## Consideraciones importantes sobre el proyecto que construye este sistema
 
