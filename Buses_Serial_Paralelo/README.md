@@ -77,6 +77,8 @@ Para evaluar el rendimiento del bus paralelo se varío el número de drivers y s
 
 ***El peor caso***, se presenta cuando el bus estaba vacío, y de repente, todos los drivers en el mismo instante de tiempo quieren escribir en el bus, por lo tanto, los mensajes se iran entregando a través del tiempo hacia los diferentes destinos, y exactamente el último dato en ser entregado, representa el peor caso.
 
+Tabla 1: Mejor caso, caso promedio y peor caso en función del número de drivers. Estos datos se obtuvieron para el bus paralelo.
+
 | Número de drivers | Mejor caso(# de ciclos) | Caso Promedio(# de ciclos) | Peor caso (# de ciclos) |
 | :---              |     :---:               |         :---:              |          ---:           | 
 | 2                 | 4                       | 9                          | 8                       |
@@ -180,7 +182,7 @@ Tabla 2: Mejor caso, caso promedio y peor caso en función del número de bits q
 | 1024              | 1027                    | 2053                       | 2055                    |
 
 
-Tabla 2: Mejor caso, caso promedio y peor caso en función del número de drivers q. Estos datos se obtuvieron para el bus serial con árbitro en una configuración con tamaño de paquete igual a 32 bits (pckg_sz =32).
+Tabla 3: Mejor caso, caso promedio y peor caso en función del número de drivers. Estos datos se obtuvieron para el bus serial con árbitro en una configuración con tamaño de paquete igual a 32 bits (pckg_sz =32).
 
 | Número de drivers | Mejor caso(# de ciclos) | Caso Promedio(# de ciclos) | Peor caso (# de ciclos) |
 | :---              |     :---:               |         :---:              |          ---:           | 
