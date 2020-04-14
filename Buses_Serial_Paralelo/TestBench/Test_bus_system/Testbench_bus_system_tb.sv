@@ -3,6 +3,7 @@
 `define PCKG_SZ 128 
 `define BROADCAST {8{1'b1}}
 `define DRVRS 2
+`define MAX_MSGS 1024
 //`include "../Library.sv"
 
 module Sim_bs_systm_bs_gnrtr;
@@ -21,6 +22,7 @@ module Sim_bs_systm_bs_gnrtr;
     reg [7:0]source [`DRVRS-1:0];
     reg [15:0] counter[`DRVRS-1:0];
     int i = 0;
+    int mensages_enviados = 0;
 
     bs_gnrtr #(`DRVRS,`PCKG_SZ,`BROADCAST) uut(
     .clk(clk),
@@ -94,6 +96,7 @@ module Sim_bs_systm_bs_gnrtr;
         for(i=0;i<`DRVRS;i=i+1)begin
             if( push[i] == 1 )begin
                 $display("At time %t: in driver %g  message saved. target: %g source: %g  ID:  %g",$time,i, D_push[i][`PCKG_SZ-1:`PCKG_SZ-8], D_push[i][`PCKG_SZ-9:`PCKG_SZ-16],D_push[i][`PCKG_SZ-17:`PCKG_SZ-32]);
+                mensages_enviados=mensages_enviados+1;
             end
         end
         
@@ -104,36 +107,12 @@ module Sim_bs_systm_bs_gnrtr;
                 counter[i] = counter[i]+1;
             end       
         end
+        if(mensages_enviados >= `MAX_MSGS)begin
+            $display("mensages_enviados= %g",mensages_enviados);
+            $finish;
+        end
     endtask
     
 endmodule
-
-
-  
-    
-//        for(i=0;i<`DRVRS;i=i+1)begin
-//            if(i != `DRVRS-1)begin
-//                D_pop[i]={target[i+1],source[i],counter[i],{`PCKG_SZ-32{1'b0}}};
-//            end else begin
-//                D_pop[i]={target[0],source[i],counter[i],{`PCKG_SZ-32{1'b0}}};
-//            end
-//        end
-        
-//        for(i=0;i<`DRVRS;i=i+1)begin
-//            if( push[i] == 1 )begin
-//                $display("At time %t: in driver %g  message saved. target: %g source: %g  ID:  %g",$time,i, D_push[i][`PCKG_SZ-1:`PCKG_SZ-8], D_push[i][`PCKG_SZ-9:`PCKG_SZ-16],D_push[i][`PCKG_SZ-17:`PCKG_SZ-32]);
-//                pndng[i] = {1'b1};
-//            end
-//        end
-        
-
-//        for(i=0;i<`DRVRS;i=i+1) begin
-//            if( pop[i] == 1 )begin
-//                $display("At time %t: in driver %g message pop. target: %g  source:  %g  ID:  %g",$time,i, D_pop[i][`PCKG_SZ-1:`PCKG_SZ-8], D_pop[i][`PCKG_SZ-9:`PCKG_SZ-16],D_pop[i][`PCKG_SZ-17:`PCKG_SZ-32]);
-//                counter[i] = counter[i]+1;
-//                pndng[i] = {1'b0};
-//            end       
-//        end
-//    endtask
     
 //endmodule
