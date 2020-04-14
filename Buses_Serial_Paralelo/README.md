@@ -10,7 +10,7 @@ La interfaz de bus paralelo, tienen la descripción de entradas y salidas que se
 
 ![Diagrama de entradas y salidas del bus paralelo sin árbitro](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Buses_Serial_Paralelo/images/Interfaz_Bus_Paralelo.png)
 
-Figura 1: Diagrama de entradas y salidas del bus paralelo.
+Figura 1: Diagrama de entradas y salidas del bus paralelo sin árbitro.
 
 
 ### Parámetros del bus
