@@ -4,11 +4,11 @@
 
 Comprender la forma en la que operan las tres interfaces de bus elaboradas por el Ing. Ronny García-Ramírez mediante su uso a través de tres diferentes testbench (uno para cada interfaz) elaborados en SystemVerilog.
 
-## Interfaz de bus paralelo
+## Interfaz de bus paralelo sin árbitro
 
 La interfaz de bus paralelo, tienen la descripción de entradas y salidas que se muestra a continuación
 
-![Diagrama de entradas y salidas del bus paralelo](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Buses_Serial_Paralelo/images/Interfaz_Bus_Paralelo.png)
+![Diagrama de entradas y salidas del bus paralelo sin árbitro](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Buses_Serial_Paralelo/images/Interfaz_Bus_Paralelo.png)
 
 Figura 1: Diagrama de entradas y salidas del bus paralelo.
 
