@@ -88,7 +88,7 @@ Dentro de este repositorio se encuentran cuatro carpetas llamadas hls, vivado, s
 
 ## Descripción de pasos 
 
-Los pasos para la ejecución de este proyecto se muestran de forma detallada [aquí](https://youtu.be/PeXQbFlYlIE).
+Los pasos para la ejecución de este proyecto se muestran de forma detallada [aquí](https://youtu.be/HRW42PozVHg).
 
 ## Autores
 
