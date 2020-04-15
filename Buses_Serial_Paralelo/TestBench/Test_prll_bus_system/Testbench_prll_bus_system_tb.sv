@@ -1,11 +1,10 @@
 `timescale 1ns / 1ns
 `default_nettype none
 `define BROADCAST {8{1'b1}}
-`define DRVRS 4
+`define DRVRS 2
 `define BITS 32 
-`define BUSES  4
+`define BUSES  1
 `define MAX_MSGS 1024
-//`include "../Library.sv"
 
 module Sim_bs_systm_prll_bs_gnrtr_n_rbtr;
     //inputs
