@@ -1,10 +1,9 @@
 `timescale 1ns / 1ns
 `default_nettype none
-`define PCKG_SZ 128 
+`define PCKG_SZ 32 
 `define BROADCAST {8{1'b1}}
 `define DRVRS 2
 `define MAX_MSGS 1024
-//`include "../Library.sv"
 
 module Sim_bs_systm_bs_gnrtr;
     //inputs
@@ -74,7 +73,7 @@ module Sim_bs_systm_bs_gnrtr;
             end
         end
 
-        #990
+        #10000
         reset = 1;
         pndng = {`DRVRS{1'b1}};
         for(i=0; i< `DRVRS; i=i+1) begin
@@ -114,5 +113,3 @@ module Sim_bs_systm_bs_gnrtr;
     endtask
     
 endmodule
-    
-//endmodule
