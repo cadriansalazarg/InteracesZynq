@@ -11,32 +11,32 @@ module Sim_bs_systm;
  //inputs
   reg clk;
   reg reset;
-  reg pndng_0_0;
-  reg pndng_0_1;
-  reg [`BITS-1:0] D_pop_0_0;
-  reg [`BITS-1:0] D_pop_0_1;
+  reg pndng_drvr_0_bus_0;
+  reg pndng_drvr_1_bus_0;
+  reg [`BITS-1:0] D_pop_drvr_0_bus_0;
+  reg [`BITS-1:0] D_pop_drvr_1_bus_0;
   
  //outputs
-  wire push_0_0;
-  wire push_0_1;
-  wire pop_0_0;
-  wire pop_0_1;
-  wire [`BITS-1:0] D_push_0_0;
-  wire [`BITS-1:0] D_push_0_1;
+  wire push_drvr_0_bus_0;
+  wire push_drvr_1_bus_0;
+  wire pop_drvr_0_bus_0;
+  wire pop_drvr_1_bus_0;
+  wire [`BITS-1:0] D_push_drvr_0_bus_0;
+  wire [`BITS-1:0] D_push_drvr_1_bus_0;
 
   prll_bs_gnrtr_n_rbtr_wrap_V #(`BUSES,`BITS,`DRVRS,`BROADCAST) uut(
     .clk(clk),
     .reset(reset),
-    .pndng_0_0(pndng_0_0),
-    .pndng_0_1(pndng_0_1),
-    .push_0_0(push_0_0),
-    .push_0_1(push_0_1),
-    .pop_0_0(pop_0_0),
-    .pop_0_1(pop_0_1),
-    .D_pop_0_0(D_pop_0_0),
-    .D_pop_0_1(D_pop_0_1),
-    .D_push_0_0(D_push_0_0),
-    .D_push_0_1(D_push_0_1)
+    .pndng_drvr_0_bus_0(pndng_drvr_0_bus_0),
+    .pndng_drvr_1_bus_0(pndng_drvr_1_bus_0),
+    .push_drvr_0_bus_0(push_drvr_0_bus_0),
+    .push_drvr_1_bus_0(push_drvr_1_bus_0),
+    .pop_drvr_0_bus_0(pop_drvr_0_bus_0),
+    .pop_drvr_1_bus_0(pop_drvr_1_bus_0),
+    .D_pop_drvr_0_bus_0(D_pop_drvr_0_bus_0),
+    .D_pop_drvr_1_bus_0(D_pop_drvr_1_bus_0),
+    .D_push_drvr_0_bus_0(D_push_drvr_0_bus_0),
+    .D_push_drvr_1_bus_0(D_push_drvr_1_bus_0)
 );
 
 
@@ -68,28 +68,28 @@ end
   end
   
   task Monitor ();
-    if( push_0_0 == 1 )begin
-           $display("At time %t: in terminal %g message saved. target: %g source: %g ID: %g",$time,0, D_push_0_0[`BITS-1:`BITS-8], D_push_0_0[`BITS-9:`BITS-16],D_push_0_0[`BITS-17:`BITS-32]);
+    if( push_drvr_0_bus_0 == 1 )begin
+           $display("At time %t: in terminal %g message saved. target: %g source: %g ID: %g",$time,0, D_push_drvr_0_bus_0[`BITS-1:`BITS-8], D_push_drvr_0_bus_0[`BITS-9:`BITS-16],D_push_drvr_0_bus_0[`BITS-17:`BITS-32]);
             mensages_enviados=mensages_enviados+1; 
     end
     
-    if( push_0_1 == 1 )begin
-           $display("At time %t: in terminal %g message saved. target: %g source: %g ID: %g",$time,1, D_push_0_1[`BITS-1:`BITS-8], D_push_0_1[`BITS-9:`BITS-16],D_push_0_1[`BITS-17:`BITS-32]);
+    if( push_drvr_1_bus_0 == 1 )begin
+           $display("At time %t: in terminal %g message saved. target: %g source: %g ID: %g",$time,1, D_push_drvr_1_bus_0[`BITS-1:`BITS-8], D_push_drvr_1_bus_0[`BITS-9:`BITS-16],D_push_drvr_1_bus_0[`BITS-17:`BITS-32]);
             mensages_enviados=mensages_enviados+1; 
     end
 
-    if( pop_0_0 == 1 )begin
-            $display("At time %t: in terminal %g message pop. target: %g source: %g ID: %g",$time,0, D_pop_0_0[`BITS-1:`BITS-8], D_pop_0_0[`BITS-9:`BITS-16],D_pop_0_0[`BITS-17:`BITS-32]);
-            if(pndng_0_1 == 1) begin
-                pndng_0_1 = 0;
+    if( pop_drvr_0_bus_0 == 1 )begin
+            $display("At time %t: in terminal %g message pop. target: %g source: %g ID: %g",$time,0, D_pop_drvr_0_bus_0[`BITS-1:`BITS-8], D_pop_drvr_0_bus_0[`BITS-9:`BITS-16],D_pop_drvr_0_bus_0[`BITS-17:`BITS-32]);
+            if(pndng_drvr_1_bus_0 == 1) begin
+                pndng_drvr_1_bus_0 = 0;
                 message_drvr_1 = message_drvr_1 + 1;
             end
     end 
     
-    if( pop_0_1 == 1 )begin
-            $display("At time %t: in terminal %g message pop. target: %g source: %g ID: %g",$time,1, D_pop_0_1[`BITS-1:`BITS-8], D_pop_0_1[`BITS-9:`BITS-16],D_pop_0_1[`BITS-17:`BITS-32]);
-            if(pndng_0_0 == 1) begin
-                pndng_0_0 = 0;
+    if( pop_drvr_1_bus_0 == 1 )begin
+            $display("At time %t: in terminal %g message pop. target: %g source: %g ID: %g",$time,1, D_pop_drvr_1_bus_0[`BITS-1:`BITS-8], D_pop_drvr_1_bus_0[`BITS-9:`BITS-16],D_pop_drvr_1_bus_0[`BITS-17:`BITS-32]);
+            if(pndng_drvr_0_bus_0 == 1) begin
+                pndng_drvr_0_bus_0 = 0;
                 message_drvr_0 = message_drvr_0 + 1;
             end
     end 
@@ -103,10 +103,10 @@ end
   
   task ScoreBoard();
     reset = 0;
-    pndng_0_0 = 1;
-    pndng_0_1 = 1;
-    D_pop_0_0 = {8'h01,8'h00, message_drvr_0}; // [31:24] Destino, [23:16] Source, [15:0] Message
-    D_pop_0_1 = {8'h00,8'h01, message_drvr_1}; // [31:24] Destino, [23:16] Source, [15:0] Message
+    pndng_drvr_0_bus_0 = 1;
+    pndng_drvr_1_bus_0 = 1;
+    D_pop_drvr_0_bus_0 = {8'h01,8'h00, message_drvr_0}; // [31:24] Destino, [23:16] Source, [15:0] Message
+    D_pop_drvr_1_bus_0 = {8'h00,8'h01, message_drvr_1}; // [31:24] Destino, [23:16] Source, [15:0] Message
   endtask
 
 endmodule
