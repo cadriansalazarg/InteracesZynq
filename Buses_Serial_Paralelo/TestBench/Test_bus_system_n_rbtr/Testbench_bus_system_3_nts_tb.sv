@@ -2,8 +2,8 @@
 `default_nettype none
 `define PCKG_SZ 32 
 `define BROADCAST {8{1'b1}}
-`define DRVRS 4
-`define BITS 4
+`define DRVRS 2
+`define BITS 1
 `define MAX_MSGS 1024
 
 module Sim_bs_systm_bs_gnrtr_n_rbtr;
