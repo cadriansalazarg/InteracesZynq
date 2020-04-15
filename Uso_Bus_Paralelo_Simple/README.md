@@ -47,7 +47,7 @@ A continuación se muestra una figura que ilustra el diseño modular del sistema
 
 ![Diseño modular que muestra el uso del bus paralelo ysu integración en el Block Design de Vivado](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Uso_Bus_Paralelo_Simple/images/Uso_Bus_Paralelo_simple.png)
 
-Figura 1: Diseño modular del sistema implementado en esta carpeta.
+Figura 1: Diseño modular del sistema implementado en esta carpeta. Observe que en el bus, todo utiliza la nomenclatura Puerto_X_Y, aquí, X representa el número de bus, donde en este caso, dado que solo se usa un bus, todas las variables contienen un 0, por otro lado, Y representa el número de driver, donde en este caso, los puertos tendrán dos variantes, 0 representa el driver 0 y 1 representa el driver 1.
 
 ## Consideraciones importantes sobre el proyecto que construye este sistema
 
