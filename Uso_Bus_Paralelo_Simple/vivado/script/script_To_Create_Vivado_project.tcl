@@ -8,10 +8,10 @@ create_project project_1 project_1 -part xc7z020clg484-1
 set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
 
 # Se agrega la biblioteca de buses de Verilog
-add_files -norecurse src_Verilog/Library.sv
+add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/Library.sv
 
 update_compile_order -fileset sources_1
-add_files -norecurse src_Verilog/fifo.sv
+add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/fifo.sv
 add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV.sv
 add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V.v
 
@@ -130,13 +130,13 @@ connect_bd_net [get_bd_pins fifo_generator_1/din] [get_bd_pins customized_IP_blo
 
 # realiza la conexión entre la salida de la FIFO 1 y la entrada al bus paralelo del driver 0
 connect_bd_net [get_bd_pins fifo_generator_1/empty] [get_bd_pins inverter_0/A]
-connect_bd_net [get_bd_pins fifo_generator_1/dout] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/D_pop_0_0]
-connect_bd_net [get_bd_pins inverter_0/Y] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pndng_0_0]
-connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pop_0_0] [get_bd_pins fifo_generator_1/rd_en]
+connect_bd_net [get_bd_pins fifo_generator_1/dout] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/D_pop_drvr_0_bus_0]
+connect_bd_net [get_bd_pins inverter_0/Y] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pndng_drvr_0_bus_0]
+connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pop_drvr_0_bus_0] [get_bd_pins fifo_generator_1/rd_en]
 
 # Se realiza la conexión del puerto de salida del drvr 0 en el bus paralelo  y el FIFO. Nóte que el bus paralelo no tiene bandera de full por lo tanto no se utiliza. Se utilizó el FIFO 0
-connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/D_push_0_0] [get_bd_pins fifo_generator_0/din]
-connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/push_0_0] [get_bd_pins fifo_generator_0/wr_en]
+connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/D_push_drvr_0_bus_0] [get_bd_pins fifo_generator_0/din]
+connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/push_drvr_0_bus_0] [get_bd_pins fifo_generator_0/wr_en]
 
 # Finalmente se interconecta al puerto de  salida de la FIFO 0 con el puerto de entrada en el IP llamado in_fifo_drvr_0
 connect_bd_net [get_bd_pins fifo_generator_0/empty] [get_bd_pins inverter_3/A]
@@ -154,13 +154,13 @@ connect_bd_net [get_bd_pins inverter_2/Y] [get_bd_pins customized_IP_block_0/out
 
 # realiza la conexión entre la salida de la FIFO 2 y la entrada al bus paralelo del driver 1
 connect_bd_net [get_bd_pins fifo_generator_2/empty] [get_bd_pins inverter_5/A]
-connect_bd_net [get_bd_pins inverter_5/Y] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pndng_0_1]
-connect_bd_net [get_bd_pins fifo_generator_2/dout] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/D_pop_0_1]
-connect_bd_net [get_bd_pins fifo_generator_2/rd_en] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pop_0_1]
+connect_bd_net [get_bd_pins inverter_5/Y] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pndng_drvr_1_bus_0]
+connect_bd_net [get_bd_pins fifo_generator_2/dout] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/D_pop_drvr_1_bus_0]
+connect_bd_net [get_bd_pins fifo_generator_2/rd_en] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pop_drvr_1_bus_0]
 
 # Se realiza la conexión del puerto de salida del drvr 1 en el bus paralelo  y el FIFO. Nóte que el bus paralelo no tiene bandera de full por lo tanto no se utiliza. Se utilizó el FIFO 3
-connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/D_push_0_1] [get_bd_pins fifo_generator_3/din]
-connect_bd_net [get_bd_pins fifo_generator_3/wr_en] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/push_0_1]
+connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/D_push_drvr_1_bus_0] [get_bd_pins fifo_generator_3/din]
+connect_bd_net [get_bd_pins fifo_generator_3/wr_en] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/push_drvr_1_bus_0]
 
 # Finalmente se interconecta al puerto de  salida de la FIFO 3 con el puerto de entrada en el IP llamado in_fifo_drvr_1
 connect_bd_net [get_bd_pins fifo_generator_3/empty] [get_bd_pins inverter_4/A]
