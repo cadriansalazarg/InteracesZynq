@@ -1,5 +1,5 @@
 ##Template taken from: https://www.xilinx.com/video/hardware/using-the-non-project-batch-flow.html
-## Run: vivado -mode batch -source Run_my_design.tcl
+## Run: vivado -mode batch -source Run_my_design_Non_Project_Mode.tcl
 
 ## Asemble the Design Source files
 
