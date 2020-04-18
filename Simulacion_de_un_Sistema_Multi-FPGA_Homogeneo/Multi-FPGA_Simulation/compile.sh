@@ -23,11 +23,5 @@ then
 exit $RETVAL
 fi
 }
-echo "Before executing this script, make sure your already run the tcl file Run_my_design_Non_Project_Mode.tcl located at directory FPGA"
-#ExecStep xvlog --incr --relax -work xil_defaultlib Netlist_Files/Top_FPGA_netlist.v TestBench/TestBench_Multi_FPGA.v -log compile.log
-
-if [ ! -f ../FPGA/Netlist_Files/Top_FPGA_netlist.v ]; then
-    echo "Error: Netlist file not found in directory ../FPGA/Netlist_Files/!!!"
-else
-   xvlog --incr --relax -work xil_defaultlib ../FPGA/Netlist_Files/Top_FPGA_netlist.v TestBench/TestBench_Multi_FPGA.v -log compile.log
-fi
+echo "Make sure your already copy in this directory, the duirectory called Netlist_Files located at ../FPGA/"
+ExecStep xvlog --incr --relax -work xil_defaultlib Netlist_Files/Top_FPGA_netlist.v TestBench/TestBench_Multi_FPGA.v -log compile.log
