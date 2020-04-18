@@ -30,8 +30,7 @@ La segunda carpeta nombrada Multi-FPGA_Simulation, contiene el TestBench del sis
 
 ## Descripción de pasos 
 
-
-
+Los pasos para generar el diseño y realizar la simulación post Place & Route,  tanto en modo proyecto como en modo no proyecto, se encuentran contenidos dentro de las carpetas nombradas como FPGA y Multi-FPGA_Simulation. En la primera se muestra todos los pasos para la construcción y simulación del diseño en modo proyecto. Adicionalmente, se muestran los pasos para la construcción del diseño en modo no proyecto. Finalmente en la segunda carpeta, se muestra como realizar la simulación en modo no proyecto.
 
 ## Autores
 
