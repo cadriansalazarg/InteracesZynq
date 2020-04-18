@@ -27,7 +27,7 @@ echo "Before executing this script, make sure your already run the tcl file Run_
 #ExecStep xvlog --incr --relax -work xil_defaultlib Netlist_Files/Top_FPGA_netlist.v TestBench/TestBench_Multi_FPGA.v -log compile.log
 
 if [ ! -f ../FPGA/Netlist_Files/Top_FPGA_netlist.v ]; then
-    echo "Netlist file not found in directory ../FPGA/Netlist_Files/!!!"
+    echo "Error: Netlist file not found in directory ../FPGA/Netlist_Files/!!!"
 else
-   xvlog --incr --relax -work xil_defaultlib Netlist_Files/Top_FPGA_netlist.v TestBench/TestBench_Multi_FPGA.v -log compile.log
+   xvlog --incr --relax -work xil_defaultlib ../FPGA/Netlist_Files/Top_FPGA_netlist.v TestBench/TestBench_Multi_FPGA.v -log compile.log
 fi
