@@ -1,47 +1,25 @@
 ## Descripción de la carpeta
 
-Esta carpeta contiene los scripts necesarios para realizar la simulación Post Place & Route  directamente desde la terminal. Este script fue construido realizando ingeniería inversa sobre el proceso de simulación Post Place & Route utilizando la interfaz GUI de Vivado. La simulación Post Place & Route se compone de la ejecución de tres scripts, compile.sh, elaborate.sh y simulate.sh de acuerdo con la exploración de la carpeta que genera Vivado después de crear una simulación Post Place & Route. Dicha carpeta siempre estará en la ruta nombreProyecto.sim/sim_1/impl/timing/xsim en caso de que desee ser consultada.
+Esta carpeta contiene los scripts necesarios para realizar la simulación Post Place & Route  directamente desde la terminal. Este script fue construido realizando ingeniería inversa sobre el proceso de simulación Post Place & Route utilizando la interfaz GUI de Vivado. 
+
+La simulación Post Place & Route se compone de la ejecución de tres scripts: compile.sh, elaborate.sh y simulate.sh de acuerdo con la exploración de la carpeta que genera Vivado después de crear una simulación Post Place & Route. Dicha carpeta siempre estará en la ruta nombreProyecto.sim/sim_1/impl/timing/xsim en caso de que desee ser consultada.
+
+A continuación se describe el contenido de esta carpeta:
 
 
-***1. Carpeta nombrada src_Verilog:*** Esta carpeta contiene todo el RTL del diseño, el cual en este caso corresponde, a un sumador full adder de un bit. Así las cosas, dentro de esta carpeta se encuentra un archivo llamado top_Design.v, el cual contiene el RTL de dicho diseño.
+***1. Carpeta nombrada TestBench:*** Esta carpeta contiene el testbench del sistema multi-FPGA. 
 
-***2. Carpeta nombrada TestBench:*** Esta carpeta contiene el testbench en Verilog encargado de realizar la verificación funcional de nuestro diseño. Así, está carpeta contiene un archivo llamado TestBench_top_Design.v, la cual contiene el testbench encargado de simular el diseño.
+***2. Archivo nombrado como TestBench_Multi_FPGA.tcl:*** Script tcl el cual contiene los detalles de la simulación. En caso de que se desee modificar cuanto tiempo ejecuta la simulación, este script debe ser modificado. Por defecto este script ejecuta solo por un tiempo igual a #1000. Este script tcl, es invocado cuando se ejecuta el script simulate.sh. 
 
-***3. Carpeta nombrada constrs:*** Esta carpeta contiene toda la descripción de pines utilizada en el diseño. Para este caso, se utilizó el PMOD JA1 para todos los pines de entrada/salida y el pin Y9 para el reloj. Así, en esta carpeta se encuentra contenido un archivo XDC nombrado como pines.xdc, el cual contiene toda la descripción utilizada para la ZedBoard.
+***3. Archivo nombrado como compile.sh:*** Este es el primer script que debe ejecutarse, se encarga de compilar el Netlist que se encuentra en la ruta ../FPGA/Netlist_Files/, por lo tanto, antes de ejecutar este script, se debe asegurar de que ya la netlist haya sido previamente creado. Todo los archivos compilados serán escritos en la biblioteca xsim.dir/xil_defaultlib. Para ejecutarlo se realiza de la siguiente forma ```./compile.sh```
 
-***4. Archivo nombrado como Run_my_design_Project_Mode.tcl:*** Script tcl el cual se encarga de construir todo el diseño en modo proyecto utilizando la interfaz GUI de Vivado.
+***3. Archivo nombrado como elaborate.sh:*** Este es el segundo script que debe ejecutarse, se encarga de elaborar toda la simulación, para ello se crea un snapshot de la misma, en la ruta xsim.dir/TestBench_Multi_FPGA_time_impl Para ejecutarlo se realiza de la siguiente forma ```./elaborate.sh```
 
-***5. Archivo nombrado como Run_my_design_Non_Project_Mode.tcl:*** Script tcl el cual se encarga de construir todo el diseño utilizando el modo de no proyecto, es decir, utilizando la terminal directamente en modo bash.
+***4. Archivo nombrado como simulate.sh:*** Este es el tercer script el cual se encarga de realizar la simulación. Este archivo utiliza el archivo tcl llamado TestBench_Multi_FPGA.tcl. Aquí se invoca al simulador de vivado y la simulación da inicio, hasta terminar en el tiempo definido por el archivo TestBench_Multi_FPGA.tcl o antes en caso de que el TestBench tenga una sentencia de $finish. Para ejecutarlo se realiza de la siguiente forma ```./simulate.sh```
 
+***5. Archivo nombrado como plot.sh:*** Este es el cuarto script. Este archivo solo se ejecuta en caso de que se desee observar las formas de onda, creadas durante la simulación. Por lo tanto, no s necesario su ejecución. Para ello se debe asegurar de que en el testbench se agregó una sentencia para crear un archivo vcd. Para ver las formas de onda, dicho script utiliza el visor de ondas gtkwave, por lo tanto, asegurese de tenerlo instalado antes de ejecutar este script. Para ejecutarlo se realiza de la siguiente forma ```./plot.sh```
 
-## Pasos para construir el diseño utilizando la GUI de Vivado.
-
-1) Dentro de esta terminal, abra la GUI de vivado mediante el comando:
-
-```bash
-vivado &
-```
-
-2) Tan pronto como la GUI de Vivado abra, seleecione la pestaña Tools y elija la opción Run Tcl Script... 
-
-3) Tan pronto como aparezca la ventana emergente, seleccione el archivo Run_my_design_Project_Mode.tcl y dele click a Open. Este script se encargará de crear el proyecto, agregar el archivo fuente, el archivo xdc file con la descripción de pines, y agregar dos archivos de simulación, uno para simular solo una FPGA y el segundo que emula el sistema multi-FPGA con dos FPGAs conectadas. Luego, el script automáticamente realiza la síntesis y la implementación del diseño, necesarias para poder realizar la simulación post Place & Route.
-
-4) Tan pronto como la implementación sea completada, aparecerá una ventana emergente llamada Implementation Completed. 
-
-5) Ahora para realizar la simulación Post Place & Route del sistema multi-FPGA, primero en el Project Manager, en la parte de Sources, asegúrese en  Simulation Sources de que el TestBench_Multi_FPGA.v está colocado como Top.
-
-6) Finalmente, en la opción de Simulation en el Flow Navigator, seleccione la opción de Simulation y para realizar la simulación post Place & Route elija la opción ***Run Post-Implementation Timing Simulation***. Así la simulación iniciará. Sugerencia. Siempre realice primero una simulación de comportamiento antes de realizar una simulación post Place & Route.
-
-## Pasos para construir el diseño utilizando el modo Non Project de Vivado
-
-El modo de no proyecto de Vivado permite construir un diseño sin la necesidad de utilizar la GUI de Vivado, utilizando para ello únicamente la terminal. Así, se maximiza el rendimiento en la construcción del diseño y es una opción siempre que se desee ganar tiempo. Para construir todo el diseño basta con únicamente ejecutar el script tcl nombrado como Run_my_design_Non_Project_Mode.tcl mediante el comando:
-
-```bash
-vivado -mode batch -source Run_my_design_Non_Project_Mode.tcl
-```
-
-Esto generará una carpeta llamada Netlist_Files la cual contendrá el diseño compilado dentro de un archivo llamado Top_FPGA_netlist.v y su respectivo archivo Top_FPGA.sdf. Estos dos archivos son los necesarios para realizar la simulación Post Place & Route directamente desde la terminal. Todos los detalles de como ejecutar esta simulación desde la terminal, se encuentra en la carpeta Multi-FPGA_Simulation.
-
+***5. Archivo nombrado como clean.sh:*** Cada vez que se realiza una simulación, se genera muchos archivos los cuales desde luego pueden originar problemas en la ejecución. Incluso, cuando se realiza algunos cambios, algunas veces, algunos archivos no se eliminan y por lo tanto esto puede generar conflictos. Este archivo en realidad debería ser el archivo que se ejecuta de primero, para cada vez que hagamos un cambio y queramos lanzar una nueva simulación, antes de compilar, se recomienda ejecutar este archivo para limpiar todo el proyecto y así evitar posibles conflictos. Este script lo que hace es restablecer todo el proyecto a su estado original. Para ejecutarlo se realiza de la siguiente forma ```./clean.sh```
 
 ## Autores
 
