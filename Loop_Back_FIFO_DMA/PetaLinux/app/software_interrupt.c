@@ -134,7 +134,7 @@ void AccelIP_run_exec(uint *ptr_RM, volatile DMA_REG_MAP_t *ptr_dma, int fd_dma)
 	uint  i, j;
 	
 	int reen=1; // Variables for handling interrupts
-	int int_count = 0;
+	int int_count = 0; // This variable represents a number of times which an interrupt has been activated
 	
 	struct timeval stop, start; // Variable for measuring time
 	unsigned long int calibration;
@@ -171,9 +171,6 @@ void AccelIP_run_exec(uint *ptr_RM, volatile DMA_REG_MAP_t *ptr_dma, int fd_dma)
 				return 1;
 			}
 		}
-		
-		int_count = 0; // Must be resetted for receiving new interrupts
-		reen=1;        // Must be resetted for receiving new interrupts
 	}
 	
 	gettimeofday(&stop, NULL);	
