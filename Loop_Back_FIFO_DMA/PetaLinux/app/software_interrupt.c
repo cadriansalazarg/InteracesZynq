@@ -38,7 +38,7 @@ reserved-memory {
  
 #define MEMORY_SIZE 0x00800000
 #define DMA_SIZE 0x10000
-#define START_VALUE  0x1FEE0000
+#define START_VALUE  0x1FAB0000
 #define NUMBER_OF_ELEMENTS	256
 #define NUMBER_OF_TRANSFERS	100
 
@@ -76,7 +76,7 @@ typedef struct {
 
 const uint len_bytes = sizeof(uint)*NUMBER_OF_ELEMENTS;
 
-void AccelIP_run_exec(uint *ptr_RM, volatile DMA_REG_MAP_t *ptr_dma);
+void AccelIP_run_exec(uint *ptr_RM, volatile DMA_REG_MAP_t *ptr_dma, int fd_dma);
 inline void AXIDMA_reset(volatile DMA_REG_MAP_t *ptr_dma);
 inline void AXIDMA_mm2s_start(volatile DMA_REG_MAP_t *ptr_dma, uint length_bytes, uint phyaddr);
 inline void AXIDMA_s2mm_start(volatile DMA_REG_MAP_t *ptr_dma, uint length_bytes, uint phyaddr);
@@ -103,7 +103,7 @@ int main(int argc, char **argv)
 		printf("Invalid UIO device file:%s.\n", uiod_dma);
 		return -1;
 	}
-		
+	
     fd_RM = open(uiod_RM,O_RDWR | O_SYNC);
     
     if (fd_RM < 1) {
@@ -111,8 +111,8 @@ int main(int argc, char **argv)
 		printf("Invalid reserve memory:%s.\n", uiod_RM);
 		return -1;
 	}
-	
-	/* mmap the UIO DMA device */
+    
+    /* mmap the UIO DMA device */
 	ptr_dma = mmap(NULL, DMA_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd_dma, 0);
     
     /* mmap the RESERVE MEMORY device */
@@ -120,7 +120,7 @@ int main(int argc, char **argv)
 		
     AXIDMA_reset(ptr_dma);
      
-    AccelIP_run_exec(ptr_RM, ptr_dma);
+    AccelIP_run_exec(ptr_RM, ptr_dma, fd_dma);
      
     printf("Transaction completed!\n");
         
@@ -130,10 +130,13 @@ int main(int argc, char **argv)
     return 0;
 }
 
-void AccelIP_run_exec(uint *ptr_RM, volatile DMA_REG_MAP_t *ptr_dma){
+void AccelIP_run_exec(uint *ptr_RM, volatile DMA_REG_MAP_t *ptr_dma, int fd_dma){
 	uint *TxBufferPtr;
 	uint *RxBufferPtr;
 	uint  i, j;
+	
+	int reen=1; // Variables for handling interrupts
+	int int_count = 0;
 	
 	struct timeval stop, start; // Variable for measuring time
 	unsigned long int calibration;
@@ -141,22 +144,30 @@ void AccelIP_run_exec(uint *ptr_RM, volatile DMA_REG_MAP_t *ptr_dma){
 	
 	TxBufferPtr = (uint *)ptr_RM;
 	RxBufferPtr = (uint *)(ptr_RM + 0x0400);
-	
+		
 	gettimeofday(&start, NULL);
 	
 	for (j=0; j < NUMBER_OF_TRANSFERS; j++){
+		
+		if( (write(fd_dma,(void *)&reen, sizeof(int)))!= sizeof(int) )    {            // enable general uio interrupt
+			printf("could not arm UIO IRQ. \n");
+			return -1;
+        }
 		
 		for (i=0;i<NUMBER_OF_ELEMENTS;i++){ //Initialization transmitted values
 			TxBufferPtr[i] = START_VALUE + j;
 		}
 	
 		AXIDMA_mm2s_start(ptr_dma, len_bytes, 0x18000000); // Physical Address is taken from the first value of the reg, of the reserved-memory instance, taken from system-user.dtsi file
-		
-		AXIDMA_wait_mm2s_polling(ptr_dma);
-		
+				
 		AXIDMA_s2mm_start(ptr_dma, len_bytes, 0x18001000); // The physical address for received data, must be in different part of the memorory for 
-		
-		AXIDMA_wait_s2mm_polling(ptr_dma);
+				
+		if( (read(fd_dma,(void *)&int_count, sizeof(int)))!= sizeof(int) )    {            // Blocking read till interrupt received
+			printf("could not receive UIO IRQ\n");
+			munmap((uint *)ptr_RM,MEMORY_SIZE);
+			munmap((uint *)ptr_dma,DMA_SIZE);
+			return -1;
+		}	
 		
 		for (i=0;i<NUMBER_OF_ELEMENTS;i++){ 
 			if (TxBufferPtr[i] != RxBufferPtr[i]){
@@ -166,6 +177,9 @@ void AccelIP_run_exec(uint *ptr_RM, volatile DMA_REG_MAP_t *ptr_dma){
 				return 1;
 			}
 		}
+		
+		int_count = 0; // Must be resetted for receiving new interrupts
+		reen=1;        // Must be resetted for receiving new interrupts
 	}
 	
 	gettimeofday(&stop, NULL);	
@@ -175,7 +189,7 @@ void AccelIP_run_exec(uint *ptr_RM, volatile DMA_REG_MAP_t *ptr_dma){
 	gettimeofday(&stop, NULL);
 	calibration = (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec;
 	
-	printf("Transaction done successfully by using polling.\n");
+	printf("Transaction done successfully by using interrupts.\n");
 	printf("Transaction took %lu us.\n", delta-calibration);
 }
 
