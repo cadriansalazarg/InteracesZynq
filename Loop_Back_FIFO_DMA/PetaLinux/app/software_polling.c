@@ -5,7 +5,6 @@
 #include <fcntl.h>
 #include <sys/time.h>
 
-
 /*  MEMORY_SIZE macro is located in  system-user.dtsi file
  * reg = <0x18000000 0x00800000>;  the second value, is the MEMORY SIZE
 reserved-memory {
@@ -39,11 +38,11 @@ reserved-memory {
  
 #define MEMORY_SIZE 0x00800000
 #define DMA_SIZE 0x10000
-#define START_VALUE  0x0000FFFF
-#define NUMBER_OF_ELEMENTS	512
+#define START_VALUE  0x1FEE0000
+#define NUMBER_OF_ELEMENTS	256
+#define NUMBER_OF_TRANSFERS	100
 
 typedef unsigned int uint;
-
 
 // Direct Register Mode Register Address Map
 // Tomado del documento https://www.xilinx.com/support/documentation/ip_documentation/axi_dma/v7_1/pg021_axi_dma.pdf
@@ -75,8 +74,7 @@ typedef struct {
 	uint S2MM_LENGTH;  // Description:		S2MM Buffer Length (Bytes) 						// Address Space Offset:	58h
 } __attribute__((packed)) DMA_REG_MAP_t;
 
-const uint limit_1kBytes = (uint)(0x0400);
-const uint total_bytes = sizeof(uint)*NUMBER_OF_ELEMENTS;
+const uint len_bytes = sizeof(uint)*NUMBER_OF_ELEMENTS;
 
 void AccelIP_run_exec(uint *ptr_RM, volatile DMA_REG_MAP_t *ptr_dma);
 inline void AXIDMA_reset(volatile DMA_REG_MAP_t *ptr_dma);
@@ -84,7 +82,6 @@ inline void AXIDMA_mm2s_start(volatile DMA_REG_MAP_t *ptr_dma, uint length_bytes
 inline void AXIDMA_s2mm_start(volatile DMA_REG_MAP_t *ptr_dma, uint length_bytes, uint phyaddr);
 void AXIDMA_wait_s2mm_polling(volatile DMA_REG_MAP_t *ptr_dma);
 void AXIDMA_wait_mm2s_polling(volatile DMA_REG_MAP_t *ptr_dma);
-
 
 int main(int argc, char **argv)
 {
@@ -96,7 +93,6 @@ int main(int argc, char **argv)
 	
 	char uiod_dma[]="/dev/uio0";	//UIO DMA device file
 	char uiod_RM[]="/dev/udmabuf0";	//UIO reserve memory
-	
 		
     printf("Starting...!\n");
     
@@ -136,64 +132,50 @@ int main(int argc, char **argv)
 void AccelIP_run_exec(uint *ptr_RM, volatile DMA_REG_MAP_t *ptr_dma){
 	uint *TxBufferPtr;
 	uint *RxBufferPtr;
-	uint total_bytes;
-	uint len_bytes, i;
+	uint  i, j;
 	struct timeval stop, start;
 	unsigned long int calibration;
 	unsigned long int delta;
 	
-	
 	TxBufferPtr = (uint *)ptr_RM;
 	RxBufferPtr = (uint *)(ptr_RM + 0x0400);
 	
-	for (i=0;i<NUMBER_OF_ELEMENTS;i++){
-		if(i<NUMBER_OF_ELEMENTS/2)
-			TxBufferPtr[i] = START_VALUE;
-		else 
-			TxBufferPtr[i] = START_VALUE + 0xABCD0000;
-	}
-	
-	if (total_bytes>limit_1kBytes)
-		len_bytes = limit_1kBytes;
-	else 
-		len_bytes = total_bytes;
-		
 	gettimeofday(&start, NULL);
 	
-	AXIDMA_mm2s_start(ptr_dma, len_bytes, 0x18000000); // Physical Address is taken from the first value of the reg, of the reserved-memory instance, taken from system-user.dtsi file
+	for (j=0; j < NUMBER_OF_TRANSFERS; j++){
 		
-	AXIDMA_wait_mm2s_polling(ptr_dma);
-		
-	AXIDMA_s2mm_start(ptr_dma, len_bytes, 0x18001000); // The physical address for received data, must be in different part of the memorory for 
-		
-	AXIDMA_wait_s2mm_polling(ptr_dma);
+		for (i=0;i<NUMBER_OF_ELEMENTS;i++){ //Initialization
+			TxBufferPtr[i] = START_VALUE + j;
+		}
 	
-	AXIDMA_mm2s_start(ptr_dma, len_bytes, 0x18000100); // add 256 to base
+		AXIDMA_mm2s_start(ptr_dma, len_bytes, 0x18000000); // Physical Address is taken from the first value of the reg, of the reserved-memory instance, taken from system-user.dtsi file
 		
-	AXIDMA_wait_mm2s_polling(ptr_dma);
+		AXIDMA_wait_mm2s_polling(ptr_dma);
 		
-	AXIDMA_s2mm_start(ptr_dma, len_bytes, 0x18001100); // add 256 to base
+		AXIDMA_s2mm_start(ptr_dma, len_bytes, 0x18001000); // The physical address for received data, must be in different part of the memorory for 
 		
-	AXIDMA_wait_s2mm_polling(ptr_dma);
-	
-	gettimeofday(&stop, NULL);
-	
-	
-	for (i= 0; i<NUMBER_OF_ELEMENTS; i++){
-		printf("Transmitted Data equal to 0x%08X. Number of element: %d.\n", TxBufferPtr[i], i);
-		printf("Received Data equal to 0x%08X. Number of element: %d.\n", RxBufferPtr[i], i);
+		AXIDMA_wait_s2mm_polling(ptr_dma);
+		
+		for (i=0;i<NUMBER_OF_ELEMENTS;i++){ // Print the last 
+			if (TxBufferPtr[i] != RxBufferPtr[i]){
+				printf("Error!!!. Iteration: %d.  Element: %d. Transmitted Data: 0x%08X. Received Data: 0x%08X. \n",j, i, TxBufferPtr[i], RxBufferPtr[i]);
+				munmap((uint *)ptr_RM,MEMORY_SIZE);
+				munmap((uint *)ptr_dma,DMA_SIZE);
+				return 1;
+			}
+		}
 	}
 	
+	gettimeofday(&stop, NULL);	
 	delta = (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec;
 	
 	gettimeofday(&start, NULL);
 	gettimeofday(&stop, NULL);
 	calibration = (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec;
 	
-	printf("Transaction took %lu us\n", delta-calibration);
+	printf("Transaction done successfully.\n");
+	printf("Transaction took %lu us.\n", delta-calibration);
 }
-
-
 
 inline void AXIDMA_reset(volatile DMA_REG_MAP_t *ptr_dma){
 	ptr_dma->MM2S_DMACR = 0x100;
