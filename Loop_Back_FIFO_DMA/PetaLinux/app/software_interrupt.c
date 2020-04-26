@@ -121,9 +121,7 @@ int main(int argc, char **argv)
     AXIDMA_reset(ptr_dma);
      
     AccelIP_run_exec(ptr_RM, ptr_dma, fd_dma);
-     
-    printf("Transaction completed!\n");
-        
+             
     munmap((uint *)ptr_RM,MEMORY_SIZE);
 	munmap((uint *)ptr_dma,DMA_SIZE);
 	
@@ -164,16 +162,12 @@ void AccelIP_run_exec(uint *ptr_RM, volatile DMA_REG_MAP_t *ptr_dma, int fd_dma)
 				
 		if( (read(fd_dma,(void *)&int_count, sizeof(int)))!= sizeof(int) )    {            // Blocking read till interrupt received
 			printf("could not receive UIO IRQ\n");
-			munmap((uint *)ptr_RM,MEMORY_SIZE);
-			munmap((uint *)ptr_dma,DMA_SIZE);
 			return -1;
 		}	
 		
 		for (i=0;i<NUMBER_OF_ELEMENTS;i++){ 
 			if (TxBufferPtr[i] != RxBufferPtr[i]){
 				printf("Error!!!. Iteration: %d.  Element: %d. Transmitted Data: 0x%08X. Received Data: 0x%08X. \n",j, i, TxBufferPtr[i], RxBufferPtr[i]);
-				munmap((uint *)ptr_RM,MEMORY_SIZE);
-				munmap((uint *)ptr_dma,DMA_SIZE);
 				return 1;
 			}
 		}
