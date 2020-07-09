@@ -1,0 +1,395 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0xC8BFC6053118ADF7",
+      "device": "xc7z045ffg900-2",
+      "name": "simplex_tx",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2018.3",
+      "validated": "true"
+    },
+    "design_tree": {
+      "aurora_8b10b_0": ""
+    },
+    "ports": {
+      "s_axi_tx_tkeep_0": {
+        "direction": "I",
+        "left": "0",
+        "right": "1"
+      },
+      "s_axi_tx_tlast_0": {
+        "direction": "I"
+      },
+      "s_axi_tx_tready_0": {
+        "direction": "O"
+      },
+      "s_axi_tx_tdata_0": {
+        "direction": "I",
+        "left": "0",
+        "right": "15"
+      },
+      "s_axi_tx_tvalid_0": {
+        "direction": "I"
+      },
+      "tx_aligned_0": {
+        "direction": "I"
+      },
+      "tx_reset_0": {
+        "direction": "I"
+      },
+      "tx_verify_0": {
+        "direction": "I"
+      },
+      "loopback_0": {
+        "direction": "I",
+        "left": "2",
+        "right": "0"
+      },
+      "power_down_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
+      },
+      "drpclk_in_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "simplex_tx_drpclk_in_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          }
+        }
+      },
+      "init_clk_in_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "simplex_tx_init_clk_in_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          }
+        }
+      },
+      "tx_system_reset_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_HIGH"
+          }
+        }
+      },
+      "gt_reset_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_HIGH"
+          }
+        }
+      },
+      "gt_refclk1_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "simplex_tx_gt_refclk1_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "125000000"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          }
+        }
+      },
+      "tx_resetdone_out_0": {
+        "direction": "O"
+      },
+      "tx_channel_up_0": {
+        "direction": "O"
+      },
+      "tx_hard_err_0": {
+        "direction": "O"
+      },
+      "tx_lane_up_0": {
+        "direction": "O",
+        "left": "0",
+        "right": "0"
+      },
+      "tx_lock_0": {
+        "direction": "O"
+      },
+      "pll_not_locked_out_0": {
+        "direction": "O"
+      },
+      "user_clk_out_0": {
+        "type": "clk",
+        "direction": "O",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "simplex_tx_aurora_8b10b_0_0_user_clk_out",
+            "value_src": "default_prop"
+          },
+          "FREQ_HZ": {
+            "value": "156250000"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0",
+            "value_src": "default_prop"
+          }
+        }
+      },
+      "sys_reset_out_0": {
+        "type": "rst",
+        "direction": "O",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_HIGH",
+            "value_src": "const_prop"
+          }
+        }
+      },
+      "txn_0": {
+        "direction": "O",
+        "left": "0",
+        "right": "0"
+      },
+      "txp_0": {
+        "direction": "O",
+        "left": "0",
+        "right": "0"
+      }
+    },
+    "components": {
+      "aurora_8b10b_0": {
+        "vlnv": "xilinx.com:ip:aurora_8b10b:11.1",
+        "xci_name": "simplex_tx_aurora_8b10b_0_0",
+        "parameters": {
+          "C_DRP_IF": {
+            "value": "false"
+          },
+          "Dataflow_Config": {
+            "value": "TX-only_Simplex"
+          },
+          "SINGLEEND_GTREFCLK": {
+            "value": "true"
+          },
+          "SINGLEEND_INITCLK": {
+            "value": "true"
+          },
+          "SupportLevel": {
+            "value": "1"
+          }
+        }
+      }
+    },
+    "nets": {
+      "s_axi_tx_tkeep_0_1": {
+        "ports": [
+          "s_axi_tx_tkeep_0",
+          "aurora_8b10b_0/s_axi_tx_tkeep"
+        ]
+      },
+      "s_axi_tx_tlast_0_1": {
+        "ports": [
+          "s_axi_tx_tlast_0",
+          "aurora_8b10b_0/s_axi_tx_tlast"
+        ]
+      },
+      "aurora_8b10b_0_s_axi_tx_tready": {
+        "ports": [
+          "aurora_8b10b_0/s_axi_tx_tready",
+          "s_axi_tx_tready_0"
+        ]
+      },
+      "s_axi_tx_tdata_0_1": {
+        "ports": [
+          "s_axi_tx_tdata_0",
+          "aurora_8b10b_0/s_axi_tx_tdata"
+        ]
+      },
+      "s_axi_tx_tvalid_0_1": {
+        "ports": [
+          "s_axi_tx_tvalid_0",
+          "aurora_8b10b_0/s_axi_tx_tvalid"
+        ]
+      },
+      "tx_aligned_0_1": {
+        "ports": [
+          "tx_aligned_0",
+          "aurora_8b10b_0/tx_aligned"
+        ]
+      },
+      "tx_reset_0_1": {
+        "ports": [
+          "tx_reset_0",
+          "aurora_8b10b_0/tx_reset"
+        ]
+      },
+      "tx_verify_0_1": {
+        "ports": [
+          "tx_verify_0",
+          "aurora_8b10b_0/tx_verify"
+        ]
+      },
+      "loopback_0_1": {
+        "ports": [
+          "loopback_0",
+          "aurora_8b10b_0/loopback"
+        ]
+      },
+      "power_down_0_1": {
+        "ports": [
+          "power_down_0",
+          "aurora_8b10b_0/power_down"
+        ]
+      },
+      "drpclk_in_0_1": {
+        "ports": [
+          "drpclk_in_0",
+          "aurora_8b10b_0/drpclk_in"
+        ]
+      },
+      "init_clk_in_0_1": {
+        "ports": [
+          "init_clk_in_0",
+          "aurora_8b10b_0/init_clk_in"
+        ]
+      },
+      "tx_system_reset_0_1": {
+        "ports": [
+          "tx_system_reset_0",
+          "aurora_8b10b_0/tx_system_reset"
+        ]
+      },
+      "gt_reset_0_1": {
+        "ports": [
+          "gt_reset_0",
+          "aurora_8b10b_0/gt_reset"
+        ]
+      },
+      "gt_refclk1_0_1": {
+        "ports": [
+          "gt_refclk1_0",
+          "aurora_8b10b_0/gt_refclk1"
+        ]
+      },
+      "aurora_8b10b_0_tx_resetdone_out": {
+        "ports": [
+          "aurora_8b10b_0/tx_resetdone_out",
+          "tx_resetdone_out_0"
+        ]
+      },
+      "aurora_8b10b_0_tx_channel_up": {
+        "ports": [
+          "aurora_8b10b_0/tx_channel_up",
+          "tx_channel_up_0"
+        ]
+      },
+      "aurora_8b10b_0_tx_hard_err": {
+        "ports": [
+          "aurora_8b10b_0/tx_hard_err",
+          "tx_hard_err_0"
+        ]
+      },
+      "aurora_8b10b_0_tx_lane_up": {
+        "ports": [
+          "aurora_8b10b_0/tx_lane_up",
+          "tx_lane_up_0"
+        ]
+      },
+      "aurora_8b10b_0_tx_lock": {
+        "ports": [
+          "aurora_8b10b_0/tx_lock",
+          "tx_lock_0"
+        ]
+      },
+      "aurora_8b10b_0_pll_not_locked_out": {
+        "ports": [
+          "aurora_8b10b_0/pll_not_locked_out",
+          "pll_not_locked_out_0"
+        ]
+      },
+      "aurora_8b10b_0_user_clk_out": {
+        "ports": [
+          "aurora_8b10b_0/user_clk_out",
+          "user_clk_out_0"
+        ]
+      },
+      "aurora_8b10b_0_sys_reset_out": {
+        "ports": [
+          "aurora_8b10b_0/sys_reset_out",
+          "sys_reset_out_0"
+        ]
+      },
+      "aurora_8b10b_0_txn": {
+        "ports": [
+          "aurora_8b10b_0/txn",
+          "txn_0"
+        ]
+      },
+      "aurora_8b10b_0_txp": {
+        "ports": [
+          "aurora_8b10b_0/txp",
+          "txp_0"
+        ]
+      }
+    }
+  }
+}

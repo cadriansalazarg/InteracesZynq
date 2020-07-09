@@ -1,0 +1,424 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0xE1AA529D3DF1CC7B",
+      "device": "xc7z045ffg900-2",
+      "name": "simplex_rx",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2018.3",
+      "validated": "true"
+    },
+    "design_tree": {
+      "aurora_8b10b_0": ""
+    },
+    "ports": {
+      "rxp_0": {
+        "direction": "I",
+        "left": "0",
+        "right": "0"
+      },
+      "loopback_0": {
+        "direction": "I",
+        "left": "2",
+        "right": "0"
+      },
+      "gt_reset_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_HIGH"
+          }
+        }
+      },
+      "drpclk_in_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "simplex_rx_drpclk_in_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          }
+        }
+      },
+      "init_clk_in_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "simplex_rx_init_clk_in_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          }
+        }
+      },
+      "power_down_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
+      },
+      "rxn_0": {
+        "direction": "I",
+        "left": "0",
+        "right": "0"
+      },
+      "rx_system_reset_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_HIGH"
+          }
+        }
+      },
+      "gt_refclk1_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "simplex_rx_gt_refclk1_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "125000000"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          }
+        }
+      },
+      "m_axi_rx_tkeep_0": {
+        "direction": "O",
+        "left": "0",
+        "right": "1"
+      },
+      "m_axi_rx_tlast_0": {
+        "direction": "O"
+      },
+      "m_axi_rx_tdata_0": {
+        "direction": "O",
+        "left": "0",
+        "right": "15"
+      },
+      "m_axi_rx_tvalid_0": {
+        "direction": "O"
+      },
+      "rx_aligned_0": {
+        "direction": "O"
+      },
+      "rx_reset_0": {
+        "direction": "O"
+      },
+      "rx_verify_0": {
+        "direction": "O"
+      },
+      "soft_err_0": {
+        "direction": "O"
+      },
+      "rx_channel_up_0": {
+        "direction": "O"
+      },
+      "rx_hard_err_0": {
+        "direction": "O"
+      },
+      "rx_lane_up_0": {
+        "direction": "O",
+        "left": "0",
+        "right": "0"
+      },
+      "rx_resetdone_out_0": {
+        "direction": "O"
+      },
+      "frame_err_0": {
+        "direction": "O"
+      },
+      "pll_not_locked_out_0": {
+        "direction": "O"
+      },
+      "tx_lock_0": {
+        "direction": "O"
+      },
+      "user_clk_out_0": {
+        "type": "clk",
+        "direction": "O",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "simplex_rx_aurora_8b10b_0_0_user_clk_out",
+            "value_src": "default_prop"
+          },
+          "FREQ_HZ": {
+            "value": "156250000"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0",
+            "value_src": "default_prop"
+          }
+        }
+      },
+      "link_reset_out_0": {
+        "type": "rst",
+        "direction": "O",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_HIGH",
+            "value_src": "const_prop"
+          }
+        }
+      },
+      "sys_reset_out_0": {
+        "type": "rst",
+        "direction": "O",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_HIGH",
+            "value_src": "const_prop"
+          }
+        }
+      }
+    },
+    "components": {
+      "aurora_8b10b_0": {
+        "vlnv": "xilinx.com:ip:aurora_8b10b:11.1",
+        "xci_name": "simplex_rx_aurora_8b10b_0_0",
+        "parameters": {
+          "C_DRP_IF": {
+            "value": "false"
+          },
+          "Dataflow_Config": {
+            "value": "RX-only_Simplex"
+          },
+          "SINGLEEND_GTREFCLK": {
+            "value": "true"
+          },
+          "SINGLEEND_INITCLK": {
+            "value": "true"
+          },
+          "SupportLevel": {
+            "value": "1"
+          }
+        }
+      }
+    },
+    "nets": {
+      "rxp_0_1": {
+        "ports": [
+          "rxp_0",
+          "aurora_8b10b_0/rxp"
+        ]
+      },
+      "loopback_0_1": {
+        "ports": [
+          "loopback_0",
+          "aurora_8b10b_0/loopback"
+        ]
+      },
+      "gt_reset_0_1": {
+        "ports": [
+          "gt_reset_0",
+          "aurora_8b10b_0/gt_reset"
+        ]
+      },
+      "drpclk_in_0_1": {
+        "ports": [
+          "drpclk_in_0",
+          "aurora_8b10b_0/drpclk_in"
+        ]
+      },
+      "init_clk_in_0_1": {
+        "ports": [
+          "init_clk_in_0",
+          "aurora_8b10b_0/init_clk_in"
+        ]
+      },
+      "power_down_0_1": {
+        "ports": [
+          "power_down_0",
+          "aurora_8b10b_0/power_down"
+        ]
+      },
+      "rxn_0_1": {
+        "ports": [
+          "rxn_0",
+          "aurora_8b10b_0/rxn"
+        ]
+      },
+      "rx_system_reset_0_1": {
+        "ports": [
+          "rx_system_reset_0",
+          "aurora_8b10b_0/rx_system_reset"
+        ]
+      },
+      "gt_refclk1_0_1": {
+        "ports": [
+          "gt_refclk1_0",
+          "aurora_8b10b_0/gt_refclk1"
+        ]
+      },
+      "aurora_8b10b_0_m_axi_rx_tkeep": {
+        "ports": [
+          "aurora_8b10b_0/m_axi_rx_tkeep",
+          "m_axi_rx_tkeep_0"
+        ]
+      },
+      "aurora_8b10b_0_m_axi_rx_tlast": {
+        "ports": [
+          "aurora_8b10b_0/m_axi_rx_tlast",
+          "m_axi_rx_tlast_0"
+        ]
+      },
+      "aurora_8b10b_0_m_axi_rx_tdata": {
+        "ports": [
+          "aurora_8b10b_0/m_axi_rx_tdata",
+          "m_axi_rx_tdata_0"
+        ]
+      },
+      "aurora_8b10b_0_m_axi_rx_tvalid": {
+        "ports": [
+          "aurora_8b10b_0/m_axi_rx_tvalid",
+          "m_axi_rx_tvalid_0"
+        ]
+      },
+      "aurora_8b10b_0_rx_aligned": {
+        "ports": [
+          "aurora_8b10b_0/rx_aligned",
+          "rx_aligned_0"
+        ]
+      },
+      "aurora_8b10b_0_rx_reset": {
+        "ports": [
+          "aurora_8b10b_0/rx_reset",
+          "rx_reset_0"
+        ]
+      },
+      "aurora_8b10b_0_rx_verify": {
+        "ports": [
+          "aurora_8b10b_0/rx_verify",
+          "rx_verify_0"
+        ]
+      },
+      "aurora_8b10b_0_soft_err": {
+        "ports": [
+          "aurora_8b10b_0/soft_err",
+          "soft_err_0"
+        ]
+      },
+      "aurora_8b10b_0_rx_channel_up": {
+        "ports": [
+          "aurora_8b10b_0/rx_channel_up",
+          "rx_channel_up_0"
+        ]
+      },
+      "aurora_8b10b_0_rx_hard_err": {
+        "ports": [
+          "aurora_8b10b_0/rx_hard_err",
+          "rx_hard_err_0"
+        ]
+      },
+      "aurora_8b10b_0_rx_lane_up": {
+        "ports": [
+          "aurora_8b10b_0/rx_lane_up",
+          "rx_lane_up_0"
+        ]
+      },
+      "aurora_8b10b_0_rx_resetdone_out": {
+        "ports": [
+          "aurora_8b10b_0/rx_resetdone_out",
+          "rx_resetdone_out_0"
+        ]
+      },
+      "aurora_8b10b_0_frame_err": {
+        "ports": [
+          "aurora_8b10b_0/frame_err",
+          "frame_err_0"
+        ]
+      },
+      "aurora_8b10b_0_pll_not_locked_out": {
+        "ports": [
+          "aurora_8b10b_0/pll_not_locked_out",
+          "pll_not_locked_out_0"
+        ]
+      },
+      "aurora_8b10b_0_tx_lock": {
+        "ports": [
+          "aurora_8b10b_0/tx_lock",
+          "tx_lock_0"
+        ]
+      },
+      "aurora_8b10b_0_user_clk_out": {
+        "ports": [
+          "aurora_8b10b_0/user_clk_out",
+          "user_clk_out_0"
+        ]
+      },
+      "aurora_8b10b_0_link_reset_out": {
+        "ports": [
+          "aurora_8b10b_0/link_reset_out",
+          "link_reset_out_0"
+        ]
+      },
+      "aurora_8b10b_0_sys_reset_out": {
+        "ports": [
+          "aurora_8b10b_0/sys_reset_out",
+          "sys_reset_out_0"
+        ]
+      }
+    }
+  }
+}

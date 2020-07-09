@@ -1,0 +1,59 @@
+{
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 6.8.11  2018-08-07 bk=1.4403 VDI=40 GEI=35 GUI=JA:9.0 TLS
+#  -string -flagsOSRD
+preplace port tx_resetdone_out_0 -pg 1 -y 150 -defaultsOSRD
+preplace port gt_reset_0 -pg 1 -y 300 -defaultsOSRD
+preplace port pll_not_locked_out_0 -pg 1 -y 50 -defaultsOSRD
+preplace port tx_reset_0 -pg 1 -y 180 -defaultsOSRD
+preplace port s_axi_tx_tvalid_0 -pg 1 -y 120 -defaultsOSRD
+preplace port init_clk_in_0 -pg 1 -y 340 -defaultsOSRD
+preplace port s_axi_tx_tlast_0 -pg 1 -y 80 -defaultsOSRD
+preplace port tx_aligned_0 -pg 1 -y 160 -defaultsOSRD
+preplace port tx_lock_0 -pg 1 -y 130 -defaultsOSRD
+preplace port gt_refclk1_0 -pg 1 -y 360 -defaultsOSRD
+preplace port drpclk_in_0 -pg 1 -y 320 -defaultsOSRD
+preplace port s_axi_tx_tready_0 -pg 1 -y -50 -defaultsOSRD
+preplace port user_clk_out_0 -pg 1 -y 250 -defaultsOSRD
+preplace port tx_system_reset_0 -pg 1 -y 280 -defaultsOSRD
+preplace port tx_channel_up_0 -pg 1 -y 70 -defaultsOSRD
+preplace port power_down_0 -pg 1 -y 260 -defaultsOSRD
+preplace port tx_hard_err_0 -pg 1 -y 90 -defaultsOSRD
+preplace port sys_reset_out_0 -pg 1 -y 270 -defaultsOSRD
+preplace port tx_verify_0 -pg 1 -y 200 -defaultsOSRD
+preplace portBus s_axi_tx_tdata_0 -pg 1 -y 40 -defaultsOSRD
+preplace portBus loopback_0 -pg 1 -y 240 -defaultsOSRD
+preplace portBus s_axi_tx_tkeep_0 -pg 1 -y 60 -defaultsOSRD
+preplace portBus tx_lane_up_0 -pg 1 -y 110 -defaultsOSRD
+preplace portBus txp_0 -pg 1 -y 210 -defaultsOSRD
+preplace portBus txn_0 -pg 1 -y 190 -defaultsOSRD
+preplace inst aurora_8b10b_0 -pg 1 -lvl 1 -y 190 -defaultsOSRD
+preplace netloc s_axi_tx_tlast_0_1 1 0 1 NJ
+preplace netloc gt_reset_0_1 1 0 1 NJ
+preplace netloc drpclk_in_0_1 1 0 1 NJ
+preplace netloc s_axi_tx_tvalid_0_1 1 0 1 NJ
+preplace netloc loopback_0_1 1 0 1 NJ
+preplace netloc aurora_8b10b_0_tx_lock 1 1 1 NJ
+preplace netloc aurora_8b10b_0_tx_channel_up 1 1 1 NJ
+preplace netloc tx_system_reset_0_1 1 0 1 NJ
+preplace netloc tx_reset_0_1 1 0 1 NJ
+preplace netloc aurora_8b10b_0_txn 1 1 1 NJ
+preplace netloc init_clk_in_0_1 1 0 1 NJ
+preplace netloc tx_aligned_0_1 1 0 1 NJ
+preplace netloc aurora_8b10b_0_sys_reset_out 1 1 1 NJ
+preplace netloc aurora_8b10b_0_pll_not_locked_out 1 1 1 NJ
+preplace netloc aurora_8b10b_0_tx_lane_up 1 1 1 NJ
+preplace netloc s_axi_tx_tdata_0_1 1 0 1 NJ
+preplace netloc s_axi_tx_tkeep_0_1 1 0 1 NJ
+preplace netloc aurora_8b10b_0_txp 1 1 1 NJ
+preplace netloc gt_refclk1_0_1 1 0 1 NJ
+preplace netloc aurora_8b10b_0_s_axi_tx_tready 1 0 2 0 -50 NJ
+preplace netloc aurora_8b10b_0_tx_hard_err 1 1 1 NJ
+preplace netloc tx_verify_0_1 1 0 1 NJ
+preplace netloc aurora_8b10b_0_user_clk_out 1 1 1 NJ
+preplace netloc aurora_8b10b_0_tx_resetdone_out 1 1 1 N
+preplace netloc power_down_0_1 1 0 1 NJ
+levelinfo -pg 1 -20 200 470 -top -90 -bot 430
+"
+}
+

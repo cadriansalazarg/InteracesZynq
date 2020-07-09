@@ -1,0 +1,539 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jul  8 13:13:56 2020" VIVADOVERSION="2018.3">
+
+  <SYSTEMINFO ARCH="zynq" BOARD="xilinx.com:zc706:part0:1.4" DEVICE="7z045" NAME="simplex_tx" PACKAGE="ffg900" SPEEDGRADE="-2"/>
+
+  <EXTERNALPORTS>
+    <PORT DIR="I" LEFT="0" NAME="s_axi_tx_tkeep_0" RIGHT="1" SIGIS="undef" SIGNAME="External_Ports_s_axi_tx_tkeep_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="s_axi_tx_tkeep"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="s_axi_tx_tlast_0" SIGIS="undef" SIGNAME="External_Ports_s_axi_tx_tlast_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="s_axi_tx_tlast"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="s_axi_tx_tready_0" SIGIS="undef" SIGNAME="aurora_8b10b_0_s_axi_tx_tready">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="s_axi_tx_tready"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="0" NAME="s_axi_tx_tdata_0" RIGHT="15" SIGIS="undef" SIGNAME="External_Ports_s_axi_tx_tdata_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="s_axi_tx_tdata"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="s_axi_tx_tvalid_0" SIGIS="undef" SIGNAME="External_Ports_s_axi_tx_tvalid_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="s_axi_tx_tvalid"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="tx_aligned_0" SIGIS="undef" SIGNAME="External_Ports_tx_aligned_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="tx_aligned"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="tx_reset_0" SIGIS="undef" SIGNAME="External_Ports_tx_reset_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="tx_reset"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="tx_verify_0" SIGIS="undef" SIGNAME="External_Ports_tx_verify_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="tx_verify"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="2" NAME="loopback_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_loopback_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="loopback"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="power_down_0" SIGIS="rst" SIGNAME="External_Ports_power_down_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="power_down"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT CLKFREQUENCY="100000000" DIR="I" NAME="drpclk_in_0" SIGIS="clk" SIGNAME="External_Ports_drpclk_in_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="drpclk_in"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT CLKFREQUENCY="100000000" DIR="I" NAME="init_clk_in_0" SIGIS="clk" SIGNAME="External_Ports_init_clk_in_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="init_clk_in"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="tx_system_reset_0" SIGIS="rst" SIGNAME="External_Ports_tx_system_reset_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="tx_system_reset"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="gt_reset_0" SIGIS="rst" SIGNAME="External_Ports_gt_reset_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="gt_reset"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT CLKFREQUENCY="125000000" DIR="I" NAME="gt_refclk1_0" SIGIS="clk" SIGNAME="External_Ports_gt_refclk1_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="gt_refclk1"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="tx_resetdone_out_0" SIGIS="undef" SIGNAME="aurora_8b10b_0_tx_resetdone_out">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="tx_resetdone_out"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="tx_channel_up_0" SIGIS="undef" SIGNAME="aurora_8b10b_0_tx_channel_up">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="tx_channel_up"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="tx_hard_err_0" SIGIS="undef" SIGNAME="aurora_8b10b_0_tx_hard_err">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="tx_hard_err"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="0" NAME="tx_lane_up_0" RIGHT="0" SIGIS="undef" SIGNAME="aurora_8b10b_0_tx_lane_up">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="tx_lane_up"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="tx_lock_0" SIGIS="undef" SIGNAME="aurora_8b10b_0_tx_lock">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="tx_lock"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="pll_not_locked_out_0" SIGIS="undef" SIGNAME="aurora_8b10b_0_pll_not_locked_out">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="pll_not_locked_out"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT CLKFREQUENCY="156250000" DIR="O" NAME="user_clk_out_0" SIGIS="clk" SIGNAME="aurora_8b10b_0_user_clk_out">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="user_clk_out"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="sys_reset_out_0" SIGIS="rst" SIGNAME="aurora_8b10b_0_sys_reset_out">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="sys_reset_out"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="0" NAME="txn_0" RIGHT="0" SIGIS="undef" SIGNAME="aurora_8b10b_0_txn">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="txn"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="0" NAME="txp_0" RIGHT="0" SIGIS="undef" SIGNAME="aurora_8b10b_0_txp">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="aurora_8b10b_0" PORT="txp"/>
+      </CONNECTIONS>
+    </PORT>
+  </EXTERNALPORTS>
+
+  <EXTERNALINTERFACES/>
+
+  <MODULES>
+    <MODULE COREREVISION="6" FULLNAME="/aurora_8b10b_0" HWVERSION="11.1" INSTANCE="aurora_8b10b_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="aurora_8b10b" VLNV="xilinx.com:ip:aurora_8b10b:11.1">
+      <DOCUMENTS>
+        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=aurora_8b10b;v=v11_1;d=pg046-aurora-8b10b.pdf"/>
+      </DOCUMENTS>
+      <PARAMETERS>
+        <PARAMETER NAME="component_name" VALUE="simplex_tx_aurora_8b10b_0_0"/>
+        <PARAMETER NAME="channel_enable" VALUE="X0Y0"/>
+        <PARAMETER NAME="C_REFCLK_LOC_P" VALUE="BL8"/>
+        <PARAMETER NAME="C_REFCLK_LOC_N" VALUE="BL7"/>
+        <PARAMETER NAME="c_column_used" VALUE="left"/>
+        <PARAMETER NAME="c_ucolumn_used" VALUE="right"/>
+        <PARAMETER NAME="c_family" VALUE="zynq"/>
+        <PARAMETER NAME="c_device" VALUE="xc7z045"/>
+        <PARAMETER NAME="c_row_used" VALUE="None"/>
+        <PARAMETER NAME="c_xpackage" VALUE="ffg900"/>
+        <PARAMETER NAME="c_xspeedgrade" VALUE="-2"/>
+        <PARAMETER NAME="c_aurora_lanes" VALUE="1"/>
+        <PARAMETER NAME="c_lane_width" VALUE="2"/>
+        <PARAMETER NAME="C_active_transceiverquads" VALUE="1"/>
+        <PARAMETER NAME="C_START_QUAD" VALUE="X0Y0"/>
+        <PARAMETER NAME="C_START_LANE" VALUE="X0Y0"/>
+        <PARAMETER NAME="C_REFCLK_SOURCE" VALUE="none"/>
+        <PARAMETER NAME="interface_mode" VALUE="Framing"/>
+        <PARAMETER NAME="c_stream" VALUE="false"/>
+        <PARAMETER NAME="dataflow_config" VALUE="TX-only_Simplex"/>
+        <PARAMETER NAME="backchannel_mode" VALUE="Sidebands"/>
+        <PARAMETER NAME="c_simplex" VALUE="true"/>
+        <PARAMETER NAME="c_simplex_mode" VALUE="TX"/>
+        <PARAMETER NAME="flow_mode" VALUE="None"/>
+        <PARAMETER NAME="c_nfc" VALUE="false"/>
+        <PARAMETER NAME="c_nfc_mode" VALUE="IMM"/>
+        <PARAMETER NAME="c_ufc" VALUE="false"/>
+        <PARAMETER NAME="c_example_simulation" VALUE="false"/>
+        <PARAMETER NAME="c_gtwiz_out" VALUE="false"/>
+        <PARAMETER NAME="c_line_rate" VALUE="31250"/>
+        <PARAMETER NAME="cc_line_rate" VALUE="3.125"/>
+        <PARAMETER NAME="c_refclk_frequency" VALUE="125000"/>
+        <PARAMETER NAME="cc_refclk_frequency" VALUE="125.000"/>
+        <PARAMETER NAME="c_init_clk" VALUE="100.0"/>
+        <PARAMETER NAME="drp_freq" VALUE="100.0"/>
+        <PARAMETER NAME="c_gt_loc_1" VALUE="1"/>
+        <PARAMETER NAME="c_gt_loc_2" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_3" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_4" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_5" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_6" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_7" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_8" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_9" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_10" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_11" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_12" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_13" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_14" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_15" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_16" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_17" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_18" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_19" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_20" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_21" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_22" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_23" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_24" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_25" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_26" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_27" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_28" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_29" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_30" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_31" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_32" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_33" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_34" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_35" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_36" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_37" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_38" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_39" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_40" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_41" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_42" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_43" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_44" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_45" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_46" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_47" VALUE="X"/>
+        <PARAMETER NAME="c_gt_loc_48" VALUE="X"/>
+        <PARAMETER NAME="c_gt_clock_1" VALUE="GTXQ0"/>
+        <PARAMETER NAME="c_gt_clock_2" VALUE="None"/>
+        <PARAMETER NAME="c_use_scrambler" VALUE="false"/>
+        <PARAMETER NAME="c_use_chipscope" VALUE="false"/>
+        <PARAMETER NAME="c_drp_if" VALUE="false"/>
+        <PARAMETER NAME="transceivercontrol" VALUE="false"/>
+        <PARAMETER NAME="c_use_crc" VALUE="false"/>
+        <PARAMETER NAME="supportlevel" VALUE="true"/>
+        <PARAMETER NAME="c_use_byteswap" VALUE="false"/>
+        <PARAMETER NAME="c_cpll_fbdiv" VALUE="5"/>
+        <PARAMETER NAME="c_cpll_fbdiv_45" VALUE="5"/>
+        <PARAMETER NAME="c_cpll_refclk_div" VALUE="1"/>
+        <PARAMETER NAME="c_rxoutdiv" VALUE="2"/>
+        <PARAMETER NAME="c_txoutdiv" VALUE="2"/>
+        <PARAMETER NAME="user_interface" VALUE="AXI_4_Streaming"/>
+        <PARAMETER NAME="c_ufcbuswidthselect" VALUE="16"/>
+        <PARAMETER NAME="c_ufcrembuswidthselect" VALUE="1"/>
+        <PARAMETER NAME="c_ufcstrbbuswidthselect" VALUE="2"/>
+        <PARAMETER NAME="c_rembuswidthselect" VALUE="1"/>
+        <PARAMETER NAME="isv7gth" VALUE="false"/>
+        <PARAMETER NAME="gtquadcnt" VALUE="1"/>
+        <PARAMETER NAME="port7dmonitorout" VALUE="7"/>
+        <PARAMETER NAME="is_7series" VALUE="true"/>
+        <PARAMETER NAME="SINGLEEND_INITCLK" VALUE="true"/>
+        <PARAMETER NAME="SINGLEEND_GTREFCLK" VALUE="true"/>
+        <PARAMETER NAME="C_DOUBLE_GTRXRESET" VALUE="false"/>
+        <PARAMETER NAME="C_DOCCPORT_ENABLE" VALUE="false"/>
+        <PARAMETER NAME="is_board" VALUE="zc706"/>
+        <PARAMETER NAME="USDRPADDR_WIDTH" VALUE="8"/>
+        <PARAMETER NAME="USDMON_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="TXDIFFCTRL_WIDTH" VALUE="3"/>
+        <PARAMETER NAME="ins_loss_nyq" VALUE="14"/>
+        <PARAMETER NAME="rx_eq_mode" VALUE="AUTO"/>
+        <PARAMETER NAME="rx_coupling" VALUE="AC"/>
+        <PARAMETER NAME="rx_termination" VALUE="PROGRAMMABLE"/>
+        <PARAMETER NAME="rx_termination_prog_value" VALUE="800"/>
+        <PARAMETER NAME="rx_ppm_offset" VALUE="0"/>
+        <PARAMETER NAME="Component_Name" VALUE="simplex_tx_aurora_8b10b_0_0"/>
+        <PARAMETER NAME="C_AURORA_LANES" VALUE="1"/>
+        <PARAMETER NAME="C_LANE_WIDTH" VALUE="2"/>
+        <PARAMETER NAME="C_LINE_RATE" VALUE="3.125"/>
+        <PARAMETER NAME="C_REFCLK_FREQUENCY" VALUE="125.000"/>
+        <PARAMETER NAME="C_INIT_CLK" VALUE="100.0"/>
+        <PARAMETER NAME="DRP_FREQ" VALUE="100.0"/>
+        <PARAMETER NAME="Dataflow_Config" VALUE="TX-only_Simplex"/>
+        <PARAMETER NAME="Interface_Mode" VALUE="Framing"/>
+        <PARAMETER NAME="Flow_Mode" VALUE="None"/>
+        <PARAMETER NAME="Backchannel_mode" VALUE="Sidebands"/>
+        <PARAMETER NAME="C_COLUMN_USED" VALUE="left"/>
+        <PARAMETER NAME="C_UCOLUMN_USED" VALUE="right"/>
+        <PARAMETER NAME="C_ROW_USED" VALUE="None"/>
+        <PARAMETER NAME="C_GT_LOC_48" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_47" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_46" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_45" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_44" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_43" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_42" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_41" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_40" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_39" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_38" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_37" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_36" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_35" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_34" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_33" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_32" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_31" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_30" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_29" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_28" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_27" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_26" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_25" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_24" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_23" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_22" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_21" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_20" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_19" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_18" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_17" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_16" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_15" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_14" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_13" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_12" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_11" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_10" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_9" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_8" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_7" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_6" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_5" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_4" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_3" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_2" VALUE="X"/>
+        <PARAMETER NAME="C_GT_LOC_1" VALUE="1"/>
+        <PARAMETER NAME="C_GT_CLOCK_1" VALUE="GTXQ0"/>
+        <PARAMETER NAME="C_GT_CLOCK_2" VALUE="None"/>
+        <PARAMETER NAME="C_USE_CHIPSCOPE" VALUE="false"/>
+        <PARAMETER NAME="C_USE_SCRAMBLER" VALUE="false"/>
+        <PARAMETER NAME="C_USE_CRC" VALUE="false"/>
+        <PARAMETER NAME="SupportLevel" VALUE="1"/>
+        <PARAMETER NAME="TransceiverControl" VALUE="false"/>
+        <PARAMETER NAME="C_EXAMPLE_SIMULATION" VALUE="false"/>
+        <PARAMETER NAME="C_USE_BYTESWAP" VALUE="false"/>
+        <PARAMETER NAME="CHANNEL_ENABLE" VALUE="X0Y0"/>
+        <PARAMETER NAME="C_DRP_IF" VALUE="false"/>
+        <PARAMETER NAME="INS_LOSS_NYQ" VALUE="14"/>
+        <PARAMETER NAME="RX_EQ_MODE" VALUE="AUTO"/>
+        <PARAMETER NAME="RX_COUPLING" VALUE="AC"/>
+        <PARAMETER NAME="RX_TERMINATION" VALUE="PROGRAMMABLE"/>
+        <PARAMETER NAME="RX_TERMINATION_PROG_VALUE" VALUE="800"/>
+        <PARAMETER NAME="RX_PPM_OFFSET" VALUE="0"/>
+        <PARAMETER NAME="C_GTWIZ_OUT" VALUE="false"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="0" NAME="s_axi_tx_tdata" RIGHT="15" SIGIS="undef" SIGNAME="External_Ports_s_axi_tx_tdata_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="s_axi_tx_tdata_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="s_axi_tx_tkeep" RIGHT="1" SIGIS="undef" SIGNAME="External_Ports_s_axi_tx_tkeep_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="s_axi_tx_tkeep_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axi_tx_tlast" SIGIS="undef" SIGNAME="External_Ports_s_axi_tx_tlast_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="s_axi_tx_tlast_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axi_tx_tvalid" SIGIS="undef" SIGNAME="External_Ports_s_axi_tx_tvalid_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="s_axi_tx_tvalid_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axi_tx_tready" SIGIS="undef" SIGNAME="aurora_8b10b_0_s_axi_tx_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="s_axi_tx_tready_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="tx_hard_err" SIGIS="undef" SIGNAME="aurora_8b10b_0_tx_hard_err">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="tx_hard_err_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="tx_channel_up" SIGIS="undef" SIGNAME="aurora_8b10b_0_tx_channel_up">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="tx_channel_up_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="tx_lane_up" RIGHT="0" SIGIS="undef" SIGNAME="aurora_8b10b_0_tx_lane_up">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="tx_lane_up_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="txp" RIGHT="0" SIGIS="undef" SIGNAME="aurora_8b10b_0_txp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="txp_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="txn" RIGHT="0" SIGIS="undef" SIGNAME="aurora_8b10b_0_txn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="txn_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="tx_system_reset" SIGIS="rst" SIGNAME="External_Ports_tx_system_reset_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="tx_system_reset_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="gt_reset" SIGIS="rst" SIGNAME="External_Ports_gt_reset_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="gt_reset_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="2" NAME="loopback" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_loopback_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="loopback_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="tx_aligned" SIGIS="undef" SIGNAME="External_Ports_tx_aligned_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="tx_aligned_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="tx_verify" SIGIS="undef" SIGNAME="External_Ports_tx_verify_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="tx_verify_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="tx_reset" SIGIS="undef" SIGNAME="External_Ports_tx_reset_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="tx_reset_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="drpclk_in" SIGIS="clk" SIGNAME="External_Ports_drpclk_in_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="drpclk_in_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="power_down" SIGIS="rst" SIGNAME="External_Ports_power_down_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="power_down_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="tx_lock" SIGIS="undef" SIGNAME="aurora_8b10b_0_tx_lock">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="tx_lock_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="tx_resetdone_out" SIGIS="undef" SIGNAME="aurora_8b10b_0_tx_resetdone_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="tx_resetdone_out_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="init_clk_in" SIGIS="clk" SIGNAME="External_Ports_init_clk_in_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="init_clk_in_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="156250000" DIR="O" NAME="user_clk_out" SIGIS="clk" SIGNAME="aurora_8b10b_0_user_clk_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="user_clk_out_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="pll_not_locked_out" SIGIS="undef" SIGNAME="aurora_8b10b_0_pll_not_locked_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="pll_not_locked_out_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="sys_reset_out" SIGIS="rst" SIGNAME="aurora_8b10b_0_sys_reset_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="sys_reset_out_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="gt_refclk1" SIGIS="clk" SIGNAME="External_Ports_gt_refclk1_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="gt_refclk1_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="156250000" DIR="O" NAME="sync_clk_out" SIGIS="clk"/>
+        <PORT DIR="O" NAME="gt_reset_out" SIGIS="rst"/>
+        <PORT DIR="O" NAME="gt0_qplllock_out" SIGIS="undef"/>
+        <PORT DIR="O" NAME="gt0_qpllrefclklost_out" SIGIS="undef"/>
+        <PORT DIR="O" NAME="gt_qpllclk_quad1_out" SIGIS="undef"/>
+        <PORT DIR="O" NAME="gt_qpllrefclk_quad1_out" SIGIS="undef"/>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="USER_DATA_S_AXI_TX" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="1"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="156250000"/>
+          <PARAMETER NAME="PHASE" VALUE="0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="simplex_tx_aurora_8b10b_0_0_user_clk_out"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axi_tx_tdata"/>
+            <PORTMAP LOGICAL="TKEEP" PHYSICAL="s_axi_tx_tkeep"/>
+            <PORTMAP LOGICAL="TLAST" PHYSICAL="s_axi_tx_tlast"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axi_tx_tready"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axi_tx_tvalid"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="CORE_STATUS" TYPE="INITIATOR" VLNV="xilinx.com:display_aurora:core_status_out:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="PLL_NOT_LOCKED_OUT" PHYSICAL="pll_not_locked_out"/>
+            <PORTMAP LOGICAL="TX_CHANNEL_UP" PHYSICAL="tx_channel_up"/>
+            <PORTMAP LOGICAL="TX_HARD_ERR" PHYSICAL="tx_hard_err"/>
+            <PORTMAP LOGICAL="TX_LANE_UP" PHYSICAL="tx_lane_up"/>
+            <PORTMAP LOGICAL="TX_LOCK" PHYSICAL="tx_lock"/>
+            <PORTMAP LOGICAL="TX_RESETDONE_OUT" PHYSICAL="tx_resetdone_out"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="TX_SIDEBAND_SIGNALS" TYPE="TARGET" VLNV="xilinx.com:display_aurora:SIDEBAND_Pins_TX:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="ALIGNED" PHYSICAL="tx_aligned"/>
+            <PORTMAP LOGICAL="RESET" PHYSICAL="tx_reset"/>
+            <PORTMAP LOGICAL="VERIFY" PHYSICAL="tx_verify"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="CORE_CONTROL" TYPE="TARGET" VLNV="xilinx.com:display_aurora:core_control_in:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="LOOPBACK" PHYSICAL="loopback"/>
+            <PORTMAP LOGICAL="Power_down" PHYSICAL="power_down"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="GT_SERIAL_TX" TYPE="INITIATOR" VLNV="xilinx.com:display_aurora:GT_Serial_Transceiver_Pins_TX:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TXN" PHYSICAL="txn"/>
+            <PORTMAP LOGICAL="TXP" PHYSICAL="txp"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="QPLL_CONTROL_OUT" TYPE="INITIATOR" VLNV="xilinx.com:display_aurora:QPLL_CONTROL_OUT:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="QPLLLOCK_QUAD1_OUT" PHYSICAL="gt0_qplllock_out"/>
+            <PORTMAP LOGICAL="QPLLREFCLKLOST_QUAD1_OUT" PHYSICAL="gt0_qpllrefclklost_out"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+  </MODULES>
+
+</EDKSYSTEM>

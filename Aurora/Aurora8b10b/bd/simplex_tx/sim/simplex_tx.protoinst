@@ -1,0 +1,9 @@
+{
+	"version": "1.0",
+	"modules": {
+		"simplex_tx": {
+			"proto_instances": {
+			}
+		}
+	}
+}
