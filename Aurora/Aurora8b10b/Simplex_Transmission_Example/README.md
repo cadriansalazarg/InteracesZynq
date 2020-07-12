@@ -24,13 +24,18 @@ El diagrama de bloques se compone de 4 módulos los cuales se detallan a continu
 
 ***4) Verificador del tráfico de datos recibido:*** Este bloque se encuentra en la FPGA receptora. Su función es tomar los datos de salida del módulo Aurora 8b10b y asegurarse que estos datos fueron recibidos correctamente.Para ello utiliza en su implementación el mismo generador de datos pseudo aleatorio localizado en el transmisor, configurado con la misma semilla, de esta forma, se valida si los datos recibidos son los mismos que fueron transmitidos. Finalmente, este bloque contiene un contrador de la cantidad total de errores ocurrido en la comunicación para evaluar la transmisión de datos a través del canal.
 
+
 ## Detalles particulares del diseño
+
 
 ### Inicialización del canal
 
+
 Cuando se utiliza el IP Core Aurora 8b10b en configuración Simplex, es necesario asegurarse que el canal fue correctamente inicializado antes de realizar el envio de datos. Para una transmisión y recepción de datos en modo Simplex, se proponen dos métodos para sincronizar el transmisor y el receptor: 1) Usando un Backchannel o 2) Usando temporizadores. De acuerdo con la información contenida en la web, a pesar de que el uso de un backchannel requiere del uso de 3 o 4 pines extra, en función del número de lanes utilizados, este método es el más simple, ya que únicamente se deben interconectar las señales aligned, bonded, verify, y reset. Así, el receptor le indicará al transmisor asertando estas banderas, cuando el canal receptor se encuentra listo para recibir datos y de esta forma el transmisor, podrá iniciar el envió de estos. Debido a que sólo se está utilizando un lane, solo se debe interconectar tres banderas (aligned, verify, y reset). El IP Core automáticamente sólo generará estas tres banderas debido a que sólo se utiliza un lane.
 
+
 ### Configuración del Aurora como transmisor
+
 
 En esta sección se muestran diferentes capturas de pantalla que muestran como fue configurado el IP Core Aurora 8b10b en modo simplex, operando como transmisor:
 
@@ -53,7 +58,7 @@ Figura 4: Captura de pantalla de las opciones de configuración "GT Selection" d
 
 Figura 5: Captura de pantalla de las opciones de configuración "Shared Logic" del IP Core Aurora 8b10b configurado como transmisor en modo simplex.
 
-Finalmente, siguiendo está configuración se obtendrá un IP Core como el que se muestra en la Figura 6. Debe observarse que no todos los pines de salida son necesarios, como puede observarse, para la prueba que se realizó, algunos pines no fueron utlizados, (sync_clk_out, gt_reset_out, gt_qpllclk_quad1_out, gt_qpllrefclk_quad1_out) y por lo tanto no fueron conectados.
+Finalmente, siguiendo está configuración se obtendrá un IP Core como el que se muestra en la Figura 6. Debe observarse que no todos los pines de salida son necesarios, para la prueba que se realizó, algunos pines no fueron utlizados, (sync_clk_out, gt_reset_out, gt_qpllclk_quad1_out, gt_qpllrefclk_quad1_out) y por lo tanto no fueron conectados como pines externos.
 
 
 ![Shared Logic](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Aurora/Aurora8b10b/Simplex_Transmission_Example/images/Simple_tx_bd.png)
@@ -61,6 +66,36 @@ Finalmente, siguiendo está configuración se obtendrá un IP Core como el que s
 Figura 6: Captura de pantalla del diagrama de entradas y salidas generado luego de aplicar las configuraciones establecidas aquí. Observe que hay cuatro pines de salida que no se hacen externos debido a que para esta configuración, no son necesarios.
 
 
+### Configuración del Aurora como receptor
+
+
+En esta sección se muestran diferentes capturas de pantalla que muestran como fue configurado el IP Core Aurora 8b10b en modo simplex, operando como receptor:
+
+![Core Option parte 1](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Aurora/Aurora8b10b/Simplex_Transmission_Example/images/Simple_rx_core_options.png)
+
+Figura 7: Captura de pantalla de las opciones de configuración "Core Options" del IP Core Aurora 8b10b configurado como receptor en modo simplex parte 1.
+
+
+![Core Option parte 2](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Aurora/Aurora8b10b/Simplex_Transmission_Example/images/Simple_rx_core_options_1.png)
+
+Figura 8: Captura de pantalla de las opciones de configuración "Core Options" del IP Core Aurora 8b10b configurado como receptor en modo simplex parte 2.
+
+
+![GT Selection](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Aurora/Aurora8b10b/Simplex_Transmission_Example/images/Simple_tx_GT_Selection.png)
+
+Figura 9: Captura de pantalla de las opciones de configuración "GT Selection" del IP Core Aurora 8b10b configurado como receptor en modo simplex.
+
+
+![Shared Logic](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Aurora/Aurora8b10b/Simplex_Transmission_Example/images/Simple_tx_core_Shared_Logic.png)
+
+Figura 10: Captura de pantalla de las opciones de configuración "Shared Logic" del IP Core Aurora 8b10b configurado como receptor en modo simplex.
+
+Finalmente, siguiendo está configuración se obtendrá un IP Core como el que se muestra en la Figura 11. Debe observarse que no todos los pines de salida son necesarios, para la prueba que se realizó, algunos pines no fueron utlizados, (sync_clk_out, gt_reset_out, gt_qpllclk_quad1_out, gt_qpllrefclk_quad1_out) y por lo tanto no fueron configurados como pines externos.
+
+
+![Shared Logic](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Aurora/Aurora8b10b/Simplex_Transmission_Example/images/Simple_tx_bd.png)
+
+Figura 11: Captura de pantalla del diagrama de entradas y salidas generado luego de aplicar las configuraciones establecidas aquí. Observe que hay cuatro pines de salida que no se hacen externos debido a que para esta configuración, no son necesarios.
 
 
 
