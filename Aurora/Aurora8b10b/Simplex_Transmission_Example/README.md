@@ -1,16 +1,16 @@
-# Interfaces de bus paralelo y serial
+# Aurora 8b10b en modo simplex
 
 ## Objetivo de la carpeta
 
-Comprender la forma en la que operan las tres interfaces de bus elaboradas por el Ing. Ronny García-Ramírez mediante su uso a través de tres diferentes testbench (uno para cada interfaz) elaborados en SystemVerilog.
+Comprender la forma en la que trabaja el IP Core de Xilinx Aurora 8b10b utilizado para en transmisiones de datos en modo simplex. 
 
-## Interfaz de bus paralelo sin árbitro
+## Descripción del diseño desde una perspectiva de alto nivel
 
-La interfaz de bus paralelo, tienen la descripción de entradas y salidas que se muestra a continuación
+Para comprobar el funcionamiento del módulo Aurora 8b10b en modo simplex, se desarrollo un sistema con dos FPGA, donde en una FPGA se colocará un  IP Core Aurora 8b10b trabajando en modo simplex como transmisor, y por otro lado, la otra FPGA contiene otro IP Core Auora 8b10b operando igualmente en modo simplex pero como receptor. A continuación se muestra el diagrama de bloques del sistema propuesto.
 
-![Diagrama de entradas y salidas del bus paralelo sin árbitro](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Buses_Serial_Paralelo/images/Interfaz_Bus_Paralelo.png)
+![Diagrama de bloques](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/Aurora/Aurora8b10b/Simplex_Transmission_Example/images/BlockDiagram.png)
 
-Figura 1: Diagrama de entradas y salidas del bus paralelo sin árbitro.
+Figura 1: Diagrama de bloques del sistema multi-FPGA simulado para evaluar la comunicación simplex del IP Core Aurora 8b10b
 
 
 ### Parámetros del bus
