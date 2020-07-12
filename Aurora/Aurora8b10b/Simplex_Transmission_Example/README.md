@@ -12,6 +12,17 @@ Para comprobar el funcionamiento del módulo Aurora 8b10b en modo simplex, se de
 
 Figura 1: Diagrama de bloques del sistema multi-FPGA simulado para evaluar la comunicación simplex del IP Core Aurora 8b10b
 
+El diagrama de bloques se compone de 4 módulos los cuales se detallan a continuación:
+
+***1) Generador de tráfico:*** Este bloque se encuentra contenido en la FPGA encargada de la transmisión de datos. El generador de tráfico se encarga de generar los datos que serán transmitidos utilizando el IP Core Aurora 8b10b siguiendo una secuencia pseudo aleatoria generada a partir de un LFSR. Además la duración de los datos válidos es variable, por lo tanto, no solo se aleatoriza los datos, sino también la duración del frame de datos ser transferido. Finalmente, los datos se transforman al protocolo AXI Stream, para que sean compatibles con el Aurora 8b10b.
+
+
+***2) Aurora 8b10b en modo simplex como transmisor:*** Este bloque contiene el IP Core Aurora 8b10b operando en modo simplex configurado como transmisor. Se ubica en la FPGA transmisora. Este IP Core recibe como entrada los datos que provienen del generador de tráfico y se encarga de transmitir esto, a través de los enlaces seriales de alta velocidad. Además, este IP Core recibve tres señales que proviene del IP Core Aurora 8b10b receptor, utilizadas para la sincronización de los canales de comunicación.
+
+
+***3) Aurora 8b10b en modo simplex como receptor:*** Este bloque contiene el IP Core Aurora 8b10b operando en modo simplex configurado como receptor. Se encuentra localizado en la FPGA receptora. Este IP Core recibe como entrada los datos que provienen del IP Core Aurora 8b10b a través de los enlaces seriales de alta velocidad. Además, este IP Core genera 3 banderas, las cuales se envían a la FPGA transmisora y su función es sincronizar el canal de comunicación entre el receptor y el transmisor. La salida de este IP Core se encuentra codificado en protocolo AXI Stream.
+
+***4) Aurora 8b10b en modo simplex como receptor:*** Este bloque contiene el IP Core Aurora 8b10b operando en modo simplex configurado como receptor. Se encuentra localizado en la FPGA receptora. Este IP Core recibe como entrada los datos que provienen del IP Core Aurora 8b10b a través de los enlaces seriales de alta velocidad. Además, este IP Core genera 3 banderas, las cuales se envían a la FPGA transmisora y su función es sincronizar el canal de comunicación entre el receptor y el transmisor. La salida de este IP Core se encuentra codificado en protocolo AXI Stream.
 
 ### Parámetros del bus
 
