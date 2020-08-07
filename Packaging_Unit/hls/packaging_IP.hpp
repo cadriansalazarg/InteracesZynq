@@ -10,7 +10,7 @@
 
 #define NUM_OF_TESTS 10
 
-typedef int	data_t;
+typedef unsigned int data_type;
 
 typedef struct packaging_data {
    unsigned char BS_ID;
@@ -18,14 +18,14 @@ typedef struct packaging_data {
    unsigned short int PCKG_ID;
    unsigned char TX_UID;
    unsigned char RX_UID;
-   unsigned short int MSSG_SZ_BYTES;
-   int MESSAGE[PAYLOAD_PACKET_BYTES/4];
+   unsigned short int VALID_PACKET_BYTES;
+   data_type MESSAGE[PAYLOAD_PACKET_BYTES/4];
 } packaging_data;
 
-typedef int data_type;
+
 
 struct AXISTREAM32{
-	data_t data;
+	data_type data;
 	ap_int<1> tlast;
 };
 

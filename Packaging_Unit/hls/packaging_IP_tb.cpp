@@ -3,81 +3,125 @@
 #include <array>
 #include <random>
 #include "packaging_IP.hpp"
+#include <stdbool.h>
+
+
+bool checkForEqualityUnsignedChar(unsigned char x, unsigned char y);
+bool checkForEqualityUnsignedShortInt(unsigned short int x, unsigned short int y);
+bool checkForEquality(data_type x, data_type y);
+
 
 int main(){
 
-	data_t  Data_Sent[MESSAGE_SIZE_BYTES/4];
+	data_type  Data_Sent[MESSAGE_SIZE_BYTES/4];
 	hls::stream<AXISTREAM32> input_buffer;
 
 	hls::stream<packaging_data> output_fifo;
 
 	packaging_data Data_Received_fifo[NUMBER_OF_PACKETS];
+	packaging_data Expected_Value[NUMBER_OF_PACKETS];
 
-	unsigned int i, j, k;  // Variables para los loops
+	unsigned int i, j, k;  // Loops variables
 
-	//printf("El número de paquetes es: %d\n", NUMBER_OF_PACKETS);
-	//printf("El payload del mensaje es: %d\n", PAYLOAD_MESSAGE_BYTES);
-	//printf("El payload del paquete es: %d\n", PAYLOAD_PACKET_BYTES);
+
 
 	InicializarArregloEntrada: for(i=0; i<MESSAGE_SIZE_BYTES/4; i++){
-		if(i==0) //HEader Message
+		if(i==0) //Header Message
 			Data_Sent[i] = 0x00A1A000;
 		else  // Payload
-			Data_Sent[i] = i;
+			Data_Sent[i] = i - 1;
 	}
+
+	printf("************  Creating the validation model  ************\n");
+	
+	Adding_Expected_Header: for (i = 0; i < NUMBER_OF_PACKETS; i++) {
+		Expected_Value[i].BS_ID = ROM_FOR_BUS_ID[(unsigned char)((0xFF000000)&Data_Sent[0])>>24];
+		Expected_Value[i].FPGA_ID = (unsigned char)0x0F;
+		Expected_Value[i].TX_UID = (unsigned char)(((0xFF000000)&Data_Sent[0])>>24);
+		Expected_Value[i].RX_UID = (unsigned char)(((0x00FF0000)&Data_Sent[0])>>16);
+		Expected_Value[i].PCKG_ID = i;
+	}
+
+	k = 1;  // Must be set to 1, considering that the first four-byte are the  message headers
+
+	Expected_Loop_Packaging: for (i = 0; i < NUMBER_OF_PACKETS; i++) {
+		Loop1: for (j = 0; j < PAYLOAD_PACKET_BYTES>>2; j++){
+			if (k < MESSAGE_SIZE_BYTES>>2){
+				Expected_Value[i].MESSAGE[j] = Data_Sent[k];
+				k = k + 1;
+			}
+			else{
+				Expected_Value[i].VALID_PACKET_BYTES = (j<<2);
+			    goto jump;
+			}
+		}
+		Expected_Value[i].VALID_PACKET_BYTES = (j<<2);
+	}
+
+jump:
 
 	ExecuteNumberOfSteps: for (j=0; j<NUM_OF_TESTS ; j++){
 
-		EscribirBuffer: for (i=0; i<MESSAGE_SIZE_BYTES/4;i++){
+		WRITE_INPUT_BUFFER: for (i=0; i<MESSAGE_SIZE_BYTES/4;i++){
 			AXISTREAM32 a;
 			a.data = Data_Sent[i];
 			a.tlast = (i==(MESSAGE_SIZE_BYTES/4)-1)? 1:0;
 			input_buffer.write(a);
 		}
-
+		
+		// invoking the uut
 		packaging_IP_block(input_buffer,  output_fifo);
 
 		i = 0;
-	    LeerFIFO: while(!output_fifo.empty()){
+	    READ_FIFO: while(!output_fifo.empty()){
 		   Data_Received_fifo[i] = output_fifo.read();
 		   i++;
 	    }
+	    
+	    // ********************************** Validation *********************************************
+	    
+	    printf("\n\n\n **************************** Starting Validation **************************** \n\n\n");
+	    printf("\n\n\n ************************** Simulation step number %d ************************ \n\n\n",j);
 
-	    Header_Validation: for (i=0; i<NUMBER_OF_PACKETS;i++){
-	    	if (Data_Received_fifo[i].BS_ID != 0x00){
-	    		printf("Error en el BS_ID en la iteración %d \n",i);
+	    HEADER_VALIDATION: for (i=0; i<NUMBER_OF_PACKETS;i++){
+	    	if (!checkForEqualityUnsignedChar(Data_Received_fifo[i].BS_ID, Expected_Value[i].BS_ID)){
+	    		printf("Error in BS_ID identifier. Packet number %d \n",i);
 	    		return 1;
 	    	}
-	    	if (Data_Received_fifo[i].FPGA_ID != 0x0F){
-	    		printf("Error en el FPGA_ID en la iteración %d \n",i);
+	    	if (!checkForEqualityUnsignedChar(Data_Received_fifo[i].FPGA_ID, Expected_Value[i].FPGA_ID)){
+	    		printf("Error in FPGA_ID identifier. Packet number %d \n",i);
 	    		return 1;
 	    	}
-	    	if (Data_Received_fifo[i].PCKG_ID != ((0x0000FFFF)&i)){
-	    		printf("Error en el PCKG_ID en la iteración %d \n",i);
+	    	if (!checkForEqualityUnsignedShortInt(Data_Received_fifo[i].PCKG_ID, Expected_Value[i].PCKG_ID)){
+	    		printf("Error in PCKG_ID identifier. Packet number %d \n",i);
 	    		return 1;
 	    	}
-	    	if (Data_Received_fifo[i].TX_UID != ((0xFF000000)&Data_Sent[0])>>24){
-	    		printf("Error en el TX_UID en la iteración %d \n",i);
+	    	if (!checkForEqualityUnsignedChar(Data_Received_fifo[i].TX_UID, Expected_Value[i].TX_UID)){
+	    		printf("Error in TX_UID identifier. Packet number %d \n",i);
 	    		return 1;
 	    	}
-	    	if (Data_Received_fifo[i].RX_UID != ((0x00FF0000)&Data_Sent[0])>>16){
-	    		printf("Error en el RX_UID en la iteración %d \n",i);
+	    	if (!checkForEqualityUnsignedChar(Data_Received_fifo[i].RX_UID, Expected_Value[i].RX_UID)){
+	    		printf("Error in RX_UID identifier. Packet number %d \n",i);
+	    		return 1;
+	    	}
+	    	if (!checkForEqualityUnsignedShortInt(Data_Received_fifo[i].VALID_PACKET_BYTES, Expected_Value[i].VALID_PACKET_BYTES)){
+	    		printf("Error in VALID_PACKET_BYTES identifier. Packet number %d \n",i);
 	    		return 1;
 	    	}
 	    }
 
-	    IMPRIMIR_MENSAJES: for (i=0; i<NUMBER_OF_PACKETS;i++){
+	    PRINT_MESSAGES: for (i=0; i<NUMBER_OF_PACKETS;i++){
 	    	for(k=0; k < PAYLOAD_PACKET_BYTES/4; k++){
-	    		printf("Paquete %d. Message %d. Valor: %x \n",i+1, k+1, Data_Received_fifo[i].MESSAGE[k]);
+	    		printf("Packet %d. Message %d. Value: %d \n",i, k, Data_Received_fifo[i].MESSAGE[k]);
 	    	}
 	    }
 
-	    printf("\n ******************* INICIALIZANDO LA VALIDACION **********************\n");
+	    printf("\n ******************* Starting validation **********************\n");
 
-	    VALIDAR_MENSAJES: for (i=0; i<NUMBER_OF_PACKETS;i++){
-	    	for(k=0; k < PAYLOAD_PACKET_BYTES/4; k++){
-	    		if (((unsigned int) Data_Received_fifo[i].MESSAGE[k]-k) < 0.01){
-	    			printf("Error en paquete %d. Message %d. Valor Esperado: %x. Valor Recibido: %x \n",i+1, k+1, k+1, Data_Received_fifo[i].MESSAGE[k]);
+	    MESSAGE_VALIDATION: for (i=0; i<NUMBER_OF_PACKETS;i++){
+	    	for(k=0; k < Data_Received_fifo[i].VALID_PACKET_BYTES/4; k++){
+	    		if (!checkForEquality(Data_Received_fifo[i].MESSAGE[k], Expected_Value[i].MESSAGE[k])){
+	    			printf("Error en paquete %d. Message %d. Valor Esperado: %d. Valor Recibido: %d \n",i+1, k+1, Expected_Value[i].MESSAGE[k], Data_Received_fifo[i].MESSAGE[k]);
 	    			return 1;
 	    		}
 	    	}
@@ -87,4 +131,22 @@ int main(){
 	
 	printf("La simulación funcionó sin problemas\n");
 	return 0;
+}
+
+
+bool checkForEqualityUnsignedChar(unsigned char x, unsigned char y)
+{
+	return !(x ^ y);
+}
+
+
+bool checkForEqualityUnsignedShortInt(unsigned short int x, unsigned short int y)
+{
+	return !(x ^ y);
+}
+
+
+bool checkForEquality(data_type x, data_type y)
+{
+	return !(x ^ y);
 }
