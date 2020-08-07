@@ -4,7 +4,7 @@
 
 #define PACKAGE_SIZE_BYTES 128
 #define MESSAGE_SIZE_BYTES 4004
-#define NUMBER_OF_PACKETS (MESSAGE_SIZE_BYTES-4)/(PACKAGE_SIZE_BYTES-8)+ 1 // Se suma 1, debido a que la división casi siempre no dae entera
+#define NUMBER_OF_PACKETS (MESSAGE_SIZE_BYTES-4)/(PACKAGE_SIZE_BYTES-8)+ 1 // One is added to compensate for truncation rounding
 #define PAYLOAD_PACKET_BYTES (PACKAGE_SIZE_BYTES-8)
 #define PAYLOAD_MESSAGE_BYTES (MESSAGE_SIZE_BYTES-4)
 
