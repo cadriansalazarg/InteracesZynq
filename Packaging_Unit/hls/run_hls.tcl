@@ -1,8 +1,3 @@
-############################################################
-## This file is generated automatically by Vivado HLS.
-## Please DO NOT edit it.
-## Copyright (C) 2013 Xilinx Inc. All rights reserved.
-############################################################
 
 # Create a Vivado HLS project
 open_project -reset hls_packaging_block_hw_prj
