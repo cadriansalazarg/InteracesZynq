@@ -1,14 +1,8 @@
-############################################################
-## This file is generated automatically by Vivado HLS.
-## Please DO NOT edit it.
-## Copyright (C) 2013 Xilinx Inc. All rights reserved.
-############################################################
-
 # Create a Vivado HLS project
-open_project -reset hls_packaging_block_hw_prj
-set_top packaging_IP_block
-add_files packaging_IP.cpp -cflags "-std=c++11 -Wno-unknown-pragmas"
-add_files -tb packaging_IP_tb.cpp -cflags "-std=c++11 -Wno-unknown-pragmas" 
+open_project -reset hls_unpackaging_block_hw_prj
+set_top unpackaging_IP_block
+add_files unpackaging_IP.cpp -cflags "-std=c++11 -Wno-unknown-pragmas"
+add_files -tb unpackaging_IP_tb.cpp -cflags "-std=c++11 -Wno-unknown-pragmas" 
 
 # Solution1 *************************
 open_solution -reset "solution1"
