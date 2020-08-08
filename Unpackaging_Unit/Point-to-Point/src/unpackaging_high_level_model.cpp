@@ -1,8 +1,10 @@
+// To compile:  g++ unpackaging_high_level_model.cpp -std=c++11 -o unpackaging_high_level_model.o
+
 #include <iostream>
 #include <vector>
 #include <array>
 #include <random>
-//#include "packaging_IP.hpp"
+
 
 
 #define PACKAGE_SIZE_BYTES 128
@@ -41,8 +43,6 @@ int main(){
 	
 	int count_valid = 0;
 	
-	//hls::stream<packaging_data> input_fifo;
-	//hls::stream<AXISTREAM32> output_buffer;
 	
 	packaging_data Data_Input [NUMBER_OF_PACKETS];
 	data_t Data_Received_AXIStream[PAYLOAD_MESSAGE_BYTES/4];
@@ -51,7 +51,6 @@ int main(){
 	
 	
 	
-	printf("*************** Estoy aquí 1 **************\n");
 	
 	for(j=0; j<MESSAGE_SIZE_BYTES/4; j++){
 		if (j==0)
@@ -60,7 +59,6 @@ int main(){
 			Original_Message[j] = j-1; 
 	}
 	
-	printf("*************** Estoy aquí 2 **************\n");
 	
 	for(j=0; j< NUMBER_OF_PACKETS; j++){
 		Data_Input[j].BS_ID = 0x00;
@@ -69,9 +67,7 @@ int main(){
 		Data_Input[j].TX_UID = (0xFF000000&Original_Message[0])>>24;
 		Data_Input[j].RX_UID = (0x00FF0000&Original_Message[0])>>16;
 	}
-	
-	printf("*************** Estoy aquí 3 **************\n");
-	
+		
 	printf("Parámetro NUMBER_OF_PACKETS es : %d \n",NUMBER_OF_PACKETS);
 	printf("Parámetro PAYLOAD_PACKET_BYTES es : %d \n",PAYLOAD_PACKET_BYTES);
 	printf("Parámetro MESSAGE_SIZE_BYTES es : %d \n",MESSAGE_SIZE_BYTES);
@@ -98,11 +94,8 @@ int main(){
 		offset = offset +j;
 		Data_Input[i].VALID_PACKET_BYTES = valid;
 	}
-	
-	printf("*************** Estoy aquí 4 **************\n");
-		
+			
 	////****************************** Validación
-	
 	
 	
 	for(i=0; i<NUMBER_OF_PACKETS; i++){
@@ -121,37 +114,10 @@ int main(){
 		printf("El dato %d es igual a %d\n",i,Data_Input[33].MESSAGE[i]);
 	} 
 	 
-	
-	/*
-	
-	ExecuteNumberOfSteps: for (j=0; j<NUM_OF_TESTS; j++){
-		
-		EscribirFIFO: for (i=0; i<NUMBER_OF_PACKETS;i++){
-			input_fifo.write(Data_Input[i]);
-		}
-		
-		packaging_IP_block(input_fifo, output_buffer);
-		
-		LeerBuffer: for (i=0; i<PAYLOAD_MESSAGE_BYTES/4; i++){
-			AXISTREAM32 a;
-			a = output_buffer.read();
-			Data_Received_AXIStream[i] = a.data;
-		}
-		
-		
-	}  // */
-	
-	/*
-	Loop_Productor: while(!in_fifo.empty()) {
-        packet = in_fifo.read();
-        memcopy(packet.MESSAGE, offset, packet.VALID_PACKET_BYTES);
-        offset = offset + (packet.VALID_PACKET_BYTES<<4);
-    } */
     
     offset = 0;
     
     Loop_Productor: for(i=0; i<NUMBER_OF_PACKETS; i++){
-        //packet = in_fifo.read();
         memcopy(Data_Input[i].MESSAGE, offset, Data_Input[i].VALID_PACKET_BYTES);
         offset = offset + (Data_Input[i].VALID_PACKET_BYTES>>2);
         printf("El valor de offset de valid es %d \n",  Data_Input[i].VALID_PACKET_BYTES>>2);
@@ -163,10 +129,7 @@ int main(){
 		if ((i==((PAYLOAD_MESSAGE_BYTES>>2)-1)))
 		    printf("En la iteración número %d se levantó la bandera tlast\n", i);
     }
-    
-    
-	
-	
+    	
 	printf("La simulación funcionó sin problemas\n");
 	return 0;
 }
@@ -174,10 +137,7 @@ int main(){
 
 void memcopy(int Payload[PAYLOAD_PACKET_BYTES/4], unsigned int offset, unsigned short int valid_bytes) {
 	int i;
-	//printf("*****************************************************************************\n");
-	//printf("El valor de offset es: %d \n", offset);
 	for (int i = 0; i<(valid_bytes>>2); i++){
 		Message[i+offset] = Payload[i];
-		//printf("Iteración %d dentro de memcopy ejecutada correctamente\n", i);
 	}
 }
