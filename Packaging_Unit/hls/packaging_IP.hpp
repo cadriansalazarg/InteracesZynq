@@ -1,5 +1,5 @@
-#include<hls_stream.h>
-#include<ap_int.h>
+#include <hls_stream.h>
+#include <ap_int.h>
 
 
 #define PACKAGE_SIZE_BYTES 128

@@ -129,7 +129,7 @@ jump:
 
 	}
 	
-	printf("La simulación funcionó sin problemas\n");
+	printf("The simulation was successfully completed\n");
 	return 0;
 }
 
