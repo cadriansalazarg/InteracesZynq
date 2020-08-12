@@ -11,7 +11,10 @@ void unpackaging_IP_block(hls::stream<packaging_data>& in_fifo, hls::stream<AXIS
 	packaging_data packet;
 	unsigned int offset = 0;
 	
-	Loop_Producer: while(!in_fifo.empty()) {
+	
+	Loop_Producer: for (int i=0; i<NUMBER_OF_PACKETS; i++) { 
+		while(in_fifo.empty())
+		;  // I put the semicolon on this separate line to silence a warning
         packet = in_fifo.read();
         memcopy(packet.MESSAGE, offset, packet.VALID_PACKET_BYTES);
         offset = offset + (packet.VALID_PACKET_BYTES>>2);
