@@ -1,12 +1,10 @@
-
 # Create a Vivado HLS project
 open_project -reset hls_packaging_block_hw_prj
 set_top packaging_IP_block
 add_files packaging_IP.cpp -cflags "-std=c++11 -Wno-unknown-pragmas"
 add_files -tb packaging_IP_tb.cpp -cflags "-std=c++11 -Wno-unknown-pragmas" 
 
-# Solution1 *************************
-open_solution -reset "solution1"
+open_solution -reset "Optimized"
 set_part  {xc7z020clg484-1} 
 create_clock -period 10 -name default  
 source "directives.tcl"
@@ -21,6 +19,3 @@ cosim_design
 export_design
 
 exit
-
-
-

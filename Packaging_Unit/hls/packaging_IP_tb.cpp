@@ -4,7 +4,7 @@
 #include <random>
 #include "packaging_IP.hpp"
 #include <stdbool.h>
-
+//#define DEBUG 1   // Uncomment for debugging
 
 bool checkForEqualityUnsignedChar(unsigned char x, unsigned char y);
 bool checkForEqualityUnsignedShortInt(unsigned short int x, unsigned short int y);
@@ -23,9 +23,11 @@ int main(){
 
 	unsigned int i, j, k;  // Loops variables
 
+	#ifdef DEBUG
+	printf("NUMBER_OF_PACKETS = %d\n", NUMBER_OF_PACKETS);
+	#endif
 
-
-	InicializarArregloEntrada: for(i=0; i<MESSAGE_SIZE_BYTES/4; i++){
+	Initialize_Message_Array: for(i=0; i<MESSAGE_SIZE_BYTES/4; i++){
 		if(i==0) //Header Message
 			Data_Sent[i] = 0x00A1A000;
 		else  // Payload
@@ -109,14 +111,15 @@ jump:
 	    		return 1;
 	    	}
 	    }
-
+		#ifdef DEBUG
 	    PRINT_MESSAGES: for (i=0; i<NUMBER_OF_PACKETS;i++){
 	    	for(k=0; k < PAYLOAD_PACKET_BYTES/4; k++){
 	    		printf("Packet %d. Message %d. Value: %d \n",i, k, Data_Received_fifo[i].MESSAGE[k]);
 	    	}
 	    }
+		#endif
 
-	    printf("\n ******************* Starting validation **********************\n");
+	    printf("\n\n\n **************************** Starting Validation **************************** \n\n\n");
 
 	    MESSAGE_VALIDATION: for (i=0; i<NUMBER_OF_PACKETS;i++){
 	    	for(k=0; k < Data_Received_fifo[i].VALID_PACKET_BYTES/4; k++){

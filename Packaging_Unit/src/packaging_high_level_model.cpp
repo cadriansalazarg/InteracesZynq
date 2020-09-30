@@ -1,9 +1,9 @@
-#include <hls_stream.h>
-#include <ap_int.h>
+// To compile gcc packaging_high_level_model.c -o packaging_high_level_model.o
 
+#include <stdio.h>
 
-#define PACKAGE_SIZE_BYTES 512
-#define MESSAGE_SIZE_BYTES 2000
+#define PACKAGE_SIZE_BYTES 128
+#define MESSAGE_SIZE_BYTES 6300
 
 #define PAYLOAD_PACKET_BYTES (PACKAGE_SIZE_BYTES-8)
 #define PAYLOAD_MESSAGE_BYTES (MESSAGE_SIZE_BYTES-4)
@@ -17,6 +17,9 @@
 
 #define NUM_OF_TESTS 2
 
+
+//#define DEBUG 		// Uncomment for debugging
+
 typedef unsigned int data_type;
 
 typedef struct packaging_data {
@@ -28,12 +31,6 @@ typedef struct packaging_data {
    unsigned short int VALID_PACKET_BYTES;
    data_type MESSAGE[PAYLOAD_PACKET_BYTES/4];
 } packaging_data;
-
-struct AXISTREAM32{
-	data_type data;
-	ap_int<1> tlast;
-};
-
 
 const unsigned char ROM_FOR_BUS_ID[256] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
                                            0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x0C, 0x1D, 0x1E, 0x1F,
@@ -53,5 +50,85 @@ const unsigned char ROM_FOR_BUS_ID[256] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0
 										   0xF0, 0xF1, 0xF2, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7, 0xF8, 0xF9, 0xFA, 0xFB, 0x0C, 0xFD, 0xFE, 0xFF};
 
 
+int main()
+{
+    int Original_Message[MESSAGE_SIZE_BYTES/4]; // This is the original Message
+    unsigned short int i, j;
+    unsigned short int k = 1;
+    
+    unsigned int input_buff[MESSAGE_SIZE_BYTES/4];
+    packaging_data output_data[NUMBER_OF_PACKETS];
+	 packaging_data packet_data;
+	
+    
+    
+    for(j=0; j<MESSAGE_SIZE_BYTES/4; j++){
+		if (j==0)
+			Original_Message[j] = 0x01020000; 
+		else
+			Original_Message[j] = j-1; 
+	}
+	
+	Loop_Productor: for (int i = 0; i < MESSAGE_SIZE_BYTES/4; i++) 
+		input_buff[i] = Original_Message[i];
+	
+	
+	Loop_Packaging: for (i = 0; i < NUMBER_OF_PACKETS; i++) {
+		//Adding Header
+		packet_data.BS_ID = ROM_FOR_BUS_ID[(unsigned char)((0xFF000000)&input_buff[0])>>24];
+		packet_data.FPGA_ID = (unsigned char)0x0F;
+		packet_data.TX_UID = (unsigned char)(((0xFF000000)&input_buff[0])>>24);
+		packet_data.RX_UID = (unsigned char)(((0x00FF0000)&input_buff[0])>>16);
+		packet_data.PCKG_ID = i;
 
-void packaging_IP_block(hls::stream<AXISTREAM32> &input, hls::stream<packaging_data>& out_fifo);
+		//Adding Message
+		Loop1: for (j = 0; j < PAYLOAD_PACKET_BYTES>>2; j++){
+			if (k < MESSAGE_SIZE_BYTES>>2){
+				packet_data.MESSAGE[j] = input_buff[k];
+				k = k + 1;
+			}
+			else{
+				break;
+			}
+		}
+		packet_data.VALID_PACKET_BYTES = (j<<2);
+
+		//Sending Package
+		output_data[i] = packet_data;
+	}
+	
+jump: 
+	#ifdef DEBUG
+	for(i=0; i<NUMBER_OF_PACKETS; i++){
+	    printf("************************************************************ \n");
+	    printf("El ID del bus es: %x \n",output_data[i].BS_ID);
+	    printf("El ID del la FPGA es: %x \n",output_data[i].FPGA_ID);
+	    printf("El identificador TX es: %x \n",output_data[i].TX_UID);
+	    printf("El identificador RX es: %x \n",output_data[i].RX_UID);
+	    printf("El identificador de paquete es: %d \n",output_data[i].PCKG_ID);
+	    printf("El número de bytes válidos es: %d \n",output_data[i].VALID_PACKET_BYTES);
+	    printf("************************************************************ \n");
+	}
+	
+	printf("\n \n +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n \n");
+	
+	#endif
+	j = 1;
+	for(k=0; k<NUMBER_OF_PACKETS; k++){
+		for(i=0; i<PAYLOAD_PACKET_BYTES/4; i++){
+			if(j<MESSAGE_SIZE_BYTES/4){
+				if(output_data[k].MESSAGE[i] != Original_Message[j]){
+					printf("Error in package %d in data %d\n", k, i);
+					return 1;
+				}
+				j+=1;
+			}
+			else
+			break;
+		}
+	}
+	
+   
+
+    return 0;
+}
