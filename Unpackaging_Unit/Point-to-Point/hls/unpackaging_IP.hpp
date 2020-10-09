@@ -2,13 +2,20 @@
 #include<ap_int.h>
 
 
-#define PACKAGE_SIZE_BYTES 128
-#define MESSAGE_SIZE_BYTES 4004
-#define NUMBER_OF_PACKETS (MESSAGE_SIZE_BYTES-4)/(PACKAGE_SIZE_BYTES-8)+ 1 // One is added to compensate for truncation rounding
+#define PACKAGE_SIZE_BYTES 512
+#define MESSAGE_SIZE_BYTES 6396
+
 #define PAYLOAD_PACKET_BYTES (PACKAGE_SIZE_BYTES-8)
 #define PAYLOAD_MESSAGE_BYTES (MESSAGE_SIZE_BYTES-4)
 
-#define NUM_OF_TESTS 1000
+//Checks if is necessary to add 1 due to rounding
+#if ((PAYLOAD_MESSAGE_BYTES)/(PAYLOAD_PACKET_BYTES)+ 1)*(PAYLOAD_PACKET_BYTES)-(PAYLOAD_MESSAGE_BYTES)==(PAYLOAD_PACKET_BYTES)
+	#define NUMBER_OF_PACKETS (MESSAGE_SIZE_BYTES-4)/(PACKAGE_SIZE_BYTES-8)
+#else
+	#define NUMBER_OF_PACKETS (MESSAGE_SIZE_BYTES-4)/(PACKAGE_SIZE_BYTES-8)+ 1 // One is added to compensate for truncation rounding
+#endif
+
+#define NUM_OF_TESTS 4
 
 
 typedef unsigned int data_type;

@@ -20,6 +20,3 @@ cosim_design
 export_design
 
 exit
-
-
-

@@ -1,7 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <array>
-#include <random>
 #include "unpackaging_IP.hpp"
 
 //#define DEBUG 1   // Uncomment for debugging
@@ -12,7 +9,7 @@ int main(){
 	
 	
 	unsigned int i, j;
-	unsigned int offset = 1;  // Starts in 1, because the first four bytes,are part of the header
+	unsigned short int offset = 1;  // Starts in 1, because the first four bytes,are part of the header
 	
 	unsigned short int valid = PAYLOAD_PACKET_BYTES;
 	
@@ -106,9 +103,13 @@ int main(){
 		} 
 		
 		Validation: for (i=0; i<PAYLOAD_MESSAGE_BYTES/4; i++){
-			printf("Data received: %d. Expected Data: %d .\n",Data_Received_AXIStream[i],Original_Message[i+1]);
-			if (!checkForEquality(Data_Received_AXIStream[i], Original_Message[i+1]))
+			#ifdef DEBUG
+				printf("Data received: %d. Expected Data: %d .\n",Data_Received_AXIStream[i],Original_Message[i+1]);
+			#endif
+			if (!checkForEquality(Data_Received_AXIStream[i], Original_Message[i+1])){
 				printf ("Error in element number %d of the message.\n", i);
+				return 1;
+			}
 		}
 		
 		
@@ -123,4 +124,3 @@ bool checkForEquality(data_type x, data_type y)
 {
 	return !(x ^ y);
 }
-

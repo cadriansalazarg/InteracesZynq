@@ -1,5 +1,4 @@
 #include <hls_stream.h>
-#include <string.h>
 #include "unpackaging_IP.hpp"
 
 data_type Message[PAYLOAD_MESSAGE_BYTES/4];
@@ -9,10 +8,10 @@ void memcopy(data_type Payload[PAYLOAD_PACKET_BYTES/4], unsigned int offset, uns
 void unpackaging_IP_block(hls::stream<packaging_data>& in_fifo, hls::stream<AXISTREAM32> &output){
 
 	packaging_data packet;
-	unsigned int offset = 0;
+	unsigned short int offset = 0;
 	
 	
-	Loop_Producer: for (int i=0; i<NUMBER_OF_PACKETS; i++) { 
+	Loop_Producer: for (unsigned short int i=0; i<NUMBER_OF_PACKETS; i++) {
 		while(in_fifo.empty())
 		;  // I put the semicolon on this separate line to silence a warning
         packet = in_fifo.read();
@@ -20,7 +19,7 @@ void unpackaging_IP_block(hls::stream<packaging_data>& in_fifo, hls::stream<AXIS
         offset = offset + (packet.VALID_PACKET_BYTES>>2);
     } 
     
-    Loop_Consumer: for(int i = 0; i<(PAYLOAD_MESSAGE_BYTES>>2); i++){
+    Loop_Consumer: for(unsigned short int i = 0; i<(PAYLOAD_MESSAGE_BYTES>>2); i++){
         AXISTREAM32 a;
 		a.data = Message[i];
 		a.tlast = (i==((PAYLOAD_MESSAGE_BYTES>>2)-1)) ? 1 : 0;
@@ -30,7 +29,7 @@ void unpackaging_IP_block(hls::stream<packaging_data>& in_fifo, hls::stream<AXIS
 }
 
 void memcopy(data_type Payload[PAYLOAD_PACKET_BYTES/4], unsigned int offset, unsigned short int valid_bytes) {
-	int i;
+	unsigned char i;
 	LoopPayload: for (i = 0; i<(valid_bytes>>2); i++){
 		Message[i+offset] = Payload[i];
 	}
