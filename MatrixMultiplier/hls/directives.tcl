@@ -7,8 +7,9 @@
 #set_directive_interface -mode axis -register_mode off "loopback" output
 #set_directive_interface -mode s_axilite "loopback" 
 
-set_directive_interface -mode axis -register -register_mode both "Wrapper_Matrix_Multiplier" input
-set_directive_interface -mode axis -register -register_mode both "Wrapper_Matrix_Multiplier" output
+set_directive_interface -mode ap_fifo "Wrapper_Matrix_Multiplier" out_fifo
+set_directive_interface -mode ap_fifo "Wrapper_Matrix_Multiplier" in_fifo
+
 set_directive_interface -mode s_axilite "Wrapper_Matrix_Multiplier" 
 
 
@@ -29,11 +30,11 @@ set_directive_stream -depth 256 -dim 1 "Wrapper_Matrix_Multiplier" bus_local
 # Se agrega la directiva de pipeline a ambos for, tanto el del coonsumidor como el del productor, esto solo se puede hacer dado que
 # ambos for están balanceados.
 
-set_directive_pipeline "productor/Loop_Productor"
-set_directive_pipeline "consumidor/Loop_Reorganizing_Data_MatrixA"
-set_directive_pipeline "consumidor/Loop_Reorganizing_Data_MatrixB"
-set_directive_pipeline "consumidor/Loop_Consumidor"
+#set_directive_pipeline "productor/Loop_Productor"
+#set_directive_pipeline "consumidor/Loop_Reorganizing_Data_MatrixA"
+#set_directive_pipeline "consumidor/Loop_Reorganizing_Data_MatrixB"
+#set_directive_pipeline "consumidor/Loop_Consumidor"
 
-set_directive_pipeline -rewind "matrixmul/Col"
+#set_directive_pipeline -rewind "matrixmul/Col"
 
 
