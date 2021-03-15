@@ -22,11 +22,17 @@ int main(int argc, char **argv)
     hls::stream<packaging_data> output_fifo;
 
     unsigned short int err_cnt = 0;
+    unsigned short int err_header = 0;
     unsigned short int k = 0;
     
     data_type tmp = 0;
     mat_a_t a_row[MAT_A_COLS];
-   	
+    
+    const unsigned char bus_id = 0xA0;
+    const unsigned char fpga_id = 0xF1;
+    const unsigned char tx_uid = 0x12;
+    const unsigned char rx_uid = 0x7C;
+       	
     // Input stimulus
     k = 0;
     for(unsigned short int i = 0; i < MAT_A_ROWS; i++) {
@@ -69,11 +75,11 @@ int main(int argc, char **argv)
     ExecuteNumberOfSteps: for (unsigned short int zz=0; zz<NUM_OF_TESTS ; zz++){
    
 		k = 0;
-		input_packet.BS_ID = 0x00; // 8 bits
-		input_packet.FPGA_ID = 0x00; // 8 bits
+		input_packet.BS_ID = bus_id; // 8 bits
+		input_packet.FPGA_ID = fpga_id; // 8 bits
 		input_packet.PCKG_ID = 0x0000; // 16 bits
-		input_packet.TX_UID = 0x00; // 8 bits
-		input_packet.RX_UID = 0x00; // 8 bits
+		input_packet.TX_UID = tx_uid; // 8 bits
+		input_packet.RX_UID = rx_uid; // 8 bits
 		input_packet.VALID_PACKET_BYTES = PAYLOAD_PACKET_BYTES; // 16 bits
 		
 		
@@ -88,14 +94,16 @@ int main(int argc, char **argv)
 					break;
 				}
 				k++;
-			}			
+			}
+			input_packet.PCKG_ID = i;			
 			//Sending packet
 			input_fifo.write(input_packet);
 		}
 	
 		#ifdef HW_COSIM
 		// Run the AutoESL matrix multiply block
-		Wrapper_Matrix_Multiplier(input_fifo, output_fifo);
+		Wrapper_Matrix_Multiplier(input_fifo, output_fifo, bus_id, fpga_id);
+		
 		
 		k = 0;
 		READ_FIFO: while(!output_fifo.empty()){
@@ -123,17 +131,42 @@ int main(int argc, char **argv)
 				
 			}
 		}
+		
+		CHECK_HEADER: for (unsigned short int i = 0; i < NUM_TOTAL_OF_PACKETS_TX; i++) {
+			if ( Data_Received_fifo[i].BS_ID != bus_id ){
+				err_header++;
+			}
+			if ( Data_Received_fifo[i].FPGA_ID != fpga_id ){
+				err_header++;
+			}
+			if ( Data_Received_fifo[i].TX_UID != rx_uid ){
+				err_header++;
+			}
+			if ( Data_Received_fifo[i].RX_UID != tx_uid ){
+				err_header++;
+			}
+			if ( Data_Received_fifo[i].PCKG_ID != i ){
+				err_header++;
+			}
+		} // */
+		
+	
 		#endif 
 		
 		#ifdef HW_COSIM
 		if (err_cnt)
-			cout << "ERROR: " << err_cnt << " mismatches detected!" << endl;
+			cout << "ERROR: " << err_cnt << " mismatches detected in matrix results!" << endl;
 		else
-			cout << "Test passes." << endl;
+			cout << "Test of matrix results passes." << endl;
+		
+		if (err_header)
+			cout << "ERROR: " << err_header << " mismatches detected in the header packet!" << endl;
+		else
+			cout << "Test of header packet passes." << endl;
 		#endif 
 		
 		
 	}	
-	return err_cnt;
+	return (err_cnt || err_header);
 }
 

@@ -22,7 +22,7 @@ using namespace std;
 #define MAT_Y_ROWS MAT_A_ROWS
 #define MAT_Y_COLS MAT_B_COLS
 
-#define NUM_OF_TESTS 10
+#define NUM_OF_TESTS 100
 
 #define PACKAGE_SIZE_BYTES 32
 #define PAYLOAD_PACKET_BYTES (PACKAGE_SIZE_BYTES-8)
@@ -52,17 +52,17 @@ typedef int result_t;
 
 typedef struct packaging_data {
    unsigned char BS_ID;
-   unsigned char FPGA_ID;
+   unsigned char FPGA_ID; // FPGA identifier of the transmitting FPGA
    unsigned short int PCKG_ID;
-   unsigned char TX_UID;
-   unsigned char RX_UID;
+   unsigned char TX_UID;  // Global identifier of the transmitting node
+   unsigned char RX_UID;  // Global identifier of the receiving node
    unsigned short int VALID_PACKET_BYTES;
    data_type MESSAGE[PAYLOAD_PACKET_BYTES/4];
 } packaging_data;
 
 
 // Prototype of top level function for C-synthesis
-void Wrapper_Matrix_Multiplier(hls::stream<packaging_data>& in_fifo, hls::stream<packaging_data>& out_fifo);
+void Wrapper_Matrix_Multiplier(hls::stream<packaging_data>& in_fifo, hls::stream<packaging_data>& out_fifo, unsigned char bus_id, unsigned char fpga_id);
 
 void matrixmul( mat_a_t a[MAT_A_ROWS][MAT_A_COLS], mat_b_t b[MAT_B_ROWS][MAT_B_COLS], result_t res[MAT_Y_ROWS * MAT_Y_COLS]);
 

@@ -10,8 +10,9 @@
 set_directive_interface -mode ap_fifo "Wrapper_Matrix_Multiplier" out_fifo
 set_directive_interface -mode ap_fifo "Wrapper_Matrix_Multiplier" in_fifo
 
-set_directive_interface -mode s_axilite "Wrapper_Matrix_Multiplier" 
-
+set_directive_interface -mode ap_ctrl_chain "Wrapper_Matrix_Multiplier"
+set_directive_interface -mode ap_stable "Wrapper_Matrix_Multiplier" bus_id
+set_directive_interface -mode ap_stable "Wrapper_Matrix_Multiplier" fpga_id
 
 ############################################################
 # Directiva de Dataflow utilizada
@@ -25,6 +26,7 @@ set_directive_interface -mode s_axilite "Wrapper_Matrix_Multiplier"
 # superior al resultado MAT_A_ROWS * MAT_A_COLS + MAT_B_ROWS * MAT_B_COLS, Por lo tanto revisar matrixmul.h
 
 set_directive_stream -depth 256 -dim 1 "Wrapper_Matrix_Multiplier" bus_local
+set_directive_stream -depth 2 -dim 1 "Wrapper_Matrix_Multiplier" bus_local_header
 
 ############################################################
 # Se agrega la directiva de pipeline a ambos for, tanto el del coonsumidor como el del productor, esto solo se puede hacer dado que
