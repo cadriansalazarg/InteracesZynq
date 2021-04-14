@@ -14,7 +14,7 @@ module Aurora_to_fifo_tb;
     parameter n = 32*NUMBER_OF_LANES;
 
     reg user_clk, reset_TX_RX_Block;
-    reg m_axi_rx_tlast, m_axi_tvalid;
+    reg m_axi_rx_tlast, m_axi_rx_tvalid;
     reg [n-1:0] m_axi_rx_tdata;
     reg full;
     
@@ -30,7 +30,7 @@ module Aurora_to_fifo_tb;
         .wr_en(wr_en), 
         .m_axi_rx_tdata(m_axi_rx_tdata), 
         .m_axi_rx_tlast(m_axi_rx_tlast), 
-        .m_axi_tvalid(m_axi_tvalid), 
+        .m_axi_rx_tvalid(m_axi_rx_tvalid), 
         .full(full), 
         .Error(Error)
     );
@@ -41,7 +41,7 @@ module Aurora_to_fifo_tb;
         full = 0;
         
         m_axi_rx_tlast = 0;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tdata = 32'd0;
         
         /* Descomentar esta línea para verificar el funcionamiento de la versión con tamaño de paquete de 256 bits utilizando dos lanes
@@ -51,13 +51,13 @@ module Aurora_to_fifo_tb;
         
         // Detecting  an error in the sequence
         #40 m_axi_rx_tdata = 64'h01903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -66,13 +66,13 @@ module Aurora_to_fifo_tb;
         #40 reset_TX_RX_Block = 0;
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -83,13 +83,13 @@ module Aurora_to_fifo_tb;
         full = 1;
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         #40 full = 0;
@@ -99,71 +99,71 @@ module Aurora_to_fifo_tb;
         // Sending and first element of the sequence
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and second element of the sequence
         
         #40 m_axi_rx_tdata = 64'h01903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and third element of the sequence
         
         #40 m_axi_rx_tdata = 64'h02903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and forth element of the sequence
         
         #40 m_axi_rx_tdata = 64'h03903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and fifth element of the sequence
         
         #40 m_axi_rx_tdata = 64'h04903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and sixth element of the sequence
         
         #40 m_axi_rx_tdata = 64'h05903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         #40 reset_TX_RX_Block = 1;
@@ -172,11 +172,11 @@ module Aurora_to_fifo_tb;
         // Sending and the first element of the sequence
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -187,13 +187,13 @@ module Aurora_to_fifo_tb;
         
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // */
@@ -207,7 +207,7 @@ module Aurora_to_fifo_tb;
         
         // Detecting  an error in the sequence
         #40 m_axi_rx_tdata = 64'h01903247_01013247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -217,7 +217,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_00000007;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -226,7 +226,7 @@ module Aurora_to_fifo_tb;
         #40 reset_TX_RX_Block = 0;
         
         #40 m_axi_rx_tdata = 64'h01903247_01013247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -236,7 +236,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_00000007;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -247,7 +247,7 @@ module Aurora_to_fifo_tb;
         full = 1;
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -257,7 +257,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_00000007;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         #40 full = 0;
@@ -267,7 +267,7 @@ module Aurora_to_fifo_tb;
         // Sending and first element of the sequence
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -277,13 +277,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_00000007;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and second element of the sequence
         
         #40 m_axi_rx_tdata = 64'h01903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -293,13 +293,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_00000007;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and third element of the sequence
         
         #40 m_axi_rx_tdata = 64'h02903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -309,13 +309,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_00000007;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and forth element of the sequence
         
         #40 m_axi_rx_tdata = 64'h03903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -325,13 +325,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_00000007;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and fifth element of the sequence
         
         #40 m_axi_rx_tdata = 64'h04903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -341,17 +341,17 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_00000007;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and sixth element of the sequence
         
         #40 m_axi_rx_tdata = 64'h05903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         #40 reset_TX_RX_Block = 1;
@@ -360,11 +360,11 @@ module Aurora_to_fifo_tb;
         // Sending and the first element of the sequence
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -375,7 +375,7 @@ module Aurora_to_fifo_tb;
         
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -385,7 +385,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_00000007;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // */
@@ -398,7 +398,7 @@ module Aurora_to_fifo_tb;
         
         // Detecting  an error in the sequence
         #40 m_axi_rx_tdata = 64'h01903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -416,7 +416,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_0000000F;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -425,7 +425,7 @@ module Aurora_to_fifo_tb;
         #40 reset_TX_RX_Block = 0;
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -443,7 +443,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_0000000F;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -454,7 +454,7 @@ module Aurora_to_fifo_tb;
         full = 1;
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -472,7 +472,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_0000000F;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         #40 full = 0;
@@ -482,7 +482,7 @@ module Aurora_to_fifo_tb;
         // Sending and first element of the sequence
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -500,13 +500,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_0000000F;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and second element of the sequence
         
         #40 m_axi_rx_tdata = 64'h01903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -524,13 +524,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_0000000F;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and third element of the sequence
         
         #40 m_axi_rx_tdata = 64'h02903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -548,13 +548,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_0000000F;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and forth element of the sequence
         
         #40 m_axi_rx_tdata = 64'h03903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -572,13 +572,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_0000000F;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and fifth element of the sequence
         
         #40 m_axi_rx_tdata = 64'h04903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -596,17 +596,17 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_0000000F;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and sixth element of the sequence
         
         #40 m_axi_rx_tdata = 64'h05903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         #40 reset_TX_RX_Block = 1;
@@ -615,11 +615,11 @@ module Aurora_to_fifo_tb;
         // Sending and the first element of the sequence
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -630,7 +630,7 @@ module Aurora_to_fifo_tb;
         
         
         #40 m_axi_rx_tdata = 64'h00903247_01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000001;
         #8 m_axi_rx_tdata = 64'h00000000_00000002;
         #8 m_axi_rx_tdata = 64'h00000000_00000003;
@@ -648,7 +648,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 64'h00000000_0000000F;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 64'h00000000_00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // */
@@ -665,7 +665,7 @@ module Aurora_to_fifo_tb;
         
         // Detecting  an error in the sequence
         #40 m_axi_rx_tdata = 32'h01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -675,7 +675,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h00000006;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -684,7 +684,7 @@ module Aurora_to_fifo_tb;
         #40 reset_TX_RX_Block = 0;
         
         #40 m_axi_rx_tdata = 32'h00903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -694,7 +694,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h00000006;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -705,7 +705,7 @@ module Aurora_to_fifo_tb;
         full = 1;
         
         #40 m_axi_rx_tdata = 32'h00903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -715,7 +715,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h00000006;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         #40 full = 0;
@@ -725,7 +725,7 @@ module Aurora_to_fifo_tb;
         // Sending and first element of the sequence
         
         #40 m_axi_rx_tdata = 32'h00903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -735,7 +735,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h00000006;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and second element of the sequence
@@ -750,13 +750,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h00000006;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and third element of the sequence
         
         #40 m_axi_rx_tdata = 32'h02903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -766,18 +766,18 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h00000006;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and forth element of the sequence
         
         #40 m_axi_rx_tdata = 32'h03903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         #40 reset_TX_RX_Block = 1;
@@ -786,23 +786,23 @@ module Aurora_to_fifo_tb;
         // Sending and first element of the sequence
         
         #40 m_axi_rx_tdata = 32'h00903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
         
         #40 m_axi_rx_tdata = 32'h01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // */
@@ -815,7 +815,7 @@ module Aurora_to_fifo_tb;
         
         // Detecting  an error in the sequence
         #40 m_axi_rx_tdata = 32'h01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -833,7 +833,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h0000000E;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -842,7 +842,7 @@ module Aurora_to_fifo_tb;
         #40 reset_TX_RX_Block = 0;
         
         #40 m_axi_rx_tdata = 32'h00903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -860,7 +860,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h0000000E;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -871,7 +871,7 @@ module Aurora_to_fifo_tb;
         full = 1;
         
         #40 m_axi_rx_tdata = 32'h00903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -889,7 +889,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h0000000E;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         #40 full = 0;
@@ -899,7 +899,7 @@ module Aurora_to_fifo_tb;
         // Sending and first element of the sequence
         
         #40 m_axi_rx_tdata = 32'h00903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -917,13 +917,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h0000000E;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and second element of the sequence
         
         #40 m_axi_rx_tdata = 32'h01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -941,13 +941,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h0000000E;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and second element of the sequence
         
         #40 m_axi_rx_tdata = 32'h02903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -965,18 +965,18 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h0000000E;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and forth element of the sequence
         
         #40 m_axi_rx_tdata = 32'h03903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         #40 reset_TX_RX_Block = 1;
@@ -985,12 +985,12 @@ module Aurora_to_fifo_tb;
         // Sending and forth element of the sequence
         
         #40 m_axi_rx_tdata = 32'h00903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // */
@@ -1003,7 +1003,7 @@ module Aurora_to_fifo_tb;
         
         // Detecting  an error in the sequence
         #40 m_axi_rx_tdata = 32'h01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -1037,7 +1037,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h0000001E;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -1046,7 +1046,7 @@ module Aurora_to_fifo_tb;
         #40 reset_TX_RX_Block = 0;
         
         #40 m_axi_rx_tdata = 32'h00903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h10903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -1080,7 +1080,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h0000001E;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         
@@ -1091,7 +1091,7 @@ module Aurora_to_fifo_tb;
         full = 1;
         
         #40 m_axi_rx_tdata = 32'h00903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -1125,7 +1125,7 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h0000001E;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         #40 full = 0;
@@ -1135,7 +1135,7 @@ module Aurora_to_fifo_tb;
         // Sending and first element of the sequence
         
         #80 m_axi_rx_tdata = 32'h00FFFFFF;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -1169,13 +1169,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h0000001E;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and second element of the sequence
         
         #40 m_axi_rx_tdata = 32'h01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -1209,13 +1209,13 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h0000001E;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and third element of the sequence
         
         #40 m_axi_rx_tdata = 32'h02903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
         #8 m_axi_rx_tdata = 32'h00000001;
         #8 m_axi_rx_tdata = 32'h00000002;
@@ -1249,20 +1249,20 @@ module Aurora_to_fifo_tb;
         #8 m_axi_rx_tdata = 32'h0000001E;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // Sending and forth element of the sequence
         
         #40 m_axi_rx_tdata = 32'h03903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h00000001;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         #40 reset_TX_RX_Block = 1;
@@ -1271,14 +1271,14 @@ module Aurora_to_fifo_tb;
         // Sending and forth element of the sequence
         
         #40 m_axi_rx_tdata = 32'h00903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h01903247;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         #8 m_axi_rx_tdata = 32'h00000001;
-        m_axi_tvalid = 1;
+        m_axi_rx_tvalid = 1;
         m_axi_rx_tlast = 1;
         #8 m_axi_rx_tdata = 32'h00000000;
-        m_axi_tvalid = 0;
+        m_axi_rx_tvalid = 0;
         m_axi_rx_tlast = 0;
         
         // */

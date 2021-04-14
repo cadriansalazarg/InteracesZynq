@@ -12,15 +12,15 @@
 // DATAFILE es un parámetro que permite variar el contenido de la memoria ROM que se encarga de generar el BS_ID en función del valor de TX_UID. Los diferentes archivos de que se deberán de cargar en la ROM deben de llamarse como Memory_Content_X.txt, donde X puede ser 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, de esta manera cambiando este parámetro, se puede usar este bloque en para dferentes FPGAs
 
 module Aurora_to_fifo #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LANES = 2, parameter DATAFILE = 1)
-(user_clk, reset_TX_RX_Block,  din, wr_en, m_axi_rx_tdata, m_axi_rx_tlast, m_axi_tvalid, full, Error);
+(user_clk, reset_TX_RX_Block,  din, wr_en, m_axi_rx_tdata, m_axi_rx_tlast, m_axi_rx_tvalid, full, Error);
 
-    localparam n = 32*NUMBER_OF_LANES; 
+    parameter n = 32*NUMBER_OF_LANES; 
     
     localparam S0 = 3'd0, S1 = 3'd1, S2 = 3'd2, S3 = 3'd3, S4 = 3'd4;
 	reg [2:0] State, NextState;
 
     input user_clk, reset_TX_RX_Block;
-    input m_axi_rx_tlast, m_axi_tvalid;
+    input m_axi_rx_tlast, m_axi_rx_tvalid;
     input [n-1:0] m_axi_rx_tdata;
     input full;
     
@@ -56,7 +56,7 @@ module Aurora_to_fifo #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
             full_reg <= 0;
             wr_en <= 0;
         end else begin
-            m_axi_rx_tvalid_reg <= m_axi_tvalid;
+            m_axi_rx_tvalid_reg <= m_axi_rx_tvalid;
             m_axi_rx_tlast_reg <= m_axi_rx_tlast;
             m_axi_rx_tdata_reg <= m_axi_rx_tdata;
             full_reg <= full;
