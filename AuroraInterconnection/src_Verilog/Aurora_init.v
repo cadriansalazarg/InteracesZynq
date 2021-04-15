@@ -20,9 +20,9 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Aurora_init (init_clk, RST, channel_up, reset_Aurora, gt_reset, reset_TX_RX_Block);
+module Aurora_init (init_clk, user_clk, RST, channel_up, reset_Aurora, gt_reset, reset_TX_RX_Block);
 
-	input init_clk, RST, channel_up;
+	input init_clk, RST, channel_up, user_clk;
 	output reg reset_Aurora = 1'b1; //Está señal debe conectarse al puerto llamado reset del Aurora
 	output reg gt_reset = 1'b1; // Está señal debe conectarse al puerto llamado gt_reset del Aurora
 	output reg reset_TX_RX_Block; // Está señal deberá conectarse al puerto de reset_TX_RX_Block de los bloques Aurora_to_FIFO y FIFO_to_Aurora
@@ -35,7 +35,7 @@ module Aurora_init (init_clk, RST, channel_up, reset_Aurora, gt_reset, reset_TX_
 	
 	reg channel_up_reg;
 	
-	localparam siso_shift = 8; // tamaño del registro de desplazamiento para el manejo del channel_up
+	localparam siso_shift = 3; // tamaño del registro de desplazamiento para el manejo del channel_up
 
     reg [siso_shift-1:0] Q_shift = {siso_shift{1'b0}}; // Variable para el registro de desplazamiento que maneja el channel_up
 	
@@ -75,13 +75,10 @@ module Aurora_init (init_clk, RST, channel_up, reset_Aurora, gt_reset, reset_TX_
 		if (RST) begin
 			reset_Aurora <= 1'b1; 
 			gt_reset <= 1'b1;
-			channel_up_reg <= 1'b0;
-			reset_TX_RX_Block <= 1'b1;
 		end else begin 
 			reset_Aurora <= reset_Aurora_reg; 
 			gt_reset <= gt_reset_reg;
-			channel_up_reg <= channel_up;
-			reset_TX_RX_Block <= ~(Q_shift[siso_shift-1] &  Q_shift[0]);
+
 		end
 	end
 	
@@ -100,12 +97,13 @@ module Aurora_init (init_clk, RST, channel_up, reset_Aurora, gt_reset, reset_TX_
 	// En resumen, este bloque se encarga de verificar cuando la señal de channel_up está estable en 1, para así quitar el reset_TX_RX_Block
 	// de los bloques de transmisión y recepción del Aurora.
 	
+	always @(posedge user_clk) begin
+	       	channel_up_reg <= channel_up;
+			reset_TX_RX_Block <= ~(Q_shift[siso_shift-1] &  Q_shift[0]);
+	end
 
-    always @(posedge init_clk) begin
-        if (RST)
-            Q_shift <= 0;
-        else if (~Enable) // Solo hasta que el contador encargado de llevar la secuencia de inicio supera el valor de 510, y por lo tanto, el Enable se hace 0, este registro opera.
-            Q_shift  <= {channel_up_reg, Q_shift[siso_shift-1:1]};   
+    always @(posedge user_clk) begin
+           Q_shift  <= {channel_up_reg, Q_shift[siso_shift-1:1]};   
     end
     
 endmodule
