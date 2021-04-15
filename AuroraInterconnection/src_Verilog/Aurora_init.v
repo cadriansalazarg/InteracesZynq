@@ -44,32 +44,26 @@ module Aurora_init (init_clk, RST, channel_up, reset_Aurora, gt_reset, reset_TX_
 	
 	always @(posedge init_clk) begin
 		if (RST)
-			Q <= 9'd0;
+			Q <= 4'd0;
 		else if (Enable) 
 			Q <= Q + 1'b1;
 	end
 			
 	// ***********************  Comparators
-	always @(posedge init_clk) begin
-		if (Q < 9'd490) 
+	always @(*) begin
+		if (Q < 9'd14) begin
 			gt_reset_reg <= 1'b1;
-		else if (Q < 9'd500)
-			gt_reset_reg <= 1'b0;
-	   else if (Q < 9'd510) 
-			gt_reset_reg <= 1'b1;
-	   else 
-			gt_reset_reg <= 1'b0;
-	end
-	
-	always @(posedge init_clk) begin
-		if (Q < 9'd100) 
 			reset_Aurora_reg <= 1'b1;
-		else
+	   end
+	   else  begin
+			gt_reset_reg <= 1'b0;
 			reset_Aurora_reg <= 1'b0;
+	   end
 	end
+
 	
 	always @(posedge init_clk) begin
-		if (Q < 9'd510) 
+		if (Q < 9'd14) 
 			Enable <= 1'b1;
 		else
 			Enable <= 1'b0;
