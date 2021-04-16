@@ -11,7 +11,7 @@
 // NUMBER_OF_LANES representa el número de lanes para los que fue configurado el Aurora, solo fue testeado con dos lanes, por lo tanto, solo puede usarse el valor de 1, o el valor de 2
 // DATAFILE es un parámetro que permite variar el contenido de la memoria ROM que se encarga de generar el BS_ID en función del valor de TX_UID. Los diferentes archivos de que se deberán de cargar en la ROM deben de llamarse como Memory_Content_X.txt, donde X puede ser 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, de esta manera cambiando este parámetro, se puede usar este bloque en para dferentes FPGAs
 
-module Aurora_to_fifo #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LANES = 2, parameter DATAFILE = 1)
+module Aurora_to_fifo #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LANES = 1, parameter DATAFILE = 1)
 (user_clk, reset_TX_RX_Block,  din, wr_en, m_axi_rx_tdata, m_axi_rx_tlast, m_axi_rx_tvalid, full, Error);
 
     parameter n = 32*NUMBER_OF_LANES; 

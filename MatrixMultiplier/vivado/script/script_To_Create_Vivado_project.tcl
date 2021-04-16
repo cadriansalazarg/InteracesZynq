@@ -347,6 +347,10 @@ endgroup
 ## Se configuran las propiedades del Aurora, revisar con David
 set_property -dict [list CONFIG.SINGLEEND_INITCLK {true} CONFIG.SINGLEEND_GTREFCLK {true} CONFIG.SupportLevel {1}] [get_bd_cells aurora_8b10b_0]
 
+startgroup
+set_property -dict [list CONFIG.C_LANE_WIDTH {4}] [get_bd_cells aurora_8b10b_0]
+endgroup
+
 
 ## Se agrega un bloque de hardware que inicializa el Aurora
 create_bd_cell -type module -reference Aurora_init Aurora_init_0
@@ -374,6 +378,41 @@ set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /fifo_to_Aurora_0/reset_TX
 connect_bd_net [get_bd_pins Aurora_init_0/reset_Aurora] [get_bd_pins aurora_8b10b_0/reset]
 connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/gt_reset]
 connect_bd_net [get_bd_pins Aurora_init_0/channel_up] [get_bd_pins aurora_8b10b_0/channel_up]
+
+connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins fifo_to_Aurora_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/reset_TX_RX_Block]
+
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/empty] [get_bd_pins fifo_generator_6/empty]
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/dout] [get_bd_pins fifo_generator_6/dout]
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/rd_en] [get_bd_pins fifo_generator_6/rd_en]
+
+
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/s_axi_tx_tdata] [get_bd_pins aurora_8b10b_0/s_axi_tx_tdata]
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/s_axi_tx_tlast] [get_bd_pins aurora_8b10b_0/s_axi_tx_tlast]
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/s_axi_tx_tvalid] [get_bd_pins aurora_8b10b_0/s_axi_tx_tvalid]
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/s_axi_tx_tready] [get_bd_pins aurora_8b10b_0/s_axi_tx_tready]
+
+connect_bd_net [get_bd_pins Aurora_to_fifo_0/full] [get_bd_pins fifo_generator_7/full]
+connect_bd_net [get_bd_pins Aurora_to_fifo_0/din] [get_bd_pins fifo_generator_7/din]
+connect_bd_net [get_bd_pins Aurora_to_fifo_0/wr_en] [get_bd_pins fifo_generator_7/wr_en]
+
+connect_bd_net [get_bd_pins Aurora_to_fifo_0/m_axi_rx_tdata] [get_bd_pins aurora_8b10b_0/m_axi_rx_tdata]
+connect_bd_net [get_bd_pins Aurora_to_fifo_0/m_axi_rx_tlast] [get_bd_pins aurora_8b10b_0/m_axi_rx_tlast]
+connect_bd_net [get_bd_pins Aurora_to_fifo_0/m_axi_rx_tvalid] [get_bd_pins aurora_8b10b_0/m_axi_rx_tvalid]
+
+
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_0
+endgroup
+
+set_property -dict [list CONFIG.CONST_WIDTH {4} CONFIG.CONST_VAL {15}] [get_bd_cells xlconstant_0]
+
+connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins aurora_8b10b_0/s_axi_tx_tkeep]
+
+
+
+
+
 
 
 
