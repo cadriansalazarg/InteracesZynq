@@ -14,14 +14,14 @@
 module Aurora_to_fifo #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LANES = 1, parameter DATAFILE = 1)
 (user_clk, reset_TX_RX_Block,  din, wr_en, m_axi_rx_tdata, m_axi_rx_tlast, m_axi_rx_tvalid, full, Error);
 
-    parameter n = 32*NUMBER_OF_LANES; 
+    localparam n = 32*NUMBER_OF_LANES; 
     
     localparam S0 = 3'd0, S1 = 3'd1, S2 = 3'd2, S3 = 3'd3, S4 = 3'd4;
 	reg [2:0] State, NextState;
 
     input user_clk, reset_TX_RX_Block;
     input m_axi_rx_tlast, m_axi_rx_tvalid;
-    input [n-1:0] m_axi_rx_tdata;
+    input [(32*NUMBER_OF_LANES)-1:0] m_axi_rx_tdata;
     input full;
     
     output [PACKET_SIZE_BITS-1: 0] din;
@@ -31,8 +31,8 @@ module Aurora_to_fifo #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
      
      
     reg full_reg;
-    reg [n-1:0] m_axi_rx_tdata_reg;
-    reg [n-1:0] m_axi_rx_tdata_reg1;
+    reg [(32*NUMBER_OF_LANES)-1:0] m_axi_rx_tdata_reg;
+    reg [(32*NUMBER_OF_LANES)-1:0] m_axi_rx_tdata_reg1;
     wire [7:0] BS_ID;
     
     

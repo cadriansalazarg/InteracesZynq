@@ -9,7 +9,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
     (user_clk, reset_TX_RX_Block, empty, rd_en, dout, s_axi_tx_tdata, s_axi_tx_tlast,
     s_axi_tx_tready, s_axi_tx_tvalid);
     
-    parameter n = 32*NUMBER_OF_LANES; 
+    localparam n = 32*NUMBER_OF_LANES; 
     
     localparam SIZE_OF_COUNTER = $clog2((PACKET_SIZE_BITS-64)/n);
     
@@ -29,7 +29,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
     output reg rd_en, s_axi_tx_tlast, s_axi_tx_tvalid; 
     
     input [PACKET_SIZE_BITS-1: 0] dout;
-    output reg  [n-1: 0] s_axi_tx_tdata;
+    output reg  [(32*NUMBER_OF_LANES)-1: 0] s_axi_tx_tdata;
     
     reg [8:0] State;
     reg [8:0] NextState;
