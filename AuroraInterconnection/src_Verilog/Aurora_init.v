@@ -27,7 +27,7 @@ module Aurora_init (init_clk, user_clk, RST, channel_up, reset_Aurora, gt_reset,
 	output reg gt_reset = 1'b1; // Está señal debe conectarse al puerto llamado gt_reset del Aurora
 	output reg reset_TX_RX_Block; // Está señal deberá conectarse al puerto de reset_TX_RX_Block de los bloques Aurora_to_FIFO y FIFO_to_Aurora
 	
-	reg [3:0] Q = 0; // Contador encargado de llevar la sincronización de la incialización
+	reg [5:0] Q = 0; // Contador encargado de llevar la sincronización de la incialización
 	reg Enable = 1'b1;
 	
 	reg gt_reset_reg = 1'b1;
@@ -44,14 +44,14 @@ module Aurora_init (init_clk, user_clk, RST, channel_up, reset_Aurora, gt_reset,
 	
 	always @(posedge init_clk) begin
 		if (RST)
-			Q <= 4'd0;
+			Q <= 6'd0;
 		else if (Enable) 
 			Q <= Q + 1'b1;
 	end
 			
 	// ***********************  Comparators
 	always @(*) begin
-		if (Q < 4'd14) begin
+		if (Q < 6'd62) begin
 			gt_reset_reg <= 1'b1;
 			reset_Aurora_reg <= 1'b1;
 	   end
@@ -63,7 +63,7 @@ module Aurora_init (init_clk, user_clk, RST, channel_up, reset_Aurora, gt_reset,
 
 	
 	always @(posedge init_clk) begin
-		if (Q < 4'd14) 
+		if (Q < 6'd62) 
 			Enable <= 1'b1;
 		else
 			Enable <= 1'b0;
