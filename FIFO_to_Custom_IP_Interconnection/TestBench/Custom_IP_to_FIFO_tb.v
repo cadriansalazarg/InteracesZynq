@@ -11,11 +11,13 @@
         parameter PACKET_SIZE_BITS = 256;
         
         wire wr_en;
+        wire full_n;
         wire [PACKET_SIZE_BITS-1:0] din;
             
             
         reg [7:0] out_fifo_V_BS_ID_din;
         reg out_fifo_V_BS_ID_write;
+        reg full;
             
         reg [7:0] out_fifo_V_FPGA_ID_din;
         reg [15:0] out_fifo_V_PCKG_ID_din;
@@ -33,6 +35,8 @@
         Custom_IP_to_FIFO #(.PACKET_SIZE_BITS(PACKET_SIZE_BITS)) uut(
             .wr_en(wr_en), 
             .din(din), 
+            .full(full),
+            .full_n(full_n),
             .out_fifo_V_BS_ID_din(out_fifo_V_BS_ID_din), 
             .out_fifo_V_BS_ID_write(out_fifo_V_BS_ID_write),
             .out_fifo_V_FPGA_ID_din(out_fifo_V_FPGA_ID_din),
@@ -52,6 +56,7 @@
             
             out_fifo_V_BS_ID_din = 8'h00;
             out_fifo_V_BS_ID_write = 0;
+            full = 0;
             
             out_fifo_V_FPGA_ID_din = 8'h00;
             out_fifo_V_PCKG_ID_din = 16'h0000;
@@ -71,6 +76,7 @@
             
             out_fifo_V_BS_ID_din = 8'hFF;
             out_fifo_V_BS_ID_write = 1;
+            full = 1;
             
             out_fifo_V_FPGA_ID_din = 8'hFF;
             out_fifo_V_PCKG_ID_din = 16'hFFFF;
@@ -135,12 +141,13 @@
         
         parameter PACKET_SIZE_BITS = 512;
         
-        wire wr_en;
+        wire wr_en, full_n;
         wire [PACKET_SIZE_BITS-1:0] din;
             
             
         reg [7:0] out_fifo_V_BS_ID_din;
         reg out_fifo_V_BS_ID_write;
+        reg full;
             
         reg [7:0] out_fifo_V_FPGA_ID_din;
         reg [15:0] out_fifo_V_PCKG_ID_din;
@@ -166,6 +173,8 @@
         Custom_IP_to_FIFO #(.PACKET_SIZE_BITS(PACKET_SIZE_BITS)) uut(
             .wr_en(wr_en), 
             .din(din), 
+            .full(full),
+            .full_n(full_n),
             .out_fifo_V_BS_ID_din(out_fifo_V_BS_ID_din), 
             .out_fifo_V_BS_ID_write(out_fifo_V_BS_ID_write),
             .out_fifo_V_FPGA_ID_din(out_fifo_V_FPGA_ID_din),
@@ -192,6 +201,7 @@
         initial begin
             out_fifo_V_BS_ID_din = 8'h00;
             out_fifo_V_BS_ID_write = 0;
+            full = 0;
             
             out_fifo_V_FPGA_ID_din = 8'h00;
             out_fifo_V_PCKG_ID_din = 16'h0000;
@@ -218,6 +228,7 @@
             
             out_fifo_V_BS_ID_din = 8'hFF;
             out_fifo_V_BS_ID_write = 1;
+            full = 1;
             
             out_fifo_V_FPGA_ID_din = 8'hFF;
             out_fifo_V_PCKG_ID_din = 16'hFFFF;
@@ -302,12 +313,13 @@
         
         parameter PACKET_SIZE_BITS = 1024;
         
-        wire wr_en;
+        wire wr_en, full_n;
         wire [PACKET_SIZE_BITS-1:0] din;
             
             
         reg [7:0] out_fifo_V_BS_ID_din;
         reg out_fifo_V_BS_ID_write;
+        reg full;
             
         reg [7:0] out_fifo_V_FPGA_ID_din;
         reg [15:0] out_fifo_V_PCKG_ID_din;
@@ -349,6 +361,8 @@
         Custom_IP_to_FIFO #(.PACKET_SIZE_BITS(PACKET_SIZE_BITS)) uut(
             .wr_en(wr_en), 
             .din(din), 
+            .full(full),
+            .full_n(full_n),
             .out_fifo_V_BS_ID_din(out_fifo_V_BS_ID_din), 
             .out_fifo_V_BS_ID_write(out_fifo_V_BS_ID_write),
             .out_fifo_V_FPGA_ID_din(out_fifo_V_FPGA_ID_din),
@@ -391,6 +405,7 @@
         initial begin
             out_fifo_V_BS_ID_din = 8'h00;
             out_fifo_V_BS_ID_write = 0;
+            full = 0;
             
             out_fifo_V_FPGA_ID_din = 8'h00;
             out_fifo_V_PCKG_ID_din = 16'h0000;
@@ -433,6 +448,8 @@
             
             out_fifo_V_BS_ID_din = 8'hFF;
             out_fifo_V_BS_ID_write = 1;
+            full = 1;
+            
             
             out_fifo_V_FPGA_ID_din = 8'hFF;
             out_fifo_V_PCKG_ID_din = 16'hFFFF;

@@ -33,7 +33,10 @@ set_property board_part xilinx.com:zc706:part0:1.4 [current_project]
 
 add_files -fileset constrs_1 -norecurse constraints/pines.xdc
 
-add_files -fileset sim_1 -norecurse TestBench/testbench.v
+add_files -fileset sim_1 -norecurse TestBench/testbench.sv
+
+set_property top testbench [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
 
 # Se agrega la biblioteca de buses de Verilog, Nótese que tanto el el archivo Library.sv, como fifo.sv, se toman 
 # directamente de la carpeta Buses_Serial_Paralelo, es decir, justo donde se encuentra contenido el código fuente de los
@@ -158,6 +161,17 @@ set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} 
 set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5}] [get_bd_cells fifo_generator_4]
 set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5}] [get_bd_cells fifo_generator_5]
 endgroup
+
+
+
+startgroup
+set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.Full_Flags_Reset_Value {1} CONFIG.Use_Dout_Reset {true} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_6]
+endgroup
+
+startgroup
+set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.Full_Flags_Reset_Value {1} CONFIG.Use_Dout_Reset {true} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5}] [get_bd_cells fifo_generator_7]
+endgroup
+
 
 
 ############## Interconexiónde la ruta de datos entre el driver 0 y el bus paralelo ############################
@@ -296,13 +310,32 @@ connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_4_empty_n] 
 connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_5_dout] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_5_dout]
 connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_5_empty_n] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_5_empty_n]
 
+
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full] [get_bd_pins fifo_generator_1/full] 
+
+
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_BS_ID_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_FPGA_ID_full_n] 
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_PCKG_ID_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_TX_UID_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_RX_UID_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_VALID_PACKET_BYTES_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_0_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_1_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_2_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_3_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_4_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_5_full_n]
+
+
+
 # Se agrega una constante para el bus_id del multiplicador Wrapper_Matrix_Multi_0
 
 startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_1
 endgroup
 
-set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {1}] [get_bd_cells xlconstant_1]
+set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {3}] [get_bd_cells xlconstant_1]
 
 connect_bd_net [get_bd_pins xlconstant_1/dout] [get_bd_pins Wrapper_Matrix_Multi_0/bus_id]
 
@@ -312,10 +345,19 @@ startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_2
 endgroup
 
-set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {1}] [get_bd_cells xlconstant_2]
+set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {0}] [get_bd_cells xlconstant_2]
 
 connect_bd_net [get_bd_pins xlconstant_2/dout] [get_bd_pins Wrapper_Matrix_Multi_0/fpga_id]
 
+# Se agrega una constante para colocar el identificador único uid del nodo multiplicador Wrapper_Matrix_Multi_0
+
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_8
+endgroup
+
+set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {0}] [get_bd_cells xlconstant_8]
+
+connect_bd_net [get_bd_pins xlconstant_8/dout] [get_bd_pins Wrapper_Matrix_Multi_0/uid]
 
 # Se configura el multiplicador Wrapper_Matrix_Multi_0 para que trabaje en modo AutoStart. El ap_start se conecta a 1, miéntras
 # que el ap_ready se conecta al ap_continue
@@ -416,13 +458,29 @@ connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_5_dout] [ge
 connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_5_empty_n] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_5_empty_n]
 
 
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full] [get_bd_pins fifo_generator_3/full]
+
+
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_BS_ID_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_FPGA_ID_full_n] 
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_PCKG_ID_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_TX_UID_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_RX_UID_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_VALID_PACKET_BYTES_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_0_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_1_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_2_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_3_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_4_full_n]
+connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_5_full_n]
+
 # Se agrega una constante para el bus_id del multiplicador Wrapper_Matrix_Multi_1
 
 startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_3
 endgroup
 
-set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {1}] [get_bd_cells xlconstant_3]
+set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {3}] [get_bd_cells xlconstant_3]
 
 connect_bd_net [get_bd_pins xlconstant_3/dout] [get_bd_pins Wrapper_Matrix_Multi_1/bus_id]
 
@@ -432,9 +490,19 @@ startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_4
 endgroup
 
-set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {1}] [get_bd_cells xlconstant_4]
+set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {0}] [get_bd_cells xlconstant_4]
 
 connect_bd_net [get_bd_pins xlconstant_4/dout] [get_bd_pins Wrapper_Matrix_Multi_1/fpga_id]
+
+# Se agrega una constante para colocar el identificador único uid del nodo multiplicador Wrapper_Matrix_Multi_1
+
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_9
+endgroup
+
+set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {1}] [get_bd_cells xlconstant_9]
+
+connect_bd_net [get_bd_pins xlconstant_9/dout] [get_bd_pins Wrapper_Matrix_Multi_1/uid]
 
 # Se configura el multiplicador Wrapper_Matrix_Multi_1 para que trabaje en modo AutoStart. El ap_start se conecta a 1, miéntras
 # que el ap_ready se conecta al ap_continue
@@ -551,6 +619,7 @@ endgroup
 
 set_property -dict [list CONFIG.PRIM_IN_FREQ.VALUE_SRC USER] [get_bd_cells clk_wiz_0]
 set_property -dict [list CONFIG.PRIM_SOURCE {Differential_clock_capable_pin} CONFIG.PRIM_IN_FREQ {200.000} CONFIG.CLKOUT2_USED {true} CONFIG.CLKOUT3_USED {true} CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {125.000} CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {200.000} CONFIG.USE_LOCKED {false} CONFIG.CLKIN1_JITTER_PS {50.0} CONFIG.MMCM_DIVCLK_DIVIDE {1} CONFIG.MMCM_CLKFBOUT_MULT_F {5.000} CONFIG.MMCM_CLKIN1_PERIOD {5.000} CONFIG.MMCM_CLKIN2_PERIOD {10.0} CONFIG.MMCM_CLKOUT0_DIVIDE_F {8.000} CONFIG.MMCM_CLKOUT1_DIVIDE {10} CONFIG.MMCM_CLKOUT2_DIVIDE {5} CONFIG.NUM_OUT_CLKS {3} CONFIG.CLKOUT1_JITTER {107.523} CONFIG.CLKOUT1_PHASE_ERROR {89.971} CONFIG.CLKOUT2_JITTER {112.316} CONFIG.CLKOUT2_PHASE_ERROR {89.971} CONFIG.CLKOUT3_JITTER {98.146} CONFIG.CLKOUT3_PHASE_ERROR {89.971}] [get_bd_cells clk_wiz_0]
+set_property -dict [list CONFIG.USE_RESET {false}] [get_bd_cells clk_wiz_0]
 
 
 # Se conectan los reloj del Aurora, a los generados por el clk wizard
@@ -636,7 +705,6 @@ connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins Wrapper_Matrix_Multi
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins Wrapper_Matrix_Multi_1/ap_rst]
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/reset]
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins Aurora_init_0/RST]
-connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins clk_wiz_0/reset]
 
 
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_0/rst]
@@ -645,8 +713,13 @@ connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_2/rst
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_3/rst]
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_4/rst]
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_5/rst]
-connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_6/rst]
-connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_7/rst]
+#connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_6/rst]
+#connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_7/rst]
+
+connect_bd_net [get_bd_pins /Aurora_init_0/reset_TX_RX_Block] [get_bd_pins fifo_generator_6/rst]
+connect_bd_net [get_bd_pins /Aurora_init_0/reset_TX_RX_Block] [get_bd_pins fifo_generator_7/rst]
+
+
 
 create_bd_port -dir I clk_200MHz_p
 create_bd_port -dir I clk_200MHz_n

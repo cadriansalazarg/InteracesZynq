@@ -9,9 +9,9 @@
 // Descripción de parámetros
 // PACKET_SIZE_BITS representa el tamaño del paquete en bits,los valores testeados son 256, 512 y 1024. Sin embargo debería se servir bien hasta 4096
 // NUMBER_OF_LANES representa el número de lanes para los que fue configurado el Aurora, solo fue testeado con dos lanes, por lo tanto, solo puede usarse el valor de 1, o el valor de 2
-// DATAFILE es un parámetro que permite variar el contenido de la memoria ROM que se encarga de generar el BS_ID en función del valor de TX_UID. Los diferentes archivos de que se deberán de cargar en la ROM deben de llamarse como Memory_Content_X.txt, donde X puede ser 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, de esta manera cambiando este parámetro, se puede usar este bloque en para dferentes FPGAs
+// DATAFILE es un parámetro que permite variar el contenido de la memoria ROM que se encarga de generar el BS_ID en función del valor de RX_UID. Los diferentes archivos de que se deberán de cargar en la ROM deben de llamarse como Memory_Content_X.txt, donde X puede ser 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, de esta manera cambiando este parámetro, se puede usar este bloque en para dferentes FPGAs
 
-module Aurora_to_fifo #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LANES = 1, parameter DATAFILE = 1)
+module Aurora_to_fifo #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LANES = 1, parameter DATAFILE = 0)
 (user_clk, reset_TX_RX_Block,  din, wr_en, m_axi_rx_tdata, m_axi_rx_tlast, m_axi_rx_tvalid, full, Error);
 
     localparam n = 32*NUMBER_OF_LANES; 
@@ -638,7 +638,6 @@ module register #(parameter WIDTH = 32) (clk, reset, enable, Din, Dout);
     
 endmodule
 
-
 module ROM  #(parameter DATAFILE = 1) (CLK, Address, Output);
 	
 	localparam ROM_WIDTH = 8;
@@ -647,6 +646,313 @@ module ROM  #(parameter DATAFILE = 1) (CLK, Address, Output);
 	
 	input CLK;
 	input [ROM_ADDR_BITS-1:0] Address; // TX_UID 
+	output reg [ROM_WIDTH-1:0] Output;  // BS_ID
+
+   
+
+    generate
+        if (DATAFILE == 0) begin       
+            always @(posedge CLK)
+                case (Address)
+                    8'h00: Output <= 8'h00;
+                    8'h01: Output <= 8'h00;
+                    8'h02: Output <= 8'h02;
+                    8'h03: Output <= 8'h00;
+                    8'h04: Output <= 8'h00;
+                    8'h05: Output <= 8'h00;
+                    8'h06: Output <= 8'h00;
+                    8'h07: Output <= 8'h00;
+                    8'h08: Output <= 8'h00;
+                    8'h09: Output <= 8'h00;
+                    8'h0A: Output <= 8'h00;
+                    8'h0B: Output <= 8'h00;
+                    8'h0C: Output <= 8'h00;
+                    8'h0D: Output <= 8'h00;
+                    8'h0E: Output <= 8'h00;
+                    8'h0F: Output <= 8'h00;
+                    8'h10: Output <= 8'h00;
+                    8'h11: Output <= 8'h00;
+                    8'h12: Output <= 8'h00;
+                    8'h13: Output <= 8'h00;
+                    8'h14: Output <= 8'h00;
+                    default: Output <= 8'hFF;
+                endcase 
+        end else if (DATAFILE == 1) begin       
+            always @(posedge CLK)
+                case (Address)
+                    8'h00: Output <= 8'h00;
+                    8'h01: Output <= 8'h00;
+                    8'h02: Output <= 8'h02;
+                    8'h03: Output <= 8'h00;
+                    8'h04: Output <= 8'h00;
+                    8'h05: Output <= 8'h00;
+                    8'h06: Output <= 8'h00;
+                    8'h07: Output <= 8'h00;
+                    8'h08: Output <= 8'h00;
+                    8'h09: Output <= 8'h00;
+                    8'h0A: Output <= 8'h00;
+                    8'h0B: Output <= 8'h00;
+                    8'h0C: Output <= 8'h00;
+                    8'h0D: Output <= 8'h00;
+                    8'h0E: Output <= 8'h00;
+                    8'h0F: Output <= 8'h00;
+                    8'h10: Output <= 8'h00;
+                    8'h11: Output <= 8'h00;
+                    8'h12: Output <= 8'h00;
+                    8'h13: Output <= 8'h00;
+                    8'h14: Output <= 8'h00;
+                    default: Output <= 8'hFF;
+                endcase  
+        end else if (DATAFILE == 2) begin    
+            always @(posedge CLK)
+                case (Address)
+                    8'h00: Output <= 8'h00;
+                    8'h01: Output <= 8'h00;
+                    8'h02: Output <= 8'h00;
+                    8'h03: Output <= 8'h00;
+                    8'h04: Output <= 8'h00;
+                    8'h05: Output <= 8'h00;
+                    8'h06: Output <= 8'h00;
+                    8'h07: Output <= 8'h00;
+                    8'h08: Output <= 8'h00;
+                    8'h09: Output <= 8'h00;
+                    8'h0A: Output <= 8'h00;
+                    8'h0B: Output <= 8'h00;
+                    8'h0C: Output <= 8'h00;
+                    8'h0D: Output <= 8'h00;
+                    8'h0E: Output <= 8'h00;
+                    8'h0F: Output <= 8'h00;
+                    8'h10: Output <= 8'h00;
+                    8'h11: Output <= 8'h00;
+                    8'h12: Output <= 8'h00;
+                    8'h13: Output <= 8'h00;
+                    8'h14: Output <= 8'h00;
+                    default: Output <= 8'h00;
+                endcase   
+        end else if (DATAFILE == 3) begin    
+            always @(posedge CLK)
+                case (Address)
+                    8'h00: Output <= 8'h00;
+                    8'h01: Output <= 8'h00;
+                    8'h02: Output <= 8'h00;
+                    8'h03: Output <= 8'h00;
+                    8'h04: Output <= 8'h00;
+                    8'h05: Output <= 8'h00;
+                    8'h06: Output <= 8'h00;
+                    8'h07: Output <= 8'h00;
+                    8'h08: Output <= 8'h00;
+                    8'h09: Output <= 8'h00;
+                    8'h0A: Output <= 8'h00;
+                    8'h0B: Output <= 8'h00;
+                    8'h0C: Output <= 8'h00;
+                    8'h0D: Output <= 8'h00;
+                    8'h0E: Output <= 8'h00;
+                    8'h0F: Output <= 8'h00;
+                    8'h10: Output <= 8'h00;
+                    8'h11: Output <= 8'h00;
+                    8'h12: Output <= 8'h00;
+                    8'h13: Output <= 8'h00;
+                    8'h14: Output <= 8'h00;
+                    default: Output <= 8'h00;
+                endcase  
+        end else if (DATAFILE == 4) begin    
+            always @(posedge CLK)
+                case (Address)
+                    8'h00: Output <= 8'h00;
+                    8'h01: Output <= 8'h00;
+                    8'h02: Output <= 8'h00;
+                    8'h03: Output <= 8'h00;
+                    8'h04: Output <= 8'h00;
+                    8'h05: Output <= 8'h00;
+                    8'h06: Output <= 8'h00;
+                    8'h07: Output <= 8'h00;
+                    8'h08: Output <= 8'h00;
+                    8'h09: Output <= 8'h00;
+                    8'h0A: Output <= 8'h00;
+                    8'h0B: Output <= 8'h00;
+                    8'h0C: Output <= 8'h00;
+                    8'h0D: Output <= 8'h00;
+                    8'h0E: Output <= 8'h00;
+                    8'h0F: Output <= 8'h00;
+                    8'h10: Output <= 8'h00;
+                    8'h11: Output <= 8'h00;
+                    8'h12: Output <= 8'h00;
+                    8'h13: Output <= 8'h00;
+                    8'h14: Output <= 8'h00;
+                    default: Output <= 8'h00;
+                endcase   
+        end else if (DATAFILE == 5) begin    
+            always @(posedge CLK)
+                case (Address)
+                    8'h00: Output <= 8'h00;
+                    8'h01: Output <= 8'h00;
+                    8'h02: Output <= 8'h00;
+                    8'h03: Output <= 8'h00;
+                    8'h04: Output <= 8'h00;
+                    8'h05: Output <= 8'h00;
+                    8'h06: Output <= 8'h00;
+                    8'h07: Output <= 8'h00;
+                    8'h08: Output <= 8'h00;
+                    8'h09: Output <= 8'h00;
+                    8'h0A: Output <= 8'h00;
+                    8'h0B: Output <= 8'h00;
+                    8'h0C: Output <= 8'h00;
+                    8'h0D: Output <= 8'h00;
+                    8'h0E: Output <= 8'h00;
+                    8'h0F: Output <= 8'h00;
+                    8'h10: Output <= 8'h00;
+                    8'h11: Output <= 8'h00;
+                    8'h12: Output <= 8'h00;
+                    8'h13: Output <= 8'h00;
+                    8'h14: Output <= 8'h00;
+                    default: Output <= 8'h00;
+                endcase   
+        end else if (DATAFILE == 6) begin    
+            always @(posedge CLK)
+                case (Address)
+                    8'h00: Output <= 8'h00;
+                    8'h01: Output <= 8'h00;
+                    8'h02: Output <= 8'h00;
+                    8'h03: Output <= 8'h00;
+                    8'h04: Output <= 8'h00;
+                    8'h05: Output <= 8'h00;
+                    8'h06: Output <= 8'h00;
+                    8'h07: Output <= 8'h00;
+                    8'h08: Output <= 8'h00;
+                    8'h09: Output <= 8'h00;
+                    8'h0A: Output <= 8'h00;
+                    8'h0B: Output <= 8'h00;
+                    8'h0C: Output <= 8'h00;
+                    8'h0D: Output <= 8'h00;
+                    8'h0E: Output <= 8'h00;
+                    8'h0F: Output <= 8'h00;
+                    8'h10: Output <= 8'h00;
+                    8'h11: Output <= 8'h00;
+                    8'h12: Output <= 8'h00;
+                    8'h13: Output <= 8'h00;
+                    8'h14: Output <= 8'h00;
+                    default: Output <= 8'h00;
+                endcase   
+        end else if (DATAFILE == 7) begin    
+            always @(posedge CLK)
+                case (Address)
+                    8'h00: Output <= 8'h00;
+                    8'h01: Output <= 8'h00;
+                    8'h02: Output <= 8'h00;
+                    8'h03: Output <= 8'h00;
+                    8'h04: Output <= 8'h00;
+                    8'h05: Output <= 8'h00;
+                    8'h06: Output <= 8'h00;
+                    8'h07: Output <= 8'h00;
+                    8'h08: Output <= 8'h00;
+                    8'h09: Output <= 8'h00;
+                    8'h0A: Output <= 8'h00;
+                    8'h0B: Output <= 8'h00;
+                    8'h0C: Output <= 8'h00;
+                    8'h0D: Output <= 8'h00;
+                    8'h0E: Output <= 8'h00;
+                    8'h0F: Output <= 8'h00;
+                    8'h10: Output <= 8'h00;
+                    8'h11: Output <= 8'h00;
+                    8'h12: Output <= 8'h00;
+                    8'h13: Output <= 8'h00;
+                    8'h14: Output <= 8'h00;
+                    default: Output <= 8'h00;
+                endcase  
+        end else if (DATAFILE == 8) begin    
+            always @(posedge CLK)
+                case (Address)
+                    8'h00: Output <= 8'h00;
+                    8'h01: Output <= 8'h00;
+                    8'h02: Output <= 8'h00;
+                    8'h03: Output <= 8'h00;
+                    8'h04: Output <= 8'h00;
+                    8'h05: Output <= 8'h00;
+                    8'h06: Output <= 8'h00;
+                    8'h07: Output <= 8'h00;
+                    8'h08: Output <= 8'h00;
+                    8'h09: Output <= 8'h00;
+                    8'h0A: Output <= 8'h00;
+                    8'h0B: Output <= 8'h00;
+                    8'h0C: Output <= 8'h00;
+                    8'h0D: Output <= 8'h00;
+                    8'h0E: Output <= 8'h00;
+                    8'h0F: Output <= 8'h00;
+                    8'h10: Output <= 8'h00;
+                    8'h11: Output <= 8'h00;
+                    8'h12: Output <= 8'h00;
+                    8'h13: Output <= 8'h00;
+                    8'h14: Output <= 8'h00;
+                    default: Output <= 8'h00;
+                endcase    
+        end else if (DATAFILE == 9) begin    
+            always @(posedge CLK)
+                case (Address)
+                    8'h00: Output <= 8'h00;
+                    8'h01: Output <= 8'h00;
+                    8'h02: Output <= 8'h00;
+                    8'h03: Output <= 8'h00;
+                    8'h04: Output <= 8'h00;
+                    8'h05: Output <= 8'h00;
+                    8'h06: Output <= 8'h00;
+                    8'h07: Output <= 8'h00;
+                    8'h08: Output <= 8'h00;
+                    8'h09: Output <= 8'h00;
+                    8'h0A: Output <= 8'h00;
+                    8'h0B: Output <= 8'h00;
+                    8'h0C: Output <= 8'h00;
+                    8'h0D: Output <= 8'h00;
+                    8'h0E: Output <= 8'h00;
+                    8'h0F: Output <= 8'h00;
+                    8'h10: Output <= 8'h00;
+                    8'h11: Output <= 8'h00;
+                    8'h12: Output <= 8'h00;
+                    8'h13: Output <= 8'h00;
+                    8'h14: Output <= 8'h00;
+                    default: Output <= 8'h00;
+                endcase    
+        end else begin
+            always @(posedge CLK)
+                case (Address)
+                    8'h00: Output <= 8'h00;
+                    8'h01: Output <= 8'h00;
+                    8'h02: Output <= 8'h00;
+                    8'h03: Output <= 8'h00;
+                    8'h04: Output <= 8'h00;
+                    8'h05: Output <= 8'h00;
+                    8'h06: Output <= 8'h00;
+                    8'h07: Output <= 8'h00;
+                    8'h08: Output <= 8'h00;
+                    8'h09: Output <= 8'h00;
+                    8'h0A: Output <= 8'h00;
+                    8'h0B: Output <= 8'h00;
+                    8'h0C: Output <= 8'h00;
+                    8'h0D: Output <= 8'h00;
+                    8'h0E: Output <= 8'h00;
+                    8'h0F: Output <= 8'h00;
+                    8'h10: Output <= 8'h00;
+                    8'h11: Output <= 8'h00;
+                    8'h12: Output <= 8'h00;
+                    8'h13: Output <= 8'h00;
+                    8'h14: Output <= 8'h00;
+                    default: Output <= 8'h00;
+                endcase   
+        end
+    endgenerate
+
+  
+        
+endmodule
+
+/*
+module ROM  #(parameter DATAFILE = 1) (CLK, Address, Output);
+	
+	localparam ROM_WIDTH = 8;
+    localparam ROM_ADDR_BITS = 8;
+	
+	
+	input CLK;
+	input [ROM_ADDR_BITS-1:0] Address; // RX_UID 
 	output reg [ROM_WIDTH-1:0] Output;  // BS_ID
 
     (* rom_style="{distributed | block}" *)
@@ -692,3 +998,5 @@ module ROM  #(parameter DATAFILE = 1) (CLK, Address, Output);
         
         
 endmodule
+
+*/

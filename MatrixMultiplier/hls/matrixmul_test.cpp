@@ -32,6 +32,7 @@ int main(int argc, char **argv)
     const unsigned char fpga_id = 0xF1;
     const unsigned char tx_uid = 0x12;
     const unsigned char rx_uid = 0x7C;
+    const unsigned char uid = 0xE2;
        	
     // Input stimulus
     k = 0;
@@ -102,7 +103,7 @@ int main(int argc, char **argv)
 	
 		#ifdef HW_COSIM
 		// Run the AutoESL matrix multiply block
-		Wrapper_Matrix_Multiplier(input_fifo, output_fifo, bus_id, fpga_id);
+		Wrapper_Matrix_Multiplier(input_fifo, output_fifo, bus_id, fpga_id, uid);
 		
 		
 		k = 0;
@@ -139,7 +140,7 @@ int main(int argc, char **argv)
 			if ( Data_Received_fifo[i].FPGA_ID != fpga_id ){
 				err_header++;
 			}
-			if ( Data_Received_fifo[i].TX_UID != rx_uid ){
+			if ( Data_Received_fifo[i].TX_UID != uid ){
 				err_header++;
 			}
 			if ( Data_Received_fifo[i].RX_UID != tx_uid ){

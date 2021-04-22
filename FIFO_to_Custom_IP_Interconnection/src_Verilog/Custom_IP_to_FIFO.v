@@ -8,7 +8,7 @@
 
     module Custom_IP_to_FIFO #(parameter PACKET_SIZE_BITS = 256)
         (
-        wr_en, din, 
+        wr_en, din, full, full_n,
         out_fifo_V_BS_ID_din, out_fifo_V_BS_ID_write,
         out_fifo_V_FPGA_ID_din,
         out_fifo_V_PCKG_ID_din, 
@@ -24,11 +24,12 @@
         );
         
         
-        output wr_en;
+        output wr_en, full_n;
         output [PACKET_SIZE_BITS-1:0] din;    
         
         input [7:0] out_fifo_V_BS_ID_din;
         input out_fifo_V_BS_ID_write;
+        input full;
         
         input [7:0] out_fifo_V_FPGA_ID_din;
         input [15:0] out_fifo_V_PCKG_ID_din;
@@ -46,6 +47,7 @@
         
         assign din = {out_fifo_V_BS_ID_din, out_fifo_V_FPGA_ID_din, out_fifo_V_PCKG_ID_din, out_fifo_V_TX_UID_din, out_fifo_V_RX_UID_din, out_fifo_V_VALID_PACKET_BYTES_din, out_fifo_V_MESSAGE_0_din, out_fifo_V_MESSAGE_1_din, out_fifo_V_MESSAGE_2_din, out_fifo_V_MESSAGE_3_din, out_fifo_V_MESSAGE_4_din, out_fifo_V_MESSAGE_5_din};
         assign wr_en = out_fifo_V_BS_ID_write;
+        assign full_n = ~full;
         
             
     endmodule
@@ -54,7 +56,7 @@
 
     module Custom_IP_to_FIFO #(parameter PACKET_SIZE_BITS = 512)
         (
-        wr_en, din, 
+        wr_en, din, full, full_n,
         out_fifo_V_BS_ID_din, out_fifo_V_BS_ID_write,
         out_fifo_V_FPGA_ID_din,
         out_fifo_V_PCKG_ID_din, 
@@ -77,8 +79,8 @@
         out_fifo_V_MESSAGE_13_din
         );
         
-        
-        output wr_en;
+        input full;
+        output wr_en, full_n;
         output [PACKET_SIZE_BITS-1:0] din;
         
         
@@ -108,14 +110,14 @@
         
         assign wr_en = out_fifo_V_BS_ID_write;
         assign din = {out_fifo_V_BS_ID_din, out_fifo_V_FPGA_ID_din, out_fifo_V_PCKG_ID_din, out_fifo_V_TX_UID_din, out_fifo_V_RX_UID_din, out_fifo_V_VALID_PACKET_BYTES_din, out_fifo_V_MESSAGE_0_din, out_fifo_V_MESSAGE_1_din, out_fifo_V_MESSAGE_2_din, out_fifo_V_MESSAGE_3_din, out_fifo_V_MESSAGE_4_din, out_fifo_V_MESSAGE_5_din, out_fifo_V_MESSAGE_6_din, out_fifo_V_MESSAGE_7_din, out_fifo_V_MESSAGE_8_din, out_fifo_V_MESSAGE_9_din, out_fifo_V_MESSAGE_10_din, out_fifo_V_MESSAGE_11_din, out_fifo_V_MESSAGE_12_din, out_fifo_V_MESSAGE_13_din};    
-            
+        assign full_n = ~full;    
     endmodule
 
 `elsif PACKET_SIZE_1024  
 
     module Custom_IP_to_FIFO #(parameter PACKET_SIZE_BITS = 1024)
         (
-        wr_en, din, 
+        wr_en, din, full, full_n,
         out_fifo_V_BS_ID_din, out_fifo_V_BS_ID_write,
         out_fifo_V_FPGA_ID_din,
         out_fifo_V_PCKG_ID_din, 
@@ -155,12 +157,13 @@
         );
         
         
-        output wr_en;
+        output wr_en, full_n;
         output [PACKET_SIZE_BITS-1:0] din;
         
         
         input [7:0] out_fifo_V_BS_ID_din;
         input out_fifo_V_BS_ID_write;
+        input full;
         
         input [7:0] out_fifo_V_FPGA_ID_din;
         input [15:0] out_fifo_V_PCKG_ID_din;
@@ -202,6 +205,7 @@
         
         assign wr_en = out_fifo_V_BS_ID_write;
         assign din = {out_fifo_V_BS_ID_din, out_fifo_V_FPGA_ID_din, out_fifo_V_PCKG_ID_din, out_fifo_V_TX_UID_din, out_fifo_V_RX_UID_din, out_fifo_V_VALID_PACKET_BYTES_din, out_fifo_V_MESSAGE_0_din, out_fifo_V_MESSAGE_1_din, out_fifo_V_MESSAGE_2_din, out_fifo_V_MESSAGE_3_din, out_fifo_V_MESSAGE_4_din, out_fifo_V_MESSAGE_5_din, out_fifo_V_MESSAGE_6_din, out_fifo_V_MESSAGE_7_din, out_fifo_V_MESSAGE_8_din, out_fifo_V_MESSAGE_9_din, out_fifo_V_MESSAGE_10_din, out_fifo_V_MESSAGE_11_din, out_fifo_V_MESSAGE_12_din, out_fifo_V_MESSAGE_13_din, out_fifo_V_MESSAGE_14_din, out_fifo_V_MESSAGE_15_din, out_fifo_V_MESSAGE_16_din, out_fifo_V_MESSAGE_17_din, out_fifo_V_MESSAGE_18_din, out_fifo_V_MESSAGE_19_din, out_fifo_V_MESSAGE_20_din, out_fifo_V_MESSAGE_21_din, out_fifo_V_MESSAGE_22_din, out_fifo_V_MESSAGE_23_din, out_fifo_V_MESSAGE_24_din, out_fifo_V_MESSAGE_25_din, out_fifo_V_MESSAGE_26_din, out_fifo_V_MESSAGE_27_din, out_fifo_V_MESSAGE_28_din, out_fifo_V_MESSAGE_29_din};
+        assign full_n = ~full; 
                 
     endmodule
 

@@ -5,7 +5,7 @@
 // NUMBER_OF_LANES representa el número de lanes con que se configura el Aurora, únicamente se verficó utilizando los valores de 1 y 2
 // ID_TARGET_FPGA representa el identificador de la FPGA con la cual se conectará el Aurora, sirve para en transmisiones de tipo Broadcast, evitar que los paquetes se vuelvan cíclicos
 
-module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LANES = 1, parameter ID_TARGET_FPGA = 8'h00)  
+module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LANES = 1, parameter ID_TARGET_FPGA = 8'h01)  
     (user_clk, reset_TX_RX_Block, empty, rd_en, dout, s_axi_tx_tdata, s_axi_tx_tlast,
     s_axi_tx_tready, s_axi_tx_tvalid);
     
