@@ -1640,7 +1640,21 @@ connect_bd_net [get_bd_ports gt_refclk] [get_bd_pins clk_wiz_0/clk_out1]
 connect_bd_net [get_bd_ports clk_200MHz] [get_bd_pins clk_wiz_0/clk_out3]
 
 
+startgroup
+set_property -dict [list CONFIG.SINGLEEND_INITCLK {false} CONFIG.SINGLEEND_GTREFCLK {false} CONFIG.SupportLevel {0}] [get_bd_cells aurora_8b10b_1]
+WARNING: [BD 41-1684] Pin /aurora_8b10b_1/user_clk_out is now disabled. All connections to this pin have been removed. 
+INFO: [xilinx.com:ip:aurora_8b10b:11.1-5911] /aurora_8b10b_1 Executing the post_config_ip from bd
+endgroup
 
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins aurora_8b10b_1/reset]
+connect_bd_net [get_bd_pins aurora_8b10b_0/gt_reset_out] [get_bd_pins aurora_8b10b_1/gt_reset]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sync_clk_out] [get_bd_pins aurora_8b10b_1/sync_clk]
+connect_bd_net [get_bd_pins aurora_8b10b_0/user_clk_out] [get_bd_pins aurora_8b10b_1/user_clk]
+connect_bd_net [get_bd_pins aurora_8b10b_0/gt_qpllclk_quad1_out] [get_bd_pins aurora_8b10b_1/gt_qpllclk_quad1_in]
+connect_bd_net [get_bd_pins aurora_8b10b_0/gt_qpllrefclk_quad1_out] [get_bd_pins aurora_8b10b_1/gt_qpllrefclk_quad1_in]
+
+connect_bd_net [get_bd_pins aurora_8b10b_0/gt0_qplllock_out] [get_bd_pins aurora_8b10b_1/gt0_qplllock_in]
+connect_bd_net [get_bd_pins aurora_8b10b_0/gt0_qpllrefclklost_out] [get_bd_pins aurora_8b10b_1/gt0_qpllrefclklost_in]
 
 
 
