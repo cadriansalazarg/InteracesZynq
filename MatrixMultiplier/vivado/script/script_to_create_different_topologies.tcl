@@ -847,23 +847,20 @@ connect_bd_net [get_bd_ports clk_200MHz] [get_bd_pins clk_wiz_0/clk_out3]
 
 
 
+##############################################################################################################
+##############################################################################################################
+##############################################################################################################
+##############################################################################################################
+############################ AQUÍ EMPIEZA LA CONSTRUCCIÓN DEL SEGUNDO DISEÑO
+##############################################################################################################
+##############################################################################################################
+##############################################################################################################
 
-
-
-
-
-
-##################3
-####################3
-
-
-
-
-
-
-
-
-
+# En este diseño se configura un bus con 4 drivers. 
+# En el driver 0, se conecta un acelerador de hardware, en este caso un multiplicador de matrices, Wrapper_Mmult_0
+# En el driver 1, se conecta un acelerador de hardware, en este caso un segundo multiplicador de matrices Wrapper_Mmult_1
+# En el driver 2, se conecta un Aurora 8b10b, en este caso el Aurora 8b10b 1
+# En el driver 3, se conecta un Aurora 8b10b, en este caso el Aurora 8b10b 0
 
 
 
@@ -1417,15 +1414,13 @@ startgroup
 make_bd_pins_external  [get_bd_pins aurora_8b10b_0/txn] [get_bd_pins aurora_8b10b_0/txp]
 endgroup
 
-set_property name txn [get_bd_ports txn_0]
-set_property name txp [get_bd_ports txp_0]
+
 
 startgroup
 make_bd_pins_external  [get_bd_pins aurora_8b10b_0/rxn] [get_bd_pins aurora_8b10b_0/rxp]
 endgroup
 
-set_property name rxn [get_bd_ports rxn_0]
-set_property name rxp [get_bd_ports rxp_0]
+
 
 # Se hace externo el pin de error
 
@@ -1433,7 +1428,6 @@ startgroup
 make_bd_pins_external  [get_bd_pins Aurora_to_fifo_0/Error]
 endgroup
 
-set_property name Error [get_bd_ports Error_0]
 
 
 
@@ -1456,33 +1450,14 @@ set_property -dict [list CONFIG.C_INIT_CLK.VALUE_SRC USER CONFIG.DRP_FREQ.VALUE_
 set_property -dict [list CONFIG.C_LANE_WIDTH {4} CONFIG.C_REFCLK_FREQUENCY {125.000} CONFIG.C_INIT_CLK {100.0} CONFIG.DRP_FREQ {100}] [get_bd_cells aurora_8b10b_1]
 
 # Se agrega una constante de 3 bits y se coloca en 0, para conectar al puerto de loopback del Aurora
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_12
-endgroup
 
-set_property -dict [list CONFIG.CONST_WIDTH {3} CONFIG.CONST_VAL {0}] [get_bd_cells xlconstant_12]
 
-connect_bd_net [get_bd_pins xlconstant_12/dout] [get_bd_pins aurora_8b10b_1/loopback]
+connect_bd_net [get_bd_pins xlconstant_6/dout] [get_bd_pins aurora_8b10b_1/loopback]
 
 # Se agrega una constante de 1 bit y se coloca en 0 para conectar al puerto de power_down del Aurora
 
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_13
-endgroup
+connect_bd_net [get_bd_pins xlconstant_7/dout] [get_bd_pins aurora_8b10b_1/power_down]
 
-set_property -dict [list CONFIG.CONST_WIDTH {1} CONFIG.CONST_VAL {0}] [get_bd_cells xlconstant_13]
-
-connect_bd_net [get_bd_pins xlconstant_13/dout] [get_bd_pins aurora_8b10b_1/power_down]
-
-
-## Se agrega un bloque de hardware que inicializa el Aurora
-#create_bd_cell -type module -reference Aurora_init Aurora_init_1
-
-# Se cambia la polaridad de los resets en el block design para que coincidan con el del RTL
-#set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_1/RST]
-#set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_1/reset_Aurora]
-#set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_1/gt_reset]
-#set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_1/reset_TX_RX_Block]
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el Aurora y el FIFO
 create_bd_cell -type module -reference Aurora_to_fifo Aurora_to_fifo_1
@@ -1497,10 +1472,6 @@ create_bd_cell -type module -reference fifo_to_Aurora fifo_to_Aurora_1
 set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /fifo_to_Aurora_1/reset_TX_RX_Block]
 
 # Se realizan las interconexiones
-
-#connect_bd_net [get_bd_pins Aurora_init_1/reset_Aurora] [get_bd_pins aurora_8b10b_1/reset]
-#connect_bd_net [get_bd_pins Aurora_init_1/gt_reset] [get_bd_pins aurora_8b10b_1/gt_reset]
-#connect_bd_net [get_bd_pins Aurora_init_1/channel_up] [get_bd_pins aurora_8b10b_1/channel_up]
 
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins fifo_to_Aurora_1/reset_TX_RX_Block]
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_1/reset_TX_RX_Block]
@@ -1660,10 +1631,19 @@ create_bd_port -dir O clk_200MHz
 create_bd_port -dir O gt_refclk
 create_bd_port -dir O init_clk
 create_bd_port -dir O user_clk
-create_bd_port -dir O channel_up
+
+create_bd_port -dir O channel_up_0
+
+create_bd_port -dir O channel_up_1
+
+
 
 startgroup
-connect_bd_net [get_bd_ports channel_up] [get_bd_pins aurora_8b10b_0/channel_up]
+connect_bd_net [get_bd_ports channel_up_0] [get_bd_pins aurora_8b10b_0/channel_up]
+endgroup
+
+startgroup
+connect_bd_net [get_bd_ports channel_up_1] [get_bd_pins aurora_8b10b_1/channel_up]
 endgroup
 
 connect_bd_net [get_bd_ports user_clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
