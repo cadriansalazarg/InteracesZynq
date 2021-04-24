@@ -34,13 +34,18 @@ int main(){
 	
 	
 	// ************************************ Creating the reference model ************************************	
-
+	// Header message structure:
+	// Byte 3 = RX_UID
+	// Byte 2 = TX_UID
+	// Byte 0-1 = 0 always
+	// {RX_UID, TXUID, 4'd0, 4'd0}
+	
 	for(j=0; j< NUMBER_OF_PACKETS; j++){
 		Data_Input[j].BS_ID = 0x00;
 		Data_Input[j].FPGA_ID = 0x00;
 		Data_Input[j].PCKG_ID = j;
-		Data_Input[j].TX_UID = (0xFF000000&Original_Message[0])>>24;
-		Data_Input[j].RX_UID = (0x00FF0000&Original_Message[0])>>16;
+		Data_Input[j].TX_UID = (0x00FF0000&Original_Message[0])>>16;
+		Data_Input[j].RX_UID = (0xFF000000&Original_Message[0])>>24;
 	}
 	
 	for (i=0; i<NUMBER_OF_PACKETS; i++){
