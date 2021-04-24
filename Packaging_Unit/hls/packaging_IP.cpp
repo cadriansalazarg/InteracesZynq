@@ -15,12 +15,20 @@ void packaging_IP_block(hls::stream<AXISTREAM32> &input, hls::stream<packaging_d
 		input_buff[i] = a.data;
 	}
 
+
+
 	Loop_Packaging: for (i = 0; i < NUMBER_OF_PACKETS; i++) {
+		// Header message structure:
+		// Byte 3 = RX_UID
+		// Byte 2 = TX_UID
+		// Byte 0-1 = 0 always
+		// {RX_UID, TXUID, 8'd0, 8'd0}
+
 		//Adding Header
 		packet_data.BS_ID = ROM_FOR_BUS_ID[(unsigned char)((0xFF000000)&input_buff[0])>>24];
 		packet_data.FPGA_ID = (unsigned char)0x0F;
-		packet_data.TX_UID = (unsigned char)(((0xFF000000)&input_buff[0])>>24);
-		packet_data.RX_UID = (unsigned char)(((0x00FF0000)&input_buff[0])>>16);
+		packet_data.TX_UID = (unsigned char)(((0x00FF0000)&input_buff[0])>>16);
+		packet_data.RX_UID = (unsigned char)(((0xFF000000)&input_buff[0])>>24);
 		packet_data.PCKG_ID = i;
 
 		//Adding Message
