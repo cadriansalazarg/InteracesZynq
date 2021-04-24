@@ -1352,7 +1352,7 @@ set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /fifo_to_Aurora_0/reset_TX
 
 connect_bd_net [get_bd_pins Aurora_init_0/reset_Aurora] [get_bd_pins aurora_8b10b_0/reset]
 connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/gt_reset]
-connect_bd_net [get_bd_pins Aurora_init_0/channel_up] [get_bd_pins aurora_8b10b_0/channel_up]
+
 
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins fifo_to_Aurora_0/reset_TX_RX_Block]
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/reset_TX_RX_Block]
@@ -1453,8 +1453,7 @@ create_bd_cell -type ip -vlnv xilinx.com:ip:aurora_8b10b:11.1 aurora_8b10b_1
 endgroup
 
 set_property -dict [list CONFIG.C_INIT_CLK.VALUE_SRC USER CONFIG.DRP_FREQ.VALUE_SRC USER] [get_bd_cells aurora_8b10b_1]
-set_property -dict [list CONFIG.C_LANE_WIDTH {4} CONFIG.C_INIT_CLK {100.0} CONFIG.DRP_FREQ {100.0000} CONFIG.SINGLEEND_INITCLK {true} CONFIG.SINGLEEND_GTREFCLK {true} CONFIG.SupportLevel {1}] [get_bd_cells aurora_8b10b_1]
-
+set_property -dict [list CONFIG.C_LANE_WIDTH {4} CONFIG.C_REFCLK_FREQUENCY {125.000} CONFIG.C_INIT_CLK {100.0} CONFIG.DRP_FREQ {100}] [get_bd_cells aurora_8b10b_1]
 
 # Se agrega una constante de 3 bits y se coloca en 0, para conectar al puerto de loopback del Aurora
 startgroup
@@ -1477,13 +1476,13 @@ connect_bd_net [get_bd_pins xlconstant_13/dout] [get_bd_pins aurora_8b10b_1/powe
 
 
 ## Se agrega un bloque de hardware que inicializa el Aurora
-create_bd_cell -type module -reference Aurora_init Aurora_init_1
+#create_bd_cell -type module -reference Aurora_init Aurora_init_1
 
 # Se cambia la polaridad de los resets en el block design para que coincidan con el del RTL
-set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_1/RST]
-set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_1/reset_Aurora]
-set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_1/gt_reset]
-set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_1/reset_TX_RX_Block]
+#set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_1/RST]
+#set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_1/reset_Aurora]
+#set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_1/gt_reset]
+#set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_1/reset_TX_RX_Block]
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el Aurora y el FIFO
 create_bd_cell -type module -reference Aurora_to_fifo Aurora_to_fifo_1
@@ -1499,12 +1498,12 @@ set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /fifo_to_Aurora_1/reset_TX
 
 # Se realizan las interconexiones
 
-connect_bd_net [get_bd_pins Aurora_init_1/reset_Aurora] [get_bd_pins aurora_8b10b_1/reset]
-connect_bd_net [get_bd_pins Aurora_init_1/gt_reset] [get_bd_pins aurora_8b10b_1/gt_reset]
-connect_bd_net [get_bd_pins Aurora_init_1/channel_up] [get_bd_pins aurora_8b10b_1/channel_up]
+#connect_bd_net [get_bd_pins Aurora_init_1/reset_Aurora] [get_bd_pins aurora_8b10b_1/reset]
+#connect_bd_net [get_bd_pins Aurora_init_1/gt_reset] [get_bd_pins aurora_8b10b_1/gt_reset]
+#connect_bd_net [get_bd_pins Aurora_init_1/channel_up] [get_bd_pins aurora_8b10b_1/channel_up]
 
-connect_bd_net [get_bd_pins Aurora_init_1/reset_TX_RX_Block] [get_bd_pins fifo_to_Aurora_1/reset_TX_RX_Block]
-connect_bd_net [get_bd_pins Aurora_init_1/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_1/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins fifo_to_Aurora_1/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_1/reset_TX_RX_Block]
 
 connect_bd_net [get_bd_pins fifo_to_Aurora_1/empty] [get_bd_pins fifo_generator_4/empty]
 connect_bd_net [get_bd_pins fifo_to_Aurora_1/dout] [get_bd_pins fifo_generator_4/dout]
@@ -1525,17 +1524,13 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_1/m_axi_rx_tlast] [get_bd_pins aurora
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/m_axi_rx_tvalid] [get_bd_pins aurora_8b10b_1/m_axi_rx_tvalid]
 
 
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_14
-endgroup
+# Se conecta el t_keep del Aurora 1, a la misma constante del t_keep a la que está atada el Aurora 0
+connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins aurora_8b10b_1/s_axi_tx_tkeep]
 
-set_property -dict [list CONFIG.CONST_WIDTH {4} CONFIG.CONST_VAL {15}] [get_bd_cells xlconstant_14]
-
-connect_bd_net [get_bd_pins xlconstant_14/dout] [get_bd_pins aurora_8b10b_1/s_axi_tx_tkeep]
-
-# Se conecta el reloj a los bloques fifo_to_Aurora y el Aurora_to_fifo
-connect_bd_net [get_bd_pins aurora_8b10b_1/user_clk_out] [get_bd_pins fifo_to_Aurora_1/user_clk]
-connect_bd_net [get_bd_pins aurora_8b10b_1/user_clk_out] [get_bd_pins Aurora_to_fifo_1/user_clk] 
+# Se conecta el reloj a los bloques fifo_to_Aurora y el Aurora_to_fifo, observe que como comparten lógica, se usa el mismo user_clk_out
+# generado por el Aurora_8b10b_0
+connect_bd_net [get_bd_pins aurora_8b10b_0/user_clk_out] [get_bd_pins fifo_to_Aurora_1/user_clk]
+connect_bd_net [get_bd_pins aurora_8b10b_0/user_clk_out] [get_bd_pins Aurora_to_fifo_1/user_clk] 
 
 
 
@@ -1546,10 +1541,47 @@ connect_bd_net [get_bd_pins clk_wiz_0/clk_out2] [get_bd_pins aurora_8b10b_1/drpc
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out2] [get_bd_pins aurora_8b10b_1/init_clk_in] 
 
 # Se conecta el init_clk al módulo Aurora_init
-connect_bd_net [get_bd_pins Aurora_init_1/init_clk] [get_bd_pins clk_wiz_0/clk_out2]
+#connect_bd_net [get_bd_pins Aurora_init_1/init_clk] [get_bd_pins clk_wiz_0/clk_out2]
 
 # Se conecta el user_clk al módulo Aurora_init
-connect_bd_net [get_bd_pins Aurora_init_1/user_clk] [get_bd_pins aurora_8b10b_1/user_clk_out]
+#connect_bd_net [get_bd_pins Aurora_init_1/user_clk] [get_bd_pins aurora_8b10b_1/user_clk_out]
+
+
+# Se realiza toda la conexión entre el primer Aurora y el segundo a través del share logic
+
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins aurora_8b10b_1/reset]
+connect_bd_net [get_bd_pins aurora_8b10b_0/gt_reset_out] [get_bd_pins aurora_8b10b_1/gt_reset]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sync_clk_out] [get_bd_pins aurora_8b10b_1/sync_clk]
+connect_bd_net [get_bd_pins aurora_8b10b_0/user_clk_out] [get_bd_pins aurora_8b10b_1/user_clk]
+connect_bd_net [get_bd_pins aurora_8b10b_0/gt_qpllclk_quad1_out] [get_bd_pins aurora_8b10b_1/gt_qpllclk_quad1_in]
+connect_bd_net [get_bd_pins aurora_8b10b_0/gt_qpllrefclk_quad1_out] [get_bd_pins aurora_8b10b_1/gt_qpllrefclk_quad1_in]
+
+connect_bd_net [get_bd_pins aurora_8b10b_0/gt0_qplllock_out] [get_bd_pins aurora_8b10b_1/gt0_qplllock_in]
+connect_bd_net [get_bd_pins aurora_8b10b_0/gt0_qpllrefclklost_out] [get_bd_pins aurora_8b10b_1/gt0_qpllrefclklost_in]
+connect_bd_net [get_bd_pins aurora_8b10b_0/pll_not_locked_out] [get_bd_pins aurora_8b10b_1/pll_not_locked]
+
+
+
+# Se conecta al puerto de entrada channel_up del Aurora_init, una AND de los dos canales de channel_up que tiene tanto el Aurora 1, como 
+# el Aurora 0
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0
+endgroup
+
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:util_reduced_logic:2.0 util_reduced_logic_0
+endgroup
+set_property -dict [list CONFIG.C_SIZE {2} CONFIG.C_OPERATION {and} CONFIG.LOGO_FILE {data/sym_andgate.png}] [get_bd_cells util_reduced_logic_0]
+
+connect_bd_net [get_bd_pins xlconcat_0/dout] [get_bd_pins util_reduced_logic_0/Op1]
+
+
+connect_bd_net [get_bd_pins Aurora_init_0/channel_up] [get_bd_pins util_reduced_logic_0/Res]
+
+connect_bd_net [get_bd_pins aurora_8b10b_0/channel_up] [get_bd_pins xlconcat_0/In0]
+connect_bd_net [get_bd_pins aurora_8b10b_1/channel_up] [get_bd_pins xlconcat_0/In1]
+
+
 
 
 # Se hacen externos los pines del Aurora
@@ -1581,7 +1613,7 @@ connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins Wrapper_Matrix_Multi
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins Wrapper_Matrix_Multi_1/ap_rst]
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/reset]
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins Aurora_init_0/RST]
-connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins Aurora_init_1/RST]
+#connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins Aurora_init_1/RST]
 
 
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_0/rst]
@@ -1606,9 +1638,9 @@ connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_3/cl
 
 
 connect_bd_net [get_bd_pins fifo_generator_4/wr_clk] [get_bd_pins clk_wiz_0/clk_out3]
-connect_bd_net [get_bd_pins fifo_generator_4/rd_clk] [get_bd_pins aurora_8b10b_1/user_clk_out]
+connect_bd_net [get_bd_pins fifo_generator_4/rd_clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
-connect_bd_net [get_bd_pins fifo_generator_5/wr_clk] [get_bd_pins aurora_8b10b_1/user_clk_out]
+connect_bd_net [get_bd_pins fifo_generator_5/wr_clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 connect_bd_net [get_bd_pins fifo_generator_5/rd_clk] [get_bd_pins clk_wiz_0/clk_out3]
 
 connect_bd_net [get_bd_pins fifo_generator_6/wr_clk] [get_bd_pins clk_wiz_0/clk_out3]
@@ -1640,21 +1672,8 @@ connect_bd_net [get_bd_ports gt_refclk] [get_bd_pins clk_wiz_0/clk_out1]
 connect_bd_net [get_bd_ports clk_200MHz] [get_bd_pins clk_wiz_0/clk_out3]
 
 
-startgroup
-set_property -dict [list CONFIG.SINGLEEND_INITCLK {false} CONFIG.SINGLEEND_GTREFCLK {false} CONFIG.SupportLevel {0}] [get_bd_cells aurora_8b10b_1]
-WARNING: [BD 41-1684] Pin /aurora_8b10b_1/user_clk_out is now disabled. All connections to this pin have been removed. 
-INFO: [xilinx.com:ip:aurora_8b10b:11.1-5911] /aurora_8b10b_1 Executing the post_config_ip from bd
-endgroup
 
-connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins aurora_8b10b_1/reset]
-connect_bd_net [get_bd_pins aurora_8b10b_0/gt_reset_out] [get_bd_pins aurora_8b10b_1/gt_reset]
-connect_bd_net [get_bd_pins aurora_8b10b_0/sync_clk_out] [get_bd_pins aurora_8b10b_1/sync_clk]
-connect_bd_net [get_bd_pins aurora_8b10b_0/user_clk_out] [get_bd_pins aurora_8b10b_1/user_clk]
-connect_bd_net [get_bd_pins aurora_8b10b_0/gt_qpllclk_quad1_out] [get_bd_pins aurora_8b10b_1/gt_qpllclk_quad1_in]
-connect_bd_net [get_bd_pins aurora_8b10b_0/gt_qpllrefclk_quad1_out] [get_bd_pins aurora_8b10b_1/gt_qpllrefclk_quad1_in]
 
-connect_bd_net [get_bd_pins aurora_8b10b_0/gt0_qplllock_out] [get_bd_pins aurora_8b10b_1/gt0_qplllock_in]
-connect_bd_net [get_bd_pins aurora_8b10b_0/gt0_qpllrefclklost_out] [get_bd_pins aurora_8b10b_1/gt0_qpllrefclklost_in]
 
 
 
