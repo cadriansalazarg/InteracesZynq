@@ -39,8 +39,8 @@ int main(){
 	Adding_Expected_Header: for (i = 0; i < NUMBER_OF_PACKETS; i++) {
 		Expected_Value[i].BS_ID = ROM_FOR_BUS_ID[(unsigned char)((0xFF000000)&Data_Sent[0])>>24];
 		Expected_Value[i].FPGA_ID = (unsigned char)0x0F;
-		Expected_Value[i].TX_UID = (unsigned char)(((0xFF000000)&Data_Sent[0])>>24);
-		Expected_Value[i].RX_UID = (unsigned char)(((0x00FF0000)&Data_Sent[0])>>16);
+		Expected_Value[i].TX_UID = (unsigned char)(((0x00FF0000)&Data_Sent[0])>>16);
+		Expected_Value[i].RX_UID = (unsigned char)(((0xFF000000)&Data_Sent[0])>>24);
 		Expected_Value[i].PCKG_ID = i;
 	}
 
