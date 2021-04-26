@@ -9,6 +9,7 @@ set_part  {xc7z020clg484-1}
 create_clock -period 10 -name default  
 source "directives.tcl"
 
+
 # Run C simulation
 csim_design
 # Run Synthesis

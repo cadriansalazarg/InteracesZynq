@@ -10,5 +10,9 @@ set_directive_interface -mode ap_ctrl_chain -register "packaging_IP_block"
 set_directive_pipeline "packaging_IP_block/Loop_Productor"
 set_directive_pipeline "packaging_IP_block/Loop1"
 
+set_directive_interface -mode ap_stable "packaging_IP_block" fpga_id
+
+
+
 #Uncomment to use this optimization, change factor to be a submultiple of ((PACKET_SIZE_BYTES-8)/8)
 #set_directive_array_partition -type block -factor 9 -dim 1 "packaging_IP_block" packet_data.MESSAGE

@@ -2,8 +2,8 @@
 #include <ap_int.h>
 
 
-#define PACKAGE_SIZE_BYTES 512
-#define MESSAGE_SIZE_BYTES 2000
+#define PACKAGE_SIZE_BYTES 32
+#define MESSAGE_SIZE_BYTES 868
 
 #define PAYLOAD_PACKET_BYTES (PACKAGE_SIZE_BYTES-8)
 #define PAYLOAD_MESSAGE_BYTES (MESSAGE_SIZE_BYTES-4)
@@ -15,7 +15,7 @@
 	#define NUMBER_OF_PACKETS (MESSAGE_SIZE_BYTES-4)/(PACKAGE_SIZE_BYTES-8)+ 1 // One is added to compensate for truncation rounding
 #endif
 
-#define NUM_OF_TESTS 2
+#define NUM_OF_TESTS 10
 
 typedef unsigned int data_type;
 
@@ -54,4 +54,4 @@ const unsigned char ROM_FOR_BUS_ID[256] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0
 
 
 
-void packaging_IP_block(hls::stream<AXISTREAM32> &input, hls::stream<packaging_data>& out_fifo);
+void packaging_IP_block(hls::stream<AXISTREAM32> &input, hls::stream<packaging_data>& out_fifo, unsigned char fpga_id);

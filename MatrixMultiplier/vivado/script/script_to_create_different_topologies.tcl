@@ -66,9 +66,12 @@ update_compile_order -fileset sources_1
 #set_property  ip_repo_paths  ../hls/hls_customized_hw_prj/solution1/impl/ip [current_project]
 #update_ip_catalog
 
-# se agrega el IP Core del multiplicador de matrices
-update_compile_order -fileset sources_1
-set_property  ip_repo_paths  ../hls/hls_matrixmul_prj/solution1/impl/ip [current_project]
+# se agrega el IP Core tanto del multiplicador de matrices como de la unidad de empaquetado
+#update_compile_order -fileset sources_1
+#set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip} [current_project]
+#update_ip_catalog
+
+set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
 update_ip_catalog
 
 ############################### Aquí empieza la construcción del primer diseño
@@ -1723,7 +1726,7 @@ create_bd_cell -type module -reference prll_bs_gnrtr_n_rbtr_wrap_V prll_bs_gnrtr
 
 create_bd_cell -type module -reference inverter inverter_1
 create_bd_cell -type module -reference inverter inverter_3
-create_bd_cell -type module -reference inverter inverter_4
+#create_bd_cell -type module -reference inverter inverter_4
 create_bd_cell -type module -reference inverter inverter_5
 create_bd_cell -type module -reference inverter inverter_7
 
@@ -2011,41 +2014,130 @@ connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/ap_continue] [get_bd_pins Wra
 
 ############################### Interconexión con el PS ubicado en el driver 1 ##################
 
-# Se hacen externos los pines de los FIFOs para efectos de simulación
 
 
-startgroup
-make_bd_pins_external  [get_bd_pins fifo_generator_3/full]
-endgroup
+
+# Se agrega el IP Core de la unidad de empaquetamiento
 
 startgroup
-make_bd_pins_external  [get_bd_pins fifo_generator_3/din]
-endgroup
-
-startgroup
-make_bd_pins_external  [get_bd_pins fifo_generator_3/wr_en]
+create_bd_cell -type ip -vlnv xilinx.com:hls:packaging_IP_block:1.0 packaging_IP_block_0
 endgroup
 
 
-startgroup
-make_bd_pins_external  [get_bd_pins fifo_generator_2/dout] [get_bd_pins fifo_generator_2/rd_en]
-endgroup
-
-# Esto se hace por compatibilidad con el HLS y su interfaz ap_fifo
-connect_bd_net [get_bd_pins fifo_generator_2/empty] [get_bd_pins inverter_4/A]
+connect_bd_net [get_bd_pins xlconstant_5/dout] [get_bd_pins packaging_IP_block_0/ap_start]
+connect_bd_net [get_bd_pins packaging_IP_block_0/ap_continue] [get_bd_pins packaging_IP_block_0/ap_ready]
 
 
 startgroup
-make_bd_pins_external  [get_bd_pins inverter_4/Y]
+make_bd_pins_external  [get_bd_pins packaging_IP_block_0/input_r_TDATA] [get_bd_pins packaging_IP_block_0/input_r_TVALID] [get_bd_pins packaging_IP_block_0/input_r_TREADY] [get_bd_pins packaging_IP_block_0/input_r_TLAST]
 endgroup
 
-# Se le cambian los nombres a los puertos de entrada para reducir su tamaño y que queden acorde a una interfaz FIFO
-set_property name not_empty [get_bd_ports Y_0]
-set_property name dout [get_bd_ports dout_0]
-set_property name full [get_bd_ports full_0]
-set_property name din [get_bd_ports din_0]
-set_property name wr_en [get_bd_ports wr_en_0]
-set_property name rd_en [get_bd_ports rd_en_0]
+create_bd_cell -type module -reference Custom_IP_to_FIFO Custom_IP_to_FIFO_1
+
+startgroup
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_BS_ID_full_n] [get_bd_pins Custom_IP_to_FIFO_1/full_n]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_FPGA_ID_full_n] [get_bd_pins Custom_IP_to_FIFO_1/full_n]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_PCKG_ID_full_n] [get_bd_pins Custom_IP_to_FIFO_1/full_n]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_TX_UID_full_n] [get_bd_pins Custom_IP_to_FIFO_1/full_n]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_RX_UID_full_n] [get_bd_pins Custom_IP_to_FIFO_1/full_n]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_VALID_PACKET_BYTES_full_n] [get_bd_pins Custom_IP_to_FIFO_1/full_n]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_MESSAGE_0_full_n] [get_bd_pins Custom_IP_to_FIFO_1/full_n]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_MESSAGE_1_full_n] [get_bd_pins Custom_IP_to_FIFO_1/full_n]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_MESSAGE_2_full_n] [get_bd_pins Custom_IP_to_FIFO_1/full_n]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_MESSAGE_3_full_n] [get_bd_pins Custom_IP_to_FIFO_1/full_n]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_MESSAGE_4_full_n] [get_bd_pins Custom_IP_to_FIFO_1/full_n]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_MESSAGE_5_full_n] [get_bd_pins Custom_IP_to_FIFO_1/full_n]
+endgroup
+
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_BS_ID_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_BS_ID_din]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_BS_ID_write] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_BS_ID_write]
+
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_FPGA_ID_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_FPGA_ID_din]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_PCKG_ID_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_PCKG_ID_din]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_TX_UID_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_TX_UID_din]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_RX_UID_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_RX_UID_din]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_VALID_PACKET_BYTES_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_VALID_PACKET_BYTES_din]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_MESSAGE_0_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_MESSAGE_0_din]
+
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_MESSAGE_1_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_MESSAGE_1_din]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_MESSAGE_2_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_MESSAGE_2_din]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_MESSAGE_3_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_MESSAGE_3_din]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_MESSAGE_4_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_MESSAGE_4_din]
+connect_bd_net [get_bd_pins packaging_IP_block_0/out_fifo_V_MESSAGE_5_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_MESSAGE_5_din]
+
+connect_bd_net [get_bd_pins fifo_generator_3/wr_en] [get_bd_pins Custom_IP_to_FIFO_1/wr_en]
+connect_bd_net [get_bd_pins fifo_generator_3/din] [get_bd_pins Custom_IP_to_FIFO_1/din]
+connect_bd_net [get_bd_pins fifo_generator_3/full] [get_bd_pins Custom_IP_to_FIFO_1/full]
+
+# Se conecta la constante del bloque FPGA IP de la unidad de empaquetamiento, a la constante de FPGA_ID del acelerador
+connect_bd_net [get_bd_pins packaging_IP_block_0/fpga_id] [get_bd_pins xlconstant_2/dout]
+
+
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:hls:unpackaging_IP_block:1.0 unpackaging_IP_block_0
+endgroup
+
+connect_bd_net [get_bd_pins xlconstant_5/dout] [get_bd_pins unpackaging_IP_block_0/ap_start]
+connect_bd_net [get_bd_pins unpackaging_IP_block_0/ap_continue] [get_bd_pins unpackaging_IP_block_0/ap_ready]
+
+
+startgroup
+make_bd_pins_external  [get_bd_pins unpackaging_IP_block_0/output_r_TREADY] [get_bd_pins unpackaging_IP_block_0/output_r_TDATA] [get_bd_pins unpackaging_IP_block_0/output_r_TVALID] [get_bd_pins unpackaging_IP_block_0/output_r_TLAST]
+endgroup
+
+
+create_bd_cell -type module -reference FIFO_to_Custom_IP FIFO_to_Custom_IP_1
+
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_BS_ID_dout] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_BS_ID_dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_BS_ID_empty_n] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_BS_ID_empty_n]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_BS_ID_read] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_BS_ID_read]
+
+
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_FPGA_ID_dout] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_FPGA_ID_dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_FPGA_ID_empty_n] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_FPGA_ID_empty_n]
+
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_PCKG_ID_dout] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_PCKG_ID_dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_PCKG_ID_empty_n] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_PCKG_ID_empty_n]
+
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_TX_UID_dout] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_TX_UID_dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_TX_UID_empty_n] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_TX_UID_empty_n]
+
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_RX_UID_dout] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_RX_UID_dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_RX_UID_empty_n] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_RX_UID_empty_n]
+
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_VALID_PACKET_BYTES_dout] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_VALID_PACKET_BYTES_dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_VALID_PACKET_BYTES_empty_n] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_VALID_PACKET_BYTES_empty_n]
+
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_0_dout] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_MESSAGE_0_dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_0_empty_n] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_MESSAGE_0_empty_n]
+
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_1_dout] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_MESSAGE_1_dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_1_empty_n] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_MESSAGE_1_empty_n]
+
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_2_dout] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_MESSAGE_2_dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_2_empty_n] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_MESSAGE_2_empty_n]
+
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_3_dout] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_MESSAGE_3_dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_3_empty_n] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_MESSAGE_3_empty_n]
+
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_4_dout] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_MESSAGE_4_dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_4_empty_n] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_MESSAGE_4_empty_n]
+
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_5_dout] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_MESSAGE_5_dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_5_empty_n] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_MESSAGE_5_empty_n]
+
+connect_bd_net [get_bd_pins fifo_generator_2/rd_en] [get_bd_pins FIFO_to_Custom_IP_1/rd_en]
+connect_bd_net [get_bd_pins fifo_generator_2/dout] [get_bd_pins FIFO_to_Custom_IP_1/dout]
+connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/empty] [get_bd_pins fifo_generator_2/empty]
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2157,6 +2249,7 @@ set_property -dict [list CONFIG.USE_RESET {false}] [get_bd_cells clk_wiz_0]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins aurora_8b10b_0/gt_refclk1]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out2] [get_bd_pins aurora_8b10b_0/drpclk_in]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out2] [get_bd_pins aurora_8b10b_0/init_clk_in] 
+
 
 # Se conecta el init_clk al módulo Aurora_init
 connect_bd_net [get_bd_pins Aurora_init_0/init_clk] [get_bd_pins clk_wiz_0/clk_out2]
@@ -2347,6 +2440,19 @@ connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_1/rst
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_2/rst]
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_3/rst]
 
+# El reset de la unidad de empaquetamiento, se conecta a un puerto llamado peripheral_aresetn
+# esto porque para esa unidad, el reset se generó con la polaridad invertida.
+
+startgroup
+make_bd_pins_external  [get_bd_pins packaging_IP_block_0/ap_rst_n]
+endgroup
+
+set_property name peripheral_aresetn [get_bd_ports ap_rst_n_0]
+update_compile_order -fileset sources_1
+
+# Lo mismo sucede con el reset de la unidad de desempaquetamiento, por eso se conecta al puerto peripheral_aresetn
+
+connect_bd_net [get_bd_ports peripheral_aresetn] [get_bd_pins unpackaging_IP_block_0/ap_rst_n]
 
 
 create_bd_port -dir I clk_200MHz_p
@@ -2355,6 +2461,11 @@ create_bd_port -dir I clk_200MHz_n
 
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins Wrapper_Matrix_Multi_0/ap_clk]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/clk]
+
+# Se conecta el reloj de la unidad de empaquetado de datos
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins packaging_IP_block_0/ap_clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins unpackaging_IP_block_0/ap_clk]
+
 
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_0/clk]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_1/clk]

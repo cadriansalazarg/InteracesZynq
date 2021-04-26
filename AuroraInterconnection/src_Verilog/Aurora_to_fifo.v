@@ -654,14 +654,14 @@ module ROM  #(parameter DATAFILE = 1) (CLK, Address, Output);
         if (DATAFILE == 0) begin       
             always @(posedge CLK)
                 case (Address)
-                    8'h00: Output <= 8'h00;
-                    8'h01: Output <= 8'h00;
-                    8'h02: Output <= 8'h02;
-                    8'h03: Output <= 8'h00;
-                    8'h04: Output <= 8'h00;
-                    8'h05: Output <= 8'h00;
-                    8'h06: Output <= 8'h00;
-                    8'h07: Output <= 8'h00;
+                    8'h00: Output <= 8'h01;
+                    8'h01: Output <= 8'h01;
+                    8'h02: Output <= 8'h01;
+                    8'h03: Output <= 8'h01;
+                    8'h04: Output <= 8'h01;
+                    8'h05: Output <= 8'h01;
+                    8'h06: Output <= 8'h01;
+                    8'h07: Output <= 8'h01;
                     8'h08: Output <= 8'h00;
                     8'h09: Output <= 8'h00;
                     8'h0A: Output <= 8'h00;
