@@ -850,6 +850,8 @@ connect_bd_net [get_bd_ports clk_200MHz] [get_bd_pins clk_wiz_0/clk_out3]
 
 save_bd_design
 
+current_bd_design [get_bd_designs Drvrs4_PNs3_Lanes1_design]
+close_bd_design [get_bd_designs Drvrs4_PNs3_Lanes1_design]
 
 
 
@@ -1675,7 +1677,8 @@ connect_bd_net [get_bd_ports gt_refclk] [get_bd_pins clk_wiz_0/clk_out1]
 connect_bd_net [get_bd_ports clk_200MHz] [get_bd_pins clk_wiz_0/clk_out3]
 
 save_bd_design
-
+current_bd_design [get_bd_designs Drvrs4_PNs2_Lanes2_design]
+close_bd_design [get_bd_designs Drvrs4_PNs2_Lanes2_design]
 
 
 
@@ -2517,6 +2520,9 @@ connect_bd_net [get_bd_ports gt_refclk] [get_bd_pins clk_wiz_0/clk_out1]
 connect_bd_net [get_bd_ports clk_200MHz] [get_bd_pins clk_wiz_0/clk_out3]
 
 save_bd_design
+
+current_bd_design [get_bd_designs Drvrs4_PNs1_PS1_Lanes2_design]
+close_bd_design [get_bd_designs Drvrs4_PNs1_PS1_Lanes2_design]
 
 
 

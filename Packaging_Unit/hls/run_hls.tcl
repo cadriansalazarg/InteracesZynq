@@ -6,7 +6,14 @@ add_files -tb packaging_IP_tb.cpp -cflags "-std=c++11 -Wno-unknown-pragmas"
 
 open_solution -reset "Optimized"
 set_part  {xc7z020clg484-1} 
-create_clock -period 10 -name default  
+create_clock -period 5 -name default  
+
+config_compile  
+config_schedule -effort high  -relax_ii_for_timing=0 
+config_bind -effort high
+config_sdx -optimization_level s -target none
+set_clock_uncertainty 2
+
 source "directives.tcl"
 
 

@@ -19,7 +19,7 @@ open_solution -reset "solution1"
 
 # Tarjeta Zynq ZC706
 set_part {xc7z045ffg900-2}
-create_clock -period 8 -name default
+create_clock -period 5 -name default
 
 # Tarjeta ZedBoard
 #set_part  {xc7z020clg484-1}   

@@ -41,19 +41,7 @@ module testbench2;
     int Q_counter = 0;
     int Q_counter_messages = 0;
     int Q_iteraciones = 0;
-    //const bit [7:0] BS_ID_XMULT_0 = 8'h00;
-    //const bit [7:0] BS_ID_AUROR_0 = 8'h03;
-    //const bit [7:0] BS_ID_AUROR_1 = 8'h02;
-    //const bit [7:0] BS_ID_BROAD_0 = 8'hFF;
-    
-    //bit [15:0] Q_packet_id = 0;
-    //bit [7:0] FPGA_ID;
-    //bit [15:0] PCKG_ID;
-    //bit [7:0] TX_UID;
-    //bit [7:0] RX_UID;
-    //bit [15:0] VALID_PACKET_BYTES;
-    //wire channel_up;
-
+  
 
     Drvrs4_PNs1_PS1_Lanes2_design_wrapper uut (
     .Error_0(Error_0),
@@ -126,7 +114,7 @@ module testbench2;
                 input_r_TVALID_0 = 1'b0;
                 Q_counter = Q_counter + 1'b1;
             end else if (Q_counter < 1000) begin // Se transmite el encabezado del mensaje
-                input_r_TDATA_0 = 32'h02010000; // Byte MSB: RX_UID Byte 2 TX_UID Ültimos dos Bytes no importa
+                input_r_TDATA_0 = 32'h02010360; // Byte MSB: RX_UID Byte 2 TX_UID Ültimos dos Bytes tienen un valor de 0x360. Este valor corresponde al número 864 en hexadecimal, el cual corresponde al numero de bytes de payload del mensaje. En este caso, se transmiten 217 enteros, el primer entero es el encabezado y los otros 216 son el payload
                 input_r_TLAST_0 = 1'b0;
                 input_r_TVALID_0 = 1'b1;
                 Q_counter = Q_counter + 1'b1;

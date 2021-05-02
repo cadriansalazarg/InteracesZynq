@@ -34,10 +34,15 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
     reg [8:0] State;
     reg [8:0] NextState;
     
-    reg empty_reg, s_axi_tx_tready_reg;
+    reg  [(32*NUMBER_OF_LANES)-1: 0] s_axi_tx_tdata_reg1;
+    reg  [(32*NUMBER_OF_LANES)-1: 0] s_axi_tx_tdata_reg2;
+    
+    reg empty_reg;
     reg [PACKET_SIZE_BITS-1: 0] dout_reg;
     
-    reg rd_en_reg, s_axi_tx_tlast_reg, s_axi_tx_tvalid_reg; 
+    reg rd_en_reg, s_axi_tx_tlast_reg, s_axi_tx_tvalid_reg;
+    reg s_axi_tx_tlast_reg1, s_axi_tx_tvalid_reg1;
+    reg s_axi_tx_tlast_reg2, s_axi_tx_tvalid_reg2; 
     
     reg load, enable_shift;
     
@@ -64,23 +69,54 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
     always @(posedge user_clk) begin
         if (reset_TX_RX_Block) begin
             empty_reg <= 1'b0;
-            s_axi_tx_tready_reg <= 1'b0;
-            s_axi_tx_tdata <= 0;
             rd_en <= 1'b0;
-            s_axi_tx_tlast <= 1'b0;
-            s_axi_tx_tvalid <= 1'b0; 
             store_valid_bytes <= 1'b0; 
             selector_reg <= 1'b0; 
         end else begin
             empty_reg <= empty;
-            s_axi_tx_tready_reg <= s_axi_tx_tready;
-            s_axi_tx_tdata <= {out_mux, dout_reg[PACKET_SIZE_BITS-1-8:PACKET_SIZE_BITS-n]};
             rd_en <= rd_en_reg;
-            s_axi_tx_tlast <= s_axi_tx_tlast_reg;
-            s_axi_tx_tvalid <= s_axi_tx_tvalid_reg;
             store_valid_bytes <= load;
             selector_reg <= selector;
         end
+    end
+    
+    
+    always @(posedge user_clk) begin
+        if (reset_TX_RX_Block) begin
+            s_axi_tx_tdata_reg1 <= 0;
+            s_axi_tx_tlast_reg1 <= 1'b0;
+            s_axi_tx_tvalid_reg1 <= 1'b0; 
+        end else if (s_axi_tx_tready) begin
+            s_axi_tx_tdata_reg1 <= {out_mux, dout_reg[PACKET_SIZE_BITS-1-8:PACKET_SIZE_BITS-n]};
+            s_axi_tx_tlast_reg1 <= s_axi_tx_tlast_reg;
+            s_axi_tx_tvalid_reg1 <= s_axi_tx_tvalid_reg;
+        end
+    end
+    
+    always @(posedge user_clk) begin
+        if (reset_TX_RX_Block) begin
+            s_axi_tx_tdata_reg2 <= 0;
+            s_axi_tx_tlast_reg2 <= 1'b0;
+            s_axi_tx_tvalid_reg2 <= 1'b0; 
+        end else if (s_axi_tx_tready) begin
+            s_axi_tx_tdata_reg2 <= s_axi_tx_tdata_reg1;
+            s_axi_tx_tlast_reg2 <= s_axi_tx_tlast_reg1;
+            s_axi_tx_tvalid_reg2 <= s_axi_tx_tvalid_reg1;
+        end 
+    end
+    
+    
+    
+    always @(posedge user_clk) begin
+        if (reset_TX_RX_Block) begin
+            s_axi_tx_tdata <= 0;
+            s_axi_tx_tlast <= 1'b0;
+            s_axi_tx_tvalid <= 1'b0; 
+        end else if (s_axi_tx_tready) begin
+            s_axi_tx_tdata <= s_axi_tx_tdata_reg2;
+            s_axi_tx_tlast <= s_axi_tx_tlast_reg2;
+            s_axi_tx_tvalid <= s_axi_tx_tvalid_reg2;
+        end 
     end
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -97,7 +133,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
         else if (load) begin
             dout_reg <= dout;
         end
-        else if (enable_shift) begin
+        else if (enable_shift && s_axi_tx_tready) begin
             dout_reg <= {dout_reg[(PACKET_SIZE_BITS-1-n):0],{n{1'b0}}};
       end
     end
@@ -231,33 +267,39 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                     S0: begin 
                         NextState <= S1; 
                     end
-                    S1: begin // Check tx_ready and not empty reg flags 
-                        if (s_axi_tx_tready_reg & ~empty_reg) NextState <= S2;
-                        else NextState <= S1;
+                    S1: begin // Check not empty reg flags 
+                        if (empty_reg) NextState <= S1;
+                        else NextState <= S2;
                     end
                     S2: begin //Load d_out data and asserts rd_en flag
                         NextState <= S3;
                     end
-                    S3: begin // Check if ID_TARGET_FPGA is equal to ID_SOURCE_FPGA for broadcast transmitions // Enable shift
+                    S3: begin // Check if ID_TARGET_FPGA is equal to ID_SOURCE_FPGA for broadcast transmitions
                         if (( dout_reg[(PACKET_SIZE_BITS-8-1):(PACKET_SIZE_BITS-16)] == ID_TARGET_FPGA) || (dout_reg[(PACKET_SIZE_BITS-48-1):(PACKET_SIZE_BITS-64+2)] == 14'd0)) NextState <= S4;
                         else NextState <= S5;
                     end
                     S4: begin // Wait cycle for next jumping to S1
                         NextState <= S1;
                     end
-                    S5: begin // Send header
-                        NextState <= S6;
+                    S5: begin // Send header // se pregunta por tx_ready, ya que esta señal puede bajar en cualquier momento, el Aurora es quien tiene control de esto, por lo tanto, si el Aurora baja esta bandera, hay que quedarse esperando sin actuar
+                        if (s_axi_tx_tready) NextState <= S6;
+                        else NextState <= S5;
                     end
-                    S6: begin // Enable Shift
-                        if (packet_valid_bytes == 14'd1) NextState <= S8;
-                        else NextState <= S7;
+                    S6: begin // se verifica si el payload del paquete es igual a únicamente un dato de 32 bits, si esto se cumple, se debe saltar al último estado (S8) donde se debe assertar el tlast. Enbale shift  
+                        if (s_axi_tx_tready) begin // si la bandera de tx_ready es cero, se debe quedar en este estado a la espera de que el Aurora asserte esta bandera
+                            if (packet_valid_bytes == 14'd1) NextState <= S8;
+                            else NextState <= S7;
+                        end else begin
+                            NextState <= S6;
+                        end
                     end
-                    S7: begin // Enable Shift and wait for valid bytes, asserts tvalid, enable counter
+                    S7: begin // Enable Shift and wait for valid bytes, asserts tvalid, enable counter, Aquí no se pregunta por el tx_ready, porque se está a la espera de un contador, el cual su enable se bloquea si el tx_ready está en cero. Por lo tanto, no es necesario replicar la lógica en este caso
                         if (counter == packet_valid_bytes) NextState <= S8;
                         else NextState <= S7;
                     end
-                    S8: begin // Asserts tlast
-                        NextState <= S1;
+                    S8: begin // Asserts tlast. Sí el tx_ready se encuentra en cero, se espera en este estado hasta que el tx_ready se vuelva a poner en 1.
+                        if (s_axi_tx_tready) NextState <= S1;
+                        else NextState <= S8;
                     end
                     default: begin
                         NextState <= S0;
@@ -322,48 +364,62 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         enable_sequence_counter <= 1'b0;
                         selector <= 1'b0;
                     end
-                    S5: begin // Send header
-                        enable_counter <= 1'b1;
-                        enable_shift <= 1'b1;
+                    S5: begin // Send header // se pregunta por tx_ready, ya que esta señal puede bajar en cualquier momento, el Aurora es quien tiene control de esto, por lo tanto, si el Aurora baja esta bandera, hay que quedarse esperando sin actuar
+                        if (s_axi_tx_tready) enable_counter <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else enable_counter <= 1'b0;
+                        if (s_axi_tx_tready) enable_shift <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else enable_shift <= 1'b0;
                         load <= 1'b0;
                         rd_en_reg <= 1'b0;
                         s_axi_tx_tlast_reg <= 1'b0;
-                        s_axi_tx_tvalid_reg <= 1'b1;
+                        if (s_axi_tx_tready) s_axi_tx_tvalid_reg <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else s_axi_tx_tvalid_reg <= 1'b0;
+                        reset_internal_registers <= 1'b0;
+                        enable_sequence_counter <= 1'b0;
+                        if (s_axi_tx_tready) selector <= 1'b0; // se desactiva siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else selector <= 1'b1;
+                    end
+                    S6: begin // se verifica si el payload del paquete es igual a únicamente un dato de 32 bits, si esto se cumple, se debe saltar al último estado (S8) donde se debe assertar el tlast. Enbale shift 
+                        if (s_axi_tx_tready) enable_counter <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else enable_counter <= 1'b0;
+                        if (s_axi_tx_tready) enable_shift <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else enable_shift <= 1'b0;
+                        load <= 1'b0;
+                        rd_en_reg <= 1'b0;
+                        s_axi_tx_tlast_reg <= 1'b0;
+                        if (s_axi_tx_tready) s_axi_tx_tvalid_reg <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else s_axi_tx_tvalid_reg <= 1'b0;
                         reset_internal_registers <= 1'b0;
                         enable_sequence_counter <= 1'b0;
                         selector <= 1'b0;
                     end
-                    S6: begin // Enable Shift
-                        enable_counter <= 1'b1;
-                        enable_shift <= 1'b1;
+                    S7: begin // Enable Shift and wait for valid bytes, asserts tvalid, enable counter, Aquí no se pregunta por el tx_ready, porque se está a la espera de un contador, el cual su enable se bloquea si el tx_ready está en cero. Por lo tanto, no es necesario replicar la lógica en este caso
+                        if (s_axi_tx_tready) enable_counter <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else enable_counter <= 1'b0;
+                        if (s_axi_tx_tready) enable_shift <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else enable_shift <= 1'b0;
                         load <= 1'b0;
                         rd_en_reg <= 1'b0;
                         s_axi_tx_tlast_reg <= 1'b0;
-                        s_axi_tx_tvalid_reg <= 1'b1;
+                        if (s_axi_tx_tready) s_axi_tx_tvalid_reg <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else s_axi_tx_tvalid_reg <= 1'b0;
                         reset_internal_registers <= 1'b0;
                         enable_sequence_counter <= 1'b0;
                         selector <= 1'b0;
                     end
-                    S7: begin // Enable Shift and wait for valid bytes, asserts tvalid, enable counter
-                        enable_counter <= 1'b1;
-                        enable_shift <= 1'b1;
-                        load <= 1'b0;
-                        rd_en_reg <= 1'b0;
-                        s_axi_tx_tlast_reg <= 1'b0;
-                        s_axi_tx_tvalid_reg <= 1'b1;
-                        reset_internal_registers <= 1'b0;
-                        enable_sequence_counter <= 1'b0;
-                        selector <= 1'b0;
-                    end
-                    S8: begin // Asserts tlast
+                    S8: begin // Asserts tlast. Sí el tx_ready se encuentra en cero, se espera en este estado hasta que el tx_ready se vuelva a poner en 1.
                         enable_counter <= 1'b0;
                         enable_shift <= 1'b0;
                         load <= 1'b0;
                         rd_en_reg <= 1'b0;
-                        s_axi_tx_tlast_reg <= 1'b1;
-                        s_axi_tx_tvalid_reg <= 1'b1;
-                        reset_internal_registers <= 1'b1;
-                        enable_sequence_counter <= 1'b1;
+                        if (s_axi_tx_tready) s_axi_tx_tlast_reg <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else s_axi_tx_tlast_reg <= 1'b0;
+                        if (s_axi_tx_tready) s_axi_tx_tvalid_reg <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else s_axi_tx_tvalid_reg <= 1'b0;
+                        if (s_axi_tx_tready) reset_internal_registers <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else reset_internal_registers <= 1'b0; 
+                        if (s_axi_tx_tready) enable_sequence_counter <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
+                        else enable_sequence_counter <= 1'b0;
                         selector <= 1'b0;
                     end
                     default: begin
@@ -386,7 +442,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         NextState <= S1;  
                     end
                     S1: begin // Check tx_ready and not empty reg flags 
-                        if (s_axi_tx_tready_reg & ~empty_reg) NextState <= S2;
+                        if (s_axi_tx_tready & ~empty_reg) NextState <= S2;
                         else NextState <= S1;
                     end
                     S2: begin //Load d_out data and asserts rd_en flag

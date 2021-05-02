@@ -7,7 +7,7 @@ add_files -tb unpackaging_IP_tb.cpp -cflags "-std=c++11 -Wno-unknown-pragmas"
 # Solution1 *************************
 open_solution -reset "solution1"
 set_part  {xc7z020clg484-1} 
-create_clock -period 10 -name default  
+create_clock -period 5 -name default  
 source "directives.tcl"
 
 # Run C simulation
