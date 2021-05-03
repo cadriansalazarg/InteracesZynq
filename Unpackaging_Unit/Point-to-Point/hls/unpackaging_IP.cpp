@@ -31,6 +31,6 @@ void unpackaging_IP_block(hls::stream<packaging_data>& in_fifo, hls::stream<AXIS
 void memcopy(data_type Payload[PAYLOAD_PACKET_BYTES/4], unsigned int offset, unsigned short int valid_bytes) {
 	unsigned char i;
 	LoopPayload: for (i = 0; i<(valid_bytes>>2); i++){
-		Message[i+offset] = Payload[i];
+		Message[i+offset] = Payload[OFFSET_READ_PAYLOAD-i]; //Esto porque cuando se crea un paquete, el primer datos siempre se gurada en el último elemento del arreglo, por esta razón para emparejar esto, se agregó esto Payload[OFFSET_READ_PAYLOAD-i]
 	}
 }

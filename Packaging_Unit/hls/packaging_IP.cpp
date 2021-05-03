@@ -44,7 +44,6 @@
 
 
 
-
 #include <hls_stream.h>
 #include "packaging_IP.hpp"
 
@@ -101,7 +100,7 @@ void packaging_IP_block(hls::stream<AXISTREAM32> &input, hls::stream<packaging_d
 		//Adding Message
 		Loop1: for (j = 0; j < PAYLOAD_PACKET_BYTES>>2; j++){
 			if (k <= number_of_32_integers){
-				packet_data.MESSAGE[j] = input_buff[k];
+				packet_data.MESSAGE[OFFSET_READ_PAYLOAD-j] = input_buff[k]; // OFFSET_READ_PAYLOAD-j se hace para guardar el primer datos en el elemento MESSAGE[5], esto para que concuerde con el efecto de datapack
 				k = k + 1;
 			}
 			else{

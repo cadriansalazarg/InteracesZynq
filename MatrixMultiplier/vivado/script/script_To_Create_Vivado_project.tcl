@@ -51,8 +51,6 @@ add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/fifo.sv
 add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV.sv
 add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V.v
 
-add_files -norecurse ../../FIFO_to_Custom_IP_Interconnection/src_Verilog/Custom_IP_to_FIFO.v
-add_files -norecurse ../../FIFO_to_Custom_IP_Interconnection/src_Verilog/FIFO_to_Custom_IP.v
 
 add_files -norecurse ../../AuroraInterconnection/src_Verilog/Aurora_init.v
 add_files -norecurse ../../AuroraInterconnection/src_Verilog/Aurora_to_fifo.v
@@ -62,9 +60,6 @@ add_files -norecurse ../../AuroraInterconnection/src_Verilog/fifo_to_Aurora.v
 add_files -norecurse src_Verilog/inverter.v
 update_compile_order -fileset sources_1
 
-# agrega el ip core
-#set_property  ip_repo_paths  ../hls/hls_customized_hw_prj/solution1/impl/ip [current_project]
-#update_ip_catalog
 
 # se agrega el IP Core del multiplicador de matrices
 update_compile_order -fileset sources_1
@@ -79,12 +74,16 @@ create_bd_cell -type module -reference prll_bs_gnrtr_n_rbtr_wrap_V prll_bs_gnrtr
 
 #set_property -dict [list CONFIG.bits {128}] [get_bd_cells prll_bs_gnrtr_n_rbtr_0]
 
-
+create_bd_cell -type module -reference inverter inverter_0
 create_bd_cell -type module -reference inverter inverter_1
+create_bd_cell -type module -reference inverter inverter_2
 create_bd_cell -type module -reference inverter inverter_3
 create_bd_cell -type module -reference inverter inverter_4
 create_bd_cell -type module -reference inverter inverter_5
+create_bd_cell -type module -reference inverter inverter_6
 create_bd_cell -type module -reference inverter inverter_7
+create_bd_cell -type module -reference inverter inverter_8
+
 
 ########################################## Importante ############################################################################################
 
@@ -229,91 +228,18 @@ connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/push_drvr_3_bus_0] [get_bd_pi
 
 # Se agrega el IP Core custom del multiplicador
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Wrapper_Matrix_Multiplier:1.0 Wrapper_Matrix_Multi_0
+create_bd_cell -type ip -vlnv xilinx.com:hls:Wrapper_Matrix_Multiplier:1.0 HardwareAccelerator_0
 endgroup
 
-# Se agregan los dos módulos en Verilog que permiten conectar el FIFO Generator con el IP Core custom del multiplicador
-create_bd_cell -type module -reference FIFO_to_Custom_IP FIFO_to_Custom_IP_0
-create_bd_cell -type module -reference Custom_IP_to_FIFO Custom_IP_to_FIFO_0
+connect_bd_net [get_bd_pins fifo_generator_1/wr_en] [get_bd_pins HardwareAccelerator_0/out_fifo_V_write]
+connect_bd_net [get_bd_pins inverter_0/Y] [get_bd_pins HardwareAccelerator_0/out_fifo_V_full_n]
+connect_bd_net [get_bd_pins inverter_0/A] [get_bd_pins fifo_generator_1/full]
+connect_bd_net [get_bd_pins fifo_generator_1/din] [get_bd_pins HardwareAccelerator_0/out_fifo_V_din]
 
-#Se realizan las conexiones entre los FIFOs y esotos dos módulos
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/din] [get_bd_pins fifo_generator_1/din]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/wr_en] [get_bd_pins fifo_generator_1/wr_en]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_BS_ID_din] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_BS_ID_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_BS_ID_write] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_BS_ID_write]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_FPGA_ID_din] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_FPGA_ID_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_PCKG_ID_din] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_PCKG_ID_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_TX_UID_din] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_TX_UID_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_RX_UID_din] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_RX_UID_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_VALID_PACKET_BYTES_din] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_VALID_PACKET_BYTES_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_0_din] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_MESSAGE_0_din]
-
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_1_din] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_MESSAGE_1_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_2_din] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_MESSAGE_2_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_3_din] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_MESSAGE_3_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_4_din] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_MESSAGE_4_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_5_din] [get_bd_pins Custom_IP_to_FIFO_0/out_fifo_V_MESSAGE_5_din]
-
-connect_bd_net [get_bd_pins FIFO_to_Custom_IP_0/rd_en] [get_bd_pins fifo_generator_0/rd_en] 
-connect_bd_net [get_bd_pins FIFO_to_Custom_IP_0/empty] [get_bd_pins fifo_generator_0/empty]
-connect_bd_net [get_bd_pins FIFO_to_Custom_IP_0/dout] [get_bd_pins fifo_generator_0/dout]
-
-connect_bd_net [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_BS_ID_dout] [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_BS_ID_dout]
-connect_bd_net [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_BS_ID_empty_n] [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_BS_ID_empty_n]
-connect_bd_net [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_BS_ID_read] [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_BS_ID_read]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_FPGA_ID_dout] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_FPGA_ID_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_FPGA_ID_empty_n] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_FPGA_ID_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_PCKG_ID_dout] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_PCKG_ID_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_PCKG_ID_empty_n] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_PCKG_ID_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_TX_UID_dout] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_TX_UID_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_TX_UID_empty_n] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_TX_UID_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_RX_UID_dout] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_RX_UID_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_RX_UID_empty_n] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_RX_UID_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_VALID_PACKET_BYTES_dout] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_VALID_PACKET_BYTES_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_VALID_PACKET_BYTES_empty_n] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_VALID_PACKET_BYTES_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_0_dout] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_0_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_0_empty_n] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_0_empty_n] 
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_1_dout] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_1_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_1_empty_n] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_1_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_2_dout] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_2_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_2_empty_n] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_2_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_3_dout] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_3_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_3_empty_n] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_3_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_4_dout] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_4_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_4_empty_n] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_4_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_5_dout] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_5_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/in_fifo_V_MESSAGE_5_empty_n] [get_bd_pins FIFO_to_Custom_IP_0/in_fifo_V_MESSAGE_5_empty_n]
-
-
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full] [get_bd_pins fifo_generator_1/full] 
-
-
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_BS_ID_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_FPGA_ID_full_n] 
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_PCKG_ID_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_TX_UID_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_RX_UID_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_VALID_PACKET_BYTES_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_0_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_1_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_2_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_3_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_4_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_0/full_n] [get_bd_pins Wrapper_Matrix_Multi_0/out_fifo_V_MESSAGE_5_full_n]
-
+connect_bd_net [get_bd_pins fifo_generator_0/dout] [get_bd_pins HardwareAccelerator_0/in_fifo_V_dout]
+connect_bd_net [get_bd_pins HardwareAccelerator_0/in_fifo_V_read] [get_bd_pins fifo_generator_0/rd_en]
+connect_bd_net [get_bd_pins inverter_2/Y] [get_bd_pins HardwareAccelerator_0/in_fifo_V_empty_n]
+connect_bd_net [get_bd_pins fifo_generator_0/empty] [get_bd_pins inverter_2/A]
 
 
 # Se agrega una constante para el bus_id del multiplicador Wrapper_Matrix_Multi_0
@@ -324,7 +250,7 @@ endgroup
 
 set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {3}] [get_bd_cells xlconstant_1]
 
-connect_bd_net [get_bd_pins xlconstant_1/dout] [get_bd_pins Wrapper_Matrix_Multi_0/bus_id]
+connect_bd_net [get_bd_pins xlconstant_1/dout] [get_bd_pins HardwareAccelerator_0/bus_id]
 
 # Se agrega una constante para el fpga_id del multiplicador Wrapper_Matrix_Multi_0
 
@@ -334,7 +260,7 @@ endgroup
 
 set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {0}] [get_bd_cells xlconstant_2]
 
-connect_bd_net [get_bd_pins xlconstant_2/dout] [get_bd_pins Wrapper_Matrix_Multi_0/fpga_id]
+connect_bd_net [get_bd_pins xlconstant_2/dout] [get_bd_pins HardwareAccelerator_0/fpga_id]
 
 # Se agrega una constante para colocar el identificador único uid del nodo multiplicador Wrapper_Matrix_Multi_0
 
@@ -344,7 +270,7 @@ endgroup
 
 set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {0}] [get_bd_cells xlconstant_8]
 
-connect_bd_net [get_bd_pins xlconstant_8/dout] [get_bd_pins Wrapper_Matrix_Multi_0/uid]
+connect_bd_net [get_bd_pins xlconstant_8/dout] [get_bd_pins HardwareAccelerator_0/uid]
 
 # Se configura el multiplicador Wrapper_Matrix_Multi_0 para que trabaje en modo AutoStart. El ap_start se conecta a 1, miéntras
 # que el ap_ready se conecta al ap_continue
@@ -356,8 +282,8 @@ endgroup
 set_property -dict [list CONFIG.CONST_WIDTH {1} CONFIG.CONST_VAL {1}] [get_bd_cells xlconstant_5]
 
 
-connect_bd_net [get_bd_pins xlconstant_5/dout] [get_bd_pins Wrapper_Matrix_Multi_0/ap_start]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/ap_continue] [get_bd_pins Wrapper_Matrix_Multi_0/ap_ready]
+connect_bd_net [get_bd_pins xlconstant_5/dout] [get_bd_pins HardwareAccelerator_0/ap_start]
+connect_bd_net [get_bd_pins HardwareAccelerator_0/ap_continue] [get_bd_pins HardwareAccelerator_0/ap_ready]
 
 
 
@@ -372,94 +298,25 @@ connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_0/ap_continue] [get_bd_pins Wra
 
 ############################### Interconexión con el acelerador de hardware Xmult1 ubicado en el driver 1 ##################
 
-## Se agrega el segundo IP Core del multiplicador y se conecta al driver 0 del bus
+## Se agrega el segundo IP Core del multiplicador y se conecta al driver 1 del bus
 
 # Se agrega el IP Core custom del multiplicador
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Wrapper_Matrix_Multiplier:1.0 Wrapper_Matrix_Multi_1
+create_bd_cell -type ip -vlnv xilinx.com:hls:Wrapper_Matrix_Multiplier:1.0 HardwareAccelerator_1
 endgroup
 
-# Se agregan los dos módulos en Verilog que permiten conectar el FIFO Generator con el IP Core custom del multiplicador
-create_bd_cell -type module -reference FIFO_to_Custom_IP FIFO_to_Custom_IP_1
-create_bd_cell -type module -reference Custom_IP_to_FIFO Custom_IP_to_FIFO_1
 
-#Se realizan las conexiones entre los FIFOs y esotos dos módulos
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/din] [get_bd_pins fifo_generator_3/din]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/wr_en] [get_bd_pins fifo_generator_3/wr_en]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_BS_ID_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_BS_ID_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_BS_ID_write] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_BS_ID_write]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_FPGA_ID_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_FPGA_ID_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_PCKG_ID_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_PCKG_ID_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_TX_UID_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_TX_UID_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_RX_UID_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_RX_UID_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_VALID_PACKET_BYTES_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_VALID_PACKET_BYTES_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_0_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_MESSAGE_0_din]
+connect_bd_net [get_bd_pins fifo_generator_2/dout] [get_bd_pins HardwareAccelerator_1/in_fifo_V_dout]
+connect_bd_net [get_bd_pins HardwareAccelerator_1/in_fifo_V_read] [get_bd_pins fifo_generator_2/rd_en]
+connect_bd_net [get_bd_pins fifo_generator_2/empty] [get_bd_pins inverter_6/A]
+connect_bd_net [get_bd_pins inverter_6/Y] [get_bd_pins HardwareAccelerator_1/in_fifo_V_empty_n]
 
 
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_1_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_MESSAGE_1_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_2_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_MESSAGE_2_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_3_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_MESSAGE_3_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_4_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_MESSAGE_4_din]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_5_din] [get_bd_pins Custom_IP_to_FIFO_1/out_fifo_V_MESSAGE_5_din]
+connect_bd_net [get_bd_pins fifo_generator_3/din] [get_bd_pins HardwareAccelerator_1/out_fifo_V_din]
+connect_bd_net [get_bd_pins HardwareAccelerator_1/out_fifo_V_write] [get_bd_pins fifo_generator_3/wr_en]
+connect_bd_net [get_bd_pins fifo_generator_3/full] [get_bd_pins inverter_8/A]
+connect_bd_net [get_bd_pins inverter_8/Y] [get_bd_pins HardwareAccelerator_1/out_fifo_V_full_n]
 
-connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/rd_en] [get_bd_pins fifo_generator_2/rd_en] 
-connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/empty] [get_bd_pins fifo_generator_2/empty]
-connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/dout] [get_bd_pins fifo_generator_2/dout]
-
-connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_BS_ID_dout] [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_BS_ID_dout]
-connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_BS_ID_empty_n] [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_BS_ID_empty_n]
-connect_bd_net [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_BS_ID_read] [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_BS_ID_read]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_FPGA_ID_dout] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_FPGA_ID_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_FPGA_ID_empty_n] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_FPGA_ID_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_PCKG_ID_dout] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_PCKG_ID_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_PCKG_ID_empty_n] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_PCKG_ID_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_TX_UID_dout] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_TX_UID_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_TX_UID_empty_n] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_TX_UID_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_RX_UID_dout] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_RX_UID_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_RX_UID_empty_n] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_RX_UID_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_VALID_PACKET_BYTES_dout] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_VALID_PACKET_BYTES_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_VALID_PACKET_BYTES_empty_n] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_VALID_PACKET_BYTES_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_0_dout] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_0_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_0_empty_n] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_0_empty_n] 
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_1_dout] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_1_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_1_empty_n] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_1_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_2_dout] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_2_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_2_empty_n] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_2_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_3_dout] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_3_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_3_empty_n] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_3_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_4_dout] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_4_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_4_empty_n] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_4_empty_n]
-
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_5_dout] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_5_dout]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/in_fifo_V_MESSAGE_5_empty_n] [get_bd_pins FIFO_to_Custom_IP_1/in_fifo_V_MESSAGE_5_empty_n]
-
-
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full] [get_bd_pins fifo_generator_3/full]
-
-
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_BS_ID_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_FPGA_ID_full_n] 
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_PCKG_ID_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_TX_UID_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_RX_UID_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_VALID_PACKET_BYTES_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_0_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_1_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_2_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_3_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_4_full_n]
-connect_bd_net [get_bd_pins Custom_IP_to_FIFO_1/full_n] [get_bd_pins Wrapper_Matrix_Multi_1/out_fifo_V_MESSAGE_5_full_n]
 
 # Se agrega una constante para el bus_id del multiplicador Wrapper_Matrix_Multi_1
 
@@ -469,7 +326,7 @@ endgroup
 
 set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {3}] [get_bd_cells xlconstant_3]
 
-connect_bd_net [get_bd_pins xlconstant_3/dout] [get_bd_pins Wrapper_Matrix_Multi_1/bus_id]
+connect_bd_net [get_bd_pins xlconstant_3/dout] [get_bd_pins HardwareAccelerator_1/bus_id]
 
 # Se agrega una constante para el fpga_id del multiplicador Wrapper_Matrix_Multi_1
 
@@ -479,7 +336,7 @@ endgroup
 
 set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {0}] [get_bd_cells xlconstant_4]
 
-connect_bd_net [get_bd_pins xlconstant_4/dout] [get_bd_pins Wrapper_Matrix_Multi_1/fpga_id]
+connect_bd_net [get_bd_pins xlconstant_4/dout] [get_bd_pins HardwareAccelerator_1/fpga_id]
 
 # Se agrega una constante para colocar el identificador único uid del nodo multiplicador Wrapper_Matrix_Multi_1
 
@@ -489,13 +346,13 @@ endgroup
 
 set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {1}] [get_bd_cells xlconstant_9]
 
-connect_bd_net [get_bd_pins xlconstant_9/dout] [get_bd_pins Wrapper_Matrix_Multi_1/uid]
+connect_bd_net [get_bd_pins xlconstant_9/dout] [get_bd_pins HardwareAccelerator_1/uid]
 
 # Se configura el multiplicador Wrapper_Matrix_Multi_1 para que trabaje en modo AutoStart. El ap_start se conecta a 1, miéntras
 # que el ap_ready se conecta al ap_continue
 
-connect_bd_net [get_bd_pins xlconstant_5/dout] [get_bd_pins Wrapper_Matrix_Multi_1/ap_start]
-connect_bd_net [get_bd_pins Wrapper_Matrix_Multi_1/ap_continue] [get_bd_pins Wrapper_Matrix_Multi_1/ap_ready]
+connect_bd_net [get_bd_pins xlconstant_5/dout] [get_bd_pins HardwareAccelerator_1/ap_start]
+connect_bd_net [get_bd_pins HardwareAccelerator_1/ap_continue] [get_bd_pins HardwareAccelerator_1/ap_ready]
 
 
 ############################### Se agrega el Aurora 8b10b ###########################################################
@@ -680,8 +537,8 @@ set_property name Error [get_bd_ports Error_0]
 
 create_bd_port -dir I peripheral_reset
 
-connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins Wrapper_Matrix_Multi_0/ap_rst]
-connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins Wrapper_Matrix_Multi_1/ap_rst]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins HardwareAccelerator_0/ap_rst]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins HardwareAccelerator_1/ap_rst]
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/reset]
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins Aurora_init_0/RST]
 
@@ -698,8 +555,8 @@ create_bd_port -dir I clk_200MHz_p
 create_bd_port -dir I clk_200MHz_n
 
 
-connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins Wrapper_Matrix_Multi_0/ap_clk]
-connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins Wrapper_Matrix_Multi_1/ap_clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins HardwareAccelerator_0/ap_clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins HardwareAccelerator_1/ap_clk]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/clk]
 
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_0/clk]

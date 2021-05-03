@@ -9,6 +9,10 @@
 
 set_directive_interface -mode ap_fifo "Wrapper_Matrix_Multiplier" out_fifo
 set_directive_interface -mode ap_fifo "Wrapper_Matrix_Multiplier" in_fifo
+set_directive_data_pack "Wrapper_Matrix_Multiplier" out_fifo
+set_directive_data_pack "Wrapper_Matrix_Multiplier" in_fifo
+
+
 
 set_directive_interface -mode ap_ctrl_chain "Wrapper_Matrix_Multiplier"
 set_directive_interface -mode ap_stable "Wrapper_Matrix_Multiplier" bus_id

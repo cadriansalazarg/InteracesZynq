@@ -22,7 +22,7 @@ using namespace std;
 #define MAT_Y_ROWS MAT_A_ROWS
 #define MAT_Y_COLS MAT_B_COLS
 
-#define NUM_OF_TESTS 100
+#define NUM_OF_TESTS 10
 
 #define PACKAGE_SIZE_BYTES 32
 #define PAYLOAD_PACKET_BYTES (PACKAGE_SIZE_BYTES-8)
@@ -44,6 +44,9 @@ using namespace std;
 #define NUM_TOTAL_OF_PACKETS_RX 36 // Número de paquetes recibidos, matriz A + columnas de matriz B
 #define NUM_TOTAL_OF_PACKETS_TX 12 // Número de paquetes a transmitir, matriz de resultados
 
+
+#define OFFSET_READ_PAYLOAD ((PAYLOAD_PACKET_BYTES/4) - 1)
+
 typedef unsigned int data_type;
 
 typedef int mat_a_t;
@@ -51,13 +54,13 @@ typedef int mat_b_t;
 typedef int result_t;
 
 typedef struct packaging_data {
-   unsigned char BS_ID;
-   unsigned char FPGA_ID; // FPGA identifier of the transmitting FPGA
-   unsigned short int PCKG_ID;
-   unsigned char TX_UID;  // Global identifier of the transmitting node
-   unsigned char RX_UID;  // Global identifier of the receiving node
-   unsigned short int VALID_PACKET_BYTES;
    data_type MESSAGE[PAYLOAD_PACKET_BYTES/4];
+   unsigned short int VALID_PACKET_BYTES;
+   unsigned char RX_UID;  // Global identifier of the receiving node
+   unsigned char TX_UID;  // Global identifier of the transmitting node
+   unsigned short int PCKG_ID;
+   unsigned char FPGA_ID; // FPGA identifier of the transmitting FPGA
+   unsigned char BS_ID;
 } packaging_data;
 
 

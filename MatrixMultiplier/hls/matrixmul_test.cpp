@@ -38,7 +38,7 @@ int main(int argc, char **argv)
     k = 0;
     for(unsigned short int i = 0; i < MAT_A_ROWS; i++) {
 		for(unsigned short int j = 0; j < MAT_A_COLS; j++) {
-			in_mat_a[i][j] = 1;
+			in_mat_a[i][j] = j;
 			input_buffer[k] = in_mat_a[i][j];
 			k++;
 		}
@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 	
 	for(unsigned short int i = 0; i < MAT_B_ROWS; i++) {
 		for(unsigned short int j = 0; j < MAT_B_COLS; j++) {
-			in_mat_b[i][j] = 1;
+			in_mat_b[i][j] = j;
 			input_buffer[k] = in_mat_b[i][j];
 			k++;
 		}
@@ -87,7 +87,7 @@ int main(int argc, char **argv)
 		WriteFIFO: for (unsigned short int i = 0; i < NUM_TOTAL_OF_PACKETS_RX; i++) {
 			for (unsigned short int j = 0; j < (PAYLOAD_PACKET_BYTES >> 2); j++){
 				if (k < (MAT_A_COLS * MAT_A_ROWS + MAT_B_COLS * MAT_B_ROWS )){
-					input_packet.MESSAGE[j] = input_buffer[k];
+					input_packet.MESSAGE[OFFSET_READ_PAYLOAD -j] = input_buffer[k];
 				}
 				else{
 					input_packet.MESSAGE[j] = 0;

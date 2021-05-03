@@ -103,7 +103,7 @@ int main(){
 	Expected_Loop_Packaging: for (i = 0; i < NUMBER_OF_PACKETS; i++) {
 		Loop1: for (j = 0; j < PAYLOAD_PACKET_BYTES>>2; j++){
 			if (k < MESSAGE_SIZE_BYTES>>2){
-				Expected_Value[i].MESSAGE[j] = Data_Sent[k];
+				Expected_Value[i].MESSAGE[OFFSET_READ_PAYLOAD-j] = Data_Sent[k]; // Observe que en cada paquete, primero se llena el último elemento del arreglo y el último en completarse es el primero del arreglo
 				k = k + 1;
 			}
 			else{

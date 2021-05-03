@@ -80,7 +80,13 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
         end
     end
     
-    
+    // Para el caso particular de estos tres registros que se muestran abajo, estos controlan el flujo de datos que va 
+    // hacia el Aurora, específicamente el flujo de datos de las señales s_axi_tx_tdata, s_axi_tx_tlast, s_axi_tx_tvalid
+    // La señal s_axi_tx_tready que genera el reset, puede ser dessartada en cualquier momento. Incluso lo puede hacer de
+    // manera no síncrona con el user_clk, lo cual es un problema. Por lo tanto, para evitar esto, se realiza un 
+    // encadenamiento de 3 flip flops, donde el enable es la señal de s_axi_tx_tready. De esta forma, si en algún momento
+    // la señal de tx_ready se cae, estos registros nos e actualzarán, pero tampoco se perderá el dato. Permitiendo así 
+    // que cuando esta señal sea assertada nuevamente, no exista problema alguno con los datos.
     always @(posedge user_clk) begin
         if (reset_TX_RX_Block) begin
             s_axi_tx_tdata_reg1 <= 0;
@@ -104,8 +110,6 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
             s_axi_tx_tvalid_reg2 <= s_axi_tx_tvalid_reg1;
         end 
     end
-    
-    
     
     always @(posedge user_clk) begin
         if (reset_TX_RX_Block) begin
@@ -229,7 +233,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
     // Resumen de estados:
     // El primer estado es el de reset
     // En el segundo estado, se está a la espera tanto de que el FIFO no este vacío, es decir, que exista un paquete por
-    // ser leído, y además, de que el Aurora ya este listo para transmitir un nuevo paquete-
+    // ser leído.
     // En el estado dos, se lee la FIFO, por lo tanto, la bandera rd_en se coloca en alto, y se almacena el paquete de
     // contenido en la FIFO en un registro paralelo paralelo.
     // En el estado 3, se compara si el FPGA_ID, embebido en el encabezado del paquete, y el cual representa la FPGA 
@@ -240,13 +244,18 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
     // El estado S4, es un ciclo de espera, necesario, para que se complete la lectura del FIFO debido a que los datos están 
     // con registros tanto a la entrada como a la salida, Es un estado donde solo se estará, en caso de que se descarte el paquete 
     // en el estado S3.
-    // En el estado S5, se realiza el envío del header,
+    // En el estado S5, se realiza el envío del header, Apartir de este estado, observe que todos los saltos dependen
+    // del s_axi_tx_tready. Esto porque esta señal, puede ser dessasertada en cualquier momento, sin que exista incluso 
+    // sincronismo con el reloj user_clk. Por lo tanto, si el s_axi_tx_tready se pone en cero, la máquina de estados permanecerá
+    // en ese estado hasta que el Aurora vuelva a colocar en 1 esta señal.
     // En el estado S6, se envía la segunda parte del encabezado, y se habilita el desplazamiento del registro de desplazamiento, para que los datos se comiencen 
     // a transmitir.La bandera de valid también se actia en este estado. Además se consulta si el paquete por transmitir, únicamente
     // tiene un dato válido, en cuyo caso, se pasará al último estado, donde se levantará la bandera del t_last
     // En el estado S7, se espera hasta que se realice el envio de la cantidad de datos válidos embebidos en el paquete, este control
     // se hace con el contador binario. De esta forma se optimiza esta unidad, ya que en caso de que el paquete tenga pocos datos
-    // válidos, la transacción acaba rápido,
+    // válidos, la transacción acaba rápido, En este estado no se pregunta por s_axi_tx_tready, ya que, en este estado se
+    // está a la espera de que se alcance un valor en un contador,pero ese contador está amarrado por s_axi_tx_tready, por lo tanto,
+    // no es necesario redundar la lógica.
     // En el estado S8, se realiza el envío del último dato de 32 bits y se levanta la bandera de tlast.
     // Para el caso de 2 lanes, es decir, cuando se realizan transmisiones de 64 bits en 64 bits, el cambio radica
     // en que se elimina un estado, ya que el header, se realiza en una sola transacción (el header es de 64 bits, por esto, con 

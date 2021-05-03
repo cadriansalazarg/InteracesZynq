@@ -51,13 +51,13 @@ int main(){
 	for (i=0; i<NUMBER_OF_PACKETS; i++){
 		for (j=0; j<PAYLOAD_PACKET_BYTES/4; j++){
 			if(j+offset < MESSAGE_SIZE_BYTES/4)
-				Data_Input[i].MESSAGE[j] = Original_Message[j+offset];
+				Data_Input[i].MESSAGE[OFFSET_READ_PAYLOAD - j] = Original_Message[j+offset];  //Esto porque cuando se crea un paquete, el primer datos siempre se gurada en el último elemento del arreglo, por esta razón para emparejar esto, se agregó esto Payload[OFFSET_READ_PAYLOAD-i]
 			else { 
 				if (count_valid == 0){
 					count_valid = count_valid + 1;
 					valid = (j<<2);  
 				}
-				Data_Input[i].MESSAGE[j] = Original_Message[j+offset];
+				Data_Input[i].MESSAGE[OFFSET_READ_PAYLOAD - j] = Original_Message[j+offset]; //Esto porque cuando se crea un paquete, el primer datos siempre se gurada en el último elemento del arreglo, por esta razón para emparejar esto, se agregó esto Payload[OFFSET_READ_PAYLOAD-i]
 			}
 		}
 		offset = offset +j;

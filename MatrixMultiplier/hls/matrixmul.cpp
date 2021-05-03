@@ -22,7 +22,7 @@ void productor(hls::stream<data_type> &bus_local, hls::stream<unsigned char> &bu
 		;  // I put the semicolon on this separate line to silence a warning
         input_packet = in_fifo.read();
         Store_Payload_In_Local_Bus: for (unsigned short int j=0; j<(input_packet.VALID_PACKET_BYTES>>2); j++) {
-			bus_local.write(input_packet.MESSAGE[j]);
+			bus_local.write(input_packet.MESSAGE[OFFSET_READ_PAYLOAD - j]);
 		}
     } 
     bus_local_header.write(input_packet.TX_UID);	
