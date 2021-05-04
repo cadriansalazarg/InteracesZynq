@@ -48,8 +48,8 @@ add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/Library.sv
 
 update_compile_order -fileset sources_1
 add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/fifo.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V.v
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_4drvrs.sv
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_4drvrs.v
 
 
 add_files -norecurse ../../AuroraInterconnection/src_Verilog/Aurora_init.v
@@ -70,7 +70,7 @@ update_ip_catalog
 create_bd_design "design_1"
 
 # Se agrega el bus paralelo y seis inversores
-create_bd_cell -type module -reference prll_bs_gnrtr_n_rbtr_wrap_V prll_bs_gnrtr_n_rbtr_0
+create_bd_cell -type module -reference prll_bs_gnrtr_n_rbtr_wrap_V_4drvrs prll_bs_gnrtr_n_rbtr_0
 
 #set_property -dict [list CONFIG.bits {128}] [get_bd_cells prll_bs_gnrtr_n_rbtr_0]
 

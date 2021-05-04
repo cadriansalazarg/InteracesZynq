@@ -44,8 +44,23 @@ add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/Library.sv
 
 update_compile_order -fileset sources_1
 add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/fifo.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V.v
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_4drvrs.sv
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_4drvrs.v
+
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_5drvrs.sv
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_5drvrs.v
+
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_6drvrs.sv
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_6drvrs.v
+
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_7drvrs.sv
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_7drvrs.v
+
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_8drvrs.sv
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_8drvrs.v
+
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_9drvrs.sv
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_9drvrs.v
 
 
 add_files -norecurse ../../AuroraInterconnection/src_Verilog/Aurora_init.v
@@ -92,7 +107,7 @@ update_ip_catalog
 create_bd_design "Drvrs4_PNs3_Lanes1_design"
 
 # Se agrega el bus paralelo y seis inversores
-create_bd_cell -type module -reference prll_bs_gnrtr_n_rbtr_wrap_V prll_bs_gnrtr_n_rbtr_0
+create_bd_cell -type module -reference prll_bs_gnrtr_n_rbtr_wrap_V_4drvrs prll_bs_gnrtr_n_rbtr_0
 
 #set_property -dict [list CONFIG.bits {128}] [get_bd_cells prll_bs_gnrtr_n_rbtr_0]
 
@@ -680,7 +695,7 @@ open_bd_design {project_1/project_1.srcs/sources_1/bd/Drvrs4_PNs2_Lanes2_design/
 
 
 # Se agrega el bus paralelo y seis inversores
-create_bd_cell -type module -reference prll_bs_gnrtr_n_rbtr_wrap_V prll_bs_gnrtr_n_rbtr_0
+create_bd_cell -type module -reference prll_bs_gnrtr_n_rbtr_wrap_V_4drvrs prll_bs_gnrtr_n_rbtr_0
 
 #set_property -dict [list CONFIG.bits {128}] [get_bd_cells prll_bs_gnrtr_n_rbtr_0]
 
@@ -1354,7 +1369,7 @@ open_bd_design {project_1/project_1.srcs/sources_1/bd/Drvrs4_PNs1_PS1_Lanes2_des
 
 
 # Se agrega el bus paralelo y seis inversores
-create_bd_cell -type module -reference prll_bs_gnrtr_n_rbtr_wrap_V prll_bs_gnrtr_n_rbtr_0
+create_bd_cell -type module -reference prll_bs_gnrtr_n_rbtr_wrap_V_4drvrs prll_bs_gnrtr_n_rbtr_0
 
 #set_property -dict [list CONFIG.bits {128}] [get_bd_cells prll_bs_gnrtr_n_rbtr_0]
 
@@ -1972,10 +1987,6 @@ save_bd_design
 
 current_bd_design [get_bd_designs Drvrs4_PNs1_PS1_Lanes2_design]
 close_bd_design [get_bd_designs Drvrs4_PNs1_PS1_Lanes2_design]
-
-
-
-
 
 
 

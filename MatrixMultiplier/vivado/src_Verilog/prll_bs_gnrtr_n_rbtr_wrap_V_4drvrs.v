@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module prll_bs_gnrtr_n_rbtr_wrap_V #(parameter buses = 1,parameter bits = 256,parameter drvrs = 4, parameter broadcast = {8{1'b1}}) (
+module prll_bs_gnrtr_n_rbtr_wrap_V_4drvrs #(parameter buses = 1,parameter bits = 256,parameter drvrs = 4, parameter broadcast = {8{1'b1}}) (
 
     input clk,
     input reset,
@@ -26,7 +26,7 @@ module prll_bs_gnrtr_n_rbtr_wrap_V #(parameter buses = 1,parameter bits = 256,pa
     output [bits-1:0] D_push_drvr_3_bus_0
 );
 
-prll_bs_gnrtr_n_rbtr_wrap_SV #(.buses(buses),.bits(bits),.drvrs(drvrs),.broadcast(broadcast)) bus_interfase (
+prll_bs_gnrtr_n_rbtr_wrap_SV_4drvrs #(.buses(buses),.bits(bits),.drvrs(drvrs),.broadcast(broadcast)) bus_interfase (
 .clk(clk),
 .reset(reset),
 .pndng_drvr_0_bus_0(pndng_drvr_0_bus_0),
