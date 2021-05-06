@@ -328,7 +328,7 @@ connect_bd_net [get_bd_pins packaging_IP_block_0/ap_continue] [get_bd_pins packa
 connect_bd_net [get_bd_pins fifo_generator_3/din] [get_bd_pins packaging_IP_block_0/out_fifo_V_din]
 connect_bd_net [get_bd_pins fifo_generator_3/wr_en] [get_bd_pins packaging_IP_block_0/out_fifo_V_write]
 connect_bd_net [get_bd_pins inverter_4/Y] [get_bd_pins packaging_IP_block_0/out_fifo_V_full_n]
-connect_bd_net [get_bd_pins fifo_generator_4/full] [get_bd_pins inverter_4/A]
+connect_bd_net [get_bd_pins fifo_generator_3/full] [get_bd_pins inverter_4/A]
 
 
 # Se conecta la constante del bloque FPGA IP de la unidad de empaquetamiento, a la constante de FPGA_ID del acelerador
@@ -431,6 +431,7 @@ connect_bd_net [get_bd_pins fifo_to_Aurora_0/empty] [get_bd_pins fifo_generator_
 connect_bd_net [get_bd_pins fifo_to_Aurora_0/dout] [get_bd_pins fifo_generator_6/dout]
 connect_bd_net [get_bd_pins fifo_to_Aurora_0/rd_en] [get_bd_pins fifo_generator_6/rd_en]
 
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/channel_up] [get_bd_pins aurora_8b10b_0/channel_up]
 
 connect_bd_net [get_bd_pins fifo_to_Aurora_0/s_axi_tx_tdata] [get_bd_pins aurora_8b10b_0/s_axi_tx_tdata]
 connect_bd_net [get_bd_pins fifo_to_Aurora_0/s_axi_tx_tlast] [get_bd_pins aurora_8b10b_0/s_axi_tx_tlast]
@@ -445,6 +446,12 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/m_axi_rx_tdata] [get_bd_pins aurora
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/m_axi_rx_tlast] [get_bd_pins aurora_8b10b_0/m_axi_rx_tlast]
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/m_axi_rx_tvalid] [get_bd_pins aurora_8b10b_0/m_axi_rx_tvalid]
 
+## Se configura el parámetro DATAFILE del módulo en Verilog Aurora to fifo para que este tenga un valor de 0. Esto se hace para que se 
+## lea una memoria que está configurada para trabajar para esta aplicación. Dentro de esta memoria, todo lo que pase por este RTL, se le 
+## colocará el BS_IS 01, posición donde está el Zynq.
+startgroup
+set_property -dict [list CONFIG.DATAFILE {0}] [get_bd_cells Aurora_to_fifo_0]
+endgroup
 
 startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_0
@@ -550,6 +557,8 @@ connect_bd_net [get_bd_pins fifo_to_Aurora_1/s_axi_tx_tlast] [get_bd_pins aurora
 connect_bd_net [get_bd_pins fifo_to_Aurora_1/s_axi_tx_tvalid] [get_bd_pins aurora_8b10b_1/s_axi_tx_tvalid]
 connect_bd_net [get_bd_pins fifo_to_Aurora_1/s_axi_tx_tready] [get_bd_pins aurora_8b10b_1/s_axi_tx_tready]
 
+connect_bd_net [get_bd_pins fifo_to_Aurora_1/channel_up] [get_bd_pins aurora_8b10b_1/channel_up]
+
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/full] [get_bd_pins fifo_generator_5/full]
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/din] [get_bd_pins fifo_generator_5/din]
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/wr_en] [get_bd_pins fifo_generator_5/wr_en]
@@ -558,6 +567,12 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_1/m_axi_rx_tdata] [get_bd_pins aurora
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/m_axi_rx_tlast] [get_bd_pins aurora_8b10b_1/m_axi_rx_tlast]
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/m_axi_rx_tvalid] [get_bd_pins aurora_8b10b_1/m_axi_rx_tvalid]
 
+## Se configura el parámetro DATAFILE del módulo en Verilog Aurora to fifo para que este tenga un valor de 0. Esto se hace para que se 
+## lea una memoria que está configurada para trabajar para esta aplicación. Dentro de esta memoria, todo lo que pase por este RTL, se le 
+## colocará el BS_IS 01, posición donde está el Zynq.
+startgroup
+set_property -dict [list CONFIG.DATAFILE {0}] [get_bd_cells Aurora_to_fifo_1]
+endgroup
 
 # Se conecta el t_keep del Aurora 1, a la misma constante del t_keep a la que está atada el Aurora 0
 connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins aurora_8b10b_1/s_axi_tx_tkeep]
@@ -586,25 +601,8 @@ connect_bd_net [get_bd_pins aurora_8b10b_0/gt0_qplllock_out] [get_bd_pins aurora
 connect_bd_net [get_bd_pins aurora_8b10b_0/gt0_qpllrefclklost_out] [get_bd_pins aurora_8b10b_1/gt0_qpllrefclklost_in]
 connect_bd_net [get_bd_pins aurora_8b10b_0/pll_not_locked_out] [get_bd_pins aurora_8b10b_1/pll_not_locked]
 
-# Se conecta al puerto de entrada channel_up del Aurora_init, una AND de los dos canales de channel_up que tiene tanto el Aurora 1, como 
-# el Aurora 0
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0
-endgroup
-
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:util_reduced_logic:2.0 util_reduced_logic_0
-endgroup
-set_property -dict [list CONFIG.C_SIZE {2} CONFIG.C_OPERATION {and} CONFIG.LOGO_FILE {data/sym_andgate.png}] [get_bd_cells util_reduced_logic_0]
-
-connect_bd_net [get_bd_pins xlconcat_0/dout] [get_bd_pins util_reduced_logic_0/Op1]
-
-
-connect_bd_net [get_bd_pins Aurora_init_0/channel_up] [get_bd_pins util_reduced_logic_0/Res]
-
-connect_bd_net [get_bd_pins aurora_8b10b_0/channel_up] [get_bd_pins xlconcat_0/In0]
-connect_bd_net [get_bd_pins aurora_8b10b_1/channel_up] [get_bd_pins xlconcat_0/In1]
-
+# Se conecta al puerto de entrada channel_up del Aurora_init, con el channel_up del Aurora 8b10b 0
+connect_bd_net [get_bd_pins Aurora_init_0/channel_up] [get_bd_pins aurora_8b10b_0/channel_up]
 
 # Se hacen externos los pines del Aurora
 startgroup
@@ -649,10 +647,7 @@ connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins SimpleChecker_0/rese
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins SimpleGenerator_0/reset]
 
 
-# Lo mismo sucede con el reset de la unidad de desempaquetamiento, por eso se conecta al puerto peripheral_aresetn
-
-
-
+# Se conectan los relojes del sistema
 
 create_bd_port -dir I clk_200MHz_p
 create_bd_port -dir I clk_200MHz_n

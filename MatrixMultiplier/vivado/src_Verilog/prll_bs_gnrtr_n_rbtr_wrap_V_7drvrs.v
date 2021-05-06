@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module prll_bs_gnrtr_n_rbtr_wrap_V_7drvrs #(parameter buses = 1,parameter bits = 32,parameter drvrs = 7, parameter broadcast = {8{1'b1}}) (
+module prll_bs_gnrtr_n_rbtr_wrap_V_7drvrs #(parameter buses = 1,parameter bits = 256,parameter drvrs = 7, parameter broadcast = {8{1'b1}}) (
 
     input clk,
     input reset,

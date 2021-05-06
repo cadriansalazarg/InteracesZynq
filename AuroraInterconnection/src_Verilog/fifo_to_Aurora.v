@@ -6,7 +6,7 @@
 // ID_TARGET_FPGA representa el identificador de la FPGA con la cual se conectará el Aurora, sirve para en transmisiones de tipo Broadcast, evitar que los paquetes se vuelvan cíclicos
 
 module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LANES = 1, parameter ID_TARGET_FPGA = 8'h01)  
-    (user_clk, reset_TX_RX_Block, empty, rd_en, dout, s_axi_tx_tdata, s_axi_tx_tlast,
+    (user_clk, reset_TX_RX_Block, empty, rd_en, dout, s_axi_tx_tdata, s_axi_tx_tlast, channel_up,
     s_axi_tx_tready, s_axi_tx_tvalid);
     
     localparam n = 32*NUMBER_OF_LANES; 
@@ -25,7 +25,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
     
     input  user_clk;
     input reset_TX_RX_Block;
-    input empty, s_axi_tx_tready;
+    input empty, s_axi_tx_tready, channel_up;
     output reg rd_en, s_axi_tx_tlast, s_axi_tx_tvalid; 
     
     input [PACKET_SIZE_BITS-1: 0] dout;
@@ -43,6 +43,8 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
     reg rd_en_reg, s_axi_tx_tlast_reg, s_axi_tx_tvalid_reg;
     reg s_axi_tx_tlast_reg1, s_axi_tx_tvalid_reg1;
     reg s_axi_tx_tlast_reg2, s_axi_tx_tvalid_reg2; 
+    reg channel_up_reg1, channel_up_reg2, channel_up_reg3, channel_up_reg4;
+    wire channel_up_reg5;
     
     reg load, enable_shift;
     
@@ -72,13 +74,27 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
             rd_en <= 1'b0;
             store_valid_bytes <= 1'b0; 
             selector_reg <= 1'b0; 
+            channel_up_reg1 <= 1'b0;
+            channel_up_reg2 <= 1'b0;
+            channel_up_reg3 <= 1'b0;
+            channel_up_reg4 <= 1'b0;
         end else begin
             empty_reg <= empty;
             rd_en <= rd_en_reg;
             store_valid_bytes <= load;
             selector_reg <= selector;
+            channel_up_reg1 <= channel_up;
+            channel_up_reg2 <= channel_up_reg1;
+            channel_up_reg3 <= channel_up_reg2;
+            channel_up_reg4 <= channel_up_reg3;
         end
     end
+    
+    // Se agrega un registro serie serue con 4 FF en cadena la señal channel_up. Luego se pasa todo por una AND de 4 bits
+    // esto se hace para segurarnos que este bloque empieza verdaderamente cuando channel_up está estable. 
+    // En ocasiones durante inicialización, el channel_up se levanta pero se vuelve a caer  durante pocos ciclos de reloj.
+    // La idea de esto es prevenir este efecto.
+    assign channel_up_reg5 = channel_up_reg1 & channel_up_reg2 & channel_up_reg3 & channel_up_reg4;
     
     // Para el caso particular de estos tres registros que se muestran abajo, estos controlan el flujo de datos que va 
     // hacia el Aurora, específicamente el flujo de datos de las señales s_axi_tx_tdata, s_axi_tx_tlast, s_axi_tx_tvalid
@@ -276,8 +292,8 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                     S0: begin 
                         NextState <= S1; 
                     end
-                    S1: begin // Check not empty reg flags 
-                        if (empty_reg) NextState <= S1;
+                    S1: begin // Check not empty reg flags or channel_up is dessasserted
+                        if ((empty_reg==1'b1) | (channel_up_reg5 == 1'b0)) NextState <= S1;
                         else NextState <= S2;
                     end
                     S2: begin //Load d_out data and asserts rd_en flag
@@ -329,7 +345,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         enable_sequence_counter <= 1'b0;
                         selector <= 1'b0;
                     end
-                    S1: begin // Check tx_ready and not empty reg flags 
+                    S1: begin // Check not empty reg flags or channel_up is dessasserted
                         enable_counter <= 1'b0;
                         enable_shift <= 1'b0;
                         load <= 1'b0;
@@ -450,9 +466,9 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                     S0: begin 
                         NextState <= S1;  
                     end
-                    S1: begin // Check tx_ready and not empty reg flags 
-                        if (s_axi_tx_tready & ~empty_reg) NextState <= S2;
-                        else NextState <= S1;
+                    S1: begin // Check not empty reg flags or channel_up is dessasserted
+                        if ((empty_reg==1'b1) | (channel_up_reg5 == 1'b0)) NextState <= S1;
+                        else NextState <= S2;
                     end
                     S2: begin //Load d_out data and asserts rd_en flag
                         NextState <= S3;
