@@ -13,15 +13,16 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
     
     localparam SIZE_OF_COUNTER = $clog2((PACKET_SIZE_BITS-64)/n);
     
-    localparam S0 = 9'b000000001;
-    localparam S1 = 9'b000000010;
-    localparam S2 = 9'b000000100;
-    localparam S3 = 9'b000001000;
-    localparam S4 = 9'b000010000;
-    localparam S5 = 9'b000100000;
-    localparam S6 = 9'b001000000;
-    localparam S7 = 9'b010000000;
-    localparam S8 = 9'b100000000;
+    localparam S0 = 10'b0000000001;
+    localparam S1 = 10'b0000000010;
+    localparam S2 = 10'b0000000100;
+    localparam S3 = 10'b0000001000;
+    localparam S4 = 10'b0000010000;
+    localparam S5 = 10'b0000100000;
+    localparam S6 = 10'b0001000000;
+    localparam S7 = 10'b0010000000;
+    localparam S8 = 10'b0100000000;
+    localparam S9 = 10'b1000000000;
     
     input  user_clk;
     input reset_TX_RX_Block;
@@ -60,6 +61,9 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
     reg enable_sequence_counter;
     wire [7:0] out_mux;
     reg selector, selector_reg;
+    // Variables para el contador de espera
+    reg reset_wait_counter = 0;
+    reg [2:0] wait_counter;
     
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -232,6 +236,22 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
             sequence_counter <= sequence_counter + 1'b1;
         end
     end
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    //                         Contador de espera 
+    // Contador agregado para que se realice una pausa entre las transferencias con el objetivo de no saturar
+    // el bloque Aurora to Fifo del lado del receptor.
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    always @(posedge user_clk) begin
+        if (reset_TX_RX_Block | reset_wait_counter) begin
+            wait_counter <= 3'd0;
+        end
+        else begin
+            wait_counter <= wait_counter + 1'b1;
+        end
+    end
      
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     //                        Multiplexor de 2 a 1
@@ -323,9 +343,13 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         else NextState <= S7;
                     end
                     S8: begin // Asserts tlast. Sí el tx_ready se encuentra en cero, se espera en este estado hasta que el tx_ready se vuelva a poner en 1.
-                        if (s_axi_tx_tready) NextState <= S1;
+                        if (s_axi_tx_tready) NextState <= S9;
                         else NextState <= S8;
-                    end
+                    end // Wait till counter equal 7:
+                    S9: begin // Wait till counter equal 7:
+                        if (wait_counter == 3'd7) NextState <= S1;
+                        else NextState <= S9;
+                    end 
                     default: begin
                         NextState <= S0;
                     end
@@ -344,6 +368,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         reset_internal_registers <= 1'b1;
                         enable_sequence_counter <= 1'b0;
                         selector <= 1'b0;
+                        reset_wait_counter <= 1'b1;
                     end
                     S1: begin // Check not empty reg flags or channel_up is dessasserted
                         enable_counter <= 1'b0;
@@ -355,6 +380,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         reset_internal_registers <= 1'b1;
                         enable_sequence_counter <= 1'b0;
                         selector <= 1'b0;
+                        reset_wait_counter <= 1'b1;
                     end
                     S2: begin //Load d_out data and asserts rd_en flag
                         enable_counter <= 1'b0;
@@ -366,6 +392,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         reset_internal_registers <= 1'b0;
                         enable_sequence_counter <= 1'b0;
                         selector <= 1'b1;
+                        reset_wait_counter <= 1'b1;
                     end
                     S3: begin // Check if ID_TARGET_FPGA is equal to ID_SOURCE_FPGA for broadcast transmitions // Enable shift
                         enable_counter <= 1'b0;
@@ -377,6 +404,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         reset_internal_registers <= 1'b0;
                         enable_sequence_counter <= 1'b0;
                         selector <= 1'b1;
+                        reset_wait_counter <= 1'b1;
                     end
                     S4: begin // Wait cycle for next jumping to S1
                         enable_counter <= 1'b0;
@@ -388,6 +416,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         reset_internal_registers <= 1'b1;
                         enable_sequence_counter <= 1'b0;
                         selector <= 1'b0;
+                        reset_wait_counter <= 1'b1;
                     end
                     S5: begin // Send header // se pregunta por tx_ready, ya que esta señal puede bajar en cualquier momento, el Aurora es quien tiene control de esto, por lo tanto, si el Aurora baja esta bandera, hay que quedarse esperando sin actuar
                         if (s_axi_tx_tready) enable_counter <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
@@ -403,6 +432,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         enable_sequence_counter <= 1'b0;
                         if (s_axi_tx_tready) selector <= 1'b0; // se desactiva siempre y cuando el tx_ready que porporciona el Aurora esté activo
                         else selector <= 1'b1;
+                        reset_wait_counter <= 1'b1;
                     end
                     S6: begin // se verifica si el payload del paquete es igual a únicamente un dato de 32 bits, si esto se cumple, se debe saltar al último estado (S8) donde se debe assertar el tlast. Enbale shift 
                         if (s_axi_tx_tready) enable_counter <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
@@ -417,6 +447,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         reset_internal_registers <= 1'b0;
                         enable_sequence_counter <= 1'b0;
                         selector <= 1'b0;
+                        reset_wait_counter <= 1'b1;
                     end
                     S7: begin // Enable Shift and wait for valid bytes, asserts tvalid, enable counter, Aquí no se pregunta por el tx_ready, porque se está a la espera de un contador, el cual su enable se bloquea si el tx_ready está en cero. Por lo tanto, no es necesario replicar la lógica en este caso
                         if (s_axi_tx_tready) enable_counter <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
@@ -431,6 +462,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         reset_internal_registers <= 1'b0;
                         enable_sequence_counter <= 1'b0;
                         selector <= 1'b0;
+                        reset_wait_counter <= 1'b1;
                     end
                     S8: begin // Asserts tlast. Sí el tx_ready se encuentra en cero, se espera en este estado hasta que el tx_ready se vuelva a poner en 1.
                         enable_counter <= 1'b0;
@@ -446,6 +478,19 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         if (s_axi_tx_tready) enable_sequence_counter <= 1'b1; // se activa siempre y cuando el tx_ready que porporciona el Aurora esté activo
                         else enable_sequence_counter <= 1'b0;
                         selector <= 1'b0;
+                        reset_wait_counter <= 1'b0;
+                    end
+                    S9: begin // Wait till counter equal 7:
+                        enable_counter <= 1'b0;
+                        enable_shift <= 1'b0;
+                        load <= 1'b0;
+                        rd_en_reg <= 1'b0;
+                        s_axi_tx_tlast_reg <= 1'b0;
+                        s_axi_tx_tvalid_reg <= 1'b0;
+                        reset_internal_registers <= 1'b1;
+                        enable_sequence_counter <= 1'b0;
+                        selector <= 1'b0;
+                        reset_wait_counter <= 1'b0;
                     end
                     default: begin
                         enable_counter <= 1'b0;
@@ -457,6 +502,7 @@ module fifo_to_Aurora #(parameter PACKET_SIZE_BITS = 256, parameter NUMBER_OF_LA
                         reset_internal_registers <= 1'b1;
                         enable_sequence_counter <= 1'b0;
                         selector <= 1'b0;
+                        reset_wait_counter <= 1'b1;
                     end
                 endcase
             end
