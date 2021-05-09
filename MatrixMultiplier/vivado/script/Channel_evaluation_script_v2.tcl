@@ -45,16 +45,8 @@ update_compile_order -fileset sources_1
 add_files -norecurse src_Verilog/SimpleChecker.v
 update_compile_order -fileset sources_1
 
-# agrega el ip core
-#set_property  ip_repo_paths  ../hls/hls_customized_hw_prj/solution1/impl/ip [current_project]
-#update_ip_catalog
 
-# se agrega el IP Core tanto del multiplicador de matrices como de la unidad de empaquetado
-#update_compile_order -fileset sources_1
-#set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip} [current_project]
-#update_ip_catalog
-
-set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../AuroraInterconnection/hls/hls_aurora_to_fifo_block_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
+set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../AuroraInterconnection/hls_fpga1/Aurora_to_fifo/hls_aurora_to_fifo_block_fpga1_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
 update_ip_catalog
 
 
@@ -472,7 +464,7 @@ set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_0/reset_TX_RX
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el Aurora y el FIFO
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_block:1.0 Aurora_to_fifo_0
+create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga1_block:1.0 Aurora_to_fifo_0
 endgroup
 
 
@@ -609,7 +601,7 @@ connect_bd_net [get_bd_pins xlconstant_7/dout] [get_bd_pins aurora_8b10b_1/power
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el Aurora y el FIFO
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_block:1.0 Aurora_to_fifo_1
+create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga1_block:1.0 Aurora_to_fifo_1
 endgroup
 
 # Se cambia la polaridad de los resets en el block design para que coincidan con el del RTL
