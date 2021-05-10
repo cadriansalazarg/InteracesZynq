@@ -94,23 +94,83 @@ module testbench3;
                 input_r_TLAST_0 = 1'b0;
                 input_r_TVALID_0 = 1'b0;
                 Q_counter = Q_counter + 1'b1;
-            end else if (Q_counter < 1000) begin // Se transmite el encabezado del mensaje
-                input_r_TDATA_0 = 32'h01000360; // Byte MSB: RX_UID Byte 2 TX_UID Ültimos dos Bytes tienen un valor de 0x360. Este valor corresponde al número 864 en hexadecimal, el cual corresponde al numero de bytes de payload del mensaje. En este caso, se transmiten 217 enteros, el primer entero es el encabezado y los otros 216 son el payload
+            end else if (Q_counter < 1000) begin // Se transmite el encabezado de la matriz A, consiste en una transmisión broadcast a todos los nodos
+                input_r_TDATA_0 = 32'hFF000240; // Byte MSB: RX_UID Byte 2 TX_UID Ültimos dos Bytes tienen un valor de 0x360. Este valor corresponde al número 864 en hexadecimal, el cual corresponde al numero de bytes de payload del mensaje. En este caso, se transmiten 217 enteros, el primer entero es el encabezado y los otros 216 son el payload
                 input_r_TLAST_0 = 1'b0;
                 input_r_TVALID_0 = 1'b1;
                 Q_counter = Q_counter + 1'b1;
-            end else if (Q_counter < 1215) begin // // Se transmite todo el mensaje excepto el último  dato 
+            end else if (Q_counter < 1143) begin // // Se transmite todo el mensaje excepto el último  dato 
                 input_r_TDATA_0 = 32'h00000001;
                 input_r_TLAST_0 = 1'b0;
                 input_r_TVALID_0 = 1'b1;
                 Q_counter = Q_counter + 1'b1;
-            end else if (Q_counter < 1216) begin // Se transmite el último dato del mensaje
+            end else if (Q_counter < 1144) begin // Se transmite el último dato del mensaje
                 input_r_TDATA_0 = 32'h00000001;
                 input_r_TLAST_0 = 1'b1;
                 input_r_TVALID_0 = 1'b1;
                 Q_counter = Q_counter + 1'b1;
-            end else begin
+            end else if (Q_counter < 1199) begin // Idle
                 input_r_TDATA_0 = 32'h00000000;
+                input_r_TLAST_0 = 1'b0;
+                input_r_TVALID_0 = 1'b0;
+                Q_counter = Q_counter + 1'b1;   
+            end else if (Q_counter < 1200) begin // Se transmite el encabezado del mensaje de la parte de la matriz B que va para el nodo 2
+                input_r_TDATA_0 = 32'h02000120; // Byte MSB: RX_UID Byte 2 TX_UID Ültimos dos Bytes tienen un valor de 0x360. Este valor corresponde al número 864 en hexadecimal, el cual corresponde al numero de bytes de payload del mensaje. En este caso, se transmiten 217 enteros, el primer entero es el encabezado y los otros 216 son el payload
+                input_r_TLAST_0 = 1'b0;
+                input_r_TVALID_0 = 1'b1;
+                Q_counter = Q_counter + 1'b1;
+            end else if (Q_counter < 1271) begin // // Se transmite todo el mensaje excepto el último  dato 
+                input_r_TDATA_0 = 32'h00000001;
+                input_r_TLAST_0 = 1'b0;
+                input_r_TVALID_0 = 1'b1;
+                Q_counter = Q_counter + 1'b1;
+            end else if (Q_counter < 1272) begin // // Se transmite el último dato
+                input_r_TDATA_0 = 32'h00000001;
+                input_r_TLAST_0 = 1'b1;
+                input_r_TVALID_0 = 1'b1;
+                Q_counter = Q_counter + 1'b1; 
+            end else if (Q_counter < 1299) begin // Idle
+                input_r_TDATA_0 = 32'h00000000;
+                input_r_TLAST_0 = 1'b0;
+                input_r_TVALID_0 = 1'b0;
+                Q_counter = Q_counter + 1'b1;   
+            end else if (Q_counter < 1300) begin // // Se transmite el encabezado del mensaje de la parte de la matriz B que va para el nodo 3
+                input_r_TDATA_0 = 32'h03000120; // Byte MSB: RX_UID Byte 2 TX_UID Ültimos dos Bytes tienen un valor de 0x360. Este valor corresponde al número 864 en hexadecimal, el cual corresponde al numero de bytes de payload del mensaje. En este caso, se transmiten 217 enteros, el primer entero es el encabezado y los otros 216 son el payload
+                input_r_TLAST_0 = 1'b0;
+                input_r_TVALID_0 = 1'b1;
+                Q_counter = Q_counter + 1'b1;
+            end else if (Q_counter < 1371) begin // // Se transmite todo el mensaje excepto el último  dato 
+                input_r_TDATA_0 = 32'h00000001;
+                input_r_TLAST_0 = 1'b0;
+                input_r_TVALID_0 = 1'b1;
+                Q_counter = Q_counter + 1'b1;
+            end else if (Q_counter < 1372) begin // // Se transmite el último dato
+                input_r_TDATA_0 = 32'h00000001;
+                input_r_TLAST_0 = 1'b1;
+                input_r_TVALID_0 = 1'b1;
+                Q_counter = Q_counter + 1'b1;   
+            end else if (Q_counter < 1399) begin // Idle
+                input_r_TDATA_0 = 32'h00000000;
+                input_r_TLAST_0 = 1'b0;
+                input_r_TVALID_0 = 1'b0;
+                Q_counter = Q_counter + 1'b1;   
+            end else if (Q_counter < 1400) begin // // Se transmite el encabezado del mensaje de la parte de la matriz B que va para el nodo 4
+                input_r_TDATA_0 = 32'h04000120; // Byte MSB: RX_UID Byte 2 TX_UID Ültimos dos Bytes tienen un valor de 0x360. Este valor corresponde al número 864 en hexadecimal, el cual corresponde al numero de bytes de payload del mensaje. En este caso, se transmiten 217 enteros, el primer entero es el encabezado y los otros 216 son el payload
+                input_r_TLAST_0 = 1'b0;
+                input_r_TVALID_0 = 1'b1;
+                Q_counter = Q_counter + 1'b1;
+            end else if (Q_counter < 1471) begin // // Se transmite todo el mensaje excepto el último  dato 
+                input_r_TDATA_0 = 32'h00000001;
+                input_r_TLAST_0 = 1'b0;
+                input_r_TVALID_0 = 1'b1;
+                Q_counter = Q_counter + 1'b1;
+            end else if (Q_counter < 1472) begin // // Se transmite el último dato
+                input_r_TDATA_0 = 32'h00000001;
+                input_r_TLAST_0 = 1'b1;
+                input_r_TVALID_0 = 1'b1;
+                Q_counter = Q_counter + 1'b1;  
+            end else begin
+                input_r_TDATA_0 = 32'h00000000; // Idle
                 input_r_TLAST_0 = 1'b0;
                 input_r_TVALID_0 = 1'b0;
             end

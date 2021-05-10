@@ -7556,6 +7556,7 @@ connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_11/rs
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins HardwareAccelerator_0/ap_rst]
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins HardwareAccelerator_1/ap_rst]
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins HardwareAccelerator_2/ap_rst]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins HardwareAccelerator_3/ap_rst]
 
 # Se invierte el reset para conectarlo a la unidad de empaquetamiento y desempaquetamiento
 connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins inverter_4/A]
@@ -7580,6 +7581,7 @@ connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins unpackaging_IP_bloc
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins HardwareAccelerator_0/ap_clk]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins HardwareAccelerator_1/ap_clk]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins HardwareAccelerator_2/ap_clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins HardwareAccelerator_3/ap_clk]
 
 # Se conecta el reloj de los FIFOS
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_0/clk]
@@ -7590,6 +7592,8 @@ connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_6/cl
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_7/clk]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_8/clk]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_9/clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_10/clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_11/clk]
 
 
 connect_bd_net [get_bd_pins fifo_generator_2/wr_clk] [get_bd_pins clk_wiz_0/clk_out3]
@@ -8041,7 +8045,7 @@ startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xconst_fpga_id
 endgroup
 
-set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {0}] [get_bd_cells xconst_fpga_id]
+set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {1}] [get_bd_cells xconst_fpga_id]
 
 # Se conecta la constante del bloque FPGA IP de la unidad de empaquetamiento, a la constante de FPGA_ID del acelerador
 connect_bd_net [get_bd_pins packaging_IP_block_0/fpga_id] [get_bd_pins xconst_fpga_id/dout]
@@ -8100,7 +8104,7 @@ startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlcons_BS_ID_Hardware_Acc_0
 endgroup
 
-set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {4}] [get_bd_cells xlcons_BS_ID_Hardware_Acc_0]
+set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {1}] [get_bd_cells xlcons_BS_ID_Hardware_Acc_0]
 
 connect_bd_net [get_bd_pins xlcons_BS_ID_Hardware_Acc_0/dout] [get_bd_pins HardwareAccelerator_0/bus_id]
 
@@ -8169,7 +8173,7 @@ startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlcons_BS_ID_Hardware_Acc_1
 endgroup
 
-set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {3}] [get_bd_cells xlcons_BS_ID_Hardware_Acc_1]
+set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {1}] [get_bd_cells xlcons_BS_ID_Hardware_Acc_1]
 
 connect_bd_net [get_bd_pins xlcons_BS_ID_Hardware_Acc_1/dout] [get_bd_pins HardwareAccelerator_1/bus_id]
 
@@ -8225,7 +8229,7 @@ startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlcons_BS_ID_Hardware_Acc_2
 endgroup
 
-set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {4}] [get_bd_cells xlcons_BS_ID_Hardware_Acc_2]
+set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {1}] [get_bd_cells xlcons_BS_ID_Hardware_Acc_2]
 
 connect_bd_net [get_bd_pins xlcons_BS_ID_Hardware_Acc_2/dout] [get_bd_pins HardwareAccelerator_2/bus_id]
 
