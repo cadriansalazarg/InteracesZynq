@@ -10,12 +10,12 @@ void load_vdend(float vdend[MAX_POPULATION], Config& config,
 DO_PRAGMA(HLS LOOP_TRIPCOUNT min=64/2 max=MAX_POPULATION/2)
 		auto package_raw = input.read();
 		auto package = package_raw.MESSAGE;
-		vdend[i] = package[0];
-		vdend[i + 1] = package[1];
-		vdend[i + 2] = package[2];
-		vdend[i + 3] = package[3];
-		vdend[i + 4] = package[4];
-		vdend[i + 5] = package[5];
+		vdend[i*6] = package[0];
+		vdend[i*6 + 1] = package[1];
+		vdend[i*6 + 2] = package[2];
+		vdend[i*6 + 3] = package[3];
+		vdend[i*6 + 4] = package[4];
+		vdend[i*6 + 5] = package[5];
 		tx_uid = package_raw.TX_UID;
 		rx_uid = package_raw.RX_UID;
 	}
@@ -43,6 +43,7 @@ void stream_vdend(float vdend[MAX_POPULATION], Config& config,
 			for (uint i = 0; i < VECTOR_SIZE; i++) {
 #pragma HLS UNROLL
 				v_col.data[i] = vdend[i+col];
+
 			}
 			v_col_fifo.write(v_col);
 		}
