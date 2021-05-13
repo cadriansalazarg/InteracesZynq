@@ -17,17 +17,17 @@ void fillVdend(AXIS_interface_in &input,int population){
 	for(int i=0; i<population; i+=6){
 		packaging_data p;
 		float value = -50.0f;
-		p.MESSAGE[0]= *reinterpret_cast<int *>(&value);
-		p.MESSAGE[1]= *reinterpret_cast<int *>(&value);
-		p.MESSAGE[2]= *reinterpret_cast<int *>(&value);
-		p.MESSAGE[3]= *reinterpret_cast<int *>(&value);
-		p.MESSAGE[4]= *reinterpret_cast<int *>(&value);
-		p.MESSAGE[5]= *reinterpret_cast<int *>(&value);
+		p.MESSAGE[0]= value;
+		p.MESSAGE[1]= value;
+		p.MESSAGE[2]= value;
+		p.MESSAGE[3]= value;
+		p.MESSAGE[4]= value;
+		p.MESSAGE[5]= value;
 		p.BS_ID = 1;
 		p.FPGA_ID = 1;
 		p.RX_UID = 1;
 		p.TX_UID = 2;
-		p.PCKG_ID = i;
+		p.PCKG_ID = i/6;
 		p.VALID_PACKET_BYTES = PAYLOAD_PACKET_BYTES;
 		input.write(p);
 	}
@@ -58,21 +58,14 @@ void readIcurr(AXIS_interface_out &output, int population){
 	int id = 0;
 	while(!output.empty()){
 		auto p = output.read();
-		auto &message = p.MESSAGE;
-		float data[6];
-		data[0] = *reinterpret_cast<int*>(&message[0]);
-		data[1] = *reinterpret_cast<int*>(&message[1]);
-		data[2] = *reinterpret_cast<int*>(&message[2]);
-		data[3] = *reinterpret_cast<int*>(&message[3]);
-		data[4] = *reinterpret_cast<int*>(&message[4]);
-		data[5] = *reinterpret_cast<int*>(&message[5]);
+		auto message = p.MESSAGE;
 		std::cout<<
-				"Out: "<<data[id]<<"\n"<<
-				"Out: "<<data[id+1]<<"\n"<<
-				"Out: "<<data[id+2]<<"\n"<<
-				"Out: "<<data[id+3]<<"\n"<<
-				"Out: "<<data[id+4]<<"\n"<<
-				"Out: "<<data[id+5]<<"\n";
+				"Out: "<<message[id]<<"\n"<<
+				"Out: "<<message[id+1]<<"\n"<<
+				"Out: "<<message[id+2]<<"\n"<<
+				"Out: "<<message[id+3]<<"\n"<<
+				"Out: "<<message[id+4]<<"\n"<<
+				"Out: "<<message[id+5]<<"\n";
 		count += 6;
 	}
 	std::cout<< "received data: "<< count << "\n";
