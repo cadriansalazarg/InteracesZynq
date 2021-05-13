@@ -5,7 +5,7 @@
 const uint nsize = 216;
 
 using uint=unsigned int;
-using data_type = uint;
+using data_type = float;
 using byte = unsigned char;
 using half_word = unsigned short int;
 
