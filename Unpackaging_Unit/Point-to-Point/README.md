@@ -15,7 +15,13 @@ Debe ajustarse adecuadamente los parámetros de esta unidad que se encuentran en
 ***2) MESSAGE_SIZE_BYTES :*** Este parámetro especifica el número de bytes que serán transmitidos al Zynq, más 4 bytes. Por lo tanto, al número de bytes que se enviarán al Zynq, debe sumarsele 4 bytes para obtener este valor.
 
 
+## Descripción del contenido de las carpetas
 
+A continuación se describe el contenido de las carpetas:
+
+***1) hls :*** Dentro de esta carpeta, se encuentra todo el código en C, así como los scripts tcl, encargados de generar el IP core de la unidad de desempaquetamiento.
+
+***2) src :*** Dentro de esta carpeta, se encuentra un código en C, modelado en alto nivel, encargado de emular la unidad de desempaquetamiento.
 
 ## Autores
 
