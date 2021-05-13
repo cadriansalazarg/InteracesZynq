@@ -1,7 +1,7 @@
 #include "gjip.hpp"
 #include <iostream>
 
-const int size_cell_population = 32;
+const int size_cell_population = 216;
 
 void setConfigSim(Config &config, int population){
 	config.population = population;
@@ -14,7 +14,7 @@ void setConfigSim(Config &config, int population){
 
 
 void fillVdend(AXIS_interface_in &input,int population){
-	for(int i=0; i<population; i+=2){
+	for(int i=0; i<population; i+=6){
 		packaging_data p;
 		float value = -50.0f;
 		p.MESSAGE[0]= *reinterpret_cast<int *>(&value);
@@ -59,7 +59,7 @@ void readIcurr(AXIS_interface_out &output, int population){
 	while(!output.empty()){
 		auto p = output.read();
 		auto &message = p.MESSAGE;
-		float *data = reinterpret_cast<int*>&message;
+		float *data = reinterpret_cast<int*>(&message);
 		std::cout<<
 				"Out: "<<data[i]<<"\n"<<
 				"Out: "<<data[i+1]<<"\n"<<
