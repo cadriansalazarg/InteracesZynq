@@ -1,4 +1,4 @@
-# Unidad de desempaquetamiento punto a punto
+# Unidad de empaquetamiento punto a punto
 
 En esta carpeta  muestra el código en C, encargado de generar un IP core en HLS de la unidad de desempaquetamiento. La unidad de desempaquetamiento tiene por objetivo tomar un conjunto de paquetes de la FIFO,  y generar un mensaje que será transmitido en AXI Stream hacia el Zynq. 
 
@@ -6,7 +6,7 @@ A manera de resumen, este IP Core, tiene por objetivo tomar el payload de todos 
 
 A continuación se muestra una figura que ilustra el diagrama de entradas y salidas de esta unidad:
 
-![Diseño modular que muestra el uso del bus paralelo ysu integración en el Block Design de Vivado](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/wikiimages/unpackaging_fig.PNG)
+![Diseño modular que muestra el uso del bus paralelo ysu integración en el Block Design de Vivado](https://raw.githubusercontent.com/cadriansalazarg/InterfacesZynq/master/wikiimages/packaging_fig.PNG)
 
 Debe ajustarse adecuadamente los parámetros de esta unidad que se encuentran en el archivo hls/unpackaging_IP.hpp. Se deben de editar dos parámetros los cuales se muestran a continuación:
 
