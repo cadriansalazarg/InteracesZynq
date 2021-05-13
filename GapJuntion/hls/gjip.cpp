@@ -6,10 +6,10 @@
 void load_vdend(float vdend[MAX_POPULATION], Config& config,
 		AXIS_interface_in& input, half_word &tx_uid, half_word &rx_uid)
 {
-	for (uint i = 0; i < NUM_TOTAL_OF_PACKETS_RX; i += 6) {
+	for (uint i = 0; i < NUM_TOTAL_OF_PACKETS_RX; i ++) {
 DO_PRAGMA(HLS LOOP_TRIPCOUNT min=64/2 max=MAX_POPULATION/2)
 		auto package_raw = input.read();
-		auto package = reinterpret_cast<float*>(package_raw.MESSAGE);
+		auto package = package_raw.MESSAGE;
 		vdend[i] = package[0];
 		vdend[i + 1] = package[1];
 		vdend[i + 2] = package[2];
@@ -131,7 +131,7 @@ void package_assembly(hls::stream<float> &igp_fifo, AXIS_interface_out &output,C
 	for(uint i=0; i<NUM_TOTAL_OF_PACKETS_TX; i++){
 		for(uint counter = 0; counter<6; counter++){
 			auto data = igp_fifo.read();
-			package.MESSAGE[counter] = *reinterpret_cast<uint*>(&data);
+			package.MESSAGE[counter] = data;
 		}
 		package.PCKG_ID = i;
 		output.write(package);
