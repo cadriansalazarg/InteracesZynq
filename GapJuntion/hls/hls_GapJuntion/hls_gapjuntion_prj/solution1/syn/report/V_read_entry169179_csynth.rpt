@@ -1,0 +1,173 @@
+
+
+================================================================
+== Vivado HLS Report for 'V_read_entry169179'
+================================================================
+* Date:           Sat May 15 00:01:25 2021
+
+* Version:        2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)
+* Project:        hls_gapjuntion_prj
+* Solution:       solution1
+* Product family: zynq
+* Target device:  xc7z045ffg900-2
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |   5.00|     4.375|        0.62|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+-----+-----+-----+---------+
+    |  Latency  |  Interval | Pipeline|
+    | min | max | min | max |   Type  |
+    +-----+-----+-----+-----+---------+
+    |    0|    0|    0|    0|   none  |
+    +-----+-----+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-------+--------+--------+
+|       Name      | BRAM_18K| DSP48E|   FF   |   LUT  |
++-----------------+---------+-------+--------+--------+
+|DSP              |        -|      -|       -|       -|
+|Expression       |        -|      -|       0|       1|
+|FIFO             |        -|      -|       -|       -|
+|Instance         |        -|      -|       -|       -|
+|Memory           |        -|      -|       -|       -|
+|Multiplexer      |        -|      -|       -|      39|
+|Register         |        -|      -|       3|       -|
++-----------------+---------+-------+--------+--------+
+|Total            |        0|      0|       3|      40|
++-----------------+---------+-------+--------+--------+
+|Available        |     1090|    900|  437200|  218600|
++-----------------+---------+-------+--------+--------+
+|Utilization (%)  |        0|      0|   ~0   |   ~0   |
++-----------------+---------+-------+--------+--------+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP48: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +-----------------+----------+-------+---+----+------------+------------+
+    |  Variable Name  | Operation| DSP48E| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +-----------------+----------+-------+---+----+------------+------------+
+    |ap_block_state1  |    or    |      0|  0|   1|           1|           1|
+    +-----------------+----------+-------+---+----+------------+------------+
+    |Total            |          |      0|  0|   1|           1|           1|
+    +-----------------+----------+-------+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-----------------------------------------+----+-----------+-----+-----------+
+    |                   Name                  | LUT| Input Size| Bits| Total Bits|
+    +-----------------------------------------+----+-----------+-----+-----------+
+    |ap_done                                  |   3|          2|    1|          2|
+    |real_start                               |   3|          2|    1|          2|
+    |scalar_simConfig_BLOCK_NUMBERS_V_blk_n   |   3|          2|    1|          2|
+    |scalar_simConfig_rowsToSimulate_V_blk_n  |   3|          2|    1|          2|
+    |simConfig_BLOCK_NUMBERS_V_c1_i_blk_n     |   3|          2|    1|          2|
+    |simConfig_BLOCK_NUMBERS_V_c_i_blk_n      |   3|          2|    1|          2|
+    |simConfig_BLOCK_NUMBERS_V_out_blk_n      |   3|          2|    1|          2|
+    |simConfig_rowBegin_V_blk_n               |   3|          2|    1|          2|
+    |simConfig_rowBegin_V_c_i_blk_n           |   3|          2|    1|          2|
+    |simConfig_rowEnd_V_blk_n                 |   3|          2|    1|          2|
+    |simConfig_rowEnd_V_c_i_blk_n             |   3|          2|    1|          2|
+    |simConfig_rowsToSimulate_V_c_i_blk_n     |   3|          2|    1|          2|
+    |simConfig_rowsToSimulate_V_out_blk_n     |   3|          2|    1|          2|
+    +-----------------------------------------+----+-----------+-----+-----------+
+    |Total                                    |  39|         26|   13|         26|
+    +-----------------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +----------------+---+----+-----+-----------+
+    |      Name      | FF| LUT| Bits| Const Bits|
+    +----------------+---+----+-----+-----------+
+    |ap_CS_fsm       |  1|   0|    1|          0|
+    |ap_done_reg     |  1|   0|    1|          0|
+    |start_once_reg  |  1|   0|    1|          0|
+    +----------------+---+----+-----+-----------+
+    |Total           |  3|   0|    3|          0|
+    +----------------+---+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-------------------------------------------+-----+-----+------------+-----------------------------------+--------------+
+|                 RTL Ports                 | Dir | Bits|  Protocol  |           Source Object           |    C Type    |
++-------------------------------------------+-----+-----+------------+-----------------------------------+--------------+
+|ap_clk                                     |  in |    1| ap_ctrl_hs |         V_read.entry169179        | return value |
+|ap_rst                                     |  in |    1| ap_ctrl_hs |         V_read.entry169179        | return value |
+|ap_start                                   |  in |    1| ap_ctrl_hs |         V_read.entry169179        | return value |
+|start_full_n                               |  in |    1| ap_ctrl_hs |         V_read.entry169179        | return value |
+|ap_done                                    | out |    1| ap_ctrl_hs |         V_read.entry169179        | return value |
+|ap_continue                                |  in |    1| ap_ctrl_hs |         V_read.entry169179        | return value |
+|ap_idle                                    | out |    1| ap_ctrl_hs |         V_read.entry169179        | return value |
+|ap_ready                                   | out |    1| ap_ctrl_hs |         V_read.entry169179        | return value |
+|start_out                                  | out |    1| ap_ctrl_hs |         V_read.entry169179        | return value |
+|start_write                                | out |    1| ap_ctrl_hs |         V_read.entry169179        | return value |
+|scalar_simConfig_BLOCK_NUMBERS_V_dout      |  in |   27|   ap_fifo  |  scalar_simConfig_BLOCK_NUMBERS_V |    pointer   |
+|scalar_simConfig_BLOCK_NUMBERS_V_empty_n   |  in |    1|   ap_fifo  |  scalar_simConfig_BLOCK_NUMBERS_V |    pointer   |
+|scalar_simConfig_BLOCK_NUMBERS_V_read      | out |    1|   ap_fifo  |  scalar_simConfig_BLOCK_NUMBERS_V |    pointer   |
+|simConfig_BLOCK_NUMBERS_V_out_din          | out |   27|   ap_fifo  |   simConfig_BLOCK_NUMBERS_V_out   |    pointer   |
+|simConfig_BLOCK_NUMBERS_V_out_full_n       |  in |    1|   ap_fifo  |   simConfig_BLOCK_NUMBERS_V_out   |    pointer   |
+|simConfig_BLOCK_NUMBERS_V_out_write        | out |    1|   ap_fifo  |   simConfig_BLOCK_NUMBERS_V_out   |    pointer   |
+|scalar_simConfig_rowsToSimulate_V_dout     |  in |   27|   ap_fifo  | scalar_simConfig_rowsToSimulate_V |    pointer   |
+|scalar_simConfig_rowsToSimulate_V_empty_n  |  in |    1|   ap_fifo  | scalar_simConfig_rowsToSimulate_V |    pointer   |
+|scalar_simConfig_rowsToSimulate_V_read     | out |    1|   ap_fifo  | scalar_simConfig_rowsToSimulate_V |    pointer   |
+|simConfig_rowsToSimulate_V_out_din         | out |   27|   ap_fifo  |   simConfig_rowsToSimulate_V_out  |    pointer   |
+|simConfig_rowsToSimulate_V_out_full_n      |  in |    1|   ap_fifo  |   simConfig_rowsToSimulate_V_out  |    pointer   |
+|simConfig_rowsToSimulate_V_out_write       | out |    1|   ap_fifo  |   simConfig_rowsToSimulate_V_out  |    pointer   |
+|simConfig_rowBegin_V_dout                  |  in |   27|   ap_fifo  |        simConfig_rowBegin_V       |    pointer   |
+|simConfig_rowBegin_V_empty_n               |  in |    1|   ap_fifo  |        simConfig_rowBegin_V       |    pointer   |
+|simConfig_rowBegin_V_read                  | out |    1|   ap_fifo  |        simConfig_rowBegin_V       |    pointer   |
+|simConfig_rowEnd_V_dout                    |  in |   27|   ap_fifo  |         simConfig_rowEnd_V        |    pointer   |
+|simConfig_rowEnd_V_empty_n                 |  in |    1|   ap_fifo  |         simConfig_rowEnd_V        |    pointer   |
+|simConfig_rowEnd_V_read                    | out |    1|   ap_fifo  |         simConfig_rowEnd_V        |    pointer   |
+|simConfig_rowBegin_V_c_i_din               | out |   27|   ap_fifo  |      simConfig_rowBegin_V_c_i     |    pointer   |
+|simConfig_rowBegin_V_c_i_full_n            |  in |    1|   ap_fifo  |      simConfig_rowBegin_V_c_i     |    pointer   |
+|simConfig_rowBegin_V_c_i_write             | out |    1|   ap_fifo  |      simConfig_rowBegin_V_c_i     |    pointer   |
+|simConfig_rowEnd_V_c_i_din                 | out |   27|   ap_fifo  |       simConfig_rowEnd_V_c_i      |    pointer   |
+|simConfig_rowEnd_V_c_i_full_n              |  in |    1|   ap_fifo  |       simConfig_rowEnd_V_c_i      |    pointer   |
+|simConfig_rowEnd_V_c_i_write               | out |    1|   ap_fifo  |       simConfig_rowEnd_V_c_i      |    pointer   |
+|simConfig_rowsToSimulate_V_c_i_din         | out |   27|   ap_fifo  |   simConfig_rowsToSimulate_V_c_i  |    pointer   |
+|simConfig_rowsToSimulate_V_c_i_full_n      |  in |    1|   ap_fifo  |   simConfig_rowsToSimulate_V_c_i  |    pointer   |
+|simConfig_rowsToSimulate_V_c_i_write       | out |    1|   ap_fifo  |   simConfig_rowsToSimulate_V_c_i  |    pointer   |
+|simConfig_BLOCK_NUMBERS_V_c_i_din          | out |   27|   ap_fifo  |   simConfig_BLOCK_NUMBERS_V_c_i   |    pointer   |
+|simConfig_BLOCK_NUMBERS_V_c_i_full_n       |  in |    1|   ap_fifo  |   simConfig_BLOCK_NUMBERS_V_c_i   |    pointer   |
+|simConfig_BLOCK_NUMBERS_V_c_i_write        | out |    1|   ap_fifo  |   simConfig_BLOCK_NUMBERS_V_c_i   |    pointer   |
+|simConfig_BLOCK_NUMBERS_V_c1_i_din         | out |   27|   ap_fifo  |   simConfig_BLOCK_NUMBERS_V_c1_i  |    pointer   |
+|simConfig_BLOCK_NUMBERS_V_c1_i_full_n      |  in |    1|   ap_fifo  |   simConfig_BLOCK_NUMBERS_V_c1_i  |    pointer   |
+|simConfig_BLOCK_NUMBERS_V_c1_i_write       | out |    1|   ap_fifo  |   simConfig_BLOCK_NUMBERS_V_c1_i  |    pointer   |
++-------------------------------------------+-----+-----+------------+-----------------------------------+--------------+
+

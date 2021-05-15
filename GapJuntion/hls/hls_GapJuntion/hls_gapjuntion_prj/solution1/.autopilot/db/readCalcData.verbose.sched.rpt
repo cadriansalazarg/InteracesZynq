@@ -1,0 +1,135 @@
+
+
+================================================================
+== Vivado HLS Report for 'readCalcData'
+================================================================
+* Date:           Sat May 15 00:01:23 2021
+
+* Version:        2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)
+* Project:        hls_gapjuntion_prj
+* Solution:       solution1
+* Product family: zynq
+* Target device:  xc7z045ffg900-2
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |   5.00|     2.188|        0.62|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+-----+-----+-----+----------+
+    |  Latency  |  Interval | Pipeline |
+    | min | max | min | max |   Type   |
+    +-----+-----+-----+-----+----------+
+    |    0|    0|    1|    1| function |
+    +-----+-----+-----+-----+----------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        N/A
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 0
+IsPipeline: 1
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 1
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 1
+* Pipeline : 1
+  Pipeline-0 : II = 1, D = 1, States = { 1 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 2.18>
+ST_1 : Operation 2 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @F_V_data_0, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 2 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 3 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @F_V_data_1, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 3 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 4 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @F_V_data_2, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 4 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 5 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @F_V_data_3, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 5 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 6 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_V_data_0, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 6 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 7 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_V_data_1, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 7 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 8 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_V_data_2, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 8 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_V_data_3, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 9 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (2.18ns)   --->   "%empty = call { float, float, float, float } @_ssdm_op_Read.ap_fifo.volatile.floatP.floatP.floatP.floatP(float* @F_V_data_0, float* @F_V_data_1, float* @F_V_data_2, float* @F_V_data_3)" [modules/acc/acc.cpp:7]   --->   Operation 10 'read' 'empty' <Predicate = true> <Delay = 2.18> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 3.40> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 32> <Depth = 0> <FIFO>
+ST_1 : Operation 11 [1/1] (0.00ns)   --->   "%tmp_data_0 = extractvalue { float, float, float, float } %empty, 0" [modules/acc/acc.cpp:7]   --->   Operation 11 'extractvalue' 'tmp_data_0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 12 [1/1] (0.00ns)   --->   "%tmp_data_1 = extractvalue { float, float, float, float } %empty, 1" [modules/acc/acc.cpp:7]   --->   Operation 12 'extractvalue' 'tmp_data_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 13 [1/1] (0.00ns)   --->   "%tmp_data_2 = extractvalue { float, float, float, float } %empty, 2" [modules/acc/acc.cpp:7]   --->   Operation 13 'extractvalue' 'tmp_data_2' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 14 [1/1] (0.00ns)   --->   "%tmp_data_3 = extractvalue { float, float, float, float } %empty, 3" [modules/acc/acc.cpp:7]   --->   Operation 14 'extractvalue' 'tmp_data_3' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 15 [1/1] (2.18ns)   --->   "%empty_17 = call { float, float, float, float } @_ssdm_op_Read.ap_fifo.volatile.floatP.floatP.floatP.floatP(float* @V_V_data_0, float* @V_V_data_1, float* @V_V_data_2, float* @V_V_data_3)" [modules/acc/acc.cpp:8]   --->   Operation 15 'read' 'empty_17' <Predicate = true> <Delay = 2.18> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 3.40> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 32> <Depth = 0> <FIFO>
+ST_1 : Operation 16 [1/1] (0.00ns)   --->   "%tmp_data_0_1 = extractvalue { float, float, float, float } %empty_17, 0" [modules/acc/acc.cpp:8]   --->   Operation 16 'extractvalue' 'tmp_data_0_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 17 [1/1] (0.00ns)   --->   "%tmp_data_1_1 = extractvalue { float, float, float, float } %empty_17, 1" [modules/acc/acc.cpp:8]   --->   Operation 17 'extractvalue' 'tmp_data_1_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 18 [1/1] (0.00ns)   --->   "%tmp_data_2_1 = extractvalue { float, float, float, float } %empty_17, 2" [modules/acc/acc.cpp:8]   --->   Operation 18 'extractvalue' 'tmp_data_2_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 19 [1/1] (0.00ns)   --->   "%tmp_data_3_1 = extractvalue { float, float, float, float } %empty_17, 3" [modules/acc/acc.cpp:8]   --->   Operation 19 'extractvalue' 'tmp_data_3_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 20 [1/1] (0.00ns)   --->   "%mrv_i = insertvalue { float, float, float, float, float, float, float, float } undef, float %tmp_data_0, 0" [modules/acc/acc.cpp:9]   --->   Operation 20 'insertvalue' 'mrv_i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 21 [1/1] (0.00ns)   --->   "%mrv_1_i = insertvalue { float, float, float, float, float, float, float, float } %mrv_i, float %tmp_data_1, 1" [modules/acc/acc.cpp:9]   --->   Operation 21 'insertvalue' 'mrv_1_i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 22 [1/1] (0.00ns)   --->   "%mrv_2_i = insertvalue { float, float, float, float, float, float, float, float } %mrv_1_i, float %tmp_data_2, 2" [modules/acc/acc.cpp:9]   --->   Operation 22 'insertvalue' 'mrv_2_i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 23 [1/1] (0.00ns)   --->   "%mrv_3_i = insertvalue { float, float, float, float, float, float, float, float } %mrv_2_i, float %tmp_data_3, 3" [modules/acc/acc.cpp:9]   --->   Operation 23 'insertvalue' 'mrv_3_i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 24 [1/1] (0.00ns)   --->   "%mrv_4_i = insertvalue { float, float, float, float, float, float, float, float } %mrv_3_i, float %tmp_data_0_1, 4" [modules/acc/acc.cpp:9]   --->   Operation 24 'insertvalue' 'mrv_4_i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 25 [1/1] (0.00ns)   --->   "%mrv_5_i = insertvalue { float, float, float, float, float, float, float, float } %mrv_4_i, float %tmp_data_1_1, 5" [modules/acc/acc.cpp:9]   --->   Operation 25 'insertvalue' 'mrv_5_i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 26 [1/1] (0.00ns)   --->   "%mrv_6_i = insertvalue { float, float, float, float, float, float, float, float } %mrv_5_i, float %tmp_data_2_1, 6" [modules/acc/acc.cpp:9]   --->   Operation 26 'insertvalue' 'mrv_6_i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 27 [1/1] (0.00ns)   --->   "%mrv_7_i = insertvalue { float, float, float, float, float, float, float, float } %mrv_6_i, float %tmp_data_3_1, 7" [modules/acc/acc.cpp:9]   --->   Operation 27 'insertvalue' 'mrv_7_i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 28 [1/1] (0.00ns)   --->   "ret { float, float, float, float, float, float, float, float } %mrv_7_i" [modules/acc/acc.cpp:9]   --->   Operation 28 'ret' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 0.625ns.
+
+ <State 1>: 2.19ns
+The critical path consists of the following:
+	fifo read on port 'F_V_data_0' (modules/acc/acc.cpp:7) [17]  (2.19 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

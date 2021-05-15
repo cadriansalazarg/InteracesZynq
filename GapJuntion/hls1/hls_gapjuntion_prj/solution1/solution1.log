@@ -1,0 +1,1330 @@
+==============================================================
+File generated on Thu May 13 02:49:34 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 02:49:47 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 02:51:30 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 02:58:18 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 02:59:32 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:00:43 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:05:34 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:07:10 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:10:32 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:14:14 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:14:41 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:15:38 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:16:07 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:18:13 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:20:39 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:21:40 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:26:55 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:29:02 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:29:07 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:32:12 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:46:50 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:53:44 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:55:53 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:57:55 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:58:55 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 03:59:56 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 04:01:11 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 04:01:54 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z045ffg900-2'
+INFO: [SCHED 204-61] Option 'relax_ii_for_timing' is enabled, will increase II to preserve clock frequency constraints.
+INFO: [HLS 200-10] Analyzing design file 'gjip.cpp' ... 
+INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 436.270 ; gain = 0.125 ; free physical = 1574 ; free virtual = 5197
+INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 436.270 ; gain = 0.125 ; free physical = 1574 ; free virtual = 5197
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 436.270 ; gain = 0.125 ; free physical = 1566 ; free virtual = 5197
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 436.270 ; gain = 0.125 ; free physical = 1563 ; free virtual = 5196
+INFO: [XFORM 203-1101] Packing variable 'input.V' (gjip.cpp:205) into a 256-bit variable.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (gjip.cpp:91) in function 'cond_product' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'Loop-1.1.1.1' (gjip.cpp:103) because its parent loop or function is pipelined.
+WARNING: [XFORM 203-505] Ignored pipeline directive for loop 'Loop-1.1.1.2' (gjip.cpp:109) because its parent loop or function is pipelined.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (gjip.cpp:61) in function 'calc' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1' (gjip.cpp:147) in function 'acc' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'Loop-1.2.1' (gjip.cpp:161) because its parent loop or function is pipelined.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.2' (gjip.cpp:40) in function 'stream_vdend' for pipelining.
+WARNING: [XFORM 203-561] Updating loop upper bound from 512 to 36 for loop 'Loop-0' (gjip.cpp:10:1) in function 'load_vdend'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 32 to 36 for loop 'Loop-0' (gjip.cpp:10:1) in function 'load_vdend'.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (gjip.cpp:96) in function 'cond_product' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1.1' (gjip.cpp:103) in function 'cond_product' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1.2' (gjip.cpp:109) in function 'cond_product' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (gjip.cpp:65) in function 'calc' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1.1' (gjip.cpp:68) in function 'calc' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1' (gjip.cpp:152) in function 'acc' completely with a factor of 4.
+WARNING: [XFORM 203-503] Cannot unroll loop 'Loop-1.2' (gjip.cpp:156) in function 'acc' completely: variable loop bound.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.2.1' (gjip.cpp:161) in function 'acc' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.3' (gjip.cpp:167) in function 'acc' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.2.1' (gjip.cpp:43) in function 'stream_vdend' completely with a factor of 4.
+INFO: [XFORM 203-102] Partitioning array 'block_row_f.data' (gjip.cpp:66) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_v.data' (gjip.cpp:67) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_facc.data' (gjip.cpp:94) automatically.
+INFO: [XFORM 203-102] Partitioning array 'brf.data' (gjip.cpp:101) automatically.
+INFO: [XFORM 203-102] Partitioning array 'brv.data' (gjip.cpp:102) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_facc.data' (gjip.cpp:150) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_vacc.data' (gjip.cpp:151) automatically.
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'v_row_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'v_col_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'block_row_vacc_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'block_row_v_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'block_row_facc_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'block_row_f_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'output.V.MESSAGE' (gjip.cpp:205) .
+INFO: [XFORM 203-101] Partitioning array 'v_row_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'v_col_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'block_row_vacc_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'block_row_v_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'block_row_facc_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'block_row_f_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'output.V.MESSAGE' (gjip.cpp:205) in dimension 1 completely.
+INFO: [XFORM 203-712] Applying dataflow to function 'Execute', detected/extracted 5 process function(s): 
+	 'stream_vdend'
+	 'calc'
+	 'cond_product'
+	 'Execute_Block_codeRepl912_proc'
+	 'package_assembly'.
+INFO: [HLS 200-111] Finished Pre-synthesis Time (s): cpu = 00:00:16 ; elapsed = 00:00:15 . Memory (MB): peak = 564.145 ; gain = 128.000 ; free physical = 1533 ; free virtual = 5174
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (gjip.cpp:30:36) in function 'stream_vdend' : 
+
+more than one sub loop.
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (gjip.cpp:89:36) in function 'cond_product' : 
+
+the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (gjip.cpp:58:36) in function 'calc' : 
+
+the outer loop is not a perfect loop.
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (gjip.cpp:147:36) in function 'acc' : 
+
+the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
+WARNING: [XFORM 203-631] Renaming function 'Execute_Block_codeRepl912_proc' to 'Execute_Block_codeRe' (gjip.cpp:200:2)
+INFO: [HLS 200-111] Finished Architecture Synthesis Time (s): cpu = 00:00:17 ; elapsed = 00:00:16 . Memory (MB): peak = 628.145 ; gain = 192.000 ; free physical = 1467 ; free virtual = 5111
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'GapJunctionIP' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_vdend' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 16.49 seconds; current allocated memory: 146.425 MB.
+INFO: [HLS 200-434] Only 0 loops out of a total 1 loops have been pipelined in this design.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.05 seconds; current allocated memory: 146.667 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'stream_vdend' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.2'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 16, Final II = 3, Depth = 3.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.13 seconds; current allocated memory: 146.905 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.08 seconds; current allocated memory: 147.207 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'calc' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.1'.
+WARNING: [SCHED 204-68] The II Violation in module 'calc': Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1)
+   between fifo write on port 'block_row_f_fifo_V_d_3' (gjip.cpp:75) and fifo write on port 'block_row_f_fifo_V_d_3' (gjip.cpp:75).
+WARNING: [SCHED 204-68] The II Violation in module 'calc': Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1)
+   between fifo write on port 'block_row_f_fifo_V_d_3' (gjip.cpp:75) and fifo write on port 'block_row_f_fifo_V_d_3' (gjip.cpp:75).
+INFO: [SCHED 204-61] Pipelining result : Target II = 2, Final II = 4, Depth = 76.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.86 seconds; current allocated memory: 149.034 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 1.43 seconds; current allocated memory: 151.564 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'cond_product' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.1'.
+WARNING: [SCHED 204-68] The II Violation in module 'cond_product': Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1)
+   between fifo read on port 'block_row_f_fifo_V_d_3' (gjip.cpp:97) and fifo read on port 'block_row_f_fifo_V_d_3' (gjip.cpp:97).
+WARNING: [SCHED 204-68] The II Violation in module 'cond_product': Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1)
+   between fifo read on port 'block_row_f_fifo_V_d_3' (gjip.cpp:97) and fifo read on port 'block_row_f_fifo_V_d_3' (gjip.cpp:97).
+INFO: [SCHED 204-61] Pipelining result : Target II = 2, Final II = 4, Depth = 43.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 1.74 seconds; current allocated memory: 152.035 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.32 seconds; current allocated memory: 152.922 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'acc' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+WARNING: [SCHED 204-65] Unable to satisfy pipeline directive: Loop contains subloop(s) not being unrolled or flattened.
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.1'.
+WARNING: [SCHED 204-68] Unable to enforce a carried constraint (II = 4)
+   between 'fadd' operation ('tmp_43_3_i', gjip.cpp:164) and 'fadd' operation ('tmp_43_3_i', gjip.cpp:164).
+WARNING: [SCHED 204-68] Unable to enforce a carried constraint (II = 5)
+   between 'fadd' operation ('tmp_43_3_i', gjip.cpp:164) and 'fadd' operation ('tmp_43_3_i', gjip.cpp:164).
+WARNING: [SCHED 204-68] Unable to enforce a carried constraint (II = 6)
+   between 'fadd' operation ('tmp_43_3_i', gjip.cpp:164) and 'fadd' operation ('tmp_43_3_i', gjip.cpp:164).
+WARNING: [SCHED 204-68] Unable to enforce a carried constraint (II = 7)
+   between 'fadd' operation ('tmp_43_3_i', gjip.cpp:164) and 'fadd' operation ('tmp_43_3_i', gjip.cpp:164).
+INFO: [SCHED 204-61] Pipelining result : Target II = 4, Final II = 8, Depth = 17.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.63 seconds; current allocated memory: 153.329 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.22 seconds; current allocated memory: 153.945 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Execute_Block_codeRe' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.17 seconds; current allocated memory: 154.014 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.03 seconds; current allocated memory: 154.146 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'package_assembly' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.15 seconds; current allocated memory: 154.285 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.05 seconds; current allocated memory: 154.526 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Execute' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.07 seconds; current allocated memory: 154.656 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.44 seconds; current allocated memory: 155.183 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'GapJunctionIP' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.31 seconds; current allocated memory: 155.284 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.25 seconds; current allocated memory: 155.644 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_vdend' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_vdend'.
+INFO: [HLS 200-111]  Elapsed time: 0.35 seconds; current allocated memory: 156.102 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'stream_vdend' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'stream_vdend'.
+INFO: [HLS 200-111]  Elapsed time: 0.12 seconds; current allocated memory: 157.440 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'calc' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_dexp_64ns_64ns_64_39_full_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_dmul_64ns_64ns_64_10_max_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fmul_32ns_32ns_32_5_max_dsp_1': 8 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fpext_32ns_64_1_1': 8 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fptrunc_64ns_32_2_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fsub_32ns_32ns_32_8_full_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'calc'.
+INFO: [HLS 200-111]  Elapsed time: 0.32 seconds; current allocated memory: 161.370 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'cond_product' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fadd_32ns_32ns_32_8_full_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fmul_32ns_32ns_32_5_max_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'cond_product'.
+INFO: [HLS 200-111]  Elapsed time: 2.06 seconds; current allocated memory: 166.694 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'acc' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fadd_32ns_32ns_32_8_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fadd_32ns_32ns_32_8_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fmul_32ns_32ns_32_5_max_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'acc'.
+INFO: [HLS 200-111]  Elapsed time: 0.57 seconds; current allocated memory: 169.394 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Execute_Block_codeRe' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Execute_Block_codeRe'.
+INFO: [HLS 200-111]  Elapsed time: 0.36 seconds; current allocated memory: 171.058 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'package_assembly' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'package_assembly'.
+INFO: [HLS 200-111]  Elapsed time: 0.15 seconds; current allocated memory: 171.774 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Execute' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Execute'.
+INFO: [HLS 200-111]  Elapsed time: 0.22 seconds; current allocated memory: 174.093 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'GapJunctionIP' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/input_V' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_0' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_1' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_2' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_3' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_4' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_5' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_VALID_PACKET_BYTES' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_RX_UID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_TX_UID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_PCKG_ID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_FPGA_ID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_BS_ID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_population' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_start_limit' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_end_limit' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_bus_id' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_fpga_id' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_uid' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'GapJunctionIP' to 'ap_ctrl_chain'.
+WARNING: [RTGEN 206-101] Register 'rx_uid' is power-on initialization.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'GapJunctionIP'.
+INFO: [HLS 200-111]  Elapsed time: 0.76 seconds; current allocated memory: 176.657 MB.
+INFO: [RTMG 210-278] Implementing memory 'stream_vdend_v_row_data_ram (RAM)' using distributed RAMs with power-on initialization.
+INFO: [RTMG 210-278] Implementing memory 'package_assembly_package_MESSAGE_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-285] Implementing FIFO 'v_row_fifo_V_data_0_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_row_fifo_V_data_1_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_row_fifo_V_data_2_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_row_fifo_V_data_3_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_col_fifo_V_data_0_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_col_fifo_V_data_1_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_col_fifo_V_data_2_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_col_fifo_V_data_3_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_f_fifo_V_d_3_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_f_fifo_V_d_2_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_f_fifo_V_d_1_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_f_fifo_V_d_U(fifo_w32_d8_A)' using Shift Registers.
+==============================================================
+File generated on Thu May 13 04:02:57 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 04:03:30 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 04:07:18 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 04:09:09 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 04:09:58 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 04:16:24 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 04:24:21 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 04:27:15 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 04:27:36 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 04:37:41 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 04:38:15 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z045ffg900-2'
+INFO: [SCHED 204-61] Option 'relax_ii_for_timing' is enabled, will increase II to preserve clock frequency constraints.
+INFO: [HLS 200-10] Analyzing design file 'gjip.cpp' ... 
+INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 436.270 ; gain = 0.125 ; free physical = 1197 ; free virtual = 4970
+INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 436.270 ; gain = 0.125 ; free physical = 1197 ; free virtual = 4970
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 436.270 ; gain = 0.125 ; free physical = 1196 ; free virtual = 4971
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 436.270 ; gain = 0.125 ; free physical = 1195 ; free virtual = 4970
+INFO: [XFORM 203-1101] Packing variable 'input.V' (gjip.cpp:208) into a 256-bit variable.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (gjip.cpp:94) in function 'cond_product' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'Loop-1.1.1.1' (gjip.cpp:106) because its parent loop or function is pipelined.
+WARNING: [XFORM 203-505] Ignored pipeline directive for loop 'Loop-1.1.1.2' (gjip.cpp:112) because its parent loop or function is pipelined.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (gjip.cpp:64) in function 'calc' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1' (gjip.cpp:150) in function 'acc' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'Loop-1.2.1' (gjip.cpp:164) because its parent loop or function is pipelined.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.2' (gjip.cpp:43) in function 'stream_vdend' for pipelining.
+WARNING: [XFORM 203-561] Updating loop upper bound from 512 to 36 for loop 'Loop-0' (gjip.cpp:10:1) in function 'load_vdend'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 32 to 36 for loop 'Loop-0' (gjip.cpp:10:1) in function 'load_vdend'.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (gjip.cpp:99) in function 'cond_product' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1.1' (gjip.cpp:106) in function 'cond_product' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1.2' (gjip.cpp:112) in function 'cond_product' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (gjip.cpp:68) in function 'calc' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1.1' (gjip.cpp:71) in function 'calc' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1' (gjip.cpp:155) in function 'acc' completely with a factor of 4.
+WARNING: [XFORM 203-503] Cannot unroll loop 'Loop-1.2' (gjip.cpp:159) in function 'acc' completely: variable loop bound.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.2.1' (gjip.cpp:164) in function 'acc' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.3' (gjip.cpp:170) in function 'acc' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.2.1' (gjip.cpp:46) in function 'stream_vdend' completely with a factor of 4.
+INFO: [XFORM 203-102] Partitioning array 'v_col.data' (gjip.cpp:28) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_f.data' (gjip.cpp:69) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_v.data' (gjip.cpp:70) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_facc.data' (gjip.cpp:97) automatically.
+INFO: [XFORM 203-102] Partitioning array 'brf.data' (gjip.cpp:104) automatically.
+INFO: [XFORM 203-102] Partitioning array 'brv.data' (gjip.cpp:105) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_facc.data' (gjip.cpp:153) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_vacc.data' (gjip.cpp:154) automatically.
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'v_row_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'v_col_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'block_row_vacc_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'block_row_v_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'block_row_facc_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'block_row_f_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'output.V.MESSAGE' (gjip.cpp:208) .
+INFO: [XFORM 203-101] Partitioning array 'v_row_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'v_col_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'block_row_vacc_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'block_row_v_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'block_row_facc_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'block_row_f_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'output.V.MESSAGE' (gjip.cpp:208) in dimension 1 completely.
+INFO: [XFORM 203-712] Applying dataflow to function 'Execute', detected/extracted 5 process function(s): 
+	 'stream_vdend'
+	 'calc'
+	 'cond_product'
+	 'Execute_Block_codeRepl912_proc'
+	 'package_assembly'.
+INFO: [HLS 200-111] Finished Pre-synthesis Time (s): cpu = 00:00:16 ; elapsed = 00:00:15 . Memory (MB): peak = 564.145 ; gain = 128.000 ; free physical = 1176 ; free virtual = 4955
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (gjip.cpp:30:36) in function 'stream_vdend' : 
+
+more than one sub loop.
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (gjip.cpp:92:36) in function 'cond_product' : 
+
+the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (gjip.cpp:61:36) in function 'calc' : 
+
+the outer loop is not a perfect loop.
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (gjip.cpp:150:36) in function 'acc' : 
+
+the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
+WARNING: [XFORM 203-631] Renaming function 'Execute_Block_codeRepl912_proc' to 'Execute_Block_codeRe' (gjip.cpp:203:2)
+INFO: [HLS 200-111] Finished Architecture Synthesis Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 628.145 ; gain = 192.000 ; free physical = 1112 ; free virtual = 4890
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'GapJunctionIP' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_vdend' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 16.71 seconds; current allocated memory: 146.437 MB.
+INFO: [HLS 200-434] Only 0 loops out of a total 1 loops have been pipelined in this design.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.07 seconds; current allocated memory: 146.679 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'stream_vdend' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.2'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 16, Final II = 3, Depth = 3.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.21 seconds; current allocated memory: 146.926 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.09 seconds; current allocated memory: 147.248 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'calc' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.1'.
+WARNING: [SCHED 204-68] The II Violation in module 'calc': Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1)
+   between fifo write on port 'block_row_f_fifo_V_d_3' (gjip.cpp:78) and fifo write on port 'block_row_f_fifo_V_d_3' (gjip.cpp:78).
+WARNING: [SCHED 204-68] The II Violation in module 'calc': Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1)
+   between fifo write on port 'block_row_f_fifo_V_d_3' (gjip.cpp:78) and fifo write on port 'block_row_f_fifo_V_d_3' (gjip.cpp:78).
+INFO: [SCHED 204-61] Pipelining result : Target II = 2, Final II = 4, Depth = 76.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 1.09 seconds; current allocated memory: 149.071 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 1.55 seconds; current allocated memory: 151.601 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'cond_product' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.1'.
+WARNING: [SCHED 204-68] The II Violation in module 'cond_product': Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1)
+   between fifo read on port 'block_row_f_fifo_V_d_3' (gjip.cpp:100) and fifo read on port 'block_row_f_fifo_V_d_3' (gjip.cpp:100).
+WARNING: [SCHED 204-68] The II Violation in module 'cond_product': Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1)
+   between fifo read on port 'block_row_f_fifo_V_d_3' (gjip.cpp:100) and fifo read on port 'block_row_f_fifo_V_d_3' (gjip.cpp:100).
+INFO: [SCHED 204-61] Pipelining result : Target II = 2, Final II = 4, Depth = 43.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 1.85 seconds; current allocated memory: 152.072 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.33 seconds; current allocated memory: 152.959 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'acc' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+WARNING: [SCHED 204-65] Unable to satisfy pipeline directive: Loop contains subloop(s) not being unrolled or flattened.
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.1'.
+WARNING: [SCHED 204-68] Unable to enforce a carried constraint (II = 4)
+   between 'fadd' operation ('tmp_43_3_i', gjip.cpp:167) and 'fadd' operation ('tmp_43_3_i', gjip.cpp:167).
+WARNING: [SCHED 204-68] Unable to enforce a carried constraint (II = 5)
+   between 'fadd' operation ('tmp_43_3_i', gjip.cpp:167) and 'fadd' operation ('tmp_43_3_i', gjip.cpp:167).
+WARNING: [SCHED 204-68] Unable to enforce a carried constraint (II = 6)
+   between 'fadd' operation ('tmp_43_3_i', gjip.cpp:167) and 'fadd' operation ('tmp_43_3_i', gjip.cpp:167).
+WARNING: [SCHED 204-68] Unable to enforce a carried constraint (II = 7)
+   between 'fadd' operation ('tmp_43_3_i', gjip.cpp:167) and 'fadd' operation ('tmp_43_3_i', gjip.cpp:167).
+INFO: [SCHED 204-61] Pipelining result : Target II = 4, Final II = 8, Depth = 17.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.73 seconds; current allocated memory: 153.366 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.23 seconds; current allocated memory: 153.982 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Execute_Block_codeRe' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.18 seconds; current allocated memory: 154.055 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.03 seconds; current allocated memory: 154.188 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'package_assembly' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.12 seconds; current allocated memory: 154.327 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.07 seconds; current allocated memory: 154.567 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Execute' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.08 seconds; current allocated memory: 154.697 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.51 seconds; current allocated memory: 155.222 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'GapJunctionIP' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.35 seconds; current allocated memory: 155.323 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.26 seconds; current allocated memory: 155.680 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_vdend' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_vdend'.
+INFO: [HLS 200-111]  Elapsed time: 0.36 seconds; current allocated memory: 156.138 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'stream_vdend' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'stream_vdend'.
+INFO: [HLS 200-111]  Elapsed time: 0.11 seconds; current allocated memory: 157.487 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'calc' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_dexp_64ns_64ns_64_39_full_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_dmul_64ns_64ns_64_10_max_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fmul_32ns_32ns_32_5_max_dsp_1': 8 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fpext_32ns_64_1_1': 8 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fptrunc_64ns_32_2_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fsub_32ns_32ns_32_8_full_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'calc'.
+INFO: [HLS 200-111]  Elapsed time: 0.33 seconds; current allocated memory: 161.456 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'cond_product' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fadd_32ns_32ns_32_8_full_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fmul_32ns_32ns_32_5_max_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'cond_product'.
+INFO: [HLS 200-111]  Elapsed time: 2.06 seconds; current allocated memory: 166.781 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'acc' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fadd_32ns_32ns_32_8_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fadd_32ns_32ns_32_8_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fmul_32ns_32ns_32_5_max_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'acc'.
+INFO: [HLS 200-111]  Elapsed time: 0.56 seconds; current allocated memory: 169.481 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Execute_Block_codeRe' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Execute_Block_codeRe'.
+INFO: [HLS 200-111]  Elapsed time: 0.35 seconds; current allocated memory: 171.144 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'package_assembly' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'package_assembly'.
+INFO: [HLS 200-111]  Elapsed time: 0.14 seconds; current allocated memory: 171.890 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Execute' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Execute'.
+INFO: [HLS 200-111]  Elapsed time: 0.22 seconds; current allocated memory: 174.209 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'GapJunctionIP' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/input_V' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_0' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_1' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_2' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_3' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_4' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_5' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_VALID_PACKET_BYTES' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_RX_UID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_TX_UID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_PCKG_ID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_FPGA_ID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_BS_ID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_population' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_start_limit' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_end_limit' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_bus_id' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_fpga_id' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_uid' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'GapJunctionIP' to 'ap_ctrl_chain'.
+WARNING: [RTGEN 206-101] Register 'rx_uid' is power-on initialization.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'GapJunctionIP'.
+INFO: [HLS 200-111]  Elapsed time: 0.77 seconds; current allocated memory: 176.724 MB.
+INFO: [RTMG 210-278] Implementing memory 'stream_vdend_v_row_data_ram (RAM)' using distributed RAMs.
+INFO: [RTMG 210-278] Implementing memory 'package_assembly_package_MESSAGE_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-285] Implementing FIFO 'v_row_fifo_V_data_0_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_row_fifo_V_data_1_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_row_fifo_V_data_2_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_row_fifo_V_data_3_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_col_fifo_V_data_0_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_col_fifo_V_data_1_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_col_fifo_V_data_2_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_col_fifo_V_data_3_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_f_fifo_V_d_3_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_f_fifo_V_d_2_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_f_fifo_V_d_1_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: ==============================================================
+File generated on Thu May 13 05:03:55 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z045ffg900-2'
+INFO: [XFORM 203-1172] Optimizing floating point zeros and discarding its signedness.
+INFO: [XFORM 203-1172] Optimizing floating point zeros and discarding its signedness.
+INFO: [XFORM 203-1173] Reordering floating point operations aggressively.
+INFO: [XFORM 203-1176] Optimizing floating point comparison without checking NaN.
+INFO: [SCHED 204-61] Option 'relax_ii_for_timing' is enabled, will increase II to preserve clock frequency constraints.
+INFO: [HLS 200-10] Analyzing design file 'gjip.cpp' ... 
+INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:13 ; elapsed = 00:00:12 . Memory (MB): peak = 436.277 ; gain = 0.125 ; free physical = 1108 ; free virtual = 4880
+INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:13 ; elapsed = 00:00:12 . Memory (MB): peak = 436.277 ; gain = 0.125 ; free physical = 1108 ; free virtual = 4880
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 436.277 ; gain = 0.125 ; free physical = 1100 ; free virtual = 4879
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability Time (s): cpu = 00:00:14 ; elapsed = 00:00:13 . Memory (MB): peak = 436.277 ; gain = 0.125 ; free physical = 1098 ; free virtual = 4878
+INFO: [XFORM 203-1101] Packing variable 'input.V' (gjip.cpp:208) into a 256-bit variable.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (gjip.cpp:94) in function 'cond_product' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'Loop-1.1.1.1' (gjip.cpp:106) because its parent loop or function is pipelined.
+WARNING: [XFORM 203-505] Ignored pipeline directive for loop 'Loop-1.1.1.2' (gjip.cpp:112) because its parent loop or function is pipelined.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (gjip.cpp:64) in function 'calc' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1' (gjip.cpp:150) in function 'acc' for pipelining.
+WARNING: [XFORM 203-503] Ignored partial unroll directive for loop 'Loop-1.2.1' (gjip.cpp:164) because its parent loop or function is pipelined.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.2' (gjip.cpp:43) in function 'stream_vdend' for pipelining.
+WARNING: [XFORM 203-561] Updating loop upper bound from 512 to 36 for loop 'Loop-0' (gjip.cpp:10:1) in function 'load_vdend'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 32 to 36 for loop 'Loop-0' (gjip.cpp:10:1) in function 'load_vdend'.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (gjip.cpp:99) in function 'cond_product' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1.1' (gjip.cpp:106) in function 'cond_product' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1.2' (gjip.cpp:112) in function 'cond_product' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (gjip.cpp:68) in function 'calc' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1.1' (gjip.cpp:71) in function 'calc' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1' (gjip.cpp:155) in function 'acc' completely with a factor of 4.
+WARNING: [XFORM 203-503] Cannot unroll loop 'Loop-1.2' (gjip.cpp:159) in function 'acc' completely: variable loop bound.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.2.1' (gjip.cpp:164) in function 'acc' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.3' (gjip.cpp:170) in function 'acc' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.2.1' (gjip.cpp:46) in function 'stream_vdend' completely with a factor of 4.
+INFO: [XFORM 203-102] Partitioning array 'v_col.data' (gjip.cpp:28) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_f.data' (gjip.cpp:69) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_v.data' (gjip.cpp:70) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_facc.data' (gjip.cpp:97) automatically.
+INFO: [XFORM 203-102] Partitioning array 'brf.data' (gjip.cpp:104) automatically.
+INFO: [XFORM 203-102] Partitioning array 'brv.data' (gjip.cpp:105) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_facc.data' (gjip.cpp:153) automatically.
+INFO: [XFORM 203-102] Partitioning array 'block_row_vacc.data' (gjip.cpp:154) automatically.
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'v_row_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'v_col_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'block_row_vacc_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'block_row_v_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'block_row_facc_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'block_row_f_fifo.V.data' .
+INFO: [XFORM 203-102] Automatically partitioning streamed array 'output.V.MESSAGE' (gjip.cpp:208) .
+INFO: [XFORM 203-101] Partitioning array 'v_row_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'v_col_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'block_row_vacc_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'block_row_v_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'block_row_facc_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'block_row_f_fifo.V.data' in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'output.V.MESSAGE' (gjip.cpp:208) in dimension 1 completely.
+INFO: [XFORM 203-712] Applying dataflow to function 'Execute', detected/extracted 5 process function(s): 
+	 'stream_vdend'
+	 'calc'
+	 'cond_product'
+	 'Execute_Block_codeRepl912_proc'
+	 'package_assembly'.
+INFO: [XFORM 203-11] Balancing expressions in function 'cond_product' (gjip.cpp:87)...12 expression(s) balanced.
+INFO: [HLS 200-111] Finished Pre-synthesis Time (s): cpu = 00:00:15 ; elapsed = 00:00:14 . Memory (MB): peak = 564.152 ; gain = 128.000 ; free physical = 1067 ; free virtual = 4858
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (gjip.cpp:30:36) in function 'stream_vdend' : 
+
+more than one sub loop.
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (gjip.cpp:92:36) in function 'cond_product' : 
+
+the outer loop is not a perfect loop because either the parent loop or the sub loop has no computeable trip count.
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (gjip.cpp:61:36) in function 'calc' : 
+
+the outer loop is not a perfect loop.
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (gjip.cpp:150:36) in function 'acc' : 
+
+the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
+WARNING: [XFORM 203-631] Renaming function 'Execute_Block_codeRepl912_proc' to 'Execute_Block_codeRe' (gjip.cpp:203:2)
+INFO: [HLS 200-111] Finished Architecture Synthesis Time (s): cpu = 00:00:17 ; elapsed = 00:00:16 . Memory (MB): peak = 628.152 ; gain = 192.000 ; free physical = 1009 ; free virtual = 4793
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'GapJunctionIP' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_vdend' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 15.69 seconds; current allocated memory: 147.497 MB.
+INFO: [HLS 200-434] Only 0 loops out of a total 1 loops have been pipelined in this design.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-101] Start micro-architecture refinement ...
+INFO: [BIND 205-100] Current cost: 302.2
+INFO: [BIND 205-100]  Iter  Moves  Swaps Merges  Swept   Fu     Reg     Cost   
+INFO: [BIND 205-100]   0      0      0      0      0     46     10      302.2  
+INFO: [BIND 205-100]   1     14      6      1      0     46     10      281.8  
+INFO: [BIND 205-100]   2      9      6      0      0     46     10      274.6  
+INFO: [BIND 205-100]   3     14      6      1      0     46     10      274.6  
+INFO: [BIND 205-100]   4     12      6      0      0     46     10      274.6  
+INFO: [BIND 205-100]   5     12      6      0      0     46     10      274.6  
+INFO: [BIND 205-100] Final cost: 274.6
+INFO: [BIND 205-101] Done micro-architecture refinement; elapsed 0.090632 sec.
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.12 seconds; current allocated memory: 147.791 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'stream_vdend' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.2'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 16, Final II = 3, Depth = 3.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.13 seconds; current allocated memory: 148.036 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-101] Start micro-architecture refinement ...
+INFO: [BIND 205-100] Current cost: 646
+INFO: [BIND 205-100]  Iter  Moves  Swaps Merges  Swept   Fu     Reg     Cost   
+INFO: [BIND 205-100]   0      0      0      0      0     35     24       646   
+INFO: [BIND 205-100]   1     12      2      0      0     35     24      542.8  
+INFO: [BIND 205-100]   2     11      3      1      0     35     24      446.6  
+INFO: [BIND 205-100]   3      7      6      0      0     35     24      446.6  
+INFO: [BIND 205-100]   4      7      6      0      0     35     24      446.6  
+INFO: [BIND 205-100]   5      7      6      0      0     35     24      446.6  
+INFO: [BIND 205-100] Final cost: 446.6
+INFO: [BIND 205-101] Done micro-architecture refinement; elapsed 0.103596 sec.
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.18 seconds; current allocated memory: 148.361 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'calc' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.1'.
+WARNING: [SCHED 204-68] The II Violation in module 'calc': Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1)
+   between fifo write on port 'block_row_f_fifo_V_d_3' (gjip.cpp:78) and fifo write on port 'block_row_f_fifo_V_d_3' (gjip.cpp:78).
+WARNING: [SCHED 204-68] The II Violation in module 'calc': Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1)
+   between fifo write on port 'block_row_f_fifo_V_d_3' (gjip.cpp:78) and fifo write on port 'block_row_f_fifo_V_d_3' (gjip.cpp:78).
+INFO: [SCHED 204-61] Pipelining result : Target II = 2, Final II = 4, Depth = 76.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.9 seconds; current allocated memory: 150.234 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-101] Start micro-architecture refinement ...
+INFO: [BIND 205-100] Current cost: 41291
+INFO: [BIND 205-100]  Iter  Moves  Swaps Merges  Swept   Fu     Reg     Cost   
+INFO: [BIND 205-100]   0      0      0      0      0     53     111     41291  
+INFO: [BIND 205-100]   1     98     95      0      0     53     111    41261.8 
+INFO: [BIND 205-100]   2     89     87      0      0     53     111    41261.8 
+INFO: [BIND 205-100]   3     97     95      0      0     53     111    41261.8 
+INFO: [BIND 205-100]   4     89     87      0      0     53     111    41261.8 
+INFO: [BIND 205-100] Final cost: 41261.8
+INFO: [BIND 205-101] Done micro-architecture refinement; elapsed 9.22161 sec.
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 9.89 seconds; current allocated memory: 152.745 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'cond_product' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.1'.
+WARNING: [SCHED 204-68] The II Violation in module 'cond_product': Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1)
+   between fifo read on port 'block_row_f_fifo_V_d_3' (gjip.cpp:100) and fifo read on port 'block_row_f_fifo_V_d_3' (gjip.cpp:100).
+WARNING: [SCHED 204-68] The II Violation in module 'cond_product': Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1)
+   between fifo read on port 'block_row_f_fifo_V_d_3' (gjip.cpp:100) and fifo read on port 'block_row_f_fifo_V_d_3' (gjip.cpp:100).
+INFO: [SCHED 204-61] Pipelining result : Target II = 2, Final II = 4, Depth = 27.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 1.73 seconds; current allocated memory: 153.236 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-101] Start micro-architecture refinement ...
+INFO: [BIND 205-100] Current cost: 5822.2
+INFO: [BIND 205-100]  Iter  Moves  Swaps Merges  Swept   Fu     Reg     Cost   
+INFO: [BIND 205-100]   0      0      0      0      0     24     51     5822.2  
+INFO: [BIND 205-100]   1     35     32      0      0     24     51      5793   
+INFO: [BIND 205-100]   2     34     32      0      0     24     51      5793   
+INFO: [BIND 205-100]   3     34     32      0      0     24     51      5793   
+INFO: [BIND 205-100]   4     34     32      0      0     24     51      5793   
+INFO: [BIND 205-100] Final cost: 5793
+INFO: [BIND 205-101] Done micro-architecture refinement; elapsed 0.576332 sec.
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.78 seconds; current allocated memory: 154.029 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'acc' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+WARNING: [SCHED 204-65] Unable to satisfy pipeline directive: Loop contains subloop(s) not being unrolled or flattened.
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.1'.
+WARNING: [SCHED 204-68] Unable to enforce a carried constraint (II = 4)
+   between 'fadd' operation ('tmp_43_3_i', gjip.cpp:167) and 'fadd' operation ('tmp_43_3_i', gjip.cpp:167).
+WARNING: [SCHED 204-68] Unable to enforce a carried constraint (II = 5)
+   between 'fadd' operation ('tmp_43_3_i', gjip.cpp:167) and 'fadd' operation ('tmp_43_3_i', gjip.cpp:167).
+WARNING: [SCHED 204-68] Unable to enforce a carried constraint (II = 6)
+   between 'fadd' operation ('tmp_43_3_i', gjip.cpp:167) and 'fadd' operation ('tmp_43_3_i', gjip.cpp:167).
+WARNING: [SCHED 204-68] Unable to enforce a carried constraint (II = 7)
+   between 'fadd' operation ('tmp_43_3_i', gjip.cpp:167) and 'fadd' operation ('tmp_43_3_i', gjip.cpp:167).
+INFO: [SCHED 204-61] Pipelining result : Target II = 4, Final II = 8, Depth = 17.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.62 seconds; current allocated memory: 154.454 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-101] Start micro-architecture refinement ...
+INFO: [BIND 205-100] Current cost: 4061
+INFO: [BIND 205-100]  Iter  Moves  Swaps Merges  Swept   Fu     Reg     Cost   
+INFO: [BIND 205-100]   0      0      0      0      0     32     42      4061   
+INFO: [BIND 205-100]   1     18     12      0      0     32     42     3970.8  
+INFO: [BIND 205-100]   2      7      2      0      0     32     42     3941.8  
+INFO: [BIND 205-100]   3      7      2      0      0     32     42     3912.8  
+INFO: [BIND 205-100]   4      8      3      0      0     32     42     3883.8  
+INFO: [BIND 205-100]   5      8      3      0      0     32     42     3854.8  
+INFO: [BIND 205-100]   6      8      3      0      0     32     42     3825.8  
+INFO: [BIND 205-100]   7      8      3      0      0     32     42     3796.8  
+INFO: [BIND 205-100]   8      8      3      0      0     32     42     3767.8  
+INFO: [BIND 205-100]   9      9      5      0      0     32     42     3767.8  
+INFO: [BIND 205-100]   10     8      4      0      0     32     42     3767.8  
+INFO: [BIND 205-100]   11    17      9      0      0     32     42     3767.8  
+INFO: [BIND 205-100] Final cost: 3767.8
+INFO: [BIND 205-101] Done micro-architecture refinement; elapsed 0.784518 sec.
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.94 seconds; current allocated memory: 155.085 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Execute_Block_codeRe' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.17 seconds; current allocated memory: 155.146 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-101] Start micro-architecture refinement ...
+INFO: [BIND 205-100] Current cost: 3865.23
+INFO: [BIND 205-100]  Iter  Moves  Swaps Merges  Swept   Fu     Reg     Cost   
+INFO: [BIND 205-100]   0      0      0      0      0      5      3     3865.23 
+INFO: [BIND 205-100]   1      1      1      0      0      5      3     3865.23 
+INFO: [BIND 205-100]   2      1      1      0      0      5      3     3865.23 
+INFO: [BIND 205-100]   3      1      1      0      0      5      3     3865.23 
+INFO: [BIND 205-100] Final cost: 3865.23
+INFO: [BIND 205-101] Done micro-architecture refinement; elapsed 0.113402 sec.
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.14 seconds; current allocated memory: 155.283 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'package_assembly' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.12 seconds; current allocated memory: 155.473 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-101] Start micro-architecture refinement ...
+INFO: [BIND 205-100] Current cost: 245.2
+INFO: [BIND 205-100]  Iter  Moves  Swaps Merges  Swept   Fu     Reg     Cost   
+INFO: [BIND 205-100]   0      0      0      0      0     23     20      245.2  
+INFO: [BIND 205-100]   1      6      1      0      0     23     20      245.2  
+INFO: [BIND 205-100]   2      6      1      0      0     23     20      245.2  
+INFO: [BIND 205-100]   3      6      1      0      0     23     20      245.2  
+INFO: [BIND 205-100] Final cost: 245.2
+INFO: [BIND 205-101] Done micro-architecture refinement; elapsed 0.077374 sec.
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.14 seconds; current allocated memory: 155.719 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Execute' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.1 seconds; current allocated memory: 155.898 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-101] Start micro-architecture refinement ...
+INFO: [BIND 205-100] Current cost: 51628.4
+INFO: [BIND 205-100]  Iter  Moves  Swaps Merges  Swept   Fu     Reg     Cost   
+INFO: [BIND 205-100]   0      0      0      0      0      5      1     51628.4 
+INFO: [BIND 205-100]   1      0      0      0      0      5      1     51628.4 
+INFO: [BIND 205-100]   2      0      0      0      0      5      1     51628.4 
+INFO: [BIND 205-100]   3      0      0      0      0      5      1     51628.4 
+INFO: [BIND 205-100] Final cost: 51628.4
+INFO: [BIND 205-101] Done micro-architecture refinement; elapsed 0.674027 sec.
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 1.07 seconds; current allocated memory: 156.410 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'GapJunctionIP' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.32 seconds; current allocated memory: 156.516 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-101] Start micro-architecture refinement ...
+INFO: [BIND 205-100] Current cost: 51877.2
+INFO: [BIND 205-100]  Iter  Moves  Swaps Merges  Swept   Fu     Reg     Cost   
+INFO: [BIND 205-100]   0      0      0      0      0      2      0     51877.2 
+INFO: [BIND 205-100]   1      0      0      0      0      2      0     51877.2 
+INFO: [BIND 205-100]   2      0      0      0      0      2      0     51877.2 
+INFO: [BIND 205-100]   3      0      0      0      0      2      0     51877.2 
+INFO: [BIND 205-100] Final cost: 51877.2
+INFO: [BIND 205-101] Done micro-architecture refinement; elapsed 0.651637 sec.
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.82 seconds; current allocated memory: 156.914 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_vdend' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_vdend'.
+INFO: [HLS 200-111]  Elapsed time: 0.32 seconds; current allocated memory: 157.382 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'stream_vdend' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'stream_vdend'.
+INFO: [HLS 200-111]  Elapsed time: 0.11 seconds; current allocated memory: 158.720 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'calc' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_dexp_64ns_64ns_64_39_full_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_dmul_64ns_64ns_64_10_max_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fmul_32ns_32ns_32_5_max_dsp_1': 8 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fpext_32ns_64_1_1': 8 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fptrunc_64ns_32_2_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fsub_32ns_32ns_32_8_full_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'calc'.
+INFO: [HLS 200-111]  Elapsed time: 0.32 seconds; current allocated memory: 162.723 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'cond_product' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fadd_32ns_32ns_32_8_full_dsp_1': 3 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fmul_32ns_32ns_32_5_max_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'cond_product'.
+INFO: [HLS 200-111]  Elapsed time: 1.87 seconds; current allocated memory: 167.795 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'acc' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fadd_32ns_32ns_32_8_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fadd_32ns_32ns_32_8_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'GapJunctionIP_fmul_32ns_32ns_32_5_max_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'acc'.
+INFO: [HLS 200-111]  Elapsed time: 0.44 seconds; current allocated memory: 170.459 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Execute_Block_codeRe' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Execute_Block_codeRe'.
+INFO: [HLS 200-111]  Elapsed time: 0.35 seconds; current allocated memory: 172.091 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'package_assembly' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'package_assembly'.
+INFO: [HLS 200-111]  Elapsed time: 0.14 seconds; current allocated memory: 172.860 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Execute' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Execute'.
+INFO: [HLS 200-111]  Elapsed time: 0.22 seconds; current allocated memory: 175.238 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'GapJunctionIP' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/input_V' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_0' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_1' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_2' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_3' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_4' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_MESSAGE_5' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_VALID_PACKET_BYTES' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_RX_UID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_TX_UID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_PCKG_ID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_FPGA_ID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/output_V_BS_ID' to 'ap_fifo' (register).
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_population' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_start_limit' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_end_limit' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_bus_id' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_fpga_id' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'GapJunctionIP/config_uid' to 'ap_stable'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'GapJunctionIP' to 'ap_ctrl_chain'.
+WARNING: [RTGEN 206-101] Register 'rx_uid' is power-on initialization.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'GapJunctionIP'.
+INFO: [HLS 200-111]  Elapsed time: 0.76 seconds; current allocated memory: 177.769 MB.
+INFO: [RTMG 210-278] Implementing memory 'stream_vdend_v_row_data_ram (RAM)' using distributed RAMs.
+INFO: [RTMG 210-278] Implementing memory 'package_assembly_package_MESSAGE_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-285] Implementing FIFO 'v_row_fifo_V_data_0_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_row_fifo_V_data_1_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_row_fifo_V_data_2_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_row_fifo_V_data_3_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_col_fifo_V_data_0_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_col_fifo_V_data_1_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_col_fifo_V_data_2_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'v_col_fifo_V_data_3_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_f_fifo_V_d_3_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_f_fifo_V_d_2_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_f_fifo_V_d_1_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_f_fifo_V_d_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_v_fifo_V_d_3_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_v_fifo_V_d_2_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_v_fifo_V_d_1_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_v_fifo_V_d_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_facc_fifo_3_4_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_facc_fifo_2_5_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_facc_fifo_1_6_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_facc_fifo_s_7_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_vacc_fifo_3_0_U(fifo_w32_d8_A)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'block_row_vacc_fifo_2_1_U(fifo_w32_d8_A)' using Shift Registers.
+==============================================================
+File generated on Thu May 13 14:49:49 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 14:59:38 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 15:00:07 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 15:01:40 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 15:09:25 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+File generated on Thu May 13 15:11:17 CST 2021
+Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
+SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+==============================================================

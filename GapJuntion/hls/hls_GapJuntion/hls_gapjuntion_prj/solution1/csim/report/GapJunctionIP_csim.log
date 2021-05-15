@@ -1,0 +1,31 @@
+INFO: [SIM 2] *************** CSIM start ***************
+INFO: [SIM 4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../StreamTest.cpp in debug mode
+   Compiling ../../../../modules/calc/calc.cpp in debug mode
+   Compiling ../../../../modules/blockControl/blockControl.cpp in debug mode
+   Compiling ../../../../modules/acc/acc.cpp in debug mode
+   Compiling ../../../../modules/V_read/V_read.cpp in debug mode
+   Compiling ../../../../Stream.cpp in debug mode
+   Compiling ../../../../modules/I_calc/I_calc.cpp in debug mode
+   Generating csim.exe
+#############################################################
+Running Test 1
+#############################################################
+Testing IP with cell population of 24_______________________________________ 
+******************************************
+Successful result
+________________________________________________________ 
+Testing IP with cell population of 48_______________________________________ 
+******************************************
+Successful result
+________________________________________________________ 
+Testing IP with cell population of 72_______________________________________ 
+******************************************
+Successful result
+________________________________________________________ 
+Testing IP with cell population of 96_______________________________________ 
+******************************************
+Successful result
+________________________________________________________ 
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************

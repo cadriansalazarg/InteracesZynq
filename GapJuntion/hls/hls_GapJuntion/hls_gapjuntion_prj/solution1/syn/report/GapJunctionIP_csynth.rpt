@@ -1,0 +1,191 @@
+
+
+================================================================
+== Vivado HLS Report for 'GapJunctionIP'
+================================================================
+* Date:           Sat May 15 00:01:29 2021
+
+* Version:        2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)
+* Project:        hls_gapjuntion_prj
+* Solution:       solution1
+* Product family: zynq
+* Target device:  xc7z045ffg900-2
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |   5.00|     4.375|        0.62|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+----------+-----+----------+---------+
+    |     Latency    |    Interval    | Pipeline|
+    | min |    max   | min |    max   |   Type  |
+    +-----+----------+-----+----------+---------+
+    |  208|  50265086|  208|  50265086|   none  |
+    +-----+----------+-----+----------+---------+
+
+    + Detail: 
+        * Instance: 
+        +--------------------+---------+-----+----------+-----+----------+----------+
+        |                    |         |     Latency    |    Interval    | Pipeline |
+        |      Instance      |  Module | min |    max   | min |    max   |   Type   |
+        +--------------------+---------+-----+----------+-----+----------+----------+
+        |grp_execute_fu_142  |execute  |  204|  50265082|  124|  50265002| dataflow |
+        +--------------------+---------+-----+----------+-----+----------+----------+
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-------+--------+--------+
+|       Name      | BRAM_18K| DSP48E|   FF   |   LUT  |
++-----------------+---------+-------+--------+--------+
+|DSP              |        -|      -|       -|       -|
+|Expression       |        -|      -|       0|     218|
+|FIFO             |        -|      -|       -|       -|
+|Instance         |      102|     76|   13787|   14151|
+|Memory           |        -|      -|       -|       -|
+|Multiplexer      |        -|      -|       -|      28|
+|Register         |        -|      -|     215|       -|
++-----------------+---------+-------+--------+--------+
+|Total            |      102|     76|   14002|   14397|
++-----------------+---------+-------+--------+--------+
+|Available        |     1090|    900|  437200|  218600|
++-----------------+---------+-------+--------+--------+
+|Utilization (%)  |        9|      8|       3|       6|
++-----------------+---------+-------+--------+--------+
+
++ Detail: 
+    * Instance: 
+    +--------------------+---------+---------+-------+-------+-------+
+    |      Instance      |  Module | BRAM_18K| DSP48E|   FF  |  LUT  |
+    +--------------------+---------+---------+-------+-------+-------+
+    |grp_execute_fu_142  |execute  |      102|     76|  13787|  14151|
+    +--------------------+---------+---------+-------+-------+-------+
+    |Total               |         |      102|     76|  13787|  14151|
+    +--------------------+---------+---------+-------+-------+-------+
+
+    * DSP48: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +-----------------------------------------+----------+-------+---+----+------------+------------+
+    |              Variable Name              | Operation| DSP48E| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +-----------------------------------------+----------+-------+---+----+------------+------------+
+    |p_neg6_fu_247_p2                         |     -    |      0|  0|  32|           1|          32|
+    |p_neg_fu_292_p2                          |     -    |      0|  0|  32|           1|          32|
+    |tmp_5_fu_273_p2                          |     -    |      0|  0|  27|           1|          27|
+    |tmp_8_fu_308_p2                          |     -    |      0|  0|  27|           1|          27|
+    |tmp_s_fu_233_p2                          |     -    |      0|  0|  32|          32|          32|
+    |input_V_data_0_load_A                    |    and   |      0|  0|   1|           1|           1|
+    |input_V_data_0_load_B                    |    and   |      0|  0|   1|           1|           1|
+    |output_V_data_1_load_A                   |    and   |      0|  0|   1|           1|           1|
+    |output_V_data_1_load_B                   |    and   |      0|  0|   1|           1|           1|
+    |output_V_tlast_V_1_load_A                |    and   |      0|  0|   1|           1|           1|
+    |output_V_tlast_V_1_load_B                |    and   |      0|  0|   1|           1|           1|
+    |input_V_data_0_state_cmp_full            |   icmp   |      0|  0|   1|           2|           1|
+    |output_V_data_1_state_cmp_full           |   icmp   |      0|  0|   1|           2|           1|
+    |output_V_tlast_V_1_state_cmp_full        |   icmp   |      0|  0|   1|           2|           1|
+    |ap_block_state1                          |    or    |      0|  0|   1|           1|           1|
+    |ap_block_state5                          |    or    |      0|  0|   1|           1|           1|
+    |ap_sync_grp_execute_fu_142_ap_done       |    or    |      0|  0|   1|           1|           1|
+    |ap_sync_grp_execute_fu_142_ap_ready      |    or    |      0|  0|   1|           1|           1|
+    |grp_execute_fu_142_output_r_TREADY       |    or    |      0|  0|   1|           1|           1|
+    |grp_execute_fu_142_simConfig_BLOCK_NUMB  |  select  |      0|  0|  27|           1|          27|
+    |grp_execute_fu_142_simConfig_rowsToSimu  |  select  |      0|  0|  27|           1|          27|
+    +-----------------------------------------+----------+-------+---+----+------------+------------+
+    |Total                                    |          |      0|  0| 218|          55|         218|
+    +-----------------------------------------+----------+-------+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-----------------------------+----+-----------+-----+-----------+
+    |             Name            | LUT| Input Size| Bits| Total Bits|
+    +-----------------------------+----+-----------+-----+-----------+
+    |ap_NS_fsm                    |   4|          6|    1|          6|
+    |ap_done                      |   3|          2|    1|          2|
+    |input_V_data_0_ack_out       |   3|          2|    1|          2|
+    |input_V_data_0_data_out      |   3|          2|   64|        128|
+    |input_V_data_0_state         |   3|          3|    2|          6|
+    |output_V_data_1_data_out     |   3|          2|   32|         64|
+    |output_V_data_1_state        |   3|          3|    2|          6|
+    |output_V_tlast_V_1_data_out  |   3|          2|    1|          2|
+    |output_V_tlast_V_1_state     |   3|          3|    2|          6|
+    +-----------------------------+----+-----------+-----+-----------+
+    |Total                        |  28|         25|  106|        222|
+    +-----------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-----------------------------------------+----+----+-----+-----------+
+    |                   Name                  | FF | LUT| Bits| Const Bits|
+    +-----------------------------------------+----+----+-----+-----------+
+    |ap_CS_fsm                                |   5|   0|    5|          0|
+    |ap_done_reg                              |   1|   0|    1|          0|
+    |ap_sync_reg_grp_execute_fu_142_ap_done   |   1|   0|    1|          0|
+    |ap_sync_reg_grp_execute_fu_142_ap_ready  |   1|   0|    1|          0|
+    |grp_execute_fu_142_ap_start_reg          |   1|   0|    1|          0|
+    |input_V_data_0_payload_A                 |  64|   0|   64|          0|
+    |input_V_data_0_payload_B                 |  64|   0|   64|          0|
+    |input_V_data_0_sel_rd                    |   1|   0|    1|          0|
+    |input_V_data_0_sel_wr                    |   1|   0|    1|          0|
+    |input_V_data_0_state                     |   2|   0|    2|          0|
+    |output_V_data_1_payload_A                |  32|   0|   32|          0|
+    |output_V_data_1_payload_B                |  32|   0|   32|          0|
+    |output_V_data_1_sel_rd                   |   1|   0|    1|          0|
+    |output_V_data_1_sel_wr                   |   1|   0|    1|          0|
+    |output_V_data_1_state                    |   2|   0|    2|          0|
+    |output_V_tlast_V_1_payload_A             |   1|   0|    1|          0|
+    |output_V_tlast_V_1_payload_B             |   1|   0|    1|          0|
+    |output_V_tlast_V_1_sel_rd                |   1|   0|    1|          0|
+    |output_V_tlast_V_1_sel_wr                |   1|   0|    1|          0|
+    |output_V_tlast_V_1_state                 |   2|   0|    2|          0|
+    +-----------------------------------------+----+----+-----+-----------+
+    |Total                                    | 215|   0|  215|          0|
+    +-----------------------------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++---------------------+-----+-----+---------------+------------------+--------------+
+|      RTL Ports      | Dir | Bits|    Protocol   |   Source Object  |    C Type    |
++---------------------+-----+-----+---------------+------------------+--------------+
+|ap_clk               |  in |    1| ap_ctrl_chain |   GapJunctionIP  | return value |
+|ap_rst_n             |  in |    1| ap_ctrl_chain |   GapJunctionIP  | return value |
+|ap_start             |  in |    1| ap_ctrl_chain |   GapJunctionIP  | return value |
+|ap_done              | out |    1| ap_ctrl_chain |   GapJunctionIP  | return value |
+|ap_continue          |  in |    1| ap_ctrl_chain |   GapJunctionIP  | return value |
+|ap_idle              | out |    1| ap_ctrl_chain |   GapJunctionIP  | return value |
+|ap_ready             | out |    1| ap_ctrl_chain |   GapJunctionIP  | return value |
+|input_V_data_TDATA   |  in |   64|      axis     |   input_V_data   |    pointer   |
+|input_V_data_TVALID  |  in |    1|      axis     |   input_V_data   |    pointer   |
+|input_V_data_TREADY  | out |    1|      axis     |   input_V_data   |    pointer   |
+|output_r_TDATA       | out |   32|      axis     |   output_V_data  |    pointer   |
+|output_r_TVALID      | out |    1|      axis     | output_V_tlast_V |    pointer   |
+|output_r_TREADY      |  in |    1|      axis     | output_V_tlast_V |    pointer   |
+|output_r_TLAST       | out |    1|      axis     | output_V_tlast_V |    pointer   |
+|size                 |  in |   32|   ap_stable   |       size       |    scalar    |
+|FirstRow             |  in |   32|   ap_stable   |     FirstRow     |    scalar    |
+|LastRow              |  in |   32|   ap_stable   |      LastRow     |    scalar    |
++---------------------+-----+-----+---------------+------------------+--------------+
+

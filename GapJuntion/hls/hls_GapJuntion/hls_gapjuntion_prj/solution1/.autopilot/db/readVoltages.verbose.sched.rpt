@@ -1,0 +1,181 @@
+
+
+================================================================
+== Vivado HLS Report for 'readVoltages'
+================================================================
+* Date:           Sat May 15 00:01:22 2021
+
+* Version:        2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)
+* Project:        hls_gapjuntion_prj
+* Solution:       solution1
+* Product family: zynq
+* Target device:  xc7z045ffg900-2
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |   5.00|     2.771|        0.62|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+------+-----+------+---------+
+    |   Latency  |  Interval  | Pipeline|
+    | min |  max | min |  max |   Type  |
+    +-----+------+-----+------+---------+
+    |    4|  7501|    4|  7501|   none  |
+    +-----+------+-----+------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +----------+-----+------+----------+-----------+-----------+----------+----------+
+        |          |   Latency  | Iteration|  Initiation Interval  |   Trip   |          |
+        | Loop Name| min |  max |  Latency |  achieved |   target  |   Count  | Pipelined|
+        +----------+-----+------+----------+-----------+-----------+----------+----------+
+        |- Loop 1  |    3|  7500|         3|          -|          -| 1 ~ 2500 |    no    |
+        +----------+-----+------+----------+-----------+-----------+----------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 2
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 4
+* Pipeline : 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 
+	2  / true
+2 --> 
+	3  / (tmp_11_i)
+3 --> 
+	4  / true
+4 --> 
+	2  / true
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 0.46>
+ST_1 : Operation 5 [1/1] (0.00ns)   --->   "%V_SIZE_read = call i32 @_ssdm_op_Read.ap_stable.i32(i32 %V_SIZE)"   --->   Operation 5 'read' 'V_SIZE_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 6 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_data_V_data_0, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 6 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 7 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_data_V_data_1, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 7 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 8 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_data_V_data_2, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 8 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_data_V_data_3, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 9 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i32 %V_SIZE, [10 x i8]* @ap_stable_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 10 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 11 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecMemCore([10000 x float]* %voltagesBackup, [1 x i8]* @p_str422, [13 x i8]* @p_str523, [1 x i8]* @p_str422, i32 -1, [1 x i8]* @p_str422, [1 x i8]* @p_str422, [1 x i8]* @p_str422, [1 x i8]* @p_str422, [1 x i8]* @p_str422)"   --->   Operation 11 'specmemcore' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 12 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecPipeline(i32 -1, i32 1, i32 1, i32 0, [1 x i8]* @p_str422) nounwind" [modules/V_read/V_read.cpp:33]   --->   Operation 12 'specpipeline' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 13 [1/1] (0.46ns)   --->   "br label %0" [modules/V_read/V_read.cpp:34]   --->   Operation 13 'br' <Predicate = true> <Delay = 0.46>
+
+State 2 <SV = 1> <Delay = 2.18>
+ST_2 : Operation 14 [1/1] (0.00ns)   --->   "%p_i = phi i27 [ 0, %entry ], [ %i_V, %1 ]"   --->   Operation 14 'phi' 'p_i' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 15 [1/1] (0.00ns)   --->   "%tmp_i = sext i27 %p_i to i32" [modules/V_read/V_read.cpp:34]   --->   Operation 15 'sext' 'tmp_i' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 16 [1/1] (1.96ns)   --->   "%tmp_11_i = icmp slt i32 %tmp_i, %V_SIZE_read" [modules/V_read/V_read.cpp:34]   --->   Operation 16 'icmp' 'tmp_11_i' <Predicate = true> <Delay = 1.96> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 1.96> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 17 [1/1] (0.00ns)   --->   "br i1 %tmp_11_i, label %1, label %"readVoltages<dataPackage<float, 4>, stream<dataPackage<float, 4> >, 4u, 27>.exit"" [modules/V_read/V_read.cpp:34]   --->   Operation 17 'br' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 18 [1/1] (2.18ns)   --->   "%empty = call { float, float, float, float } @_ssdm_op_Read.ap_fifo.volatile.floatP.floatP.floatP.floatP(float* @V_data_V_data_0, float* @V_data_V_data_1, float* @V_data_V_data_2, float* @V_data_V_data_3)" [modules/V_read/V_read.cpp:36]   --->   Operation 18 'read' 'empty' <Predicate = (tmp_11_i)> <Delay = 2.18> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 3.40> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 32> <Depth = 0> <FIFO>
+ST_2 : Operation 19 [1/1] (0.00ns)   --->   "%tmp_data_0 = extractvalue { float, float, float, float } %empty, 0" [modules/V_read/V_read.cpp:36]   --->   Operation 19 'extractvalue' 'tmp_data_0' <Predicate = (tmp_11_i)> <Delay = 0.00>
+ST_2 : Operation 20 [1/1] (0.00ns)   --->   "%tmp_data_1 = extractvalue { float, float, float, float } %empty, 1" [modules/V_read/V_read.cpp:36]   --->   Operation 20 'extractvalue' 'tmp_data_1' <Predicate = (tmp_11_i)> <Delay = 0.00>
+ST_2 : Operation 21 [1/1] (0.00ns)   --->   "%tmp_data_2 = extractvalue { float, float, float, float } %empty, 2" [modules/V_read/V_read.cpp:36]   --->   Operation 21 'extractvalue' 'tmp_data_2' <Predicate = (tmp_11_i)> <Delay = 0.00>
+ST_2 : Operation 22 [1/1] (0.00ns)   --->   "%tmp_data_3 = extractvalue { float, float, float, float } %empty, 3" [modules/V_read/V_read.cpp:36]   --->   Operation 22 'extractvalue' 'tmp_data_3' <Predicate = (tmp_11_i)> <Delay = 0.00>
+ST_2 : Operation 23 [1/1] (0.00ns)   --->   "ret void"   --->   Operation 23 'ret' <Predicate = (!tmp_11_i)> <Delay = 0.00>
+
+State 3 <SV = 2> <Delay = 2.77>
+ST_3 : Operation 24 [1/1] (0.00ns)   --->   "%lhs_V = sext i27 %p_i to i28" [modules/V_read/V_read.cpp:38]   --->   Operation 24 'sext' 'lhs_V' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 25 [1/1] (0.00ns)   --->   "%tmp_19_i = sext i27 %p_i to i64" [modules/V_read/V_read.cpp:38]   --->   Operation 25 'sext' 'tmp_19_i' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 26 [1/1] (0.00ns)   --->   "%voltagesBackup_addr = getelementptr [10000 x float]* %voltagesBackup, i64 0, i64 %tmp_19_i" [modules/V_read/V_read.cpp:38]   --->   Operation 26 'getelementptr' 'voltagesBackup_addr' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 27 [1/1] (2.77ns)   --->   "store float %tmp_data_0, float* %voltagesBackup_addr, align 4" [modules/V_read/V_read.cpp:38]   --->   Operation 27 'store' <Predicate = true> <Delay = 2.77> <Core = "RAM_T2P_BRAM">   --->   Core 38 'RAM_T2P_BRAM' <Latency = 1> <II = 1> <Delay = 2.77> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 10000> <RAM>
+ST_3 : Operation 28 [1/1] (0.00ns)   --->   "%ret_V_i = or i28 %lhs_V, 1" [modules/V_read/V_read.cpp:38]   --->   Operation 28 'or' 'ret_V_i' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 29 [1/1] (0.00ns)   --->   "%tmp_19_1_i = sext i28 %ret_V_i to i64" [modules/V_read/V_read.cpp:38]   --->   Operation 29 'sext' 'tmp_19_1_i' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 30 [1/1] (0.00ns)   --->   "%voltagesBackup_addr_8 = getelementptr [10000 x float]* %voltagesBackup, i64 0, i64 %tmp_19_1_i" [modules/V_read/V_read.cpp:38]   --->   Operation 30 'getelementptr' 'voltagesBackup_addr_8' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 31 [1/1] (2.77ns)   --->   "store float %tmp_data_1, float* %voltagesBackup_addr_8, align 4" [modules/V_read/V_read.cpp:38]   --->   Operation 31 'store' <Predicate = true> <Delay = 2.77> <Core = "RAM_T2P_BRAM">   --->   Core 38 'RAM_T2P_BRAM' <Latency = 1> <II = 1> <Delay = 2.77> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 10000> <RAM>
+
+State 4 <SV = 3> <Delay = 2.77>
+ST_4 : Operation 32 [1/1] (0.00ns)   --->   "%tmp_i_15 = call i32 (...)* @_ssdm_op_SpecRegionBegin([12 x i8]* @p_str12)" [modules/V_read/V_read.cpp:34]   --->   Operation 32 'specregionbegin' 'tmp_i_15' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 33 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i32 1, i32 2500, i32 0, [1 x i8]* @p_str422) nounwind" [modules/V_read/V_read.cpp:35]   --->   Operation 33 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 34 [1/1] (0.00ns)   --->   "%ret_V_1_i = or i27 %p_i, 2" [modules/V_read/V_read.cpp:38]   --->   Operation 34 'or' 'ret_V_1_i' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 35 [1/1] (0.00ns)   --->   "%tmp_19_2_i = sext i27 %ret_V_1_i to i64" [modules/V_read/V_read.cpp:38]   --->   Operation 35 'sext' 'tmp_19_2_i' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 36 [1/1] (0.00ns)   --->   "%voltagesBackup_addr_9 = getelementptr [10000 x float]* %voltagesBackup, i64 0, i64 %tmp_19_2_i" [modules/V_read/V_read.cpp:38]   --->   Operation 36 'getelementptr' 'voltagesBackup_addr_9' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 37 [1/1] (2.77ns)   --->   "store float %tmp_data_2, float* %voltagesBackup_addr_9, align 4" [modules/V_read/V_read.cpp:38]   --->   Operation 37 'store' <Predicate = true> <Delay = 2.77> <Core = "RAM_T2P_BRAM">   --->   Core 38 'RAM_T2P_BRAM' <Latency = 1> <II = 1> <Delay = 2.77> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 10000> <RAM>
+ST_4 : Operation 38 [1/1] (0.00ns)   --->   "%ret_V_2_i = or i27 %p_i, 3" [modules/V_read/V_read.cpp:38]   --->   Operation 38 'or' 'ret_V_2_i' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 39 [1/1] (0.00ns)   --->   "%tmp_19_3_i = sext i27 %ret_V_2_i to i64" [modules/V_read/V_read.cpp:38]   --->   Operation 39 'sext' 'tmp_19_3_i' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 40 [1/1] (0.00ns)   --->   "%voltagesBackup_addr_10 = getelementptr [10000 x float]* %voltagesBackup, i64 0, i64 %tmp_19_3_i" [modules/V_read/V_read.cpp:38]   --->   Operation 40 'getelementptr' 'voltagesBackup_addr_10' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 41 [1/1] (2.77ns)   --->   "store float %tmp_data_3, float* %voltagesBackup_addr_10, align 4" [modules/V_read/V_read.cpp:38]   --->   Operation 41 'store' <Predicate = true> <Delay = 2.77> <Core = "RAM_T2P_BRAM">   --->   Core 38 'RAM_T2P_BRAM' <Latency = 1> <II = 1> <Delay = 2.77> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 10000> <RAM>
+ST_4 : Operation 42 [1/1] (0.00ns)   --->   "%empty_16 = call i32 (...)* @_ssdm_op_SpecRegionEnd([12 x i8]* @p_str12, i32 %tmp_i_15)" [modules/V_read/V_read.cpp:40]   --->   Operation 42 'specregionend' 'empty_16' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 43 [1/1] (1.77ns)   --->   "%i_V = add i27 %p_i, 4" [modules/V_read/V_read.cpp:34]   --->   Operation 43 'add' 'i_V' <Predicate = true> <Delay = 1.77> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.77> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 44 [1/1] (0.00ns)   --->   "br label %0" [modules/V_read/V_read.cpp:34]   --->   Operation 44 'br' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 0.625ns.
+
+ <State 1>: 0.466ns
+The critical path consists of the following:
+	multiplexor before 'phi' operation ('i.V') with incoming values : ('i.V', modules/V_read/V_read.cpp:34) [17]  (0.466 ns)
+
+ <State 2>: 2.19ns
+The critical path consists of the following:
+	fifo read on port 'V_data_V_data_0' (modules/V_read/V_read.cpp:36) [24]  (2.19 ns)
+
+ <State 3>: 2.77ns
+The critical path consists of the following:
+	'or' operation ('ret_V_i', modules/V_read/V_read.cpp:38) [33]  (0 ns)
+	'getelementptr' operation ('voltagesBackup_addr_8', modules/V_read/V_read.cpp:38) [35]  (0 ns)
+	'store' operation (modules/V_read/V_read.cpp:38) of variable 'tmp.data[1]', modules/V_read/V_read.cpp:36 on array 'voltagesBackup' [36]  (2.77 ns)
+
+ <State 4>: 2.77ns
+The critical path consists of the following:
+	'or' operation ('ret_V_1_i', modules/V_read/V_read.cpp:38) [37]  (0 ns)
+	'getelementptr' operation ('voltagesBackup_addr_9', modules/V_read/V_read.cpp:38) [39]  (0 ns)
+	'store' operation (modules/V_read/V_read.cpp:38) of variable 'tmp.data[2]', modules/V_read/V_read.cpp:36 on array 'voltagesBackup' [40]  (2.77 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

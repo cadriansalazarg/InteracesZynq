@@ -1,0 +1,172 @@
+
+
+================================================================
+== Vivado HLS Report for 'readVoltages'
+================================================================
+* Date:           Sat May 15 00:01:25 2021
+
+* Version:        2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)
+* Project:        hls_gapjuntion_prj
+* Solution:       solution1
+* Product family: zynq
+* Target device:  xc7z045ffg900-2
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |   5.00|     2.771|        0.62|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+------+-----+------+---------+
+    |   Latency  |  Interval  | Pipeline|
+    | min |  max | min |  max |   Type  |
+    +-----+------+-----+------+---------+
+    |    4|  7501|    4|  7501|   none  |
+    +-----+------+-----+------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +----------+-----+------+----------+-----------+-----------+----------+----------+
+        |          |   Latency  | Iteration|  Initiation Interval  |   Trip   |          |
+        | Loop Name| min |  max |  Latency |  achieved |   target  |   Count  | Pipelined|
+        +----------+-----+------+----------+-----------+-----------+----------+----------+
+        |- Loop 1  |    3|  7500|         3|          -|          -| 1 ~ 2500 |    no    |
+        +----------+-----+------+----------+-----------+-----------+----------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-------+--------+--------+
+|       Name      | BRAM_18K| DSP48E|   FF   |   LUT  |
++-----------------+---------+-------+--------+--------+
+|DSP              |        -|      -|       -|       -|
+|Expression       |        -|      -|       0|     124|
+|FIFO             |        -|      -|       -|       -|
+|Instance         |        -|      -|       -|       -|
+|Memory           |        -|      -|       -|       -|
+|Multiplexer      |        -|      -|       -|      34|
+|Register         |        -|      -|     160|       -|
++-----------------+---------+-------+--------+--------+
+|Total            |        0|      0|     160|     158|
++-----------------+---------+-------+--------+--------+
+|Available        |     1090|    900|  437200|  218600|
++-----------------+---------+-------+--------+--------+
+|Utilization (%)  |        0|      0|   ~0   |   ~0   |
++-----------------+---------+-------+--------+--------+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP48: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +-------------------------+----------+-------+---+----+------------+------------+
+    |      Variable Name      | Operation| DSP48E| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +-------------------------+----------+-------+---+----+------------+------------+
+    |i_V_fu_202_p2            |     +    |      0|  0|  27|          27|           3|
+    |V_data_V_data_00_status  |    and   |      0|  0|   1|           1|           1|
+    |ap_block_state2          |    and   |      0|  0|   1|           1|           1|
+    |tmp_11_i_fu_139_p2       |   icmp   |      0|  0|  12|          32|          32|
+    |ap_block_state1          |    or    |      0|  0|   1|           1|           1|
+    |ret_V_1_i_fu_180_p2      |    or    |      0|  0|  27|          27|           2|
+    |ret_V_2_i_fu_191_p2      |    or    |      0|  0|  27|          27|           2|
+    |ret_V_i_fu_169_p2        |    or    |      0|  0|  28|          28|           1|
+    +-------------------------+----------+-------+---+----+------------+------------+
+    |Total                    |          |      0|  0| 124|         144|          43|
+    +-------------------------+----------+-------+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-------------------------+----+-----------+-----+-----------+
+    |           Name          | LUT| Input Size| Bits| Total Bits|
+    +-------------------------+----+-----------+-----+-----------+
+    |V_data_V_data_0_blk_n    |   3|          2|    1|          2|
+    |V_data_V_data_1_blk_n    |   3|          2|    1|          2|
+    |V_data_V_data_2_blk_n    |   3|          2|    1|          2|
+    |V_data_V_data_3_blk_n    |   3|          2|    1|          2|
+    |ap_NS_fsm                |   4|          5|    1|          5|
+    |ap_done                  |   3|          2|    1|          2|
+    |p_i_reg_123              |   3|          2|   27|         54|
+    |voltagesBackup_address0  |   3|          3|   14|         42|
+    |voltagesBackup_address1  |   3|          3|   14|         42|
+    |voltagesBackup_d0        |   3|          3|   32|         96|
+    |voltagesBackup_d1        |   3|          3|   32|         96|
+    +-------------------------+----+-----------+-----+-----------+
+    |Total                    |  34|         29|  125|        345|
+    +-------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +--------------------+----+----+-----+-----------+
+    |        Name        | FF | LUT| Bits| Const Bits|
+    +--------------------+----+----+-----+-----------+
+    |ap_CS_fsm           |   4|   0|    4|          0|
+    |ap_done_reg         |   1|   0|    1|          0|
+    |p_i_reg_123         |  27|   0|   27|          0|
+    |tmp_data_0_reg_216  |  32|   0|   32|          0|
+    |tmp_data_1_reg_221  |  32|   0|   32|          0|
+    |tmp_data_2_reg_226  |  32|   0|   32|          0|
+    |tmp_data_3_reg_231  |  32|   0|   32|          0|
+    +--------------------+----+----+-----+-----------+
+    |Total               | 160|   0|  160|          0|
+    +--------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-------------------------+-----+-----+------------+-----------------+--------------+
+|        RTL Ports        | Dir | Bits|  Protocol  |  Source Object  |    C Type    |
++-------------------------+-----+-----+------------+-----------------+--------------+
+|ap_clk                   |  in |    1| ap_ctrl_hs |   readVoltages  | return value |
+|ap_rst                   |  in |    1| ap_ctrl_hs |   readVoltages  | return value |
+|ap_start                 |  in |    1| ap_ctrl_hs |   readVoltages  | return value |
+|ap_done                  | out |    1| ap_ctrl_hs |   readVoltages  | return value |
+|ap_continue              |  in |    1| ap_ctrl_hs |   readVoltages  | return value |
+|ap_idle                  | out |    1| ap_ctrl_hs |   readVoltages  | return value |
+|ap_ready                 | out |    1| ap_ctrl_hs |   readVoltages  | return value |
+|voltagesBackup_address0  | out |   14|  ap_memory |  voltagesBackup |     array    |
+|voltagesBackup_ce0       | out |    1|  ap_memory |  voltagesBackup |     array    |
+|voltagesBackup_we0       | out |    1|  ap_memory |  voltagesBackup |     array    |
+|voltagesBackup_d0        | out |   32|  ap_memory |  voltagesBackup |     array    |
+|voltagesBackup_address1  | out |   14|  ap_memory |  voltagesBackup |     array    |
+|voltagesBackup_ce1       | out |    1|  ap_memory |  voltagesBackup |     array    |
+|voltagesBackup_we1       | out |    1|  ap_memory |  voltagesBackup |     array    |
+|voltagesBackup_d1        | out |   32|  ap_memory |  voltagesBackup |     array    |
+|V_SIZE                   |  in |   32|  ap_stable |      V_SIZE     |    scalar    |
+|V_data_V_data_0_dout     |  in |   32|   ap_fifo  | V_data_V_data_0 |    pointer   |
+|V_data_V_data_0_empty_n  |  in |    1|   ap_fifo  | V_data_V_data_0 |    pointer   |
+|V_data_V_data_0_read     | out |    1|   ap_fifo  | V_data_V_data_0 |    pointer   |
+|V_data_V_data_1_dout     |  in |   32|   ap_fifo  | V_data_V_data_1 |    pointer   |
+|V_data_V_data_1_empty_n  |  in |    1|   ap_fifo  | V_data_V_data_1 |    pointer   |
+|V_data_V_data_1_read     | out |    1|   ap_fifo  | V_data_V_data_1 |    pointer   |
+|V_data_V_data_2_dout     |  in |   32|   ap_fifo  | V_data_V_data_2 |    pointer   |
+|V_data_V_data_2_empty_n  |  in |    1|   ap_fifo  | V_data_V_data_2 |    pointer   |
+|V_data_V_data_2_read     | out |    1|   ap_fifo  | V_data_V_data_2 |    pointer   |
+|V_data_V_data_3_dout     |  in |   32|   ap_fifo  | V_data_V_data_3 |    pointer   |
+|V_data_V_data_3_empty_n  |  in |    1|   ap_fifo  | V_data_V_data_3 |    pointer   |
+|V_data_V_data_3_read     | out |    1|   ap_fifo  | V_data_V_data_3 |    pointer   |
++-------------------------+-----+-----+------------+-----------------+--------------+
+

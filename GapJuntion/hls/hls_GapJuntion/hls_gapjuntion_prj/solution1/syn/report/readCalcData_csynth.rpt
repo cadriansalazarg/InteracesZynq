@@ -1,0 +1,172 @@
+
+
+================================================================
+== Vivado HLS Report for 'readCalcData'
+================================================================
+* Date:           Sat May 15 00:01:27 2021
+
+* Version:        2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)
+* Project:        hls_gapjuntion_prj
+* Solution:       solution1
+* Product family: zynq
+* Target device:  xc7z045ffg900-2
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |   5.00|     2.188|        0.62|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+-----+-----+-----+----------+
+    |  Latency  |  Interval | Pipeline |
+    | min | max | min | max |   Type   |
+    +-----+-----+-----+-----+----------+
+    |    0|    0|    1|    1| function |
+    +-----+-----+-----+-----+----------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-------+--------+--------+
+|       Name      | BRAM_18K| DSP48E|   FF   |   LUT  |
++-----------------+---------+-------+--------+--------+
+|DSP              |        -|      -|       -|       -|
+|Expression       |        -|      -|       0|       3|
+|FIFO             |        -|      -|       -|       -|
+|Instance         |        -|      -|       -|       -|
+|Memory           |        -|      -|       -|       -|
+|Multiplexer      |        -|      -|       -|      24|
+|Register         |        -|      -|       1|       -|
++-----------------+---------+-------+--------+--------+
+|Total            |        0|      0|       1|      27|
++-----------------+---------+-------+--------+--------+
+|Available        |     1090|    900|  437200|  218600|
++-----------------+---------+-------+--------+--------+
+|Utilization (%)  |        0|      0|   ~0   |   ~0   |
++-----------------+---------+-------+--------+--------+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP48: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +--------------------+----------+-------+---+----+------------+------------+
+    |    Variable Name   | Operation| DSP48E| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +--------------------+----------+-------+---+----+------------+------------+
+    |F_V_data_00_status  |    and   |      0|  0|   1|           1|           1|
+    |V_V_data_00_status  |    and   |      0|  0|   1|           1|           1|
+    |ap_block_state1     |    or    |      0|  0|   1|           1|           1|
+    +--------------------+----------+-------+---+----+------------+------------+
+    |Total               |          |      0|  0|   3|           3|           3|
+    +--------------------+----------+-------+---+----+------------+------------+
+
+    * Multiplexer: 
+    +------------------+----+-----------+-----+-----------+
+    |       Name       | LUT| Input Size| Bits| Total Bits|
+    +------------------+----+-----------+-----+-----------+
+    |F_V_data_0_blk_n  |   3|          2|    1|          2|
+    |F_V_data_1_blk_n  |   3|          2|    1|          2|
+    |F_V_data_2_blk_n  |   3|          2|    1|          2|
+    |F_V_data_3_blk_n  |   3|          2|    1|          2|
+    |V_V_data_0_blk_n  |   3|          2|    1|          2|
+    |V_V_data_1_blk_n  |   3|          2|    1|          2|
+    |V_V_data_2_blk_n  |   3|          2|    1|          2|
+    |V_V_data_3_blk_n  |   3|          2|    1|          2|
+    +------------------+----+-----------+-----+-----------+
+    |Total             |  24|         16|    8|         16|
+    +------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-----------+---+----+-----+-----------+
+    |    Name   | FF| LUT| Bits| Const Bits|
+    +-----------+---+----+-----+-----------+
+    |ap_CS_fsm  |  1|   0|    1|          0|
+    +-----------+---+----+-----+-----------+
+    |Total      |  1|   0|    1|          0|
+    +-----------+---+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++--------------------+-----+-----+------------+--------------+--------------+
+|      RTL Ports     | Dir | Bits|  Protocol  | Source Object|    C Type    |
++--------------------+-----+-----+------------+--------------+--------------+
+|ap_clk              |  in |    1| ap_ctrl_hs | readCalcData | return value |
+|ap_rst              |  in |    1| ap_ctrl_hs | readCalcData | return value |
+|ap_start            |  in |    1| ap_ctrl_hs | readCalcData | return value |
+|ap_done             | out |    1| ap_ctrl_hs | readCalcData | return value |
+|ap_idle             | out |    1| ap_ctrl_hs | readCalcData | return value |
+|ap_ready            | out |    1| ap_ctrl_hs | readCalcData | return value |
+|ap_return_0         | out |   32| ap_ctrl_hs | readCalcData | return value |
+|ap_return_1         | out |   32| ap_ctrl_hs | readCalcData | return value |
+|ap_return_2         | out |   32| ap_ctrl_hs | readCalcData | return value |
+|ap_return_3         | out |   32| ap_ctrl_hs | readCalcData | return value |
+|ap_return_4         | out |   32| ap_ctrl_hs | readCalcData | return value |
+|ap_return_5         | out |   32| ap_ctrl_hs | readCalcData | return value |
+|ap_return_6         | out |   32| ap_ctrl_hs | readCalcData | return value |
+|ap_return_7         | out |   32| ap_ctrl_hs | readCalcData | return value |
+|F_V_data_0_blk_n    | out |    1| ap_ctrl_hs | readCalcData | return value |
+|F_V_data_1_blk_n    | out |    1| ap_ctrl_hs | readCalcData | return value |
+|F_V_data_2_blk_n    | out |    1| ap_ctrl_hs | readCalcData | return value |
+|F_V_data_3_blk_n    | out |    1| ap_ctrl_hs | readCalcData | return value |
+|V_V_data_0_blk_n    | out |    1| ap_ctrl_hs | readCalcData | return value |
+|V_V_data_1_blk_n    | out |    1| ap_ctrl_hs | readCalcData | return value |
+|V_V_data_2_blk_n    | out |    1| ap_ctrl_hs | readCalcData | return value |
+|V_V_data_3_blk_n    | out |    1| ap_ctrl_hs | readCalcData | return value |
+|ap_ce               |  in |    1| ap_ctrl_hs | readCalcData | return value |
+|F_V_data_0_dout     |  in |   32|   ap_fifo  |  F_V_data_0  |    pointer   |
+|F_V_data_0_empty_n  |  in |    1|   ap_fifo  |  F_V_data_0  |    pointer   |
+|F_V_data_0_read     | out |    1|   ap_fifo  |  F_V_data_0  |    pointer   |
+|F_V_data_1_dout     |  in |   32|   ap_fifo  |  F_V_data_1  |    pointer   |
+|F_V_data_1_empty_n  |  in |    1|   ap_fifo  |  F_V_data_1  |    pointer   |
+|F_V_data_1_read     | out |    1|   ap_fifo  |  F_V_data_1  |    pointer   |
+|F_V_data_2_dout     |  in |   32|   ap_fifo  |  F_V_data_2  |    pointer   |
+|F_V_data_2_empty_n  |  in |    1|   ap_fifo  |  F_V_data_2  |    pointer   |
+|F_V_data_2_read     | out |    1|   ap_fifo  |  F_V_data_2  |    pointer   |
+|F_V_data_3_dout     |  in |   32|   ap_fifo  |  F_V_data_3  |    pointer   |
+|F_V_data_3_empty_n  |  in |    1|   ap_fifo  |  F_V_data_3  |    pointer   |
+|F_V_data_3_read     | out |    1|   ap_fifo  |  F_V_data_3  |    pointer   |
+|V_V_data_0_dout     |  in |   32|   ap_fifo  |  V_V_data_0  |    pointer   |
+|V_V_data_0_empty_n  |  in |    1|   ap_fifo  |  V_V_data_0  |    pointer   |
+|V_V_data_0_read     | out |    1|   ap_fifo  |  V_V_data_0  |    pointer   |
+|V_V_data_1_dout     |  in |   32|   ap_fifo  |  V_V_data_1  |    pointer   |
+|V_V_data_1_empty_n  |  in |    1|   ap_fifo  |  V_V_data_1  |    pointer   |
+|V_V_data_1_read     | out |    1|   ap_fifo  |  V_V_data_1  |    pointer   |
+|V_V_data_2_dout     |  in |   32|   ap_fifo  |  V_V_data_2  |    pointer   |
+|V_V_data_2_empty_n  |  in |    1|   ap_fifo  |  V_V_data_2  |    pointer   |
+|V_V_data_2_read     | out |    1|   ap_fifo  |  V_V_data_2  |    pointer   |
+|V_V_data_3_dout     |  in |   32|   ap_fifo  |  V_V_data_3  |    pointer   |
+|V_V_data_3_empty_n  |  in |    1|   ap_fifo  |  V_V_data_3  |    pointer   |
+|V_V_data_3_read     | out |    1|   ap_fifo  |  V_V_data_3  |    pointer   |
++--------------------+-----+-----+------------+--------------+--------------+
+

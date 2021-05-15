@@ -1,0 +1,493 @@
+
+
+================================================================
+== Vivado HLS Report for 'I_calc'
+================================================================
+* Date:           Sat May 15 00:01:24 2021
+
+* Version:        2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)
+* Project:        hls_gapjuntion_prj
+* Solution:       solution1
+* Product family: zynq
+* Target device:  xc7z045ffg900-2
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |   5.00|     4.350|        0.62|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+----------+-----+----------+---------+
+    |     Latency    |    Interval    | Pipeline|
+    | min |    max   | min |    max   |   Type  |
+    +-----+----------+-----+----------+---------+
+    |  123|  50265001|  123|  50265001|   none  |
+    +-----+----------+-----+----------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------------+-----+----------+-------------+-----------+-----------+----------+----------+
+        |                         |     Latency    |  Iteration  |  Initiation Interval  |   Trip   |          |
+        |        Loop Name        | min |    max   |   Latency   |  achieved |   target  |   Count  | Pipelined|
+        +-------------------------+-----+----------+-------------+-----------+-----------+----------+----------+
+        |- RowOfBlocks_Loop       |  122|  50265000| 122 ~ 20106 |          -|          -| 1 ~ 2500 |    no    |
+        | + Blocks_Loop           |   17|     20001|           18|          8|          1| 1 ~ 2499 |    yes   |
+        | + getTotalCurrent_Loop  |  100|       100|           25|          -|          -|         4|    no    |
+        +-------------------------+-----+----------+-------------+-----------+-----------+----------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 2
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 8, depth = 18
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 24
+* Pipeline : 1
+  Pipeline-0 : II = 8, D = 18, States = { 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 
+	2  / true
+2 --> 
+	3  / (tmp_i_i)
+3 --> 
+	4  / true
+4 --> 
+	22  / (!tmp_33_i_i)
+	5  / (tmp_33_i_i)
+5 --> 
+	6  / true
+6 --> 
+	7  / true
+7 --> 
+	8  / true
+8 --> 
+	9  / true
+9 --> 
+	10  / true
+10 --> 
+	11  / true
+11 --> 
+	12  / true
+12 --> 
+	13  / true
+13 --> 
+	14  / true
+14 --> 
+	15  / true
+15 --> 
+	16  / true
+16 --> 
+	17  / true
+17 --> 
+	18  / true
+18 --> 
+	19  / true
+19 --> 
+	20  / true
+20 --> 
+	21  / true
+21 --> 
+	4  / true
+22 --> 
+	23  / true
+23 --> 
+	24  / (!exitcond_i_i)
+	2  / (exitcond_i_i)
+24 --> 
+	23  / true
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 2.18>
+ST_1 : Operation 25 [1/1] (0.00ns)   --->   "%F_temp_data = alloca [4 x float], align 4" [modules/I_calc/I_calc.cpp:60]   --->   Operation 25 'alloca' 'F_temp_data' <Predicate = true> <Delay = 0.00> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_1 : Operation 26 [1/1] (0.00ns)   --->   "%V_temp_data = alloca [4 x float], align 4" [modules/I_calc/I_calc.cpp:61]   --->   Operation 26 'alloca' 'V_temp_data' <Predicate = true> <Delay = 0.00> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_1 : Operation 27 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* %I_V_data, i1* %I_V_tlast_V, [5 x i8]* @p_str834, i32 0, i32 0, [5 x i8]* @p_str935, i32 0, i32 0, [1 x i8]* @p_str127, [1 x i8]* @p_str127, [1 x i8]* @p_str127, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str127, [1 x i8]* @p_str127) nounwind"   --->   Operation 27 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 28 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* %I_V_data, i1* %I_V_tlast_V, [5 x i8]* @p_str834, i32 0, i32 0, [5 x i8]* @p_str935, i32 0, i32 0, [1 x i8]* @p_str127, [1 x i8]* @p_str127, [1 x i8]* @p_str127, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str127, [1 x i8]* @p_str127) nounwind"   --->   Operation 28 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 29 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @F_acc_V_data_0, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 29 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 30 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @F_acc_V_data_1, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 30 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 31 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @F_acc_V_data_2, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 31 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 32 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @F_acc_V_data_3, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 32 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 33 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_acc_V_data_0, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 33 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 34 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_acc_V_data_1, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 34 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 35 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_acc_V_data_2, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 35 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 36 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_acc_V_data_3, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 36 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 37 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i27* %simConfig_BLOCK_NUMBERS_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [11 x i8]* @ScalarProp_str)"   --->   Operation 37 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 38 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i27* %simConfig_rowsToSimulate_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [11 x i8]* @ScalarProp_str)"   --->   Operation 38 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 39 [1/1] (2.18ns)   --->   "%simConfig_BLOCK_NUMB = call i27 @_ssdm_op_Read.ap_fifo.i27P(i27* %simConfig_BLOCK_NUMBERS_V)"   --->   Operation 39 'read' 'simConfig_BLOCK_NUMB' <Predicate = true> <Delay = 2.18> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 3.40> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 27> <Depth = 0> <FIFO>
+ST_1 : Operation 40 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @F_acc_V_data_0, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 40 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 41 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @F_acc_V_data_1, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 41 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 42 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @F_acc_V_data_2, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 42 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 43 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @F_acc_V_data_3, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 43 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 44 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_acc_V_data_0, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 44 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 45 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_acc_V_data_1, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 45 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 46 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_acc_V_data_2, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 46 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 47 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* @V_acc_V_data_3, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 47 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 48 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(float* %I_V_data, i1* %I_V_tlast_V, [5 x i8]* @p_str834, i32 0, i32 0, [5 x i8]* @p_str935, i32 0, i32 0, [1 x i8]* @p_str127, [1 x i8]* @p_str127, [1 x i8]* @p_str127, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str127, [1 x i8]* @p_str127) nounwind"   --->   Operation 48 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 49 [1/1] (2.18ns)   --->   "%simConfig_rowsToSimu = call i27 @_ssdm_op_Read.ap_fifo.i27P(i27* %simConfig_rowsToSimulate_V)" [modules/I_calc/I_calc.cpp:58]   --->   Operation 49 'read' 'simConfig_rowsToSimu' <Predicate = true> <Delay = 2.18> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 3.40> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 27> <Depth = 0> <FIFO>
+ST_1 : Operation 50 [1/1] (0.00ns)   --->   "%F_temp_data_addr = getelementptr [4 x float]* %F_temp_data, i64 0, i64 0" [modules/I_calc/I_calc.cpp:8->modules/I_calc/I_calc.cpp:62]   --->   Operation 50 'getelementptr' 'F_temp_data_addr' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 51 [1/1] (0.00ns)   --->   "%V_temp_data_addr = getelementptr [4 x float]* %V_temp_data, i64 0, i64 0" [modules/I_calc/I_calc.cpp:9->modules/I_calc/I_calc.cpp:62]   --->   Operation 51 'getelementptr' 'V_temp_data_addr' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 52 [1/1] (0.00ns)   --->   "%F_temp_data_addr_1 = getelementptr [4 x float]* %F_temp_data, i64 0, i64 1" [modules/I_calc/I_calc.cpp:8->modules/I_calc/I_calc.cpp:62]   --->   Operation 52 'getelementptr' 'F_temp_data_addr_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 53 [1/1] (0.00ns)   --->   "%V_temp_data_addr_1 = getelementptr [4 x float]* %V_temp_data, i64 0, i64 1" [modules/I_calc/I_calc.cpp:9->modules/I_calc/I_calc.cpp:62]   --->   Operation 53 'getelementptr' 'V_temp_data_addr_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 54 [1/1] (0.00ns)   --->   "%F_temp_data_addr_2 = getelementptr [4 x float]* %F_temp_data, i64 0, i64 2" [modules/I_calc/I_calc.cpp:8->modules/I_calc/I_calc.cpp:62]   --->   Operation 54 'getelementptr' 'F_temp_data_addr_2' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 55 [1/1] (0.00ns)   --->   "%V_temp_data_addr_2 = getelementptr [4 x float]* %V_temp_data, i64 0, i64 2" [modules/I_calc/I_calc.cpp:9->modules/I_calc/I_calc.cpp:62]   --->   Operation 55 'getelementptr' 'V_temp_data_addr_2' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 56 [1/1] (0.00ns)   --->   "%F_temp_data_addr_3 = getelementptr [4 x float]* %F_temp_data, i64 0, i64 3" [modules/I_calc/I_calc.cpp:8->modules/I_calc/I_calc.cpp:62]   --->   Operation 56 'getelementptr' 'F_temp_data_addr_3' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 57 [1/1] (0.00ns)   --->   "%V_temp_data_addr_3 = getelementptr [4 x float]* %V_temp_data, i64 0, i64 3" [modules/I_calc/I_calc.cpp:9->modules/I_calc/I_calc.cpp:62]   --->   Operation 57 'getelementptr' 'V_temp_data_addr_3' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 58 [1/1] (0.46ns)   --->   "br label %.preheader11.i.i" [modules/I_calc/I_calc.cpp:57]   --->   Operation 58 'br' <Predicate = true> <Delay = 0.46>
+
+State 2 <SV = 1> <Delay = 1.96>
+ST_2 : Operation 59 [1/1] (0.00ns)   --->   "%RowOfBlocks_V_2 = phi i26 [ %RowOfBlocks_V, %2 ], [ 0, %entry ]"   --->   Operation 59 'phi' 'RowOfBlocks_V_2' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 60 [1/1] (0.00ns)   --->   "%RowOfBlocks_V_1_cast = zext i26 %RowOfBlocks_V_2 to i27" [modules/I_calc/I_calc.cpp:58]   --->   Operation 60 'zext' 'RowOfBlocks_V_1_cast' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 61 [1/1] (1.96ns)   --->   "%tmp_i_i = icmp slt i27 %RowOfBlocks_V_1_cast, %simConfig_rowsToSimu" [modules/I_calc/I_calc.cpp:58]   --->   Operation 61 'icmp' 'tmp_i_i' <Predicate = true> <Delay = 1.96> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.98> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 62 [1/1] (1.74ns)   --->   "%RowOfBlocks_V = add i26 %RowOfBlocks_V_2, 1" [modules/I_calc/I_calc.cpp:58]   --->   Operation 62 'add' 'RowOfBlocks_V' <Predicate = true> <Delay = 1.74> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.76> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 63 [1/1] (0.00ns)   --->   "br i1 %tmp_i_i, label %0, label %.exit" [modules/I_calc/I_calc.cpp:58]   --->   Operation 63 'br' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 64 [1/1] (1.75ns)   --->   "store float 0.000000e+00, float* %F_temp_data_addr, align 4" [modules/I_calc/I_calc.cpp:8->modules/I_calc/I_calc.cpp:62]   --->   Operation 64 'store' <Predicate = (tmp_i_i)> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_2 : Operation 65 [1/1] (1.75ns)   --->   "store float 0.000000e+00, float* %V_temp_data_addr, align 4" [modules/I_calc/I_calc.cpp:9->modules/I_calc/I_calc.cpp:62]   --->   Operation 65 'store' <Predicate = (tmp_i_i)> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_2 : Operation 66 [1/1] (1.75ns)   --->   "store float 0.000000e+00, float* %F_temp_data_addr_1, align 4" [modules/I_calc/I_calc.cpp:8->modules/I_calc/I_calc.cpp:62]   --->   Operation 66 'store' <Predicate = (tmp_i_i)> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_2 : Operation 67 [1/1] (1.75ns)   --->   "store float 0.000000e+00, float* %V_temp_data_addr_1, align 4" [modules/I_calc/I_calc.cpp:9->modules/I_calc/I_calc.cpp:62]   --->   Operation 67 'store' <Predicate = (tmp_i_i)> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_2 : Operation 68 [1/1] (0.00ns)   --->   "ret void"   --->   Operation 68 'ret' <Predicate = (!tmp_i_i)> <Delay = 0.00>
+
+State 3 <SV = 2> <Delay = 1.75>
+ST_3 : Operation 69 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopName([17 x i8]* @p_str240) nounwind" [modules/I_calc/I_calc.cpp:58]   --->   Operation 69 'specloopname' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 70 [1/1] (0.00ns)   --->   "%tmp_i_i_93 = call i32 (...)* @_ssdm_op_SpecRegionBegin([17 x i8]* @p_str240)" [modules/I_calc/I_calc.cpp:58]   --->   Operation 70 'specregionbegin' 'tmp_i_i_93' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 71 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i32 1, i32 2500, i32 1250, [1 x i8]* @p_str341) nounwind" [modules/I_calc/I_calc.cpp:59]   --->   Operation 71 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 72 [1/1] (1.75ns)   --->   "store float 0.000000e+00, float* %F_temp_data_addr_2, align 4" [modules/I_calc/I_calc.cpp:8->modules/I_calc/I_calc.cpp:62]   --->   Operation 72 'store' <Predicate = true> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_3 : Operation 73 [1/1] (1.75ns)   --->   "store float 0.000000e+00, float* %V_temp_data_addr_2, align 4" [modules/I_calc/I_calc.cpp:9->modules/I_calc/I_calc.cpp:62]   --->   Operation 73 'store' <Predicate = true> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_3 : Operation 74 [1/1] (1.75ns)   --->   "store float 0.000000e+00, float* %F_temp_data_addr_3, align 4" [modules/I_calc/I_calc.cpp:8->modules/I_calc/I_calc.cpp:62]   --->   Operation 74 'store' <Predicate = true> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_3 : Operation 75 [1/1] (1.75ns)   --->   "store float 0.000000e+00, float* %V_temp_data_addr_3, align 4" [modules/I_calc/I_calc.cpp:9->modules/I_calc/I_calc.cpp:62]   --->   Operation 75 'store' <Predicate = true> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_3 : Operation 76 [1/1] (0.46ns)   --->   "br label %.preheader48.i.i" [modules/I_calc/I_calc.cpp:64]   --->   Operation 76 'br' <Predicate = true> <Delay = 0.46>
+
+State 4 <SV = 3> <Delay = 1.96>
+ST_4 : Operation 77 [1/1] (0.00ns)   --->   "%V_temp_data_i_i_load_3 = phi float [ %tmp_51_3_i_i, %"accBlockCurrents<dataPackage<float, 4>, stream<dataPackage<float, 4> >, 14, 4>.exit.i.i" ], [ 0.000000e+00, %0 ]" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 77 'phi' 'V_temp_data_i_i_load_3' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 78 [1/1] (0.00ns)   --->   "%F_temp_data_i_i_load_3 = phi float [ %tmp_50_3_i_i, %"accBlockCurrents<dataPackage<float, 4>, stream<dataPackage<float, 4> >, 14, 4>.exit.i.i" ], [ 0.000000e+00, %0 ]" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 78 'phi' 'F_temp_data_i_i_load_3' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 79 [1/1] (0.00ns)   --->   "%V_temp_data_i_i_load_2 = phi float [ %tmp_51_2_i_i, %"accBlockCurrents<dataPackage<float, 4>, stream<dataPackage<float, 4> >, 14, 4>.exit.i.i" ], [ 0.000000e+00, %0 ]" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 79 'phi' 'V_temp_data_i_i_load_2' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 80 [1/1] (0.00ns)   --->   "%F_temp_data_i_i_load_2 = phi float [ %tmp_50_2_i_i, %"accBlockCurrents<dataPackage<float, 4>, stream<dataPackage<float, 4> >, 14, 4>.exit.i.i" ], [ 0.000000e+00, %0 ]" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 80 'phi' 'F_temp_data_i_i_load_2' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 81 [1/1] (0.00ns)   --->   "%V_temp_data_i_i_load_1 = phi float [ %tmp_51_1_i_i, %"accBlockCurrents<dataPackage<float, 4>, stream<dataPackage<float, 4> >, 14, 4>.exit.i.i" ], [ 0.000000e+00, %0 ]" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 81 'phi' 'V_temp_data_i_i_load_1' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 82 [1/1] (0.00ns)   --->   "%F_temp_data_i_i_load_1 = phi float [ %tmp_50_1_i_i, %"accBlockCurrents<dataPackage<float, 4>, stream<dataPackage<float, 4> >, 14, 4>.exit.i.i" ], [ 0.000000e+00, %0 ]" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 82 'phi' 'F_temp_data_i_i_load_1' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 83 [1/1] (0.00ns)   --->   "%V_temp_data_i_i_load = phi float [ %tmp_51_i_i, %"accBlockCurrents<dataPackage<float, 4>, stream<dataPackage<float, 4> >, 14, 4>.exit.i.i" ], [ 0.000000e+00, %0 ]" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 83 'phi' 'V_temp_data_i_i_load' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 84 [1/1] (0.00ns)   --->   "%F_temp_data_i_i_load = phi float [ %tmp_50_i_i, %"accBlockCurrents<dataPackage<float, 4>, stream<dataPackage<float, 4> >, 14, 4>.exit.i.i" ], [ 0.000000e+00, %0 ]" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 84 'phi' 'F_temp_data_i_i_load' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 85 [1/1] (0.00ns)   --->   "%i_op_assign = phi i26 [ %block, %"accBlockCurrents<dataPackage<float, 4>, stream<dataPackage<float, 4> >, 14, 4>.exit.i.i" ], [ 0, %0 ]" [modules/I_calc/I_calc.cpp:65]   --->   Operation 85 'phi' 'i_op_assign' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 86 [1/1] (0.00ns)   --->   "%i_op_assign_cast = zext i26 %i_op_assign to i27" [modules/I_calc/I_calc.cpp:65]   --->   Operation 86 'zext' 'i_op_assign_cast' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 87 [1/1] (1.96ns)   --->   "%tmp_33_i_i = icmp slt i27 %i_op_assign_cast, %simConfig_BLOCK_NUMB" [modules/I_calc/I_calc.cpp:65]   --->   Operation 87 'icmp' 'tmp_33_i_i' <Predicate = true> <Delay = 1.96> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.98> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 88 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i64 1, i64 2499, i64 1250)"   --->   Operation 88 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 89 [1/1] (1.74ns)   --->   "%block = add i26 %i_op_assign, 1" [modules/I_calc/I_calc.cpp:65]   --->   Operation 89 'add' 'block' <Predicate = true> <Delay = 1.74> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.76> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 90 [1/1] (0.00ns)   --->   "br i1 %tmp_33_i_i, label %"accBlockCurrents<dataPackage<float, 4>, stream<dataPackage<float, 4> >, 14, 4>.exit.i.i", label %.preheader.i.i.preheader" [modules/I_calc/I_calc.cpp:65]   --->   Operation 90 'br' <Predicate = true> <Delay = 0.00>
+
+State 5 <SV = 4> <Delay = 2.18>
+ST_5 : Operation 91 [1/1] (2.18ns)   --->   "%empty = call { float, float, float, float } @_ssdm_op_Read.ap_fifo.volatile.floatP.floatP.floatP.floatP(float* @F_acc_V_data_0, float* @F_acc_V_data_1, float* @F_acc_V_data_2, float* @F_acc_V_data_3)" [modules/I_calc/I_calc.cpp:18->modules/I_calc/I_calc.cpp:68]   --->   Operation 91 'read' 'empty' <Predicate = (tmp_33_i_i)> <Delay = 2.18> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 3.40> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 27> <Depth = 0> <FIFO>
+ST_5 : Operation 92 [1/1] (0.00ns)   --->   "%tmp_data_0 = extractvalue { float, float, float, float } %empty, 0" [modules/I_calc/I_calc.cpp:18->modules/I_calc/I_calc.cpp:68]   --->   Operation 92 'extractvalue' 'tmp_data_0' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+ST_5 : Operation 93 [1/1] (0.00ns)   --->   "%tmp_data_1 = extractvalue { float, float, float, float } %empty, 1" [modules/I_calc/I_calc.cpp:18->modules/I_calc/I_calc.cpp:68]   --->   Operation 93 'extractvalue' 'tmp_data_1' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+ST_5 : Operation 94 [1/1] (0.00ns)   --->   "%tmp_data_2 = extractvalue { float, float, float, float } %empty, 2" [modules/I_calc/I_calc.cpp:18->modules/I_calc/I_calc.cpp:68]   --->   Operation 94 'extractvalue' 'tmp_data_2' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+ST_5 : Operation 95 [1/1] (0.00ns)   --->   "%tmp_data_3 = extractvalue { float, float, float, float } %empty, 3" [modules/I_calc/I_calc.cpp:18->modules/I_calc/I_calc.cpp:68]   --->   Operation 95 'extractvalue' 'tmp_data_3' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+ST_5 : Operation 96 [1/1] (2.18ns)   --->   "%empty_94 = call { float, float, float, float } @_ssdm_op_Read.ap_fifo.volatile.floatP.floatP.floatP.floatP(float* @V_acc_V_data_0, float* @V_acc_V_data_1, float* @V_acc_V_data_2, float* @V_acc_V_data_3)" [modules/I_calc/I_calc.cpp:19->modules/I_calc/I_calc.cpp:68]   --->   Operation 96 'read' 'empty_94' <Predicate = (tmp_33_i_i)> <Delay = 2.18> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 3.40> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 27> <Depth = 0> <FIFO>
+ST_5 : Operation 97 [1/1] (0.00ns)   --->   "%tmp_data_0_5 = extractvalue { float, float, float, float } %empty_94, 0" [modules/I_calc/I_calc.cpp:19->modules/I_calc/I_calc.cpp:68]   --->   Operation 97 'extractvalue' 'tmp_data_0_5' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+ST_5 : Operation 98 [1/1] (0.00ns)   --->   "%tmp_data_1_5 = extractvalue { float, float, float, float } %empty_94, 1" [modules/I_calc/I_calc.cpp:19->modules/I_calc/I_calc.cpp:68]   --->   Operation 98 'extractvalue' 'tmp_data_1_5' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+ST_5 : Operation 99 [1/1] (0.00ns)   --->   "%tmp_data_2_5 = extractvalue { float, float, float, float } %empty_94, 2" [modules/I_calc/I_calc.cpp:19->modules/I_calc/I_calc.cpp:68]   --->   Operation 99 'extractvalue' 'tmp_data_2_5' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+ST_5 : Operation 100 [1/1] (0.00ns)   --->   "%tmp_data_3_5 = extractvalue { float, float, float, float } %empty_94, 3" [modules/I_calc/I_calc.cpp:19->modules/I_calc/I_calc.cpp:68]   --->   Operation 100 'extractvalue' 'tmp_data_3_5' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+
+State 6 <SV = 5> <Delay = 4.32>
+ST_6 : Operation 101 [8/8] (4.32ns)   --->   "%tmp_50_i_i = fadd float %F_temp_data_i_i_load, %tmp_data_0" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 101 'fadd' 'tmp_50_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 7 <SV = 6> <Delay = 4.32>
+ST_7 : Operation 102 [7/8] (4.32ns)   --->   "%tmp_50_i_i = fadd float %F_temp_data_i_i_load, %tmp_data_0" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 102 'fadd' 'tmp_50_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 103 [8/8] (4.32ns)   --->   "%tmp_51_i_i = fadd float %V_temp_data_i_i_load, %tmp_data_0_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 103 'fadd' 'tmp_51_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 8 <SV = 7> <Delay = 4.32>
+ST_8 : Operation 104 [6/8] (4.32ns)   --->   "%tmp_50_i_i = fadd float %F_temp_data_i_i_load, %tmp_data_0" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 104 'fadd' 'tmp_50_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_8 : Operation 105 [7/8] (4.32ns)   --->   "%tmp_51_i_i = fadd float %V_temp_data_i_i_load, %tmp_data_0_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 105 'fadd' 'tmp_51_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_8 : Operation 106 [8/8] (4.32ns)   --->   "%tmp_50_1_i_i = fadd float %F_temp_data_i_i_load_1, %tmp_data_1" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 106 'fadd' 'tmp_50_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 9 <SV = 8> <Delay = 4.32>
+ST_9 : Operation 107 [5/8] (4.32ns)   --->   "%tmp_50_i_i = fadd float %F_temp_data_i_i_load, %tmp_data_0" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 107 'fadd' 'tmp_50_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 108 [6/8] (4.32ns)   --->   "%tmp_51_i_i = fadd float %V_temp_data_i_i_load, %tmp_data_0_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 108 'fadd' 'tmp_51_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 109 [7/8] (4.32ns)   --->   "%tmp_50_1_i_i = fadd float %F_temp_data_i_i_load_1, %tmp_data_1" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 109 'fadd' 'tmp_50_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 110 [8/8] (4.32ns)   --->   "%tmp_51_1_i_i = fadd float %V_temp_data_i_i_load_1, %tmp_data_1_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 110 'fadd' 'tmp_51_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 10 <SV = 9> <Delay = 4.32>
+ST_10 : Operation 111 [4/8] (4.32ns)   --->   "%tmp_50_i_i = fadd float %F_temp_data_i_i_load, %tmp_data_0" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 111 'fadd' 'tmp_50_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 112 [5/8] (4.32ns)   --->   "%tmp_51_i_i = fadd float %V_temp_data_i_i_load, %tmp_data_0_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 112 'fadd' 'tmp_51_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 113 [6/8] (4.32ns)   --->   "%tmp_50_1_i_i = fadd float %F_temp_data_i_i_load_1, %tmp_data_1" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 113 'fadd' 'tmp_50_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 114 [7/8] (4.32ns)   --->   "%tmp_51_1_i_i = fadd float %V_temp_data_i_i_load_1, %tmp_data_1_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 114 'fadd' 'tmp_51_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 115 [8/8] (4.32ns)   --->   "%tmp_50_2_i_i = fadd float %F_temp_data_i_i_load_2, %tmp_data_2" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 115 'fadd' 'tmp_50_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 11 <SV = 10> <Delay = 4.32>
+ST_11 : Operation 116 [3/8] (4.32ns)   --->   "%tmp_50_i_i = fadd float %F_temp_data_i_i_load, %tmp_data_0" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 116 'fadd' 'tmp_50_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 117 [4/8] (4.32ns)   --->   "%tmp_51_i_i = fadd float %V_temp_data_i_i_load, %tmp_data_0_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 117 'fadd' 'tmp_51_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 118 [5/8] (4.32ns)   --->   "%tmp_50_1_i_i = fadd float %F_temp_data_i_i_load_1, %tmp_data_1" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 118 'fadd' 'tmp_50_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 119 [6/8] (4.32ns)   --->   "%tmp_51_1_i_i = fadd float %V_temp_data_i_i_load_1, %tmp_data_1_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 119 'fadd' 'tmp_51_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 120 [7/8] (4.32ns)   --->   "%tmp_50_2_i_i = fadd float %F_temp_data_i_i_load_2, %tmp_data_2" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 120 'fadd' 'tmp_50_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 121 [8/8] (4.32ns)   --->   "%tmp_51_2_i_i = fadd float %V_temp_data_i_i_load_2, %tmp_data_2_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 121 'fadd' 'tmp_51_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 12 <SV = 11> <Delay = 4.32>
+ST_12 : Operation 122 [2/8] (4.32ns)   --->   "%tmp_50_i_i = fadd float %F_temp_data_i_i_load, %tmp_data_0" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 122 'fadd' 'tmp_50_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 123 [3/8] (4.32ns)   --->   "%tmp_51_i_i = fadd float %V_temp_data_i_i_load, %tmp_data_0_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 123 'fadd' 'tmp_51_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 124 [4/8] (4.32ns)   --->   "%tmp_50_1_i_i = fadd float %F_temp_data_i_i_load_1, %tmp_data_1" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 124 'fadd' 'tmp_50_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 125 [5/8] (4.32ns)   --->   "%tmp_51_1_i_i = fadd float %V_temp_data_i_i_load_1, %tmp_data_1_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 125 'fadd' 'tmp_51_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 126 [6/8] (4.32ns)   --->   "%tmp_50_2_i_i = fadd float %F_temp_data_i_i_load_2, %tmp_data_2" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 126 'fadd' 'tmp_50_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 127 [7/8] (4.32ns)   --->   "%tmp_51_2_i_i = fadd float %V_temp_data_i_i_load_2, %tmp_data_2_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 127 'fadd' 'tmp_51_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 128 [8/8] (4.32ns)   --->   "%tmp_50_3_i_i = fadd float %F_temp_data_i_i_load_3, %tmp_data_3" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 128 'fadd' 'tmp_50_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 13 <SV = 12> <Delay = 4.32>
+ST_13 : Operation 129 [1/8] (4.32ns)   --->   "%tmp_50_i_i = fadd float %F_temp_data_i_i_load, %tmp_data_0" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 129 'fadd' 'tmp_50_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_13 : Operation 130 [2/8] (4.32ns)   --->   "%tmp_51_i_i = fadd float %V_temp_data_i_i_load, %tmp_data_0_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 130 'fadd' 'tmp_51_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_13 : Operation 131 [3/8] (4.32ns)   --->   "%tmp_50_1_i_i = fadd float %F_temp_data_i_i_load_1, %tmp_data_1" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 131 'fadd' 'tmp_50_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_13 : Operation 132 [4/8] (4.32ns)   --->   "%tmp_51_1_i_i = fadd float %V_temp_data_i_i_load_1, %tmp_data_1_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 132 'fadd' 'tmp_51_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_13 : Operation 133 [5/8] (4.32ns)   --->   "%tmp_50_2_i_i = fadd float %F_temp_data_i_i_load_2, %tmp_data_2" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 133 'fadd' 'tmp_50_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_13 : Operation 134 [6/8] (4.32ns)   --->   "%tmp_51_2_i_i = fadd float %V_temp_data_i_i_load_2, %tmp_data_2_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 134 'fadd' 'tmp_51_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_13 : Operation 135 [7/8] (4.32ns)   --->   "%tmp_50_3_i_i = fadd float %F_temp_data_i_i_load_3, %tmp_data_3" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 135 'fadd' 'tmp_50_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_13 : Operation 136 [8/8] (4.32ns)   --->   "%tmp_51_3_i_i = fadd float %V_temp_data_i_i_load_3, %tmp_data_3_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 136 'fadd' 'tmp_51_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 14 <SV = 13> <Delay = 4.32>
+ST_14 : Operation 137 [1/1] (1.75ns)   --->   "store float %tmp_50_i_i, float* %F_temp_data_addr, align 4" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 137 'store' <Predicate = (tmp_33_i_i)> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_14 : Operation 138 [1/8] (4.32ns)   --->   "%tmp_51_i_i = fadd float %V_temp_data_i_i_load, %tmp_data_0_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 138 'fadd' 'tmp_51_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 139 [2/8] (4.32ns)   --->   "%tmp_50_1_i_i = fadd float %F_temp_data_i_i_load_1, %tmp_data_1" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 139 'fadd' 'tmp_50_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 140 [3/8] (4.32ns)   --->   "%tmp_51_1_i_i = fadd float %V_temp_data_i_i_load_1, %tmp_data_1_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 140 'fadd' 'tmp_51_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 141 [4/8] (4.32ns)   --->   "%tmp_50_2_i_i = fadd float %F_temp_data_i_i_load_2, %tmp_data_2" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 141 'fadd' 'tmp_50_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 142 [5/8] (4.32ns)   --->   "%tmp_51_2_i_i = fadd float %V_temp_data_i_i_load_2, %tmp_data_2_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 142 'fadd' 'tmp_51_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 143 [6/8] (4.32ns)   --->   "%tmp_50_3_i_i = fadd float %F_temp_data_i_i_load_3, %tmp_data_3" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 143 'fadd' 'tmp_50_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 144 [7/8] (4.32ns)   --->   "%tmp_51_3_i_i = fadd float %V_temp_data_i_i_load_3, %tmp_data_3_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 144 'fadd' 'tmp_51_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 15 <SV = 14> <Delay = 4.32>
+ST_15 : Operation 145 [1/1] (1.75ns)   --->   "store float %tmp_51_i_i, float* %V_temp_data_addr, align 4" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 145 'store' <Predicate = (tmp_33_i_i)> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_15 : Operation 146 [1/8] (4.32ns)   --->   "%tmp_50_1_i_i = fadd float %F_temp_data_i_i_load_1, %tmp_data_1" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 146 'fadd' 'tmp_50_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_15 : Operation 147 [2/8] (4.32ns)   --->   "%tmp_51_1_i_i = fadd float %V_temp_data_i_i_load_1, %tmp_data_1_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 147 'fadd' 'tmp_51_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_15 : Operation 148 [3/8] (4.32ns)   --->   "%tmp_50_2_i_i = fadd float %F_temp_data_i_i_load_2, %tmp_data_2" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 148 'fadd' 'tmp_50_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_15 : Operation 149 [4/8] (4.32ns)   --->   "%tmp_51_2_i_i = fadd float %V_temp_data_i_i_load_2, %tmp_data_2_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 149 'fadd' 'tmp_51_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_15 : Operation 150 [5/8] (4.32ns)   --->   "%tmp_50_3_i_i = fadd float %F_temp_data_i_i_load_3, %tmp_data_3" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 150 'fadd' 'tmp_50_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_15 : Operation 151 [6/8] (4.32ns)   --->   "%tmp_51_3_i_i = fadd float %V_temp_data_i_i_load_3, %tmp_data_3_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 151 'fadd' 'tmp_51_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 16 <SV = 15> <Delay = 4.32>
+ST_16 : Operation 152 [1/1] (1.75ns)   --->   "store float %tmp_50_1_i_i, float* %F_temp_data_addr_1, align 4" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 152 'store' <Predicate = (tmp_33_i_i)> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_16 : Operation 153 [1/8] (4.32ns)   --->   "%tmp_51_1_i_i = fadd float %V_temp_data_i_i_load_1, %tmp_data_1_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 153 'fadd' 'tmp_51_1_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 154 [2/8] (4.32ns)   --->   "%tmp_50_2_i_i = fadd float %F_temp_data_i_i_load_2, %tmp_data_2" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 154 'fadd' 'tmp_50_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 155 [3/8] (4.32ns)   --->   "%tmp_51_2_i_i = fadd float %V_temp_data_i_i_load_2, %tmp_data_2_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 155 'fadd' 'tmp_51_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 156 [4/8] (4.32ns)   --->   "%tmp_50_3_i_i = fadd float %F_temp_data_i_i_load_3, %tmp_data_3" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 156 'fadd' 'tmp_50_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 157 [5/8] (4.32ns)   --->   "%tmp_51_3_i_i = fadd float %V_temp_data_i_i_load_3, %tmp_data_3_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 157 'fadd' 'tmp_51_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 17 <SV = 16> <Delay = 4.32>
+ST_17 : Operation 158 [1/1] (1.75ns)   --->   "store float %tmp_51_1_i_i, float* %V_temp_data_addr_1, align 4" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 158 'store' <Predicate = (tmp_33_i_i)> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_17 : Operation 159 [1/8] (4.32ns)   --->   "%tmp_50_2_i_i = fadd float %F_temp_data_i_i_load_2, %tmp_data_2" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 159 'fadd' 'tmp_50_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_17 : Operation 160 [2/8] (4.32ns)   --->   "%tmp_51_2_i_i = fadd float %V_temp_data_i_i_load_2, %tmp_data_2_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 160 'fadd' 'tmp_51_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_17 : Operation 161 [3/8] (4.32ns)   --->   "%tmp_50_3_i_i = fadd float %F_temp_data_i_i_load_3, %tmp_data_3" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 161 'fadd' 'tmp_50_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_17 : Operation 162 [4/8] (4.32ns)   --->   "%tmp_51_3_i_i = fadd float %V_temp_data_i_i_load_3, %tmp_data_3_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 162 'fadd' 'tmp_51_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 18 <SV = 17> <Delay = 4.32>
+ST_18 : Operation 163 [1/1] (1.75ns)   --->   "store float %tmp_50_2_i_i, float* %F_temp_data_addr_2, align 4" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 163 'store' <Predicate = (tmp_33_i_i)> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_18 : Operation 164 [1/8] (4.32ns)   --->   "%tmp_51_2_i_i = fadd float %V_temp_data_i_i_load_2, %tmp_data_2_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 164 'fadd' 'tmp_51_2_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 165 [2/8] (4.32ns)   --->   "%tmp_50_3_i_i = fadd float %F_temp_data_i_i_load_3, %tmp_data_3" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 165 'fadd' 'tmp_50_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 166 [3/8] (4.32ns)   --->   "%tmp_51_3_i_i = fadd float %V_temp_data_i_i_load_3, %tmp_data_3_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 166 'fadd' 'tmp_51_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 19 <SV = 18> <Delay = 4.32>
+ST_19 : Operation 167 [1/1] (1.75ns)   --->   "store float %tmp_51_2_i_i, float* %V_temp_data_addr_2, align 4" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 167 'store' <Predicate = (tmp_33_i_i)> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_19 : Operation 168 [1/8] (4.32ns)   --->   "%tmp_50_3_i_i = fadd float %F_temp_data_i_i_load_3, %tmp_data_3" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 168 'fadd' 'tmp_50_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_19 : Operation 169 [2/8] (4.32ns)   --->   "%tmp_51_3_i_i = fadd float %V_temp_data_i_i_load_3, %tmp_data_3_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 169 'fadd' 'tmp_51_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 20 <SV = 19> <Delay = 4.32>
+ST_20 : Operation 170 [1/1] (1.75ns)   --->   "store float %tmp_50_3_i_i, float* %F_temp_data_addr_3, align 4" [modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68]   --->   Operation 170 'store' <Predicate = (tmp_33_i_i)> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_20 : Operation 171 [1/8] (4.32ns)   --->   "%tmp_51_3_i_i = fadd float %V_temp_data_i_i_load_3, %tmp_data_3_5" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 171 'fadd' 'tmp_51_3_i_i' <Predicate = (tmp_33_i_i)> <Delay = 4.32> <Core = "FAddSub">   --->   Core 104 'FAddSub' <Latency = 7> <II = 1> <Delay = 4.32> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 21 <SV = 20> <Delay = 1.75>
+ST_21 : Operation 172 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopName([12 x i8]* @p_str543) nounwind" [modules/I_calc/I_calc.cpp:65]   --->   Operation 172 'specloopname' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+ST_21 : Operation 173 [1/1] (0.00ns)   --->   "%tmp_12_i_i = call i32 (...)* @_ssdm_op_SpecRegionBegin([12 x i8]* @p_str543)" [modules/I_calc/I_calc.cpp:65]   --->   Operation 173 'specregionbegin' 'tmp_12_i_i' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+ST_21 : Operation 174 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecPipeline(i32 -1, i32 1, i32 1, i32 0, [1 x i8]* @p_str341) nounwind" [modules/I_calc/I_calc.cpp:67]   --->   Operation 174 'specpipeline' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+ST_21 : Operation 175 [1/1] (1.75ns)   --->   "store float %tmp_51_3_i_i, float* %V_temp_data_addr_3, align 4" [modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68]   --->   Operation 175 'store' <Predicate = (tmp_33_i_i)> <Delay = 1.75> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.75> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4> <RAM>
+ST_21 : Operation 176 [1/1] (0.00ns)   --->   "%empty_95 = call i32 (...)* @_ssdm_op_SpecRegionEnd([12 x i8]* @p_str543, i32 %tmp_12_i_i)" [modules/I_calc/I_calc.cpp:70]   --->   Operation 176 'specregionend' 'empty_95' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+ST_21 : Operation 177 [1/1] (0.00ns)   --->   "br label %.preheader48.i.i" [modules/I_calc/I_calc.cpp:65]   --->   Operation 177 'br' <Predicate = (tmp_33_i_i)> <Delay = 0.00>
+
+State 22 <SV = 4> <Delay = 0.46>
+ST_22 : Operation 178 [1/1] (0.46ns)   --->   "br label %.preheader.i.i" [modules/I_calc/I_calc.cpp:72]   --->   Operation 178 'br' <Predicate = true> <Delay = 0.46>
+
+State 23 <SV = 5> <Delay = 3.71>
+ST_23 : Operation 179 [1/1] (0.00ns)   --->   "%val_assign = phi i3 [ %row, %1 ], [ 0, %.preheader.i.i.preheader ]"   --->   Operation 179 'phi' 'val_assign' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 180 [1/1] (0.98ns)   --->   "%exitcond_i_i = icmp eq i3 %val_assign, -4" [modules/I_calc/I_calc.cpp:72]   --->   Operation 180 'icmp' 'exitcond_i_i' <Predicate = true> <Delay = 0.98> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.98> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 181 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i64 4, i64 4, i64 4)"   --->   Operation 181 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 182 [1/1] (0.76ns)   --->   "%row = add i3 %val_assign, 1" [modules/I_calc/I_calc.cpp:72]   --->   Operation 182 'add' 'row' <Predicate = true> <Delay = 0.76> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.76> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 183 [1/1] (0.00ns)   --->   "br i1 %exitcond_i_i, label %2, label %1" [modules/I_calc/I_calc.cpp:72]   --->   Operation 183 'br' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 184 [2/2] (3.71ns)   --->   "call fastcc void @getTotalCurrent(i3 %val_assign, float* %I_V_data, i1* %I_V_tlast_V, i26 %RowOfBlocks_V_2, i27 %simConfig_rowsToSimu, [4 x float]* %F_temp_data, [4 x float]* %V_temp_data)" [modules/I_calc/I_calc.cpp:73]   --->   Operation 184 'call' <Predicate = (!exitcond_i_i)> <Delay = 3.71> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_23 : Operation 185 [1/1] (0.00ns)   --->   "%empty_96 = call i32 (...)* @_ssdm_op_SpecRegionEnd([17 x i8]* @p_str240, i32 %tmp_i_i_93)" [modules/I_calc/I_calc.cpp:75]   --->   Operation 185 'specregionend' 'empty_96' <Predicate = (exitcond_i_i)> <Delay = 0.00>
+ST_23 : Operation 186 [1/1] (0.00ns)   --->   "br label %.preheader11.i.i" [modules/I_calc/I_calc.cpp:58]   --->   Operation 186 'br' <Predicate = (exitcond_i_i)> <Delay = 0.00>
+
+State 24 <SV = 6> <Delay = 4.35>
+ST_24 : Operation 187 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopName([21 x i8]* @p_str644) nounwind" [modules/I_calc/I_calc.cpp:72]   --->   Operation 187 'specloopname' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 188 [1/2] (4.35ns)   --->   "call fastcc void @getTotalCurrent(i3 %val_assign, float* %I_V_data, i1* %I_V_tlast_V, i26 %RowOfBlocks_V_2, i27 %simConfig_rowsToSimu, [4 x float]* %F_temp_data, [4 x float]* %V_temp_data)" [modules/I_calc/I_calc.cpp:73]   --->   Operation 188 'call' <Predicate = true> <Delay = 4.35> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_24 : Operation 189 [1/1] (0.00ns)   --->   "br label %.preheader.i.i" [modules/I_calc/I_calc.cpp:72]   --->   Operation 189 'br' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 0.625ns.
+
+ <State 1>: 2.19ns
+The critical path consists of the following:
+	fifo read on port 'simConfig_BLOCK_NUMBERS_V' [27]  (2.19 ns)
+
+ <State 2>: 1.97ns
+The critical path consists of the following:
+	'phi' operation ('RowOfBlocks.V') with incoming values : ('RowOfBlocks.V', modules/I_calc/I_calc.cpp:58) [48]  (0 ns)
+	'icmp' operation ('tmp_i_i', modules/I_calc/I_calc.cpp:58) [50]  (1.97 ns)
+
+ <State 3>: 1.75ns
+The critical path consists of the following:
+	'store' operation (modules/I_calc/I_calc.cpp:8->modules/I_calc/I_calc.cpp:62) of constant 0 on array 'F_temp.data', modules/I_calc/I_calc.cpp:60 [61]  (1.75 ns)
+
+ <State 4>: 1.97ns
+The critical path consists of the following:
+	'phi' operation ('i_op_assign', modules/I_calc/I_calc.cpp:65) with incoming values : ('block', modules/I_calc/I_calc.cpp:65) [75]  (0 ns)
+	'icmp' operation ('tmp_33_i_i', modules/I_calc/I_calc.cpp:65) [77]  (1.97 ns)
+
+ <State 5>: 2.19ns
+The critical path consists of the following:
+	fifo read on port 'F_acc_V_data_0' (modules/I_calc/I_calc.cpp:18->modules/I_calc/I_calc.cpp:68) [85]  (2.19 ns)
+
+ <State 6>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_50_i_i', modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68) [95]  (4.32 ns)
+
+ <State 7>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_50_i_i', modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68) [95]  (4.32 ns)
+
+ <State 8>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_50_i_i', modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68) [95]  (4.32 ns)
+
+ <State 9>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_50_i_i', modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68) [95]  (4.32 ns)
+
+ <State 10>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_50_i_i', modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68) [95]  (4.32 ns)
+
+ <State 11>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_50_i_i', modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68) [95]  (4.32 ns)
+
+ <State 12>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_50_i_i', modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68) [95]  (4.32 ns)
+
+ <State 13>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_50_i_i', modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68) [95]  (4.32 ns)
+
+ <State 14>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_51_i_i', modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68) [97]  (4.32 ns)
+
+ <State 15>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_50_1_i_i', modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68) [99]  (4.32 ns)
+
+ <State 16>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_51_1_i_i', modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68) [101]  (4.32 ns)
+
+ <State 17>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_50_2_i_i', modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68) [103]  (4.32 ns)
+
+ <State 18>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_51_2_i_i', modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68) [105]  (4.32 ns)
+
+ <State 19>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_50_3_i_i', modules/I_calc/I_calc.cpp:23->modules/I_calc/I_calc.cpp:68) [107]  (4.32 ns)
+
+ <State 20>: 4.32ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_51_3_i_i', modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68) [109]  (4.32 ns)
+
+ <State 21>: 1.75ns
+The critical path consists of the following:
+	'store' operation (modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68) of variable 'tmp_51_3_i_i', modules/I_calc/I_calc.cpp:24->modules/I_calc/I_calc.cpp:68 on array 'V_temp.data', modules/I_calc/I_calc.cpp:61 [110]  (1.75 ns)
+
+ <State 22>: 0.466ns
+The critical path consists of the following:
+	multiplexor before 'phi' operation ('row') with incoming values : ('row', modules/I_calc/I_calc.cpp:72) [116]  (0.466 ns)
+
+ <State 23>: 3.72ns
+The critical path consists of the following:
+	'phi' operation ('row') with incoming values : ('row', modules/I_calc/I_calc.cpp:72) [116]  (0 ns)
+	'call' operation (modules/I_calc/I_calc.cpp:73) to 'getTotalCurrent' [123]  (3.72 ns)
+
+ <State 24>: 4.35ns
+The critical path consists of the following:
+	'call' operation (modules/I_calc/I_calc.cpp:73) to 'getTotalCurrent' [123]  (4.35 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+	State 9
+	State 10
+	State 11
+	State 12
+	State 13
+	State 14
+	State 15
+	State 16
+	State 17
+	State 18
+	State 19
+	State 20
+	State 21
+	State 22
+	State 23
+	State 24
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A
