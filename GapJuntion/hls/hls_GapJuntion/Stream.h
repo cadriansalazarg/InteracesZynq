@@ -68,8 +68,10 @@ struct packaging_data {
 using AXIS_interface_in = hls::stream<packaging_data>;
 using AXIS_interface_out = hls::stream<packaging_data>;
 
-void GapJunctionIP(hls::stream<packaging_data> &in_fifo, Stream &output,
-		int size,int FirstRow, int LastRow);
+void GapJunctionIP(hls::stream<packaging_data> &in_fifo,
+		hls::stream<packaging_data>& out_fifo, int size,
+		int FirstRow, int LastRow);
+
 
 
 #endif

@@ -27,32 +27,28 @@ void accBlockCurrents(streamType &F_acc,streamType &V_acc,dataType &F_acc_read,
 }
 
 
-template<typename outDataType,int maxBits>
-void tlastAssign(ap_int<maxBits> row,outDataType &I_calc,ap_int<27> &RowOfBlocks,
-    Config &simConfig) {
-//
-  I_calc.tlast= (row==BLOCK_SIZE-1 &&
-	      RowOfBlocks==simConfig.rowsToSimulate-1)?
-		  1:0;
-}
+
 
 template<typename outDataType,typename outStreamType,typename inDataType,int maxBits>
-void getTotalCurrent(ap_int<maxBits> row,outStreamType &I,outDataType &I_calc,ap_int<27> &RowOfBlocks,
-    Config &simConfig,inDataType &F_temp,inDataType &V_temp) {
+void getTotalCurrent(ap_int<maxBits> row,hls::stream<float> &I_calc,
+    inDataType &F_temp,inDataType &V_temp) {
 //
-        I_calc.data = 0.8*F_temp.data[row]+ 0.2*V_temp.data[row];
-        tlastAssign<outDataType,maxBits>(row,I_calc,RowOfBlocks,simConfig);
-        I.write(I_calc);
+		float I_curr_calc;
+		I_curr_calc = 0.8*F_temp.data[row]+ 0.2*V_temp.data[row];
+		I_calc.write(I_curr_calc);
 
 }
 
-void I_calc(Stream &I,VC_Stream &F_acc,VC_Stream &V_acc,Config &simConfig, int &V_SIZE){
+void I_calc(hls::stream<packaging_data> &I,VC_Stream &F_acc,VC_Stream &V_acc,Config &simConfig, int &V_SIZE){
 //
         VC_Package F_acc_read;
         VC_Package V_acc_read;
 
 
-        dataStream I_calc;
+        hls::stream<float> I_calc;
+#pragma HLS STREAM variable=I_calc depth=256 dim=1
+        packaging_data output_packet;
+        unsigned int k = 0;
 
         assert(simConfig.rowsToSimulate<2500);
 RowOfBlocks_Loop:for(ap_int<27> RowOfBlocks=0; RowOfBlocks<simConfig.rowsToSimulate; RowOfBlocks++) {
@@ -70,8 +66,27 @@ Blocks_Loop: for(int block=0; block<simConfig.BLOCK_NUMBERS; block++) {
             }
 
 getTotalCurrent_Loop: for(int row=0; row<BLOCK_SIZE; row++) {
-                getTotalCurrent<dataStream,Stream,VC_Package,14>(row,I,I_calc,RowOfBlocks,simConfig,F_temp,V_temp);
+                getTotalCurrent<dataStream,Stream,VC_Package,14>(row,I_calc,F_temp,V_temp);
             }
         }
+
+	output_packet.BS_ID = 0x00; // 8 bits
+	output_packet.FPGA_ID = 0x01; // 8 bits
+	output_packet.TX_UID = 0x01; // 8 bits
+	output_packet.RX_UID = 0x01; // 8 bits
+	output_packet.VALID_PACKET_BYTES = 0x360;
+
+
+	Loop_Consumer: for (unsigned short int i = 0; i < 36; i++) {
+		Creating_Output_Packet: for (unsigned short int j = 0; j < 6; j++){
+
+				output_packet.MESSAGE[5-j] = I_calc.read();
+
+		}
+		output_packet.PCKG_ID = i;
+		//Sending packet
+		I.write(output_packet);
+	}
+
 
 }

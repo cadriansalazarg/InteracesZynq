@@ -14,7 +14,7 @@ void simulationConfig(ConfigurationType &simConfig,int &FirstRow,int &LastRow,in
     	simConfig.rowsToSimulate=(LastRow-FirstRow)/BLOCK_SIZE;//(simConfig.rowEnd-simConfig.rowBegin)/BLOCK_SIZE;
     	simConfig.BLOCK_NUMBERS=size/BLOCK_SIZE;
 }
-void execute(hls::stream<packaging_data> &input, Stream &output,Config &simConfig,int size){
+void execute(hls::stream<packaging_data> &input, hls::stream<packaging_data> &output, Config &simConfig,int size){
 
 	static VC_Stream V_data("V_data");
     #pragma HLS STREAM variable=V_data depth=128 dim=1
@@ -41,12 +41,14 @@ void execute(hls::stream<packaging_data> &input, Stream &output,Config &simConfi
 	acc(F,V,F_acc,V_acc,simConfig);
 	I_calc(output,F_acc,V_acc,simConfig,size);
 
+
+
 }
-void GapJunctionIP(hls::stream<packaging_data> &in_fifo, Stream &output, int size,int FirstRow, int LastRow) {
+void GapJunctionIP(hls::stream<packaging_data> &in_fifo, hls::stream<packaging_data>& out_fifo, int size,int FirstRow, int LastRow) {
 
 	#pragma HLS DATA_PACK variable=in_fifo
 	#pragma HLS INTERFACE ap_fifo  port=in_fifo
-	#pragma HLS INTERFACE axis  port=output
+	#pragma HLS INTERFACE ap_fifo  port=in_fifo
 	#pragma HLS INTERFACE ap_stable register port=size
 	#pragma HLS INTERFACE ap_stable register port=FirstRow
 	#pragma HLS INTERFACE ap_stable register port=LastRow
@@ -54,6 +56,6 @@ void GapJunctionIP(hls::stream<packaging_data> &in_fifo, Stream &output, int siz
 
 	Config simConfig;
 	simulationConfig<Config>(simConfig,FirstRow,LastRow,size);
-	execute(in_fifo,output,simConfig,size);
+	execute(in_fifo,out_fifo,simConfig,size);
 
 }

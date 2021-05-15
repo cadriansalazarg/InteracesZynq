@@ -15,7 +15,7 @@ template<typename T>
 void resizeToFitInIP(T &V);
 
 template<typename S, typename SHW = Stream>
-int checkResults(S &output_Software,SHW &output_Hardware);
+int checkResults(S &output_Software,hls::stream<float> &output_Hardware);
 
 
 template<typename T>
@@ -42,10 +42,13 @@ int main() {
 
 	auto success = 0;
 
-	Stream output_Hardware("output_Hardware");
 	hls::stream<float> output_Software("output_Software");
-
+	hls::stream<float>  output_Hardware;
+	packaging_data Data_Received_fifo;
 	hls::stream<packaging_data> input_fifo;
+	hls::stream<packaging_data> out_fifo;
+
+	unsigned int kkk;
 
 	const auto Test1Values = std::vector<int>{216,216,216,216};
 
@@ -60,9 +63,16 @@ int main() {
 		resizeToFitInIP(V);
 		const auto sizeGJ = V.size();
 		writeVoltages(V,input_fifo);
-		GapJunctionIP(input_fifo,output_Hardware,sizeGJ,0,sizeGJ);
+		GapJunctionIP(input_fifo,out_fifo,sizeGJ,0,sizeGJ);
+
+		for (auto z = 0; z < 36; z++){
+			Data_Received_fifo = out_fifo.read();
+			for (auto zz = 0; zz < 6; zz++){
+				output_Hardware.write(Data_Received_fifo.MESSAGE[5-zz]);
+			}
+		}
 		success |= checkResults(output_Software,output_Hardware);
-		readLeftovers(output_Hardware);
+		//readLeftovers(output_Hardware);
 		std::cout << "________________________________________________________ \n";
 	}
 	return success;
@@ -121,13 +131,13 @@ void fillWithRandomData(T &V) {
 }
 
 template<typename S, typename SHW = Stream>
-int checkResults(S &output_Software,SHW &output_Hardware) {
+int checkResults(S &output_Software,hls::stream<float> &output_Hardware) {
 	const float precision = 0.01;
 	int success = 0;
 	while (!output_Software.empty()) {
 		float sw_result, hw_result;
 		sw_result = output_Software.read();
-		hw_result = output_Hardware.read().data;
+		hw_result = output_Hardware.read();
 		if (fabs(sw_result - hw_result) >= precision) success = -1;
 	}
 	std::cout << "******************************************\n";
