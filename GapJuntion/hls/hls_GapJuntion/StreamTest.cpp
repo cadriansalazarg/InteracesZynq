@@ -17,8 +17,9 @@ void resizeToFitInIP(T &V);
 template<typename S, typename SHW = Stream>
 int checkResults(S &output_Software,SHW &output_Hardware);
 
+
 template<typename T>
-void writeVoltages(T &V,in64Bits &input);
+void writeVoltages(T &V, hls::stream<packaging_data> &input_fifo);
 
 template<typename T>
 void writeConductances(T &C, in64Bits &input, const int vsizeAd);
@@ -41,11 +42,12 @@ int main() {
 
 	auto success = 0;
 
-	in64Bits input("input");
 	Stream output_Hardware("output_Hardware");
 	hls::stream<float> output_Software("output_Software");
 
-	const auto Test1Values = std::vector<int>{24,48,72,96};
+	hls::stream<packaging_data> input_fifo;
+
+	const auto Test1Values = std::vector<int>{216,216,216,216};
 
 	for (auto it = Test1Values.begin(); it<Test1Values.end(); ++it) {
 		auto &size = *it;
@@ -57,8 +59,8 @@ int main() {
 		SimulateSW(V,output_Software);
 		resizeToFitInIP(V);
 		const auto sizeGJ = V.size();
-		writeVoltages(V,input);
-		GapJunctionIP(input,output_Hardware,sizeGJ,0,sizeGJ);
+		writeVoltages(V,input_fifo);
+		GapJunctionIP(input_fifo,output_Hardware,sizeGJ,0,sizeGJ);
 		success |= checkResults(output_Software,output_Hardware);
 		readLeftovers(output_Hardware);
 		std::cout << "________________________________________________________ \n";
@@ -90,12 +92,12 @@ void resizeToFitInIP(T &V){
 template<typename T, typename S>
 void SimulateSW(const T &V, S &output_Software) {
 	const float hundred = -1.0f / 100.0f;
-	const auto size = V.size();
+	unsigned int size = V.size();
 	auto k = 0;
-	for (int i = 0; i < size; i++) {
+	for (unsigned int i = 0; i < size; i++) {
 		auto f_acc = 0.0f;
 		auto v_acc = 0.0f;
-		for (int j = 0; j < size; j++) {
+		for (unsigned int j = 0; j < size; j++) {
 			auto v = V.data()[i] - V.data()[j];
 			auto f = v * expf(v * v * hundred);
 			f_acc += f * 1;
@@ -105,13 +107,17 @@ void SimulateSW(const T &V, S &output_Software) {
 		auto I_c = (0.8f * f_acc + 0.2f * v_acc);
 		output_Software.write(I_c);
 	}
+	//printf ("Fin lista \n");
 }
 
 template<typename T>
 void fillWithRandomData(T &V) {
 	auto generator = std::default_random_engine{};
 	auto distV = std::uniform_real_distribution<float>{2.0f, -70.0f};
-	for (auto &v : V) v = distV(generator);
+	for (auto &v : V){
+		v = distV(generator);
+		//printf ("Value: %f. \n", v);
+	}
 }
 
 template<typename S, typename SHW = Stream>
@@ -131,17 +137,40 @@ int checkResults(S &output_Software,SHW &output_Hardware) {
 }
 
 template<typename T>
-void writeVoltages(T &V,in64Bits &input){
+void writeVoltages(T &V, hls::stream<packaging_data> &input_fifo){
 	const auto bs = BLOCK_SIZE;
 	const auto vsize = V.size();
 	const auto ps = PORT_SIZE; //port size
+	unsigned int k = 0;
 	assert(vsize%4==0);
-	for (auto i = 0; i < vsize; i+=ps){
-		Package64Bits voltage;
-		for (auto pack = 0; pack < ps; pack++)
-			voltage.data[pack] = V[i+pack];
-		input.write(voltage);
+	packaging_data input_packet;
+	for (auto i = 0; i < 216; i++){
+		//printf("El valor de V es %f \n", V[i]);
 	}
+
+	
+	for (auto i = 0; i < 36; i++){
+		input_packet.BS_ID = 0x01; // 8 bits
+		input_packet.FPGA_ID = 0xEE; // 8 bits
+		input_packet.PCKG_ID = 0x0000; // 16 bits
+		input_packet.TX_UID = 0x01; // 8 bits
+		input_packet.RX_UID = 0x01; // 8 bits
+		input_packet.VALID_PACKET_BYTES = PAYLOAD_PACKET_BYTES; // 16 bits
+		input_packet.MESSAGE[5] = V[i*6 + 0];
+		input_packet.MESSAGE[4] = V[i*6 + 1];
+		input_packet.MESSAGE[3] = V[i*6 + 2];
+		input_packet.MESSAGE[4] = V[i*6 + 3];
+		input_packet.MESSAGE[1] = V[i*6 + 4];
+		input_packet.MESSAGE[0] = V[i*6 + 5];
+		
+		for (auto j = 0; j < 6; j++){
+			input_packet.MESSAGE[5 - j] = V[k];
+			//printf("El valor puesto en el paquete es %f. \n", input_packet.MESSAGE[5 - j]);
+			k++;
+		}
+		input_fifo.write(input_packet);
+	}
+
 }
 
 

@@ -19,5 +19,5 @@ create_clock -period 5 -name default
 #source "./hls_project/solution1/directives.tcl"
 csim_design
 csynth_design
-cosim_design
-export_design -format ip_catalog
+#cosim_design
+#export_design -format ip_catalog

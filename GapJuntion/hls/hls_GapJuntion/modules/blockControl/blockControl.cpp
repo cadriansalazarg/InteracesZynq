@@ -3,26 +3,41 @@
 
 
 template<typename inType,typename outType,int maxBits,int PackageDataQuantity>
-void getVoltages(hls::stream<inType> &input, hls::stream<outType> &V_data,
+void getVoltages(hls::stream<packaging_data> &input, hls::stream<outType> &V_data,
      int V_SIZE) {
 
         inType input_read;
         inType input_read_h;
+        packaging_data input_packet;
+        hls::stream<float> bus_local;
+#pragma HLS STREAM variable=bus_local depth=256 dim=1
 
         outType newData;
 
         ap_int<maxBits> blockFinIdx;
 
+        Loop_Producer: for (unsigned short int i=0; i<36; i++) {
+        		while(input.empty())
+        			;  // I put the semicolon on this separate line to silence a warning
+                	input_packet = input.read();
+                	Store_Payload_In_Local_Bus: for (unsigned short int j=0; j<6; j++) {
+                		bus_local.write(input_packet.MESSAGE[OFFSET_READ_PAYLOAD - j]);
+                }
+        }
+
         assert(V_SIZE<MAX_V_SIZE);
         for (ap_int<maxBits> i = 0; i < V_SIZE; i+=PackageDataQuantity) {
                 #pragma HLS loop_tripcount min=1 max=MAX_V_SIZE/4
-                input_read=input.read();
-                newData.data[0]=input_read.data[0];
-                newData.data[1]=input_read.data[1];
+                newData.data[0]=bus_local.read();
+                newData.data[1]=bus_local.read();
 
-                input_read_h=input.read();
-                newData.data[2]=input_read_h.data[0];
-                newData.data[3]=input_read_h.data[1];
+                newData.data[2]=bus_local.read();
+                newData.data[3]=bus_local.read();
+
+                //printf("%d \n",newData.data[0]);
+                //printf("%d \n",newData.data[1]);
+                //printf("%d \n",newData.data[2]);
+                //printf("%d \n",newData.data[3]);
 
                 V_data.write(newData);
         }
@@ -35,7 +50,7 @@ void getVoltages(hls::stream<inType> &input, hls::stream<outType> &V_data,
 
 
 
-void blockControl(in64Bits &input, VC_Stream &V_data, int V_SIZE){
+void blockControl(hls::stream<packaging_data> &input, VC_Stream &V_data, int V_SIZE){
 
         getVoltages<Package64Bits,VC_Package,27,4>(input,V_data,V_SIZE);//read all the voltages
 
