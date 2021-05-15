@@ -1,1 +1,0 @@
-set ::AESL_AUTOSIM::gTopFileName Stream.cpp_pre.cpp.tb.cpp

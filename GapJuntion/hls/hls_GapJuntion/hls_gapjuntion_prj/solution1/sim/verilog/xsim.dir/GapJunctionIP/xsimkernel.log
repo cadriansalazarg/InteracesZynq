@@ -1,7 +1,0 @@
-Running: xsim.dir/GapJunctionIP/xsimk -simmode gui -wdb GapJunctionIP.wdb -simrunnum 0 -socket 46867
-Design successfully loaded
-Design Loading Memory Usage: 60416 KB (Peak: 60548 KB)
-Design Loading CPU Usage: 70 ms
-Simulation completed
-Simulation Memory Usage: 150024 KB (Peak: 199684 KB)
-Simulation CPU Usage: 45560 ms

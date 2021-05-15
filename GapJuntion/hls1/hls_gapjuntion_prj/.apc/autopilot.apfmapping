@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
-  <source>
-    <originFiles name="gjip.cpp" path="/home/carlositcr/InterfacesZynq/GapJuntion/hls/gjip.cpp"/>
-  </source>
-  <testbench>
-    <originFiles name="gjip_test.cpp" path="/home/carlositcr/InterfacesZynq/GapJuntion/hls/gjip_test.cpp"/>
-  </testbench>
-</autopilotfilemapping:AutoPilotFileMapping>
