@@ -14,17 +14,32 @@
 #include "templates/stream_templates.hpp"
 
 
-const int inputBusSize=64;
-const int PORT_SIZE=inputBusSize/32;
+/////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////LISTA DE PARÁMETROS QUE SE DEBEN EDITAR /////////////////////////////
+// La lista de parámetros editables se muestra a continuación
+// MAX_V_SIZE = Tamaño máximo de la red neuronal. Este parámetro siempre debe ser mayor que el parámetro N_SIZE.
+// bajo ninguna circunstancia, debe incumplir estar regla.
+//
+// N_SIZE = Tamaño de la red neuronal a simular. Este número representa el número de neuronas que compone la red.
+//
+// FUNCTIONAL_UNIT_NUMBER = Este parámetro representa el número de aceleradores de hardware de GapJuntion que 
+// se tendrán en la red neuronal. si por ejemplo se tiene 4 FPGAs, y cada FPGA tiene dos aceleradores de GAP JUNCTION
+// este parámetro deberá ser colocado en 8. Ya que hay 4 FPGAs y en cada FPGA existirán 2 aceleradores de hardware.
+//
+// PACKAGE_SIZE_BYTES = Número de bytes que tendrá cada paquete que se transmitirá por el bus. 
+////////////////////////////////////////////////////////////////////////////////////////////
+
+const int inputBusSize=64; // Este parámetro no se debe editar ya que el programa se cae si se pone en 32 bits
+const int PORT_SIZE=inputBusSize/32;  // Este parámetro no se debe editar ya que el programa se cae si se pone en 32 bits
 
 
-const int BLOCK_SIZE=4;  //Tamaño del bloque nxn, donde n es igual a block_size original 8
+const int BLOCK_SIZE=4;  //Tamaño del bloque nxn, donde n es igual a block_size original 8. Este parámetro no se debe editar.
 const int MAX_V_SIZE=10000;
 
-float const hundred = -1.0 / 100.0;
-const unsigned int N_SIZE = 216;  // Tamaño de la red neuronal
+float const hundred = -1.0 / 100.0; // Este parámetro no se debe editar
+const unsigned int N_SIZE = 216;  // Tamaño de la red neuronal. Representa el número de neuronas de la red.
 
-const unsigned int FUNCTIONAL_UNIT_NUMBER = 2;
+const unsigned int FUNCTIONAL_UNIT_NUMBER = 2; // Número de aceleradores de hardware de Gap Juntion que tendrá toda la red.
 
 template< int maxBits>
 struct config {
@@ -51,7 +66,7 @@ typedef hls::stream<VC_Package> VC_Stream ;
 
 
 
-const uint PACKAGE_SIZE_BYTES = 32;
+const uint PACKAGE_SIZE_BYTES = 32; // Número de bytes que tendrá cada paquete.
 const uint PAYLOAD_PACKET_BYTES = (PACKAGE_SIZE_BYTES-8);
 
 const uint NUM_TOTAL_OF_PACKETS_RX = (N_SIZE*4)/PAYLOAD_PACKET_BYTES; // Tensiones de dendritas recibidas a la entrada del IP

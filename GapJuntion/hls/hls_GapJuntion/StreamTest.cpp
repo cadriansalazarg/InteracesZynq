@@ -21,16 +21,6 @@ int checkResults(S &output_Software,hls::stream<float> &output_Hardware);
 template<typename T>
 void writeVoltages(T &V, hls::stream<packaging_data> &input_fifo, unsigned char bus_id, unsigned char fpga_id, unsigned char tx_uid, unsigned char rx_uid);
 
-template<typename T>
-void writeConductances(T &C, in64Bits &input, const int vsizeAd);
-
-void readLeftovers(Stream &output_Hardware) {
-	while (!output_Hardware.empty()){
-		float hw_result = output_Hardware.read().data;
-		assert(hw_result<0.0001f && hw_result>-0.0001f);
-	}
-}
-
 void CheckHeader(unsigned short int packet_number, unsigned char bus_id_hw, unsigned char fpga_id_hw, unsigned char tx_uid_hw, unsigned char rx_uid_hw, unsigned short int pckg_id_hw, unsigned short int valid_packet_bytes);
 
 
@@ -55,15 +45,24 @@ int main() {
     unsigned char tx_uid = 0x12;
     unsigned char rx_uid = 0x7C;
     
+    
+    // Siempre FirstRow y LastRow deben ajustarse de manera que sean múltiplos de 4, y múltiplos del número de enteros
+    // de payload que tiene el paquete. Debe ser múltiplos de 4, ya que la unidad interna, realiza agrupamientos de 4
+    // y debe buscarse que los paquetes sean múltiplos del payload byte /4 para que los paquetes siempre vayan llenos.
     int FirstRow = 0;
 	int LastRow = N_SIZE/FUNCTIONAL_UNIT_NUMBER;
 	
+	// Si se quiere probar el caso superior, se sebe descomentar estas dos líneas y comentar las dos línea de arriba.
 	//int FirstRow = N_SIZE/FUNCTIONAL_UNIT_NUMBER;
 	//int LastRow = N_SIZE;
 
 	unsigned int kkk;
 
-	const auto Test1Values = std::vector<int>{N_SIZE,N_SIZE,N_SIZE,N_SIZE};
+	// Si se quiere aumentar o disminuir el número de iteraciones que se verificará esta unidad, se debe
+	// ya sea aumentar o disminuir, la cantidad de replicas de N_SIZE, en la línea que se encuentra abajo
+	// de manera por ejemplo que si se quiere simular esta unidad con 10 pasos de simulación, de deberá dejar
+	// como se encuentra abajo, con 10 replicas de N_SIZE
+	const auto Test1Values = std::vector<int>{N_SIZE,N_SIZE,N_SIZE,N_SIZE,N_SIZE,N_SIZE,N_SIZE,N_SIZE,N_SIZE,N_SIZE}; 
 
 	for (auto it = Test1Values.begin(); it<Test1Values.end(); ++it) {
 		auto &size = *it;
@@ -88,7 +87,6 @@ int main() {
 			CheckHeader(z, Data_Received_fifo.BS_ID, Data_Received_fifo.FPGA_ID, Data_Received_fifo.TX_UID, Data_Received_fifo.RX_UID, Data_Received_fifo.PCKG_ID, Data_Received_fifo.VALID_PACKET_BYTES);
 		}
 		success |= checkResults(output_Software,output_Hardware);
-		//readLeftovers(output_Hardware);
 		std::cout << "________________________________________________________ \n";
 	}
 	return success;
@@ -133,7 +131,6 @@ void SimulateSW(const T &V, S &output_Software, int FirstRow, int LastRow) {
 		auto I_c = (0.8f * f_acc + 0.2f * v_acc);
 		output_Software.write(I_c);
 	}
-	//printf ("Fin lista \n");
 }
 
 template<typename T>
@@ -142,7 +139,6 @@ void fillWithRandomData(T &V) {
 	auto distV = std::uniform_real_distribution<float>{2.0f, -70.0f};
 	for (auto &v : V){
 		v = distV(generator);
-		//printf ("Value: %f. \n", v);
 	}
 }
 
