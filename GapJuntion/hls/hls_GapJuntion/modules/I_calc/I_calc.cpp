@@ -50,7 +50,7 @@ void I_calc(hls::stream<packaging_data> &I,VC_Stream &F_acc,VC_Stream &V_acc,Con
 
 
         hls::stream<float> I_calc;
-#pragma HLS STREAM variable=I_calc depth=256 dim=1
+#pragma HLS STREAM variable=I_calc depth=1024 dim=1
         packaging_data output_packet;
         unsigned int k = 0;
 

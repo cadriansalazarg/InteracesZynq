@@ -1,3 +1,33 @@
+/////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////LISTA DE PARÁMETROS QUE SE DEBEN EDITAR /////////////////////////////
+// La lista de parámetros editables se muestra a continuación
+// MAX_V_SIZE = Tamaño máximo de la red neuronal. Este parámetro siempre debe ser mayor que el parámetro N_SIZE.
+// bajo ninguna circunstancia, debe incumplir estar regla.
+//
+// N_SIZE = Tamaño de la red neuronal a simular. Este número representa el número de neuronas que compone la red.
+//
+// FUNCTIONAL_UNIT_NUMBER = Este parámetro representa el número de aceleradores de hardware de GapJuntion que 
+// se tendrán en la red neuronal. si por ejemplo se tiene 4 FPGAs, y cada FPGA tiene dos aceleradores de GAP JUNCTION
+// este parámetro deberá ser colocado en 8. Ya que hay 4 FPGAs y en cada FPGA existirán 2 aceleradores de hardware.
+//
+// PACKAGE_SIZE_BYTES = Número de bytes que tendrá cada paquete que se transmitirá por el bus. 
+//
+//
+//
+//
+// REVISAR EL depth de los fifos internos.
+// Para que no exista desbordamientos internos, debe ajustarse adecuadamente el tamaño interno de los fifos,
+// para eso deberá hacer una búsqueda con "Ctrl + F" de la palabra depth en los siguientes archivos. Por defecto el depth 
+// está en 1024. Use el teorema de little para ajustar la profundidad adecuadamente.
+//
+// ****    Variable bus_local en el archivo blockControl.cpp
+// ****    Variable I_calc en el archivo I_calc.cpp
+// ****    Variables Vi_idx y Vj_idx en el archivo V_read.cpp
+// ****    Variables V_data, processedData, fixedData, F, V, F_acc, V_acc en el archivo Stream.cpp
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 #ifndef STREAM
 #define STREAM
 
@@ -13,22 +43,6 @@
 #include <stdint.h>
 #include "ap_int.h"
 #include "templates/stream_templates.hpp"
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////LISTA DE PARÁMETROS QUE SE DEBEN EDITAR /////////////////////////////
-// La lista de parámetros editables se muestra a continuación
-// MAX_V_SIZE = Tamaño máximo de la red neuronal. Este parámetro siempre debe ser mayor que el parámetro N_SIZE.
-// bajo ninguna circunstancia, debe incumplir estar regla.
-//
-// N_SIZE = Tamaño de la red neuronal a simular. Este número representa el número de neuronas que compone la red.
-//
-// FUNCTIONAL_UNIT_NUMBER = Este parámetro representa el número de aceleradores de hardware de GapJuntion que 
-// se tendrán en la red neuronal. si por ejemplo se tiene 4 FPGAs, y cada FPGA tiene dos aceleradores de GAP JUNCTION
-// este parámetro deberá ser colocado en 8. Ya que hay 4 FPGAs y en cada FPGA existirán 2 aceleradores de hardware.
-//
-// PACKAGE_SIZE_BYTES = Número de bytes que tendrá cada paquete que se transmitirá por el bus. 
-////////////////////////////////////////////////////////////////////////////////////////////
 
 const int inputBusSize=64; // Este parámetro no se debe editar ya que el programa se cae si se pone en 32 bits
 const int PORT_SIZE=inputBusSize/32;  // Este parámetro no se debe editar ya que el programa se cae si se pone en 32 bits

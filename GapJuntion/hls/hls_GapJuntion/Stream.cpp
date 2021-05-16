@@ -21,22 +21,22 @@ void simulationConfig(ConfigurationType &simConfig,int &FirstRow,int &LastRow,in
 void execute(hls::stream<packaging_data> &input, hls::stream<packaging_data> &output, Config &simConfig, int size){
 
 	static VC_Stream V_data("V_data");
-    #pragma HLS STREAM variable=V_data depth=128 dim=1
+    #pragma HLS STREAM variable=V_data depth=1024 dim=1
 
 	static VC_Stream processedData("processedData");
 	static Stream fixedData("fixedData");
-    #pragma HLS STREAM variable=processedData depth=128 dim=1
-    #pragma HLS STREAM variable=fixedData depth=128 dim=1
+    #pragma HLS STREAM variable=processedData depth=1024 dim=1
+    #pragma HLS STREAM variable=fixedData depth=1024 dim=1
 
 	static VC_Stream F("F");
 	static VC_Stream V("V");
-    #pragma HLS STREAM variable=F depth=128 dim=1
-    #pragma HLS STREAM variable=V depth=128 dim=1
+    #pragma HLS STREAM variable=F depth=1024 dim=1
+    #pragma HLS STREAM variable=V depth=1024 dim=1
 
 	static VC_Stream F_acc("F_acc");
 	static VC_Stream V_acc("V_acc");
-    #pragma HLS STREAM variable=F_acc depth=128 dim=1
-    #pragma HLS STREAM variable=V_acc depth=128 dim=1
+    #pragma HLS STREAM variable=F_acc depth=1024 dim=1
+    #pragma HLS STREAM variable=V_acc depth=1024 dim=1
 
   #pragma HLS dataflow
 	blockControl(input,V_data,size, simConfig);

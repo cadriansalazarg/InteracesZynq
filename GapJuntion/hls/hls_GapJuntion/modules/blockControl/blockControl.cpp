@@ -10,7 +10,7 @@ void getVoltages(hls::stream<packaging_data> &input, hls::stream<outType> &V_dat
         inType input_read_h;
         packaging_data input_packet;
         hls::stream<float> bus_local;
-#pragma HLS STREAM variable=bus_local depth=256 dim=1
+#pragma HLS STREAM variable=bus_local depth=1024 dim=1
 
         outType newData;
 
