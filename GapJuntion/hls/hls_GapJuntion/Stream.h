@@ -24,7 +24,7 @@ const int MAX_V_SIZE=10000;
 float const hundred = -1.0 / 100.0;
 const unsigned int N_SIZE = 216;  // Tamaño de la red neuronal
 
-const unsigned int FUNCTIONAL_UNIT_NUMBER = 1;
+const unsigned int FUNCTIONAL_UNIT_NUMBER = 2;
 
 template< int maxBits>
 struct config {

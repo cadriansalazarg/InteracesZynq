@@ -6,7 +6,7 @@
 #include <cassert>
 
 template<typename T, typename S>
-void SimulateSW(const T &V, S &output_Software);
+void SimulateSW(const T &V, S &output_Software, int FirstRow, int LastRow);
 
 template<typename T>
 void fillWithRandomData(T &V);
@@ -31,6 +31,8 @@ void readLeftovers(Stream &output_Hardware) {
 	}
 }
 
+void CheckHeader(unsigned short int packet_number, unsigned char bus_id_hw, unsigned char fpga_id_hw, unsigned char tx_uid_hw, unsigned char rx_uid_hw, unsigned short int pckg_id_hw, unsigned short int valid_packet_bytes);
+
 
 int main() {
 
@@ -52,7 +54,12 @@ int main() {
     unsigned char fpga_id = 0xF1;
     unsigned char tx_uid = 0x12;
     unsigned char rx_uid = 0x7C;
-  
+    
+    int FirstRow = 0;
+	int LastRow = N_SIZE/FUNCTIONAL_UNIT_NUMBER;
+	
+	//int FirstRow = N_SIZE/FUNCTIONAL_UNIT_NUMBER;
+	//int LastRow = N_SIZE;
 
 	unsigned int kkk;
 
@@ -65,17 +72,20 @@ int main() {
 		auto V = std::vector<float>(size);
 
 		fillWithRandomData(V);
-		SimulateSW(V,output_Software);
+		SimulateSW(V,output_Software, FirstRow, LastRow);
 		resizeToFitInIP(V);
 		const auto sizeGJ = V.size();
 		writeVoltages(V,input_fifo, bus_id, fpga_id, tx_uid, rx_uid);
-		GapJunctionIP(input_fifo,out_fifo,sizeGJ,0,sizeGJ, bus_id, fpga_id, rx_uid);
+		GapJunctionIP(input_fifo,out_fifo,sizeGJ,FirstRow,LastRow, bus_id, fpga_id, rx_uid);
+		// Uncomment for debugging
+		//printf("El número de paquetes en TX es: %d \n",NUM_TOTAL_OF_PACKETS_TX);
 
 		for (auto z = 0; z < NUM_TOTAL_OF_PACKETS_TX; z++){
 			Data_Received_fifo = out_fifo.read();
 			for (auto zz = 0; zz < (Data_Received_fifo.VALID_PACKET_BYTES >> 2); zz++){
 				output_Hardware.write(Data_Received_fifo.MESSAGE[OFFSET_READ_PAYLOAD-zz]);
 			}
+			CheckHeader(z, Data_Received_fifo.BS_ID, Data_Received_fifo.FPGA_ID, Data_Received_fifo.TX_UID, Data_Received_fifo.RX_UID, Data_Received_fifo.PCKG_ID, Data_Received_fifo.VALID_PACKET_BYTES);
 		}
 		success |= checkResults(output_Software,output_Hardware);
 		//readLeftovers(output_Hardware);
@@ -106,11 +116,11 @@ void resizeToFitInIP(T &V){
 }
 
 template<typename T, typename S>
-void SimulateSW(const T &V, S &output_Software) {
+void SimulateSW(const T &V, S &output_Software, int FirstRow, int LastRow) {
 	const float hundred = -1.0f / 100.0f;
 	unsigned int size = V.size();
 	auto k = 0;
-	for (unsigned int i = 0; i < size; i++) {
+	for (unsigned int i = FirstRow; i < LastRow; i++) {
 		auto f_acc = 0.0f;
 		auto v_acc = 0.0f;
 		for (unsigned int j = 0; j < size; j++) {
@@ -191,4 +201,16 @@ void writeVoltages(T &V, hls::stream<packaging_data> &input_fifo, unsigned char 
 }
 
 
+void CheckHeader(unsigned short int packet_number, unsigned char bus_id_hw, unsigned char fpga_id_hw, unsigned char tx_uid_hw, unsigned char rx_uid_hw, unsigned short int pckg_id_hw, unsigned short int valid_packet_bytes){
+	
+	printf(" Verificando Header paquete %d \n", packet_number);
+	printf(" Bus id 0x%X\n", bus_id_hw);
+	printf(" FPGA id 0x%X\n", fpga_id_hw);
+	printf(" PCKG id 0x%X\n", pckg_id_hw);
+	printf(" TX UID 0x%X\n", tx_uid_hw);
+	printf(" RX UID 0x%X\n", rx_uid_hw);
+	printf(" Valid Packet bytes 0x%X\n", valid_packet_bytes);
+	
+
+}
 

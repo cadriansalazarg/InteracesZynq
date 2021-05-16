@@ -36,6 +36,10 @@ void getTotalCurrent(ap_int<maxBits> row,hls::stream<float> &I_calc,
 		float I_curr_calc;
 		I_curr_calc = 0.8*F_temp.data[row]+ 0.2*V_temp.data[row];
 		I_calc.write(I_curr_calc);
+		// Uncomment for debugging
+		//static int i = 0;
+		//printf("El valor de i es %d \n", i);
+		//i++;
 
 }
 
@@ -82,6 +86,8 @@ getTotalCurrent_Loop: for(int row=0; row<BLOCK_SIZE; row++) {
 		Creating_Output_Packet: for (unsigned short int j = 0; j < (PAYLOAD_PACKET_BYTES >> 2); j++){
 			if (k < (N_SIZE/FUNCTIONAL_UNIT_NUMBER)){
 				output_packet.MESSAGE[OFFSET_READ_PAYLOAD-j] = I_calc.read();
+				// Uncomment for debugging
+				//printf("Imprime el valor del mensaje %d del paquete %d y el dato es %f\n",j, i, output_packet.MESSAGE[OFFSET_READ_PAYLOAD-j]);
 			}
 			else{
 				output_packet.MESSAGE[j] = 0;
