@@ -70,10 +70,10 @@ getTotalCurrent_Loop: for(int row=0; row<BLOCK_SIZE; row++) {
             }
         }
 
-	output_packet.BS_ID = 0x00; // 8 bits
-	output_packet.FPGA_ID = 0x01; // 8 bits
+	output_packet.BS_ID = 0x00;
+	output_packet.FPGA_ID = 0x00;
 	output_packet.TX_UID = 0x01; // 8 bits
-	output_packet.RX_UID = 0x01; // 8 bits
+	output_packet.RX_UID = 0x00;
 	output_packet.VALID_PACKET_BYTES = 0x360;
 
 

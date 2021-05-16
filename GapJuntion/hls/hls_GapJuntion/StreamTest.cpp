@@ -47,6 +47,12 @@ int main() {
 	packaging_data Data_Received_fifo;
 	hls::stream<packaging_data> input_fifo;
 	hls::stream<packaging_data> out_fifo;
+	
+	unsigned char bus_id = 0xA0;
+    unsigned char fpga_id = 0xF1;
+    unsigned char tx_uid = 0x12;
+    unsigned char rx_uid = 0x7C;
+    unsigned char uid = 0xE2;
 
 	unsigned int kkk;
 
@@ -154,30 +160,31 @@ void writeVoltages(T &V, hls::stream<packaging_data> &input_fifo){
 	unsigned int k = 0;
 	assert(vsize%4==0);
 	packaging_data input_packet;
-	for (auto i = 0; i < 216; i++){
-		//printf("El valor de V es %f \n", V[i]);
-	}
+	
 
 	
-	for (auto i = 0; i < 36; i++){
-		input_packet.BS_ID = 0x01; // 8 bits
-		input_packet.FPGA_ID = 0xEE; // 8 bits
-		input_packet.PCKG_ID = 0x0000; // 16 bits
-		input_packet.TX_UID = 0x01; // 8 bits
-		input_packet.RX_UID = 0x01; // 8 bits
-		input_packet.VALID_PACKET_BYTES = PAYLOAD_PACKET_BYTES; // 16 bits
-		input_packet.MESSAGE[5] = V[i*6 + 0];
-		input_packet.MESSAGE[4] = V[i*6 + 1];
-		input_packet.MESSAGE[3] = V[i*6 + 2];
-		input_packet.MESSAGE[4] = V[i*6 + 3];
-		input_packet.MESSAGE[1] = V[i*6 + 4];
-		input_packet.MESSAGE[0] = V[i*6 + 5];
-		
-		for (auto j = 0; j < 6; j++){
-			input_packet.MESSAGE[5 - j] = V[k];
-			//printf("El valor puesto en el paquete es %f. \n", input_packet.MESSAGE[5 - j]);
+	input_packet.BS_ID = 0x00; // 8 bits
+	input_packet.FPGA_ID = 0x00; // 8 bits
+	input_packet.PCKG_ID = 0x0000; // 16 bits
+	input_packet.TX_UID = 0x00; // 8 bits
+	input_packet.RX_UID = 0x00; // 8 bits
+	input_packet.VALID_PACKET_BYTES = PAYLOAD_PACKET_BYTES; // 16 bits
+	
+	
+	WriteFIFO: for (unsigned short int i = 0; i < NUM_TOTAL_OF_PACKETS_RX; i++) {
+		for (unsigned short int j = 0; j < (PAYLOAD_PACKET_BYTES >> 2); j++){
+			if (k < N_SIZE){
+				input_packet.MESSAGE[OFFSET_READ_PAYLOAD -j] = V[k];
+			}
+			else{
+				input_packet.MESSAGE[j] = 0;
+				input_packet.VALID_PACKET_BYTES = (j << 2);
+				break;
+			}
 			k++;
 		}
+		input_packet.PCKG_ID = i;			
+		//Sending packet
 		input_fifo.write(input_packet);
 	}
 

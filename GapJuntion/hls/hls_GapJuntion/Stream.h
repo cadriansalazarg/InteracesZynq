@@ -22,7 +22,7 @@ const int BLOCK_SIZE=4;  //Tamaño del bloque nxn, donde n es igual a block_size
 const int MAX_V_SIZE=10000;
 
 float const hundred = -1.0 / 100.0;
-const uint nsize = 216;
+const unsigned int N_SIZE = 216;  // Tamaño de la red neuronal
 
 template< int maxBits>
 struct config {
@@ -48,7 +48,7 @@ typedef hls::stream<VC_Package> VC_Stream ;
 const uint PACKAGE_SIZE_BYTES = 32;
 const uint PAYLOAD_PACKET_BYTES = (PACKAGE_SIZE_BYTES-8);
 
-const uint NUM_TOTAL_OF_PACKETS_RX = nsize*4/PAYLOAD_PACKET_BYTES; // Número de paquetes recibidos, matriz A + columnas de matriz B
+const uint NUM_TOTAL_OF_PACKETS_RX = (N_SIZE*4)/PAYLOAD_PACKET_BYTES; // Tensiones de dendritas recibidas a la entrada del IP
 const uint NUM_TOTAL_OF_PACKETS_TX = NUM_TOTAL_OF_PACKETS_RX; // Número de paquetes a transmitir, matriz de resultados
 
 
