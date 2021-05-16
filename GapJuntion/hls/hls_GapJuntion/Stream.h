@@ -4,7 +4,8 @@
 #ifdef __SYNTHESIS__
 #include <assert.h>
 #endif
-#include "/tools/Xilinx/Vivado/2018.3/include/gmp.h"
+#include "/tools/Xilinx/Vivado/2018.3/include/gmp.h" // Comentar si se usa en el servidor
+//#include "/opt/Xilinx/Vivado/2018.3/include/gmp.h" // Descomentar si se usa en el servidor
 #include <hls_stream.h>
 #include <stdio.h>
 #include <stdlib.h>
