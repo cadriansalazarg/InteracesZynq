@@ -77,11 +77,18 @@ getTotalCurrent_Loop: for(int row=0; row<BLOCK_SIZE; row++) {
 	output_packet.VALID_PACKET_BYTES = 0x360;
 
 
-	Loop_Consumer: for (unsigned short int i = 0; i < 36; i++) {
-		Creating_Output_Packet: for (unsigned short int j = 0; j < 6; j++){
-
-				output_packet.MESSAGE[5-j] = I_calc.read();
-
+	
+	Loop_Consumer: for (unsigned short int i = 0; i < NUM_TOTAL_OF_PACKETS_TX; i++) {
+		Creating_Output_Packet: for (unsigned short int j = 0; j < (PAYLOAD_PACKET_BYTES >> 2); j++){
+			if (k < (N_SIZE/FUNCTIONAL_UNIT_NUMBER)){
+				output_packet.MESSAGE[OFFSET_READ_PAYLOAD-j] = I_calc.read();
+			}
+			else{
+				output_packet.MESSAGE[j] = 0;
+				output_packet.VALID_PACKET_BYTES = (j << 2);
+				break;
+			}
+			k++;
 		}
 		output_packet.PCKG_ID = i;
 		//Sending packet

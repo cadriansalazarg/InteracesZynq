@@ -56,7 +56,7 @@ int main() {
 
 	unsigned int kkk;
 
-	const auto Test1Values = std::vector<int>{216,216,216,216};
+	const auto Test1Values = std::vector<int>{N_SIZE,N_SIZE,N_SIZE,N_SIZE};
 
 	for (auto it = Test1Values.begin(); it<Test1Values.end(); ++it) {
 		auto &size = *it;

@@ -24,6 +24,8 @@ const int MAX_V_SIZE=10000;
 float const hundred = -1.0 / 100.0;
 const unsigned int N_SIZE = 216;  // Tamaño de la red neuronal
 
+const unsigned int FUNCTIONAL_UNIT_NUMBER = 1;
+
 template< int maxBits>
 struct config {
 	ap_int<maxBits> rowBegin;
@@ -49,7 +51,7 @@ const uint PACKAGE_SIZE_BYTES = 32;
 const uint PAYLOAD_PACKET_BYTES = (PACKAGE_SIZE_BYTES-8);
 
 const uint NUM_TOTAL_OF_PACKETS_RX = (N_SIZE*4)/PAYLOAD_PACKET_BYTES; // Tensiones de dendritas recibidas a la entrada del IP
-const uint NUM_TOTAL_OF_PACKETS_TX = NUM_TOTAL_OF_PACKETS_RX; // Número de paquetes a transmitir, matriz de resultados
+const uint NUM_TOTAL_OF_PACKETS_TX = (NUM_TOTAL_OF_PACKETS_RX/FUNCTIONAL_UNIT_NUMBER); // Número de paquetes con el resultado de las gap juntions
 
 
 const uint OFFSET_READ_PAYLOAD = ((PAYLOAD_PACKET_BYTES/4) - 1);
