@@ -19,7 +19,7 @@ int checkResults(S &output_Software,hls::stream<float> &output_Hardware);
 
 
 template<typename T>
-void writeVoltages(T &V, hls::stream<packaging_data> &input_fifo);
+void writeVoltages(T &V, hls::stream<packaging_data> &input_fifo, unsigned char bus_id, unsigned char fpga_id, unsigned char tx_uid, unsigned char rx_uid);
 
 template<typename T>
 void writeConductances(T &C, in64Bits &input, const int vsizeAd);
@@ -52,7 +52,7 @@ int main() {
     unsigned char fpga_id = 0xF1;
     unsigned char tx_uid = 0x12;
     unsigned char rx_uid = 0x7C;
-    unsigned char uid = 0xE2;
+  
 
 	unsigned int kkk;
 
@@ -68,13 +68,13 @@ int main() {
 		SimulateSW(V,output_Software);
 		resizeToFitInIP(V);
 		const auto sizeGJ = V.size();
-		writeVoltages(V,input_fifo);
-		GapJunctionIP(input_fifo,out_fifo,sizeGJ,0,sizeGJ, 0x00, 0x00, 0x00);
+		writeVoltages(V,input_fifo, bus_id, fpga_id, tx_uid, rx_uid);
+		GapJunctionIP(input_fifo,out_fifo,sizeGJ,0,sizeGJ, bus_id, fpga_id, rx_uid);
 
-		for (auto z = 0; z < 36; z++){
+		for (auto z = 0; z < NUM_TOTAL_OF_PACKETS_TX; z++){
 			Data_Received_fifo = out_fifo.read();
-			for (auto zz = 0; zz < 6; zz++){
-				output_Hardware.write(Data_Received_fifo.MESSAGE[5-zz]);
+			for (auto zz = 0; zz < (Data_Received_fifo.VALID_PACKET_BYTES >> 2); zz++){
+				output_Hardware.write(Data_Received_fifo.MESSAGE[OFFSET_READ_PAYLOAD-zz]);
 			}
 		}
 		success |= checkResults(output_Software,output_Hardware);
@@ -153,7 +153,7 @@ int checkResults(S &output_Software,hls::stream<float> &output_Hardware) {
 }
 
 template<typename T>
-void writeVoltages(T &V, hls::stream<packaging_data> &input_fifo){
+void writeVoltages(T &V, hls::stream<packaging_data> &input_fifo, unsigned char bus_id, unsigned char fpga_id, unsigned char tx_uid, unsigned char rx_uid){
 	const auto bs = BLOCK_SIZE;
 	const auto vsize = V.size();
 	const auto ps = PORT_SIZE; //port size
@@ -163,11 +163,11 @@ void writeVoltages(T &V, hls::stream<packaging_data> &input_fifo){
 	
 
 	
-	input_packet.BS_ID = 0x00; // 8 bits
-	input_packet.FPGA_ID = 0x00; // 8 bits
+	input_packet.BS_ID = bus_id; // 8 bits
+	input_packet.FPGA_ID = fpga_id; // 8 bits
 	input_packet.PCKG_ID = 0x0000; // 16 bits
-	input_packet.TX_UID = 0x00; // 8 bits
-	input_packet.RX_UID = 0x00; // 8 bits
+	input_packet.TX_UID = tx_uid; // 8 bits // Global identifier of the transmitting node
+	input_packet.RX_UID = rx_uid; // 8 bits // Global identifier of the receiving node
 	input_packet.VALID_PACKET_BYTES = PAYLOAD_PACKET_BYTES; // 16 bits
 	
 	

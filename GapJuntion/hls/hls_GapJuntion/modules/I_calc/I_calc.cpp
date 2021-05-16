@@ -74,7 +74,7 @@ getTotalCurrent_Loop: for(int row=0; row<BLOCK_SIZE; row++) {
 	output_packet.FPGA_ID = simConfig.fpga_id;
 	output_packet.TX_UID = simConfig.uid; // 8 bits
 	output_packet.RX_UID = simConfig.tid;
-	output_packet.VALID_PACKET_BYTES = 0x360;
+	output_packet.VALID_PACKET_BYTES = PAYLOAD_PACKET_BYTES;
 
 
 	

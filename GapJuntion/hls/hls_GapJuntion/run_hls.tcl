@@ -14,11 +14,15 @@ add_files modules/blockControl/blockControl.cpp
 add_files modules/calc/calc.cpp
 add_files -tb StreamTest.cpp
 add_files -tb StreamTest.cpp
+
 open_solution "solution1"
 set_part {xc7z045ffg900-2}
 create_clock -period 5 -name default
-#source "./hls_project/solution1/directives.tcl"
+
 csim_design
+
 csynth_design
+
 cosim_design
+
 export_design -format ip_catalog
