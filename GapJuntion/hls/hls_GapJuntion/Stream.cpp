@@ -7,12 +7,15 @@
 #include "modules/I_calc/I_calc.hpp"
 
 template<typename ConfigurationType>
-void simulationConfig(ConfigurationType &simConfig,int &FirstRow,int &LastRow,int &size) {
+void simulationConfig(ConfigurationType &simConfig,int &FirstRow,int &LastRow,int &size, unsigned char &bus_id, unsigned char &fpga_id, unsigned char &uid) {
 #pragma HLS inline
     	simConfig.rowBegin=FirstRow;
     	simConfig.rowEnd=LastRow; //V_SIZE All the matrix
     	simConfig.rowsToSimulate=(LastRow-FirstRow)/BLOCK_SIZE;//(simConfig.rowEnd-simConfig.rowBegin)/BLOCK_SIZE;
     	simConfig.BLOCK_NUMBERS=size/BLOCK_SIZE;
+    	simConfig.bus_id = bus_id;
+    	simConfig.fpga_id = fpga_id;
+    	simConfig.uid = uid;
 }
 void execute(hls::stream<packaging_data> &input, hls::stream<packaging_data> &output, Config &simConfig, int size){
 
@@ -44,7 +47,7 @@ void execute(hls::stream<packaging_data> &input, hls::stream<packaging_data> &ou
 
 
 }
-void GapJunctionIP(hls::stream<packaging_data> &in_fifo, hls::stream<packaging_data>& out_fifo, int size,int FirstRow, int LastRow) {
+void GapJunctionIP(hls::stream<packaging_data> &in_fifo, hls::stream<packaging_data>& out_fifo, int size,int FirstRow, int LastRow, unsigned char bus_id, unsigned char fpga_id, unsigned char uid) {
 
 	#pragma HLS DATA_PACK variable=in_fifo
 	#pragma HLS INTERFACE ap_fifo  port=in_fifo
@@ -56,16 +59,16 @@ void GapJunctionIP(hls::stream<packaging_data> &in_fifo, hls::stream<packaging_d
 	#pragma HLS INTERFACE ap_stable register port=FirstRow
 	#pragma HLS INTERFACE ap_stable register port=LastRow
 	
-	//#pragma HLS INTERFACE ap_stable port=bus_id
-	//#pragma HLS INTERFACE ap_stable port=fpga_id
-	//#pragma HLS INTERFACE ap_stable port=uid
+	#pragma HLS INTERFACE ap_stable port=bus_id
+	#pragma HLS INTERFACE ap_stable port=fpga_id
+	#pragma HLS INTERFACE ap_stable port=uid
 	
 	
 	
 	#pragma HLS INTERFACE ap_ctrl_chain register port=return
 
 	Config simConfig;
-	simulationConfig<Config>(simConfig,FirstRow,LastRow,size);
+	simulationConfig<Config>(simConfig,FirstRow,LastRow,size, bus_id, fpga_id, uid);
 	execute(in_fifo,out_fifo,simConfig,size);
 
 }

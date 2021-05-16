@@ -32,6 +32,9 @@ struct config {
 	ap_int<maxBits> rowEnd;
 	ap_int<maxBits> rowsToSimulate;
 	ap_int<maxBits> BLOCK_NUMBERS;
+	unsigned char bus_id;
+	unsigned char fpga_id;
+	unsigned char uid;
 };
 typedef config<27> Config;
 
@@ -72,7 +75,8 @@ using AXIS_interface_out = hls::stream<packaging_data>;
 
 void GapJunctionIP(hls::stream<packaging_data> &in_fifo,
 		hls::stream<packaging_data>& out_fifo, int size,
-		int FirstRow, int LastRow);
+		int FirstRow, int LastRow, unsigned char bus_id, 
+		unsigned char fpga_id, unsigned char uid);
 
 
 

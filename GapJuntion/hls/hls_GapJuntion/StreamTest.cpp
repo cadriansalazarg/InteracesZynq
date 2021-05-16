@@ -69,7 +69,7 @@ int main() {
 		resizeToFitInIP(V);
 		const auto sizeGJ = V.size();
 		writeVoltages(V,input_fifo);
-		GapJunctionIP(input_fifo,out_fifo,sizeGJ,0,sizeGJ);
+		GapJunctionIP(input_fifo,out_fifo,sizeGJ,0,sizeGJ, 0x00, 0x00, 0x00);
 
 		for (auto z = 0; z < 36; z++){
 			Data_Received_fifo = out_fifo.read();
@@ -189,7 +189,6 @@ void writeVoltages(T &V, hls::stream<packaging_data> &input_fifo){
 	}
 
 }
-
 
 
 

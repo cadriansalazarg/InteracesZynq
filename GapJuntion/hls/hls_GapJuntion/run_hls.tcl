@@ -3,7 +3,8 @@
 ## Please DO NOT edit it.
 ## Copyright (C) 1986-2018 Xilinx, Inc. All Rights Reserved.
 ############################################################
-open_project hls_gapjuntion_prj
+open_project -reset hls_gapjuntion_prj
+
 set_top GapJunctionIP
 add_files modules/I_calc/I_calc.cpp
 add_files Stream.cpp
