@@ -4,7 +4,7 @@
 
 template<typename inType,typename outType,int maxBits,int PackageDataQuantity>
 void getVoltages(hls::stream<packaging_data> &input, hls::stream<outType> &V_data,
-     int V_SIZE) {
+     int V_SIZE, Config &simConfig) {
 
         inType input_read;
         inType input_read_h;
@@ -25,6 +25,8 @@ void getVoltages(hls::stream<packaging_data> &input, hls::stream<outType> &V_dat
 					bus_local.write(input_packet.MESSAGE[OFFSET_READ_PAYLOAD - j]);
 				}	
 		}
+		
+		simConfig.tid = input_packet.TX_UID;
         
 
         assert(V_SIZE<MAX_V_SIZE);
@@ -52,9 +54,9 @@ void getVoltages(hls::stream<packaging_data> &input, hls::stream<outType> &V_dat
 
 
 
-void blockControl(hls::stream<packaging_data> &input, VC_Stream &V_data, int V_SIZE){
+void blockControl(hls::stream<packaging_data> &input, VC_Stream &V_data, int V_SIZE, Config &simConfig){
 
-        getVoltages<Package64Bits,VC_Package,27,4>(input,V_data,V_SIZE);//read all the voltages
+        getVoltages<Package64Bits,VC_Package,27,4>(input,V_data,V_SIZE, simConfig);//read all the voltages
 
 
 }

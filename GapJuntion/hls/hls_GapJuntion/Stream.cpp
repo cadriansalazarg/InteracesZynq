@@ -16,6 +16,7 @@ void simulationConfig(ConfigurationType &simConfig,int &FirstRow,int &LastRow,in
     	simConfig.bus_id = bus_id;
     	simConfig.fpga_id = fpga_id;
     	simConfig.uid = uid;
+    	simConfig.tid = 0x00;
 }
 void execute(hls::stream<packaging_data> &input, hls::stream<packaging_data> &output, Config &simConfig, int size){
 
@@ -38,7 +39,7 @@ void execute(hls::stream<packaging_data> &input, hls::stream<packaging_data> &ou
     #pragma HLS STREAM variable=V_acc depth=128 dim=1
 
   #pragma HLS dataflow
-	blockControl(input,V_data,size);
+	blockControl(input,V_data,size, simConfig);
 	V_read(V_data,processedData,fixedData,simConfig,size);
 	calc(processedData, fixedData,F,V,simConfig);
 	acc(F,V,F_acc,V_acc,simConfig);

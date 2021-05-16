@@ -35,6 +35,7 @@ struct config {
 	unsigned char bus_id;
 	unsigned char fpga_id;
 	unsigned char uid;
+	unsigned char tid;
 };
 typedef config<27> Config;
 
