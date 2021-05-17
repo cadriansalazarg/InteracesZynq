@@ -32,6 +32,10 @@ int main(){
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar1;
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar2;
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar3;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar4;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar5;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar6;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar7;
 	
 	unsigned char sequencer = 0;
 	
@@ -40,7 +44,7 @@ int main(){
 	// Initilizing input array
 	ExpectedMessage: for(i=0; i<PACKAGE_SIZE_BYTES/4; i++){
 		if(i==0) //Header Message
-			Data_Sent[i] = (sequencer>>24);
+			Data_Sent[i] = 0x01FFCC12;
 		else if (i==1)
 			Data_Sent[i] = 0x01020018;
 		else
@@ -78,17 +82,19 @@ int main(){
 			auxvar3 = (ap_uint<(32*NUMBER_OF_LANES)>) Data_Sent[(2*i)+1];
 			Data_Sent_hw[i] = auxvar2 | auxvar3;
 #elif NUMBER_OF_LANES == 4
-
+			auxvar1 = (ap_uint<(32*NUMBER_OF_LANES)>) Data_Sent[4*i];
+			auxvar2 = auxvar1<<96;
+			auxvar3 = (ap_uint<(32*NUMBER_OF_LANES)>) Data_Sent[(4*i)+1];
+			auxvar4 = auxvar3<<64;
+			auxvar5 = (ap_uint<(32*NUMBER_OF_LANES)>) Data_Sent[(4*i)+2];
+			auxvar6 = auxvar5<<32;
+			auxvar7 = (ap_uint<(32*NUMBER_OF_LANES)>) Data_Sent[(4*i)+3];
+			Data_Sent_hw[i] = auxvar2 | auxvar4 | auxvar6 | auxvar7;
 #else
-
+	#error "Este número de lanes no está definido. SOlo está definifo la aplicación para 1, 2 y 4 lanes"
 #endif
 		}
-		/*
-		std::cout << "Valor esperado: " << std::hex << Data_Sent_hw[0];
-		printf("\n");
 		
-		std::cout << "Valor esperado: " << std::hex << Data_Sent_hw[1];
-		printf("\n"); // */
 
 		WRITE_INPUT_BUFFER: for (i=0; i<PACKAGE_SIZE_BYTES/(4*NUMBER_OF_LANES);i++){
 			input_fifo.write(Data_Sent_hw[i]);
@@ -111,6 +117,7 @@ int main(){
 		}
 
 		if (!checkForEqualityUnsignedChar(Data_Received_fifo.FPGA_ID, Expected_Value.FPGA_ID)){
+			printf("Valor recibido %X. Valor esperado %X \n",Data_Received_fifo.FPGA_ID,Expected_Value.FPGA_ID);
 			printf("Error in FPGA_ID identifier. \n");
 			return 1;
 		}

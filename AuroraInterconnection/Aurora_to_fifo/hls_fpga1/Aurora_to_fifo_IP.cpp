@@ -51,7 +51,6 @@ void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > 
 	
 	
 	bus_id = (unsigned char)(((0x0000000000FF0000)&input_buff[0])>>16);
-	
 		
 	packet_data.FPGA_ID = (unsigned char)(((0x00FF000000000000)&input_buff[0])>>48);
 	packet_data.PCKG_ID = (unsigned short int)(((0x0000FFFF00000000)&input_buff[0])>>32);
@@ -70,7 +69,61 @@ void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > 
 	packet_data.MESSAGE[0] = (unsigned int)((0x00000000FFFFFFFF)&input_buff[3]);
 
 #elif NUMBER_OF_LANES == 4 && PACKAGE_SIZE_BYTES == 32
+	
+	
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar1;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar2;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar3;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar4;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar5;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar6;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar7;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar8;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar9;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar10;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar11;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar12;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar13;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar14;
+	
+	auxvar1 = input_buff[0] >>112;
+	auxvar2 = (0x000000FF)&auxvar1;
+	packet_data.FPGA_ID = (unsigned char)auxvar2;
+	
+	auxvar3 = input_buff[0] >>96;
+	auxvar4 = (0x0000FFFF)&auxvar3;
+	packet_data.PCKG_ID = (unsigned short int)auxvar4;
 
+	auxvar5 = input_buff[0] >>88;
+	auxvar6 = (0x000000FF)&auxvar5;
+	packet_data.TX_UID = auxvar6;
+	
+	auxvar7 = input_buff[0] >>80;
+	auxvar8 = (0x000000FF)&auxvar7;
+	bus_id = (unsigned char)auxvar8;
+	
+	packet_data.RX_UID = bus_id;
+	packet_data.BS_ID = ROM_FOR_BUS_ID[bus_id];
+
+	auxvar9 = input_buff[0] >>64;
+	auxvar10 = (0x0000FFFF)&auxvar9;
+	packet_data.VALID_PACKET_BYTES = (unsigned short int)auxvar10;
+	
+	auxvar11 = input_buff[0] >>32;
+	packet_data.MESSAGE[5] = (unsigned int)auxvar11;
+	
+	packet_data.MESSAGE[4] = (unsigned int)input_buff[0];
+	
+	auxvar12 = input_buff[1] >>96;
+	packet_data.MESSAGE[3] = (unsigned int)auxvar12;
+	
+	auxvar13 = input_buff[1] >>64;
+	packet_data.MESSAGE[2] = (unsigned int)auxvar13;
+	
+	auxvar14 = input_buff[1] >>32;
+	packet_data.MESSAGE[1] = (unsigned int)auxvar14;
+	
+	packet_data.MESSAGE[0] = (unsigned int)input_buff[1];
 #else
 	#error "El tamaño de paquete solo está definido para paquetes de tamaño de 32 bytes (256 bits), 64 bytes (512 bits), 128 bytes (1024 bits)."
 #endif
