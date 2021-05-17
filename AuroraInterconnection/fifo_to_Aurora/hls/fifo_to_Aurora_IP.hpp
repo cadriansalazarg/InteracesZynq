@@ -1,7 +1,7 @@
 #include <hls_stream.h>
 #include <ap_int.h>
 
-#define NUM_OF_TESTS 100
+#define NUM_OF_TESTS 1000
 #define PACKAGE_SIZE_BYTES 32
 #define NUMBER_OF_LANES 1
 

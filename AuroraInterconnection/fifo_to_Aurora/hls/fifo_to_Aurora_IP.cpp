@@ -115,8 +115,35 @@ void fifo_to_Aurora_IP(hls::stream<AXISTREAM32> &output, hls::stream<packaging_d
 		}
 		sequencer ++;
 	}
+#elif NUMBER_OF_LANES == 4
+	ap_uint<(32*NUMBER_OF_LANES)> aux_var1;
+	ap_uint<(32*NUMBER_OF_LANES)> aux_var2;
+	ap_uint<(32*NUMBER_OF_LANES)> aux_var3;
+	ap_uint<(32*NUMBER_OF_LANES)> aux_var4;
+	ap_uint<(32*NUMBER_OF_LANES)> aux_var5;
+	ap_uint<(32*NUMBER_OF_LANES)> aux_var6;
+	ap_uint<(32*NUMBER_OF_LANES)> aux_var7;
+	ap_uint<(32*NUMBER_OF_LANES)> aux_var8;
+	
+	if(id_next_fpga != packet_data.FPGA_ID) {
+		Loop_Consumer: for(unsigned short int i = 0; i<(PACKAGE_SIZE_BYTES/4); i = i + 4){
+			AXISTREAM32 a;
+			aux_var1 = (ap_uint<(32*NUMBER_OF_LANES)>) output_buff[i];                     
+			aux_var2 = (ap_uint<(32*NUMBER_OF_LANES)>) output_buff[i+1];
+			aux_var3 = (ap_uint<(32*NUMBER_OF_LANES)>) output_buff[i+2];                     
+			aux_var4 = (ap_uint<(32*NUMBER_OF_LANES)>) output_buff[i+3];
+			aux_var5 = aux_var1 << 96;
+			aux_var6 = aux_var2 << 64;
+			aux_var7 = aux_var3 << 32;
+			aux_var8 =  aux_var5 | aux_var6 | aux_var7 | aux_var4;
+			a.data = aux_var8;
+			a.tlast = (i==(((PACKAGE_SIZE_BYTES/4)- 4))) ? 1 : 0;
+			output.write(a);
+		}
+		sequencer ++;
+	}
 #else
-	#error "Número de lanes no definido corectamente."
+	#error "Número de lanes no definido corectamente. El número de lanes debe ser 1, 2 o 4."
 #endif
 
 	
