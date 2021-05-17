@@ -9,13 +9,6 @@ void fifo_to_Aurora_IP(hls::stream<AXISTREAM32> &output, hls::stream<packaging_d
 	packaging_data packet_data;
 
 
-	AXISTREAM32 auxiliar_var;
-
-	//unsigned char ROM_Address;
-	unsigned char bus_id;
-	unsigned char i;
-	i = 0;
-
 	// Read input from fifo
 	while(in_fifo.empty());
 	packet_data = in_fifo.read();
