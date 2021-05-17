@@ -1,7 +1,7 @@
 #include <hls_stream.h>
 #include <ap_int.h>
 
-#define NUM_OF_TESTS 1000
+#define NUM_OF_TESTS 100
 #define PACKAGE_SIZE_BYTES 32
 #define NUMBER_OF_LANES 1
 
@@ -48,4 +48,4 @@ const unsigned char ROM_FOR_BUS_ID[256] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0
 										   0xE0, 0xE1, 0xE2, 0xE3, 0xE4, 0xE5, 0xE6, 0xE7, 0xE8, 0xE9, 0xEA, 0xEB, 0x0C, 0xED, 0xEE, 0xEF,
 										   0xF0, 0xF1, 0xF2, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7, 0xF8, 0xF9, 0xFA, 0xFB, 0x0C, 0xFD, 0xFE, 0xFF};
 
-void Aurora_to_fifo_IP_fpga1_block(hls::stream<unsigned int> &input_fifo, hls::stream<packaging_data> &out_fifo, ap_uint<1> *SequenceError);
+void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > &input_fifo, hls::stream<packaging_data> &out_fifo);

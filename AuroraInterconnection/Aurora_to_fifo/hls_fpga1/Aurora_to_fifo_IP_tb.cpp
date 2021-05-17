@@ -18,7 +18,9 @@ const unsigned char tx_uid_0 = 0x01;
 int main(){
 
 	data_type  Data_Sent[PACKAGE_SIZE_BYTES/4];
-	hls::stream<unsigned int> input_fifo;
+	
+	ap_uint<(32*NUMBER_OF_LANES)> Data_Sent_hw[PACKAGE_SIZE_BYTES/(4*NUMBER_OF_LANES)];
+	hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > input_fifo;
 
 	hls::stream<packaging_data> output_fifo;
 
@@ -26,7 +28,11 @@ int main(){
 	packaging_data Expected_Value;
 	unsigned char bus_id;
 	
-	ap_uint<1> SequenceError;
+	
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar1;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar2;
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar3;
+	
 	unsigned char sequencer = 0;
 	
 	unsigned int i, j, k;  // Loops variables
@@ -62,23 +68,38 @@ int main(){
 	// Start Execution
 	ExecuteNumberOfSteps: for (j=0; j<NUM_OF_TESTS ; j++){
 		
-		Data_Sent[0] = (sequencer << 24); // Uodating sequencer
 		
+		REORGANIZING_DATA: for (i=0; i<PACKAGE_SIZE_BYTES/(4*NUMBER_OF_LANES);i++){
+#if NUMBER_OF_LANES == 1
+			Data_Sent_hw[i] = Data_Sent[i];
+#elif NUMBER_OF_LANES == 2
+			auxvar1 = (ap_uint<(32*NUMBER_OF_LANES)>) Data_Sent[2*i];
+			auxvar2 = auxvar1<<32;
+			auxvar3 = (ap_uint<(32*NUMBER_OF_LANES)>) Data_Sent[(2*i)+1];
+			Data_Sent_hw[i] = auxvar2 | auxvar3;
+#elif NUMBER_OF_LANES == 4
 
-		WRITE_INPUT_BUFFER: for (i=0; i<PACKAGE_SIZE_BYTES/4;i++){
-			input_fifo.write(Data_Sent[i]);
+#else
+
+#endif
+		}
+		/*
+		std::cout << "Valor esperado: " << std::hex << Data_Sent_hw[0];
+		printf("\n");
+		
+		std::cout << "Valor esperado: " << std::hex << Data_Sent_hw[1];
+		printf("\n"); // */
+
+		WRITE_INPUT_BUFFER: for (i=0; i<PACKAGE_SIZE_BYTES/(4*NUMBER_OF_LANES);i++){
+			input_fifo.write(Data_Sent_hw[i]);
 		}
 		
 		// invoking the uut
-		Aurora_to_fifo_IP_fpga1_block(input_fifo,  output_fifo, &SequenceError);
+		Aurora_to_fifo_IP_fpga1_block(input_fifo,  output_fifo);
 		
 		Data_Received_fifo = output_fifo.read();
 		
-		if (SequenceError == 1){
-			return 1;
-		}
 		
-		sequencer++;
 
 		printf("\n\n\n **************************** Starting Validation **************************** \n\n\n");
 		printf("\n\n\n ************************** Simulation step number %d ************************ \n\n\n",j);
