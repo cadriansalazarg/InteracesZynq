@@ -1,14 +1,16 @@
 #include <hls_stream.h>
 #include "Aurora_to_fifo_IP.hpp"
 
-void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > &input_fifo, hls::stream<packaging_data>& out_fifo){
+void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > &input_fifo, hls::stream<packaging_data>& out_fifo, volatile ap_uint<1> *SequenceErrorFlag)
+{
 
 
 	ap_uint<(32*NUMBER_OF_LANES)>  input_buff[PACKAGE_SIZE_BYTES/(4*NUMBER_OF_LANES)];
 	
 	packaging_data packet_data;
 	
-
+	static unsigned char sequencer_rx = 0;
+	unsigned char sequencer_tx;
 
 	//unsigned char ROM_Address;
 	unsigned char bus_id;
@@ -29,6 +31,8 @@ void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > 
 	
 	bus_id = (unsigned char)(((0x00FF0000)&input_buff[1])>>16);
 	
+	sequencer_tx = (unsigned char)(((0xFF000000)&input_buff[0])>>24);
+	
 	packet_data.FPGA_ID = (unsigned char)(((0x00FF0000)&input_buff[0])>>16);
 	packet_data.PCKG_ID = (unsigned short int)((0x0000FFFF)&input_buff[0]);
 
@@ -48,6 +52,8 @@ void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > 
 #elif NUMBER_OF_LANES == 2 && PACKAGE_SIZE_BYTES == 32
 	
 	bus_id = (unsigned char)(((0x0000000000FF0000)&input_buff[0])>>16);
+	
+	sequencer_tx = (unsigned char)(((0xFF00000000000000)&input_buff[0])>>54);
 		
 	packet_data.FPGA_ID = (unsigned char)(((0x00FF000000000000)&input_buff[0])>>48);
 	packet_data.PCKG_ID = (unsigned short int)(((0x0000FFFF00000000)&input_buff[0])>>32);
@@ -81,6 +87,11 @@ void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > 
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar12;
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar13;
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar14;
+	
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar_sequencer_tx;
+	
+	auxvar_sequencer_tx = input_buff[0] >>120;
+	sequencer_tx = (unsigned char)auxvar_sequencer_tx;
 	
 	auxvar1 = input_buff[0] >>112;
 	auxvar2 = (0x000000FF)&auxvar1;
@@ -124,6 +135,8 @@ void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > 
 #elif NUMBER_OF_LANES == 1 && PACKAGE_SIZE_BYTES == 64
 	
 	bus_id = (unsigned char)(((0x00FF0000)&input_buff[1])>>16);
+	
+	sequencer_tx = (unsigned char)(((0xFF000000)&input_buff[0])>>24);
 			
 	packet_data.FPGA_ID = (unsigned char)(((0x00FF0000)&input_buff[0])>>16);
 	packet_data.PCKG_ID = (unsigned short int)((0x0000FFFF)&input_buff[0]);
@@ -152,6 +165,8 @@ void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > 
 #elif NUMBER_OF_LANES == 2 && PACKAGE_SIZE_BYTES == 64
 
 	bus_id = (unsigned char)(((0x0000000000FF0000)&input_buff[0])>>16);
+	
+	sequencer_tx = (unsigned char)(((0xFF00000000000000)&input_buff[0])>>54);
 		
 	packet_data.FPGA_ID = (unsigned char)(((0x00FF000000000000)&input_buff[0])>>48);
 	packet_data.PCKG_ID = (unsigned short int)(((0x0000FFFF00000000)&input_buff[0])>>32);
@@ -199,6 +214,11 @@ void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > 
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar18;
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar19;
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar20;
+	
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar_sequencer_tx;
+	
+	auxvar_sequencer_tx = input_buff[0] >>120;
+	sequencer_tx = (unsigned char)auxvar_sequencer_tx;
 	
 	auxvar1 = input_buff[0] >>112;
 	auxvar2 = (0x000000FF)&auxvar1;
@@ -265,6 +285,8 @@ void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > 
 	
 	bus_id = (unsigned char)(((0x00FF0000)&input_buff[1])>>16);
 	
+	sequencer_tx = (unsigned char)(((0xFF000000)&input_buff[0])>>24);
+	
 	packet_data.FPGA_ID = (unsigned char)(((0x00FF0000)&input_buff[0])>>16);
 	packet_data.PCKG_ID = (unsigned short int)((0x0000FFFF)&input_buff[0]);
 
@@ -308,6 +330,8 @@ void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > 
 #elif NUMBER_OF_LANES == 2 && PACKAGE_SIZE_BYTES == 128
 
 	bus_id = (unsigned char)(((0x0000000000FF0000)&input_buff[0])>>16);
+	
+	sequencer_tx = (unsigned char)(((0xFF00000000000000)&input_buff[0])>>54);
 		
 	packet_data.FPGA_ID = (unsigned char)(((0x00FF000000000000)&input_buff[0])>>48);
 	packet_data.PCKG_ID = (unsigned short int)(((0x0000FFFF00000000)&input_buff[0])>>32);
@@ -384,6 +408,11 @@ void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > 
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar30;
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar31;
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar32;
+	
+	ap_uint<(32*NUMBER_OF_LANES)> auxvar_sequencer_tx;
+	
+	auxvar_sequencer_tx = input_buff[0] >>120;
+	sequencer_tx = (unsigned char)auxvar_sequencer_tx;
 	
 	auxvar1 = input_buff[0] >>112;
 	auxvar2 = (0x000000FF)&auxvar1;
@@ -502,5 +531,10 @@ void Aurora_to_fifo_IP_fpga1_block(hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > 
 	// Write packet
 	
 	out_fifo.write(packet_data);
+	
+	if (sequencer_rx == sequencer_tx) 
+		*SequenceErrorFlag = 0;
+	else 
+		*SequenceErrorFlag = 1;
 	
 }

@@ -19,6 +19,8 @@ int main(){
 
 	data_type  Data_Sent[PACKAGE_SIZE_BYTES/4];
 	
+	ap_uint<1> SequenceErrorFlag;
+	
 	ap_uint<(32*NUMBER_OF_LANES)> Data_Sent_hw[PACKAGE_SIZE_BYTES/(4*NUMBER_OF_LANES)];
 	hls::stream< ap_uint<(32*NUMBER_OF_LANES)> > input_fifo;
 
@@ -27,7 +29,7 @@ int main(){
 	packaging_data Data_Received_fifo;
 	packaging_data Expected_Value;
 	unsigned char bus_id;
-	
+	unsigned char bus_id_1;
 	
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar1;
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar2;
@@ -38,13 +40,14 @@ int main(){
 	ap_uint<(32*NUMBER_OF_LANES)> auxvar7;
 	
 	unsigned char sequencer = 0;
+	unsigned int sequencer_shift;
 	
 	unsigned int i, j, k;  // Loops variables
 
 	// Initilizing input array
 	ExpectedMessage: for(i=0; i<PACKAGE_SIZE_BYTES/4; i++){
 		if(i==0) //Header Message
-			Data_Sent[i] = 0x01FFCC12;
+			Data_Sent[i] = 0x00FFCC12;
 		else if (i==1)
 			Data_Sent[i] = 0x01020018;
 		else
@@ -54,9 +57,11 @@ int main(){
 	
 	// Creating expected packet
 	bus_id = (unsigned char)(((0x00FF0000)&Data_Sent[1])>>16);
+	bus_id_1 = ROM_FOR_BUS_ID[bus_id];
 	Expected_Value.FPGA_ID = (unsigned char)(((0x00FF0000)&Data_Sent[0])>>16);
 	Expected_Value.PCKG_ID = (unsigned short int)((0x0000FFFF)&Data_Sent[0]);
-	Expected_Value.BS_ID = sequencer;
+	
+	Expected_Value.BS_ID = bus_id_1;
 
 
 	Expected_Value.TX_UID = (unsigned char)(((0xFF000000)&Data_Sent[1])>>24);
@@ -72,6 +77,8 @@ int main(){
 	// Start Execution
 	ExecuteNumberOfSteps: for (j=0; j<NUM_OF_TESTS ; j++){
 		
+		sequencer_shift = (unsigned short int)(sequencer<<24); 
+		Data_Sent[0] = Data_Sent[0] | sequencer_shift;
 		
 		REORGANIZING_DATA: for (i=0; i<PACKAGE_SIZE_BYTES/(4*NUMBER_OF_LANES);i++){
 #if NUMBER_OF_LANES == 1
@@ -101,10 +108,17 @@ int main(){
 		}
 		
 		// invoking the uut
-		Aurora_to_fifo_IP_fpga1_block(input_fifo,  output_fifo);
+		Aurora_to_fifo_IP_fpga1_block(input_fifo,  output_fifo, &SequenceErrorFlag);
+		
 		
 		Data_Received_fifo = output_fifo.read();
 		
+		if (SequenceErrorFlag){
+				printf("La bandera Sequence Error se puso en 1\n");
+				return 1;
+		}
+		
+		sequencer = sequencer + 1;
 		
 
 		printf("\n\n\n **************************** Starting Validation **************************** \n\n\n");

@@ -1,5 +1,8 @@
 # Create a Vivado HLS project
-open_project -reset hls_aurora_to_fifo_block_fpga2_hw_prj
+open_project -reset hls_aurora_to_fifo_fpga1_hw_prj
+
+
+
 set_top Aurora_to_fifo_IP_fpga1_block
 add_files Aurora_to_fifo_IP.cpp -cflags "-std=c++11 -Wno-unknown-pragmas"
 add_files -tb Aurora_to_fifo_IP_tb.cpp -cflags "-std=c++11 -Wno-unknown-pragmas" 
