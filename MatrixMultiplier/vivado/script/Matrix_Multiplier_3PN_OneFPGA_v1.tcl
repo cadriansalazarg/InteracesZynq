@@ -70,7 +70,6 @@ add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_9drvrs.v
 
 
 add_files -norecurse ../../AuroraInterconnection/src_Verilog/Aurora_init.v
-add_files -norecurse ../../AuroraInterconnection/src_Verilog/fifo_to_Aurora.v
 
 add_files -norecurse src_Verilog/MatrixChecker.v
 add_files -norecurse src_Verilog/MatrixGenerator.v
@@ -84,7 +83,7 @@ add_files -norecurse src_Verilog/inverter.v
 update_compile_order -fileset sources_1
 
 # Se agregan los IPs generados en HLS
-set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../AuroraInterconnection/hls_fpga1/Aurora_to_fifo/hls_aurora_to_fifo_block_fpga1_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/hls_fpga2/Aurora_to_fifo/hls_aurora_to_fifo_block_fpga2_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
+set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../AuroraInterconnection/fifo_to_Aurora/hls/hls_fifo_to_aurora_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/Aurora_to_fifo/hls_fpga2/hls_aurora_to_fifo_fpga2_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
 update_ip_catalog
 
 
@@ -163,6 +162,9 @@ create_bd_cell -type module -reference inverter inverter_19
 create_bd_cell -type module -reference inverter inverter_reset_TX_RX_Block
 create_bd_cell -type module -reference inverter inverter_full_Aurora_to_fifo_0
 
+create_bd_cell -type module -reference inverter inverter_empty_fifo_to_aurora0
+create_bd_cell -type module -reference inverter inverter_empty_OutputAurora0
+
 
 ########################################## Importante ############################################################################################
 
@@ -213,8 +215,13 @@ startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_8
 endgroup
 
+# FIFO de la salida del Aurora
 startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_9
+endgroup
+
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_OutputAurora0
 endgroup
 
 
@@ -247,6 +254,8 @@ endgroup
 set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Pin {false} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_2]
 set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Pin {false} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_3]
 
+# Se configura el FIFO de la salida del Aurora
+set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {32} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {32} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5}] [get_bd_cells fifo_generator_OutputAurora0]
 
 
 
@@ -369,10 +378,10 @@ create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga2_block:1.0 A
 endgroup
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el FIFO Generator y el Aurora
-create_bd_cell -type module -reference fifo_to_Aurora fifo_to_Aurora_0
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:hls:fifo_to_Aurora_IP:1.0 fifo_to_Aurora_0
+endgroup
 
-# Se cambia la polaridad de los resets en el block design para que coincidan con el del RTL
-set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /fifo_to_Aurora_0/reset_TX_RX_Block]
 
 # Se realizan las interconexiones
 
@@ -381,32 +390,48 @@ connect_bd_net [get_bd_pins Aurora_init_0/reset_Aurora] [get_bd_pins aurora_8b10
 connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/gt_reset]
 
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins fifo_to_Aurora_0/reset_TX_RX_Block]
-
-# El reset del Aurora_to_fifo_0 debe invertirse, ya que el hls lo genera con la polaridad invertida
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
-connect_bd_net [get_bd_pins Aurora_to_fifo_0/ap_rst_n] [get_bd_pins inverter_reset_TX_RX_Block/Y]
+connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
+connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
-connect_bd_net [get_bd_pins fifo_to_Aurora_0/empty] [get_bd_pins fifo_generator_2/empty]
-connect_bd_net [get_bd_pins fifo_to_Aurora_0/dout] [get_bd_pins fifo_generator_2/dout]
-connect_bd_net [get_bd_pins fifo_to_Aurora_0/rd_en] [get_bd_pins fifo_generator_2/rd_en]
+connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
+connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_2/empty]
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/in_fifo_V_dout] [get_bd_pins fifo_generator_2/dout]
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/in_fifo_V_read] [get_bd_pins fifo_generator_2/rd_en]
 
-connect_bd_net [get_bd_pins fifo_to_Aurora_0/s_axi_tx_tdata] [get_bd_pins aurora_8b10b_0/s_axi_tx_tdata]
-connect_bd_net [get_bd_pins fifo_to_Aurora_0/s_axi_tx_tlast] [get_bd_pins aurora_8b10b_0/s_axi_tx_tlast]
-connect_bd_net [get_bd_pins fifo_to_Aurora_0/s_axi_tx_tvalid] [get_bd_pins aurora_8b10b_0/s_axi_tx_tvalid]
-connect_bd_net [get_bd_pins fifo_to_Aurora_0/s_axi_tx_tready] [get_bd_pins aurora_8b10b_0/s_axi_tx_tready]
 
-connect_bd_net [get_bd_pins fifo_to_Aurora_0/channel_up] [get_bd_pins aurora_8b10b_0/channel_up]
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/output_r_TDATA] [get_bd_pins aurora_8b10b_0/s_axi_tx_tdata]
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/output_r_TLAST] [get_bd_pins aurora_8b10b_0/s_axi_tx_tlast]
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/output_r_TVALID] [get_bd_pins aurora_8b10b_0/s_axi_tx_tvalid]
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/output_r_TREADY] [get_bd_pins aurora_8b10b_0/s_axi_tx_tready]
+
 
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/out_fifo_V_din] [get_bd_pins fifo_generator_3/din]
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/out_fifo_V_write] [get_bd_pins fifo_generator_3/wr_en]
-
 connect_bd_net [get_bd_pins inverter_full_Aurora_to_fifo_0/A] [get_bd_pins fifo_generator_3/full]
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/out_fifo_V_full_n] [get_bd_pins inverter_full_Aurora_to_fifo_0/Y]
 
-connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_r_TDATA] [get_bd_pins aurora_8b10b_0/m_axi_rx_tdata]
-connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_r_TLAST] [get_bd_pins aurora_8b10b_0/m_axi_rx_tlast]
-connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_r_TVALID] [get_bd_pins aurora_8b10b_0/m_axi_rx_tvalid]
+# Se conecta la salida del Aurora a la entrada del fifo
+connect_bd_net [get_bd_pins aurora_8b10b_0/m_axi_rx_tdata] [get_bd_pins fifo_generator_OutputAurora0/din]
+connect_bd_net [get_bd_pins aurora_8b10b_0/m_axi_rx_tvalid] [get_bd_pins fifo_generator_OutputAurora0/wr_en]
+
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/empty] [get_bd_pins inverter_empty_OutputAurora0/A]
+connect_bd_net [get_bd_pins inverter_empty_OutputAurora0/Y] [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_empty_n]
+connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins fifo_generator_OutputAurora0/dout]
+connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
+
+# Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
+
+# Se conecta la constante Next FPGA del bloque FIFO to Aurora
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xconst_id_next_fpga
+endgroup
+
+set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {1}] [get_bd_cells xconst_id_next_fpga]
+
+connect_bd_net [get_bd_pins xconst_id_next_fpga/dout] [get_bd_pins fifo_to_Aurora_0/id_next_fpga]
 
 # Se agrega la constante  para el ap_start de este módulo y el ap_continue
 startgroup
@@ -418,6 +443,9 @@ set_property -dict [list CONFIG.CONST_WIDTH {1} CONFIG.CONST_VAL {1}] [get_bd_ce
 connect_bd_net [get_bd_pins xconst_ap_start_Aurora_to_fifo/dout] [get_bd_pins Aurora_to_fifo_0/ap_start]
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/ap_continue] [get_bd_pins Aurora_to_fifo_0/ap_ready]
 
+
+connect_bd_net [get_bd_pins xconst_ap_start_Aurora_to_fifo/dout] [get_bd_pins fifo_to_Aurora_0/ap_start]
+connect_bd_net [get_bd_pins fifo_to_Aurora_0/ap_continue] [get_bd_pins fifo_to_Aurora_0/ap_ready]
 
 # Se interconecta el puerto channel_up del Aurora 8b10b0, al puerto de entrada channel_up del módulo Aurora_init
 # Anteriormente se hacia una AND de todas las banderas de channel_up de los diferentes Auroras, sin embargo, el problema
@@ -434,8 +462,8 @@ set_property -dict [list CONFIG.CONST_WIDTH {4} CONFIG.CONST_VAL {15}] [get_bd_c
 
 connect_bd_net [get_bd_pins xconst_keep/dout] [get_bd_pins aurora_8b10b_0/s_axi_tx_tkeep]
 
-# Se conecta el reloj a los bloques fifo_to_Aurora y el Aurora_to_fifo
-connect_bd_net [get_bd_pins aurora_8b10b_0/user_clk_out] [get_bd_pins fifo_to_Aurora_0/user_clk]
+# Se conecta el reloj a los bloques fifo_to_Aurora y el Aurora_to_fifo 
+connect_bd_net [get_bd_pins aurora_8b10b_0/user_clk_out] [get_bd_pins fifo_to_Aurora_0/ap_clk]
 connect_bd_net [get_bd_pins aurora_8b10b_0/user_clk_out] [get_bd_pins Aurora_to_fifo_0/ap_clk] 
 
 # Se agrega el clocking wizard
