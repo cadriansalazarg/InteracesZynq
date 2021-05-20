@@ -215,11 +215,11 @@ startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_8
 endgroup
 
-# FIFO de la salida del Aurora
 startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_9
 endgroup
 
+# FIFO de la salida del Aurora
 startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_OutputAurora0
 endgroup
