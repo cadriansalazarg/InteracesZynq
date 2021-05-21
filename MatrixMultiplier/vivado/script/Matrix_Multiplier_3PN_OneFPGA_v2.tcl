@@ -31,8 +31,6 @@ set_property board_part xilinx.com:zc706:part0:1.4 [current_project]
 # sin que se produzca un error en el Aurora.
 add_files -fileset constrs_1 -norecurse constraints/pinesMatrixMult_3PNs1FPGA_v2.xdc
 
-
-
 # Se agrega la biblioteca de buses de Verilog, Nótese que tanto el el archivo Library.sv, como fifo.sv, se toman 
 # directamente de la carpeta Buses_Serial_Paralelo, es decir, justo donde se encuentra contenido el código fuente de los
 # buses. Por otra parte, el Wraper del bus, tanto en System verilog como en Verilog, se encuentra dentro de la subcarpeta
@@ -41,24 +39,9 @@ add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/Library.sv
 
 update_compile_order -fileset sources_1
 add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/fifo.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_4drvrs.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_4drvrs.v
 
 add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_5drvrs.sv
 add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_5drvrs.v
-
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_6drvrs.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_6drvrs.v
-
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_7drvrs.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_7drvrs.v
-
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_8drvrs.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_8drvrs.v
-
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_9drvrs.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_9drvrs.v
-
 
 add_files -norecurse ../../AuroraInterconnection/src_Verilog/Aurora_init.v
 add_files -norecurse ../../AuroraInterconnection/src_Verilog/fifo_to_Aurora.v
@@ -70,6 +53,23 @@ update_compile_order -fileset sources_1
 # Se agregan los IPs generados en HLS
 set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../AuroraInterconnection/fifo_to_Aurora/hls/hls_fifo_to_aurora_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/Aurora_to_fifo/hls_fpga1/hls_aurora_to_fifo_fpga1_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
 update_ip_catalog
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -113,10 +113,10 @@ update_ip_catalog
 
 
 
-create_bd_design "Design1"
+create_bd_design "MatrixMultEmu"
 
 update_compile_order -fileset sources_1
-open_bd_design {project_1/project_1.srcs/sources_1/bd/Design1/Design1.bd}
+open_bd_design {project_1/project_1.srcs/sources_1/bd/MatrixMultEmu/MatrixMultEmu.bd}
 
 
 
@@ -371,7 +371,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_2/empty]
@@ -400,7 +400,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -923,8 +923,8 @@ save_bd_design
 validate_bd_design
 save_bd_design
 
-current_bd_design [get_bd_designs Design1]
-close_bd_design [get_bd_designs Design1]
+current_bd_design [get_bd_designs MatrixMultEmu]
+close_bd_design [get_bd_designs MatrixMultEmu]
 
 
 
