@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/carlositcr/InterfacesZynq/SimpleChannelTester/vivado/SimpleChannelTester_v1/SimpleChannelTester_v1.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wdb" id="1">
+         <top_modules>
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="8192001fs"></ZoomEndTime>
+      <Cursor1Time time="0fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="178"></NameColumnWidth>
+      <ValueColumnWidth column_width="97"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="15" />
+   <wave_markers>
+   </wave_markers>
+   <wvobject type="array" fp_name="SimpleTester_i/SimpleGenerator_0_input_r_TDATA_0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/SimpleGenerator_0_input_r_TDATA_0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">SimpleGenerator_0_input_r_TDATA_0[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="SimpleTester_i/SimpleGenerator_0_input_r_TLAST_0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/SimpleGenerator_0_input_r_TLAST_0</obj_property>
+      <obj_property name="ObjectShortName">SimpleGenerator_0_input_r_TLAST_0</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="SimpleTester_i/SimpleGenerator_0_input_r_TVALID_0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/SimpleGenerator_0_input_r_TVALID_0</obj_property>
+      <obj_property name="ObjectShortName">SimpleGenerator_0_input_r_TVALID_0</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="SimpleTester_i/packaging_IP_block_0_input_r_TREADY">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/packaging_IP_block_0_input_r_TREADY</obj_property>
+      <obj_property name="ObjectShortName">packaging_IP_block_0_input_r_TREADY</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="SimpleTester_i/unpackaging_IP_block_0_output_r_TDATA">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/unpackaging_IP_block_0_output_r_TDATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">unpackaging_IP_block_0_output_r_TDATA[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="SimpleTester_i/unpackaging_IP_block_0_output_r_TLAST">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/unpackaging_IP_block_0_output_r_TLAST</obj_property>
+      <obj_property name="ObjectShortName">unpackaging_IP_block_0_output_r_TLAST</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="SimpleTester_i/unpackaging_IP_block_0_output_r_TVALID">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/unpackaging_IP_block_0_output_r_TVALID</obj_property>
+      <obj_property name="ObjectShortName">unpackaging_IP_block_0_output_r_TVALID</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="SimpleTester_i/SimpleChecker_0_output_r_TREADY_0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/SimpleChecker_0_output_r_TREADY_0</obj_property>
+      <obj_property name="ObjectShortName">SimpleChecker_0_output_r_TREADY_0</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="SimpleTester_i/SimpleChecker_0_Error_Counter">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/SimpleChecker_0_Error_Counter[3:0]</obj_property>
+      <obj_property name="ObjectShortName">SimpleChecker_0_Error_Counter[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="SimpleTester_i/prll_bs_gnrtr_n_rbtr_0_push_drvr_0_bus_0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/prll_bs_gnrtr_n_rbtr_0_push_drvr_0_bus_0</obj_property>
+      <obj_property name="ObjectShortName">prll_bs_gnrtr_n_rbtr_0_push_drvr_0_bus_0</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="SimpleTester_i/unpackaging_IP_block_0_in_fifo_V_read">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/unpackaging_IP_block_0_in_fifo_V_read</obj_property>
+      <obj_property name="ObjectShortName">unpackaging_IP_block_0_in_fifo_V_read</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="SimpleTester_i/packaging_IP_block_0_out_fifo_V_write">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/packaging_IP_block_0_out_fifo_V_write</obj_property>
+      <obj_property name="ObjectShortName">packaging_IP_block_0_out_fifo_V_write</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="SimpleTester_i/prll_bs_gnrtr_n_rbtr_0_pop_drvr_0_bus_0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/prll_bs_gnrtr_n_rbtr_0_pop_drvr_0_bus_0</obj_property>
+      <obj_property name="ObjectShortName">prll_bs_gnrtr_n_rbtr_0_pop_drvr_0_bus_0</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="SimpleTester_i/prll_bs_gnrtr_n_rbtr_0_push_drvr_1_bus_0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/prll_bs_gnrtr_n_rbtr_0_push_drvr_1_bus_0</obj_property>
+      <obj_property name="ObjectShortName">prll_bs_gnrtr_n_rbtr_0_push_drvr_1_bus_0</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="SimpleTester_i/prll_bs_gnrtr_n_rbtr_0_pop_drvr_1_bus_0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">SimpleTester_i/prll_bs_gnrtr_n_rbtr_0_pop_drvr_1_bus_0</obj_property>
+      <obj_property name="ObjectShortName">prll_bs_gnrtr_n_rbtr_0_pop_drvr_1_bus_0</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+</wave_config>

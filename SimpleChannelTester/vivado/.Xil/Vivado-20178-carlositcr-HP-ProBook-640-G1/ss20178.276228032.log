@@ -1,0 +1,7 @@
+srcscan starts
+INFO: analyzing module SimpleGenerator (VERI-9002)
+Listing tops:
+VeriTop library:xil_defaultlib mod:SimpleGenerator
+END of tops
+/home/carlositcr/InterfacesZynq/MatrixMultiplier/vivado/src_Verilog/SimpleGenerator.v(3): INFO: compiling module 'SimpleGenerator_default' (VERI-1018)
+srcscan exits with return value 0

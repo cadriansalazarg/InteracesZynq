@@ -1,0 +1,7 @@
+srcscan starts
+INFO: analyzing module fifo_to_Aurora (VERI-9002)
+Listing tops:
+VeriTop library:xil_defaultlib mod:fifo_to_Aurora
+END of tops
+/home/carlositcr/InterfacesZynq/AuroraInterconnection/src_Verilog/fifo_to_Aurora.v(8): INFO: compiling module 'fifo_to_Aurora_default' (VERI-1018)
+srcscan exits with return value 0

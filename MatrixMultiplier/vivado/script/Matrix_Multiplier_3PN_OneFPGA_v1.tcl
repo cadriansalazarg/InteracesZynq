@@ -83,7 +83,7 @@ add_files -norecurse src_Verilog/inverter.v
 update_compile_order -fileset sources_1
 
 # Se agregan los IPs generados en HLS
-set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../AuroraInterconnection/fifo_to_Aurora/hls/hls_fifo_to_aurora_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/Aurora_to_fifo/hls_fpga2/hls_aurora_to_fifo_fpga2_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
+set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../AuroraInterconnection/fifo_to_Aurora/hls/hls_fifo_to_aurora_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/Aurora_to_fifo/hls_fpga1/hls_aurora_to_fifo_fpga1_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
 update_ip_catalog
 
 
@@ -374,7 +374,7 @@ set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_0/reset_TX_RX
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el Aurora y el FIFO
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga2_block:1.0 Aurora_to_fifo_0
+create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga1_block:1.0 Aurora_to_fifo_0
 endgroup
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el FIFO Generator y el Aurora
@@ -392,7 +392,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_2/empty]

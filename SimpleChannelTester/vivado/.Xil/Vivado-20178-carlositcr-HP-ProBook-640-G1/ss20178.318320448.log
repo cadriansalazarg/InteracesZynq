@@ -1,0 +1,7 @@
+srcscan starts
+INFO: analyzing module SimpleChecker (VERI-9002)
+Listing tops:
+VeriTop library:xil_defaultlib mod:SimpleChecker
+END of tops
+/home/carlositcr/InterfacesZynq/MatrixMultiplier/vivado/src_Verilog/SimpleChecker.v(4): INFO: compiling module 'SimpleChecker_default' (VERI-1018)
+srcscan exits with return value 0
