@@ -179,7 +179,7 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 
 	for(Index = 0; Index < MAX_PKT_LEN_TX; Index ++) {
 		if (Index == 0)
-			TxBufferPtr[Index] = 0x02010360;
+			TxBufferPtr[Index] = 0x01000360;
 		else
 			TxBufferPtr[Index] = Value;
 	}
