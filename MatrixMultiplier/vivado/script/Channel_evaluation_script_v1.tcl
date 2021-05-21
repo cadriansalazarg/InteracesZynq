@@ -30,8 +30,8 @@ add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_4drvrs.sv
 add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_4drvrs.v
 
 add_files -norecurse ../../AuroraInterconnection/src_Verilog/Aurora_init.v
-add_files -norecurse ../../AuroraInterconnection/src_Verilog/Aurora_to_fifo.v
-add_files -norecurse ../../AuroraInterconnection/src_Verilog/fifo_to_Aurora.v
+#add_files -norecurse ../../AuroraInterconnection/src_Verilog/Aurora_to_fifo.v
+#add_files -norecurse ../../AuroraInterconnection/src_Verilog/fifo_to_Aurora.v
 
 # Se agrega el inversor en Verilog
 add_files -norecurse src_Verilog/inverter.v
@@ -45,9 +45,8 @@ update_compile_order -fileset sources_1
 add_files -norecurse src_Verilog/SimpleChecker.v
 update_compile_order -fileset sources_1
 
-set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../AuroraInterconnection/hls_fpga1/Aurora_to_fifo/hls_aurora_to_fifo_block_fpga1_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
+set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../AuroraInterconnection/fifo_to_Aurora/hls/hls_fifo_to_aurora_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/Aurora_to_fifo/hls_fpga1/hls_aurora_to_fifo_fpga1_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
 update_ip_catalog
-
 
 
 
@@ -538,32 +537,40 @@ endgroup
 
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el FIFO Generator y el Aurora
-create_bd_cell -type module -reference fifo_to_Aurora fifo_to_Aurora_1
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:hls:fifo_to_Aurora_IP:1.0 fifo_to_Aurora_1
+endgroup
 
-# Se cambia la polaridad de los resets en el block design para que coincidan con el del RTL
-set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /fifo_to_Aurora_1/reset_TX_RX_Block]
+# Se agrega el fifo que se colocará entre el Aurora  y el Aurora to fifo
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_Aurora0
+endgroup
+
+# Se configuran las propiedades del FIFO
+set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {32} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {32} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5}] [get_bd_cells fifo_generator_Aurora0]
 
 # Se realizan las interconexiones
 
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins fifo_to_Aurora_1/reset_TX_RX_Block]
 
 create_bd_cell -type module -reference inverter inverter_22
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_22/A]
-connect_bd_net [get_bd_pins Aurora_to_fifo_1/ap_rst_n] [get_bd_pins inverter_22/Y]
+
+connect_bd_net [get_bd_pins inverter_22/Y] [get_bd_pins fifo_to_Aurora_1/ap_rst_n]
+connect_bd_net [get_bd_pins Aurora_to_fifo_0/ap_rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
 
 
+create_bd_cell -type module -reference inverter inverter_23
 
-connect_bd_net [get_bd_pins fifo_to_Aurora_1/empty] [get_bd_pins fifo_generator_4/empty]
-connect_bd_net [get_bd_pins fifo_to_Aurora_1/dout] [get_bd_pins fifo_generator_4/dout]
-connect_bd_net [get_bd_pins fifo_to_Aurora_1/rd_en] [get_bd_pins fifo_generator_4/rd_en]
+connect_bd_net [get_bd_pins fifo_generator_4/empty] [get_bd_pins inverter_23/A]
+connect_bd_net [get_bd_pins inverter_23/Y] [get_bd_pins fifo_to_Aurora_1/in_fifo_V_empty_n]
 
+connect_bd_net [get_bd_pins fifo_to_Aurora_1/in_fifo_V_dout] [get_bd_pins fifo_generator_4/dout]
+connect_bd_net [get_bd_pins fifo_to_Aurora_1/in_fifo_V_read] [get_bd_pins fifo_generator_4/rd_en]
 
-connect_bd_net [get_bd_pins fifo_to_Aurora_1/s_axi_tx_tdata] [get_bd_pins aurora_8b10b_1/s_axi_tx_tdata]
-connect_bd_net [get_bd_pins fifo_to_Aurora_1/s_axi_tx_tlast] [get_bd_pins aurora_8b10b_1/s_axi_tx_tlast]
-connect_bd_net [get_bd_pins fifo_to_Aurora_1/s_axi_tx_tvalid] [get_bd_pins aurora_8b10b_1/s_axi_tx_tvalid]
-connect_bd_net [get_bd_pins fifo_to_Aurora_1/s_axi_tx_tready] [get_bd_pins aurora_8b10b_1/s_axi_tx_tready]
+connect_bd_net [get_bd_pins fifo_to_Aurora_1/output_r_TDATA] [get_bd_pins aurora_8b10b_0/s_axi_tx_tdata]
+connect_bd_net [get_bd_pins fifo_to_Aurora_1/output_r_TLAST] [get_bd_pins aurora_8b10b_0/s_axi_tx_tlast]
+connect_bd_net [get_bd_pins fifo_to_Aurora_1/output_r_TVALID] [get_bd_pins aurora_8b10b_0/s_axi_tx_tvalid]
+connect_bd_net [get_bd_pins fifo_to_Aurora_1/output_r_TREADY] [get_bd_pins aurora_8b10b_0/s_axi_tx_tready]
 
-connect_bd_net [get_bd_pins fifo_to_Aurora_1/channel_up] [get_bd_pins aurora_8b10b_1/channel_up]
 
 
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/out_fifo_V_din] [get_bd_pins fifo_generator_5/din]

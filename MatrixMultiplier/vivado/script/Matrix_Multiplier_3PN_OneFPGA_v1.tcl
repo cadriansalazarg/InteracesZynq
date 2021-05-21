@@ -33,10 +33,10 @@ add_files -fileset constrs_1 -norecurse constraints/pinesMatrixMult_3PNs1FPGA_v1
 
 # Se agrega el testbench y se pone como principal
 
-add_files -fileset sim_1 -norecurse TestBench/testbench4.sv
+add_files -fileset sim_1 -norecurse TestBench/MatrixMultEmu_tb.sv
 
 
-set_property top testbench4 [get_filesets sim_1]
+set_property top MatrixMultEmu_tb [get_filesets sim_1]
 set_property top_lib xil_defaultlib [get_filesets sim_1]
 
 # Se agrega la biblioteca de buses de Verilog, Nótese que tanto el el archivo Library.sv, como fifo.sv, se toman 
@@ -132,10 +132,10 @@ update_ip_catalog
 
 
 
-create_bd_design "Design1"
+create_bd_design "MatrixMultEmu"
 
 update_compile_order -fileset sources_1
-open_bd_design {project_1/project_1.srcs/sources_1/bd/Design1/Design1.bd}
+open_bd_design {project_1/project_1.srcs/sources_1/bd/MatrixMultEmu/MatrixMultEmu.bd}
 
 
 
@@ -421,7 +421,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -876,8 +876,8 @@ save_bd_design
 validate_bd_design
 save_bd_design
 
-current_bd_design [get_bd_designs Design1]
-close_bd_design [get_bd_designs Design1]
+current_bd_design [get_bd_designs MatrixMultEmu]
+close_bd_design [get_bd_designs MatrixMultEmu]
 
 
 
