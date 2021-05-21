@@ -346,7 +346,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_0/empty]
@@ -373,7 +373,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -1000,7 +1000,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_0/empty]
@@ -1027,7 +1027,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -1138,7 +1138,7 @@ endgroup
 
 # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_1/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_1/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_1/ap_rst]
 
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora1/Y] [get_bd_pins fifo_to_Aurora_1/in_fifo_V_empty_n]
@@ -1168,7 +1168,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_1/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora1/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -1846,7 +1846,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_2/empty]
@@ -1873,7 +1873,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -1983,7 +1983,7 @@ endgroup
 
 # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_1/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_1/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_1/ap_rst]
 
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora1/Y] [get_bd_pins fifo_to_Aurora_1/in_fifo_V_empty_n]
@@ -2013,7 +2013,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_1/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora1/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -2512,7 +2512,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_2/empty]
@@ -2539,7 +2539,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -2650,7 +2650,7 @@ endgroup
 
 # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_1/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_1/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_1/ap_rst]
 
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora1/Y] [get_bd_pins fifo_to_Aurora_1/in_fifo_V_empty_n]
@@ -2680,7 +2680,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_1/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora1/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -2767,7 +2767,7 @@ endgroup
 
 # # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_2/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_2/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_2/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora2/Y] [get_bd_pins fifo_to_Aurora_2/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora2/A] [get_bd_pins fifo_generator_6/empty]
@@ -2794,7 +2794,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_2/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_2/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora2/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora2/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora2/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora2/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -2876,7 +2876,7 @@ endgroup
 
 # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_3/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_3/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_3/ap_rst]
 
 # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora3/Y] [get_bd_pins fifo_to_Aurora_3/in_fifo_V_empty_n]
@@ -2904,7 +2904,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_3/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_3/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora3/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora3/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora3/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora3/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -3571,7 +3571,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_2/empty]
@@ -3598,7 +3598,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -3708,7 +3708,7 @@ endgroup
 
 # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_1/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_1/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_1/ap_rst]
 
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora1/Y] [get_bd_pins fifo_to_Aurora_1/in_fifo_V_empty_n]
@@ -3738,7 +3738,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_1/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora1/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -3825,7 +3825,7 @@ endgroup
 
 # # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_2/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_2/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_2/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora2/Y] [get_bd_pins fifo_to_Aurora_2/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora2/A] [get_bd_pins fifo_generator_6/empty]
@@ -3852,7 +3852,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_2/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_2/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora2/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora2/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora2/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora2/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -3933,7 +3933,7 @@ endgroup
 
 # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_3/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_3/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_3/ap_rst]
 
 # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora3/Y] [get_bd_pins fifo_to_Aurora_3/in_fifo_V_empty_n]
@@ -3961,7 +3961,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_3/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_3/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora3/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora3/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora3/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora3/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -4873,7 +4873,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_0/empty]
@@ -4900,7 +4900,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -5011,7 +5011,7 @@ endgroup
 
 # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_1/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_1/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_1/ap_rst]
 
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora1/Y] [get_bd_pins fifo_to_Aurora_1/in_fifo_V_empty_n]
@@ -5041,7 +5041,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_1/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora1/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -5129,7 +5129,7 @@ endgroup
 
 # # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_2/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_2/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_2/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora2/Y] [get_bd_pins fifo_to_Aurora_2/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora2/A] [get_bd_pins fifo_generator_4/empty]
@@ -5156,7 +5156,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_2/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_2/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora2/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora2/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora2/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora2/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -5239,7 +5239,7 @@ endgroup
 
 # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_3/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_3/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_3/ap_rst]
 
 # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora3/Y] [get_bd_pins fifo_to_Aurora_3/in_fifo_V_empty_n]
@@ -5267,7 +5267,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_3/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_3/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora3/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora3/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora3/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora3/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -6026,7 +6026,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_0/empty]
@@ -6053,7 +6053,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -6164,7 +6164,7 @@ endgroup
 
 # Se realizan las interconexiones
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_1/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_1/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_1/ap_rst]
 
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora1/Y] [get_bd_pins fifo_to_Aurora_1/in_fifo_V_empty_n]
@@ -6194,7 +6194,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_1/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_1/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora1/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora1/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -6902,7 +6902,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_0/empty]
@@ -6929,7 +6929,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -7683,7 +7683,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_2/empty]
@@ -7710,7 +7710,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -8502,7 +8502,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_2/empty]
@@ -8529,7 +8529,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
@@ -9756,7 +9756,7 @@ connect_bd_net [get_bd_pins Aurora_init_0/gt_reset] [get_bd_pins aurora_8b10b_0/
 # Se conecta la señal de salida reset_TX_RX_Block del Aurora_init al reset de los bloques fifo_to_Aurora_0 y Aurora_to_fifo_0
 connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins inverter_reset_TX_RX_Block/A]
 connect_bd_net [get_bd_pins inverter_reset_TX_RX_Block/Y] [get_bd_pins fifo_to_Aurora_0/ap_rst_n]
-connect_bd_net [get_bd_pins Aurora_init_0/reset_TX_RX_Block] [get_bd_pins Aurora_to_fifo_0/ap_rst]
+connect_bd_net [get_bd_pins aurora_8b10b_0/sys_reset_out] [get_bd_pins Aurora_to_fifo_0/ap_rst]
 
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/Y] [get_bd_pins fifo_to_Aurora_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_empty_fifo_to_aurora0/A] [get_bd_pins fifo_generator_2/empty]
@@ -9783,7 +9783,7 @@ connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_dout] [get_bd_pins f
 connect_bd_net [get_bd_pins Aurora_to_fifo_0/input_fifo_V_V_read] [get_bd_pins fifo_generator_OutputAurora0/rd_en]
 
 # Se conecta el reset del FIFO conectado a la salida del Aurora. También se conecta el reloj
-connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins Aurora_init_0/reset_TX_RX_Block]
+connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/rst] [get_bd_pins aurora_8b10b_0/sys_reset_out]
 connect_bd_net [get_bd_pins fifo_generator_OutputAurora0/clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 # Se conecta la constante Next FPGA del bloque FIFO to Aurora
