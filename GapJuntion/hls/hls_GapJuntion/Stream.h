@@ -54,7 +54,7 @@ const int MAX_V_SIZE=10000;
 float const hundred = -1.0 / 100.0; // Este parámetro no se debe editar
 const unsigned int N_SIZE = 216;  // Tamaño de la red neuronal. Representa el número de neuronas de la red.
 
-const unsigned int FUNCTIONAL_UNIT_NUMBER = 2; // Número de aceleradores de hardware de Gap Juntion que tendrá toda la red.
+const unsigned int FUNCTIONAL_UNIT_NUMBER = 1; // Número de aceleradores de hardware de Gap Juntion que tendrá toda la red.
 
 template< int maxBits>
 struct config {

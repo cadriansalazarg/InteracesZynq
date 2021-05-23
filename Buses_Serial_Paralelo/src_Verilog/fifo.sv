@@ -53,6 +53,20 @@ module dltch (
 
 endmodule
 
+//////////////////////////////////////////////////////////////////
+// Definition of a clk enable module
+//////////////////////////////////////////////////////////////////
+module clk_enable (
+  input clk,
+  input rst,
+  input clk_en,
+  output clk_out);
+  
+  wire latch_out;   
+
+  dltch_async_rst latch (.data(clk_en),.clk(~clk),.reset(rst),.q(latch_out)); 
+  assign clk_out = clk & latch_out; 
+endmodule
 ///////////////////////////////////////////////////////////////////////
 // Definition of the prll D register with flops
 ///////////////////////////////////////////////////////////////////////
@@ -154,6 +168,47 @@ module neg_edge(
  `endif
 endmodule
 
+////////////////////////////////////////////////////////////////////////
+// Definition of a parameterizable one-hot decoder
+////////////////////////////////////////////////////////////////////////
+//Here the parameter n represent the number of output bits
+module one_hot #(parameter n = 4)(
+  input [$clog2(n)-1:0] sel,
+  output[n-1:0] out
+  ); 
+  
+  genvar i;
+  generate
+    for(i=0; i<n; i++)begin: deco_ 
+      localparam [$clog2(n)-1:0] local_sel = i;
+      assign out[i] = (sel== local_sel)? 1'b1 :1'b0; 
+    end 
+  endgenerate  
+endmodule
+
+///////////////////////////////////////////////////////////////////////
+// Definition of a parameterizable Multiplexor
+///////////////////////////////////////////////////////////////////////
+// n represent the number of inputs in the mux
+// size represents the number of bits in each entry of the multiplexor
+
+module param_mux #(parameter n = 4, parameter size = 4)(
+  input[size-1:0] in [n-1:0],
+  input [$clog2(n)-1:0] sel,
+  output [size-1:0] out
+  );
+  wire [n-1:0] enable;
+  
+  one_hot #(.n(n)) decoder (.sel(sel),.out(enable));
+
+  genvar i;
+  generate
+    for(i=0;i<n;i++) begin: bit_
+      assign out = (enable[i])?in[i]:{size{1'bz}};
+    end
+  endgenerate
+   
+endmodule
 ///////////////////////////////////////////////////////////////////////
 // Definition of the FIFO with Flip_Flops 
 ///////////////////////////////////////////////////////////////////////
@@ -163,8 +218,8 @@ module fifo_flops #(parameter depth = 16,parameter bits = 32)(
   input push,
   input pop,
   input clk,
-  output reg full,
-  output reg pndng,
+  output logic full,
+  output logic pndng,
   input rst
 );
   wire [bits-1:0] q[depth-1:0];
@@ -231,6 +286,86 @@ module fifo_flops #(parameter depth = 16,parameter bits = 32)(
 end
 endmodule
 
+///////////////////////////////////////////////////////////////////////
+// Definition of the FIFO with Flip_Flops push & pop captured in negedge clk
+// //////////////////////////////////////////////////////////////////////
+module fifo_flops_ssc #(parameter depth = 16,parameter bits = 32)(
+  input [bits-1:0] Din,
+  output reg [bits-1:0] Dout,
+  input push,
+  input pop,
+  input clk,
+  output logic full,
+  output logic pndng,
+  input rst
+);
+  wire [bits-1:0] q[depth-1:0];
+  reg [$clog2(depth):0] count;
+  reg [bits-1:0] aux_mux [depth-1:0];
+  reg [bits-1:0] aux_mux_or [depth-2:0];
+  logic push_i;
+  
+  assign push_i = push & ~clk; 
+
+
+  genvar i;
+  generate
+    for(i=0;i<depth;i=i+1)begin:_dp_
+       if(i==0)begin: _dp2_
+         prll_d_reg #(bits) D_reg(.clk(push_i),.reset(rst),.D_in(Din),.D_out(q[i]));
+         always@(*)begin
+           aux_mux[i]=(count==i+1)?q[i]:{bits{1'b0}};
+         end    
+       end else begin: _dp3_
+         prll_d_reg #(bits) D_reg(.clk(push_i),.reset(rst),.D_in(q[i-1]),.D_out(q[i]));
+         always@(*)begin
+           aux_mux[i]=(count==i+1)?q[i]:{bits{1'b0}};
+         end    
+       end
+    end
+  endgenerate
+
+  generate
+  for(i=0;i<depth-2;i=i+1)begin:_nu_
+    always@(*)begin
+      aux_mux_or[i]=aux_mux[i] | aux_mux_or[i+1];
+    end
+  end
+  endgenerate
+
+  always@(*)begin
+    aux_mux_or[depth-2] = aux_mux [depth-1]|aux_mux[depth-2];
+    Dout=aux_mux_or[0];  
+  end
+
+  always@(negedge clk)begin
+  if(rst) begin
+    count <= 0;
+  end else begin
+  
+    case({push,pop})
+      2'b00: count <= count;
+      2'b01: begin
+        if(count == 0) begin
+          count <= 0;
+        end else begin
+          count <=count - 1;
+        end
+      end
+      2'b10:begin
+         if(count == depth)begin
+           count <= count;
+         end else begin
+           count <= count+1;
+        end
+      end
+      2'b11: count <= count;
+    endcase
+  end
+end
+  assign pndng = (count==0)?{1'b0}:{1'b1};
+  assign full =(count == depth)?{1'b1}:{1'b0};
+endmodule
 
 ///////////////////////////////////////////////////////////////////////
 // Definition of the FIFO with Flip_Flops no full

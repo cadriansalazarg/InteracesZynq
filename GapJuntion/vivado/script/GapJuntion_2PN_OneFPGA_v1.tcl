@@ -18,10 +18,10 @@
 
 
 # Se elimina en caso de que exista la carpeta del proyecto anterior para evitar conflictos por intentar crear un proyecto ya existente
-exec rm -rf MatrixMultOneFPGA3PN_prj_v2/ vivado.*
+exec rm -rf GapJuntionOneFPGA2PN_prj_v1/ vivado.*
 
 # Se crea el proyecto
-create_project MatrixMultOneFPGA3PN_prj_v2 MatrixMultOneFPGA3PN_prj_v2 -part xc7z045ffg900-2
+create_project GapJuntionOneFPGA2PN_prj_v1 GapJuntionOneFPGA2PN_prj_v1 -part xc7z045ffg900-2
 
 # Se selecciona la tarjeta ZC706
 set_property board_part xilinx.com:zc706:part0:1.4 [current_project]
@@ -29,7 +29,15 @@ set_property board_part xilinx.com:zc706:part0:1.4 [current_project]
 # Se agrega los constrainst contenidos en el archivo de pines
 # Para este caso, el archivo de pines únicamente contiene la excepción al Warning 52 y 56 para poner implementar las topologías
 # sin que se produzca un error en el Aurora.
-add_files -fileset constrs_1 -norecurse constraints/pinesMatrixMult_3PNs1FPGA_v2.xdc
+add_files -fileset constrs_1 -norecurse constraints/pinesGapJuntion_2PNs1FPGA_v1.xdc
+
+# Se agrega el testbench y se pone como principal
+
+add_files -fileset sim_1 -norecurse TestBench/GapJuntionEmu_tb.sv
+
+
+set_property top GapJuntionEmu_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
 
 # Se agrega la biblioteca de buses de Verilog, Nótese que tanto el el archivo Library.sv, como fifo.sv, se toman 
 # directamente de la carpeta Buses_Serial_Paralelo, es decir, justo donde se encuentra contenido el código fuente de los
@@ -39,19 +47,25 @@ add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/Library.sv
 
 update_compile_order -fileset sources_1
 add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/fifo.sv
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_4drvrs.sv
+add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_4drvrs.v
 
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_5drvrs.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_5drvrs.v
 
 add_files -norecurse ../../AuroraInterconnection/src_Verilog/Aurora_init.v
-add_files -norecurse ../../AuroraInterconnection/src_Verilog/fifo_to_Aurora.v
+
+add_files -norecurse src_Verilog/GapJuntionChecker.v
+add_files -norecurse src_Verilog/GapJuntionGenerator.v
+
+#Se agregan archivos de simulación
+add_files -fileset sim_1 -norecurse {TestBench/GapJuntionGenerator_tb.v TestBench/GapJuntionChecker_tb.v}
+
 
 # Se agrega el inversor en Verilog
 add_files -norecurse src_Verilog/inverter.v
 update_compile_order -fileset sources_1
 
 # Se agregan los IPs generados en HLS
-set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../AuroraInterconnection/fifo_to_Aurora/hls/hls_fifo_to_aurora_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/Aurora_to_fifo/hls_fpga1/hls_aurora_to_fifo_fpga1_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
+set_property  ip_repo_paths  {../hls/hls_GapJuntion/hls_gapjuntion_prj/solution1/impl/ip ../../AuroraInterconnection/fifo_to_Aurora/hls/hls_fifo_to_aurora_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/Aurora_to_fifo/hls_fpga1/hls_aurora_to_fifo_fpga1_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
 update_ip_catalog
 
 
@@ -84,66 +98,54 @@ update_ip_catalog
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 ##############################################################################################################
 ##############################################################################################################
 ##############################################################################################################
 ##############################################################################################################
-############################ AQUÍ EMPIEZA LA CONSTRUCCIÓN DEL DECIMO DISEÑO
+############################ AQUÍ EMPIEZA LA CONSTRUCCIÓN DEL TRECEAVO DISEÑO
 ##############################################################################################################
 ##############################################################################################################
 ##############################################################################################################
 
-# En este diseño se configura un bus con 5 drivers. 
+# En este diseño se configura un bus con 4 drivers. 
 # En el driver 0, se conecta el Zynq o PS
 # En el driver 1, se encuentra el Aurora 8b10b
 # En el driver 2, se conecta un acelerador de hardware el 0
 # En el driver 3, se conecta un acelerador de hardware el 1
-# En el driver 4, se conecta un acelerador de hardware el 2
 
 
 
-create_bd_design "MatrixMultEmu"
+create_bd_design "GapJuntionEmu"
 
 update_compile_order -fileset sources_1
-open_bd_design {project_1/project_1.srcs/sources_1/bd/MatrixMultEmu/MatrixMultEmu.bd}
+open_bd_design {project_1/project_1.srcs/sources_1/bd/GapJuntionEmu/GapJuntionEmu.bd}
 
 
 
 # Se agrega el bus paralelo y seis inversores
-create_bd_cell -type module -reference prll_bs_gnrtr_n_rbtr_wrap_V_5drvrs prll_bs_gnrtr_n_rbtr_0
+create_bd_cell -type module -reference prll_bs_gnrtr_n_rbtr_wrap_V_4drvrs prll_bs_gnrtr_n_rbtr_0
 
 
 create_bd_cell -type module -reference inverter inverter_0
 create_bd_cell -type module -reference inverter inverter_1
 create_bd_cell -type module -reference inverter inverter_2
 create_bd_cell -type module -reference inverter inverter_3
+create_bd_cell -type module -reference inverter inverter_4
 create_bd_cell -type module -reference inverter inverter_5
 create_bd_cell -type module -reference inverter inverter_7
-create_bd_cell -type module -reference inverter inverter_9
 
 create_bd_cell -type module -reference inverter inverter_10
 create_bd_cell -type module -reference inverter inverter_12
 create_bd_cell -type module -reference inverter inverter_14
 create_bd_cell -type module -reference inverter inverter_16
-create_bd_cell -type module -reference inverter inverter_18
-create_bd_cell -type module -reference inverter inverter_19
+
 
 create_bd_cell -type module -reference inverter inverter_reset_TX_RX_Block
 create_bd_cell -type module -reference inverter inverter_full_Aurora_to_fifo_0
 
 create_bd_cell -type module -reference inverter inverter_empty_fifo_to_aurora0
 create_bd_cell -type module -reference inverter inverter_empty_OutputAurora0
+
 
 ########################################## Importante ############################################################################################
 
@@ -190,19 +192,13 @@ startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_7
 endgroup
 
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_8
-endgroup
-
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_9
-endgroup
 
 
 # FIFO de la salida del Aurora
 startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_OutputAurora0
 endgroup
+
 
 
 # Se configura adecuadamente los IPs FIFO Generator,
@@ -226,8 +222,6 @@ set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} 
 set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_5]
 set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_6]
 set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_7]
-set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_8]
-set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_9]
 endgroup
 
 set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Pin {false} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_2]
@@ -295,19 +289,6 @@ connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pop_drvr_3_bus_0] [get_bd_pin
 # Se realiza la conexión del puerto de salida del drvr 3 en el bus paralelo  y el FIFO 6. Dado que el bus no tiene bandera full, está no se usa
 connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/D_push_drvr_3_bus_0] [get_bd_pins fifo_generator_6/din]
 connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/push_drvr_3_bus_0] [get_bd_pins fifo_generator_6/wr_en]
-
-############## Interconexión de la los FIFOs del driver 4 y el bus paralelo ############################
-
-# realiza la conexión entre la salida de la FIFO 9 y la entrada al bus paralelo del driver 4
-connect_bd_net [get_bd_pins fifo_generator_9/empty] [get_bd_pins inverter_9/A]
-connect_bd_net [get_bd_pins fifo_generator_9/dout] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/D_pop_drvr_4_bus_0]
-connect_bd_net [get_bd_pins inverter_9/Y] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pndng_drvr_4_bus_0]
-connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pop_drvr_4_bus_0] [get_bd_pins fifo_generator_9/rd_en]
-
-
-# Se realiza la conexión del puerto de salida del drvr 4 en el bus paralelo  y el FIFO 8. Dado que el bus no tiene bandera full, está no se usa
-connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/D_push_drvr_4_bus_0] [get_bd_pins fifo_generator_8/din]
-connect_bd_net [get_bd_pins prll_bs_gnrtr_n_rbtr_0/push_drvr_4_bus_0] [get_bd_pins fifo_generator_8/wr_en]
 
 
 
@@ -478,6 +459,7 @@ startgroup
 make_bd_pins_external  [get_bd_pins aurora_8b10b_0/rxn] [get_bd_pins aurora_8b10b_0/rxp]
 endgroup
 
+
 ############################### Interconexión con el PS ubicado en el driver 0 ##################
 
 
@@ -529,97 +511,38 @@ connect_bd_net [get_bd_pins unpackaging_IP_block_0/in_fifo_V_read] [get_bd_pins 
 connect_bd_net [get_bd_pins inverter_2/Y] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_2/A] [get_bd_pins fifo_generator_0/empty]
 
-## Se agrega el Zynq
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 processing_system7_0
-endgroup
 
-# Se conecta el Zynq a la memoria
-apply_bd_automation -rule xilinx.com:bd_rule:processing_system7 -config {make_external "FIXED_IO, DDR" apply_board_preset "1" Master "Disable" Slave "Disable" }  [get_bd_cells processing_system7_0]
+create_bd_cell -type module -reference GapJuntionGenerator GapJuntionGenerator_0
+
+set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /GapJuntionGenerator_0/reset]
+
+create_bd_cell -type module -reference GapJuntionChecker GapJuntionChecker_0
+
+set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /GapJuntionChecker_0/reset]
 
 
-# Se configura el Zynq: PReset ZC796, interrupciones puerto HP0
+connect_bd_net [get_bd_pins packaging_IP_block_0/input_r_TDATA] [get_bd_pins GapJuntionGenerator_0/input_r_TDATA_0]
+connect_bd_net [get_bd_pins packaging_IP_block_0/input_r_TVALID] [get_bd_pins GapJuntionGenerator_0/input_r_TVALID_0]
+connect_bd_net [get_bd_pins packaging_IP_block_0/input_r_TREADY] [get_bd_pins GapJuntionGenerator_0/input_r_TREADY_0]
+connect_bd_net [get_bd_pins packaging_IP_block_0/input_r_TLAST] [get_bd_pins GapJuntionGenerator_0/input_r_TLAST_0]
 
-startgroup
-set_property -dict [list CONFIG.preset {ZC706}] [get_bd_cells processing_system7_0]
-set_property -dict [list CONFIG.PCW_USE_S_AXI_HP0 {1} CONFIG.PCW_USE_FABRIC_INTERRUPT {1} CONFIG.PCW_IRQ_F2P_INTR {1} CONFIG.PCW_QSPI_GRP_IO1_ENABLE {1}] [get_bd_cells processing_system7_0]
-endgroup
+connect_bd_net [get_bd_pins unpackaging_IP_block_0/output_r_TDATA] [get_bd_pins GapJuntionChecker_0/output_r_TDATA_0]
+connect_bd_net [get_bd_pins unpackaging_IP_block_0/output_r_TVALID] [get_bd_pins GapJuntionChecker_0/output_r_TVALID_0]
+connect_bd_net [get_bd_pins unpackaging_IP_block_0/output_r_TREADY] [get_bd_pins GapJuntionChecker_0/output_r_TREADY_0]
+connect_bd_net [get_bd_pins unpackaging_IP_block_0/output_r_TLAST] [get_bd_pins GapJuntionChecker_0/output_r_TLAST_0]
 
-# Se configura la frecuencia de trabajo del PL del Zynq en 200MHz, por defecto es 50MHz
-#startgroup
-#set_property -dict [list CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {200}] [get_bd_cells processing_system7_0]
-#endgroup
-
-# Se agrega el AXI Timer para las mediciones de tiempo
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:axi_timer:2.0 axi_timer_0
-endgroup
-
-# Se agrega el AXI DMA
+# Se hace externa la salida del Matrix Checker
 
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.1 axi_dma_0
+make_bd_pins_external  [get_bd_pins GapJuntionChecker_0/Error_Counter]
 endgroup
-
-# Se deshabilita el Scatter Gather
-set_property -dict [list CONFIG.c_include_sg {0} CONFIG.c_sg_include_stscntrl_strm {0}] [get_bd_cells axi_dma_0]
-
-startgroup
-set_property -dict [list CONFIG.c_sg_length_width {16}] [get_bd_cells axi_dma_0]
-endgroup
-
-
-
-startgroup
-apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {Auto} Clk_slave {Auto} Clk_xbar {Auto} Master {/axi_dma_0/M_AXI_MM2S} Slave {/processing_system7_0/S_AXI_HP0} intc_ip {Auto} master_apm {0}}  [get_bd_intf_pins processing_system7_0/S_AXI_HP0]
-apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {Auto} Clk_slave {Auto} Clk_xbar {Auto} Master {/processing_system7_0/M_AXI_GP0} Slave {/axi_dma_0/S_AXI_LITE} intc_ip {New AXI Interconnect} master_apm {0}}  [get_bd_intf_pins axi_dma_0/S_AXI_LITE]
-apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {Auto} Clk_slave {Auto} Clk_xbar {Auto} Master {/processing_system7_0/M_AXI_GP0} Slave {/axi_timer_0/S_AXI} intc_ip {New AXI Interconnect} master_apm {0}}  [get_bd_intf_pins axi_timer_0/S_AXI]
-endgroup
-
-
-
-apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {Auto} Clk_slave {/processing_system7_0/FCLK_CLK0 (50 MHz)} Clk_xbar {/processing_system7_0/FCLK_CLK0 (50 MHz)} Master {/axi_dma_0/M_AXI_S2MM} Slave {/processing_system7_0/S_AXI_HP0} intc_ip {/axi_smc} master_apm {0}}  [get_bd_intf_pins axi_dma_0/M_AXI_S2MM]
-
-
-# Se configura el tamaño del concat a tres puertos de entrada, ya que se van a usar tres interrupciones, dos del DMA y una del AXI Timer
-
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0
-endgroup
-
-startgroup
-set_property -dict [list CONFIG.NUM_PORTS {3}] [get_bd_cells xlconcat_0]
-endgroup
-
-# Se conecta manualmente las tres: dos interrupciones del dma en  dos entradas del bloque concat y una interrupción del AXI Timer en el puerto de entrada restante y la salida del bloque concat, se conecta a la entrada de interrupciones del Zynq
-connect_bd_net [get_bd_pins axi_dma_0/mm2s_introut] [get_bd_pins xlconcat_0/In0]
-connect_bd_net [get_bd_pins axi_dma_0/s2mm_introut] [get_bd_pins xlconcat_0/In1]
-connect_bd_net [get_bd_pins axi_timer_0/interrupt] [get_bd_pins xlconcat_0/In2]
-connect_bd_net [get_bd_pins xlconcat_0/dout] [get_bd_pins processing_system7_0/IRQ_F2P]
-
-
-## Se conectan individualmente las señales de entrada del IP con el puerto del DMA llamado S_AXIS_S2MM
-connect_bd_net [get_bd_pins packaging_IP_block_0/input_r_TDATA] [get_bd_pins axi_dma_0/m_axis_mm2s_tdata] 
-connect_bd_net [get_bd_pins packaging_IP_block_0/input_r_TLAST] [get_bd_pins axi_dma_0/m_axis_mm2s_tlast]
-connect_bd_net [get_bd_pins packaging_IP_block_0/input_r_TREADY] [get_bd_pins axi_dma_0/m_axis_mm2s_tready]
-connect_bd_net [get_bd_pins packaging_IP_block_0/input_r_TVALID] [get_bd_pins axi_dma_0/m_axis_mm2s_tvalid]
-
-# Se conectan individualmente las señales de la salida del IP con el puerto del DMA llamado 
-connect_bd_net [get_bd_pins unpackaging_IP_block_0/output_r_TVALID] [get_bd_pins axi_dma_0/s_axis_s2mm_tvalid]
-connect_bd_net [get_bd_pins unpackaging_IP_block_0/output_r_TREADY] [get_bd_pins axi_dma_0/s_axis_s2mm_tready]
-connect_bd_net [get_bd_pins unpackaging_IP_block_0/output_r_TDATA] [get_bd_pins axi_dma_0/s_axis_s2mm_tdata]
-connect_bd_net [get_bd_pins unpackaging_IP_block_0/output_r_TLAST] [get_bd_pins axi_dma_0/s_axis_s2mm_tlast]
-
-
-
 
 ############################### Interconexión con el acelerador de hardware Xmult0 ubicado en el driver 2 ##################
 
 ## Se agrega el primer IP Core del multiplicador y se conecta al driver 2 del bus
 
-
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Wrapper_Matrix_Multiplier:1.0 HardwareAccelerator_0
+create_bd_cell -type ip -vlnv xilinx.com:hls:GapJunctionIP:1.0 HardwareAccelerator_0
 endgroup
 
 # Se interconecta el acelerador de hardware del driver 0 y los FIFOs Generator 4 y 5
@@ -633,6 +556,33 @@ connect_bd_net [get_bd_pins fifo_generator_4/dout] [get_bd_pins HardwareAccelera
 connect_bd_net [get_bd_pins HardwareAccelerator_0/in_fifo_V_read] [get_bd_pins fifo_generator_4/rd_en]
 connect_bd_net [get_bd_pins inverter_12/Y] [get_bd_pins HardwareAccelerator_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins fifo_generator_4/empty] [get_bd_pins inverter_12/A]
+
+# Se agrega un cosntante para conectar el N_size del Gap Juntion_0
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlcons_Size_Hardware_Acc_0
+endgroup
+
+set_property -dict [list CONFIG.CONST_WIDTH {32} CONFIG.CONST_VAL {216}] [get_bd_cells xlcons_Size_Hardware_Acc_0]
+
+connect_bd_net [get_bd_pins xlcons_Size_Hardware_Acc_0/dout] [get_bd_pins HardwareAccelerator_0/size]
+
+# Se agrega un cosntante para conectar el First Row del Gap Juntion_0
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlcons_FirstRow_Hardware_Acc_0
+endgroup
+
+set_property -dict [list CONFIG.CONST_WIDTH {32} CONFIG.CONST_VAL {0}] [get_bd_cells xlcons_FirstRow_Hardware_Acc_0]
+
+connect_bd_net [get_bd_pins xlcons_FirstRow_Hardware_Acc_0/dout] [get_bd_pins HardwareAccelerator_0/FirstRow]
+
+# Se agrega un cosntante para conectar el Last Row del Gap Juntion_0
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlcons_LastRow_Hardware_Acc_0
+endgroup
+
+set_property -dict [list CONFIG.CONST_WIDTH {32} CONFIG.CONST_VAL {216}] [get_bd_cells xlcons_LastRow_Hardware_Acc_0]
+
+connect_bd_net [get_bd_pins xlcons_LastRow_Hardware_Acc_0/dout] [get_bd_pins HardwareAccelerator_0/LastRow]
 
 # Se agrega una constante para el bus_id del multiplicador Wrapper_Matrix_Multi_0
 
@@ -686,7 +636,7 @@ connect_bd_net [get_bd_pins HardwareAccelerator_0/ap_continue] [get_bd_pins Hard
 
 # Se agrega el IP Core custom del multiplicador
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Wrapper_Matrix_Multiplier:1.0 HardwareAccelerator_1
+create_bd_cell -type ip -vlnv xilinx.com:hls:GapJunctionIP:1.0 HardwareAccelerator_1
 endgroup
 
 # Se interconecta el acelerador de hardware del driver 1 y los FIFOs Generator 6 y 7
@@ -702,6 +652,32 @@ connect_bd_net [get_bd_pins HardwareAccelerator_1/out_fifo_V_write] [get_bd_pins
 connect_bd_net [get_bd_pins fifo_generator_7/full] [get_bd_pins inverter_16/A]
 connect_bd_net [get_bd_pins inverter_16/Y] [get_bd_pins HardwareAccelerator_1/out_fifo_V_full_n]
 
+# Se agrega un cosntante para conectar el N_size del Gap Juntion_1
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlcons_Size_Hardware_Acc_1
+endgroup
+
+set_property -dict [list CONFIG.CONST_WIDTH {32} CONFIG.CONST_VAL {216}] [get_bd_cells xlcons_Size_Hardware_Acc_1]
+
+connect_bd_net [get_bd_pins xlcons_Size_Hardware_Acc_1/dout] [get_bd_pins HardwareAccelerator_1/size]
+
+# Se agrega un cosntante para conectar el First Row del Gap Juntion_1
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlcons_FirstRow_Hardware_Acc_1
+endgroup
+
+set_property -dict [list CONFIG.CONST_WIDTH {32} CONFIG.CONST_VAL {0}] [get_bd_cells xlcons_FirstRow_Hardware_Acc_1]
+
+connect_bd_net [get_bd_pins xlcons_FirstRow_Hardware_Acc_1/dout] [get_bd_pins HardwareAccelerator_1/FirstRow]
+
+# Se agrega un cosntante para conectar el Last Row del Gap Juntion_1
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlcons_LastRow_Hardware_Acc_1
+endgroup
+
+set_property -dict [list CONFIG.CONST_WIDTH {32} CONFIG.CONST_VAL {216}] [get_bd_cells xlcons_LastRow_Hardware_Acc_1]
+
+connect_bd_net [get_bd_pins xlcons_LastRow_Hardware_Acc_1/dout] [get_bd_pins HardwareAccelerator_1/LastRow]
 
 # Se agrega una constante para el bus_id del multiplicador Wrapper_Matrix_Multi_1
 
@@ -734,61 +710,6 @@ connect_bd_net [get_bd_pins xconst_start_Hardware_Acc/dout] [get_bd_pins Hardwar
 connect_bd_net [get_bd_pins HardwareAccelerator_1/ap_continue] [get_bd_pins HardwareAccelerator_1/ap_ready]
 
 
-
-
-############################### Interconexión con el acelerador de hardware Xmult2 ubicado en el driver 4 ##################
-
-## Se agrega el segundo IP Core del multiplicador y se conecta al driver 4 del bus
-
-# Se agrega el IP Core custom del multiplicador
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Wrapper_Matrix_Multiplier:1.0 HardwareAccelerator_2
-endgroup
-
-# Se interconecta el acelerador de hardware del driver 7 y los FIFOs Generator 8 y 9
-
-connect_bd_net [get_bd_pins fifo_generator_8/dout] [get_bd_pins HardwareAccelerator_2/in_fifo_V_dout]
-connect_bd_net [get_bd_pins HardwareAccelerator_2/in_fifo_V_read] [get_bd_pins fifo_generator_8/rd_en]
-connect_bd_net [get_bd_pins fifo_generator_8/empty] [get_bd_pins inverter_18/A]
-connect_bd_net [get_bd_pins inverter_18/Y] [get_bd_pins HardwareAccelerator_2/in_fifo_V_empty_n]
-
-
-connect_bd_net [get_bd_pins fifo_generator_9/din] [get_bd_pins HardwareAccelerator_2/out_fifo_V_din]
-connect_bd_net [get_bd_pins HardwareAccelerator_2/out_fifo_V_write] [get_bd_pins fifo_generator_9/wr_en]
-connect_bd_net [get_bd_pins fifo_generator_9/full] [get_bd_pins inverter_19/A]
-connect_bd_net [get_bd_pins inverter_19/Y] [get_bd_pins HardwareAccelerator_2/out_fifo_V_full_n]
-
-
-# Se agrega una constante para el bus_id del multiplicador Wrapper_Matrix_Multi_2
-
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlcons_BS_ID_Hardware_Acc_2
-endgroup
-
-set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {1}] [get_bd_cells xlcons_BS_ID_Hardware_Acc_2]
-
-connect_bd_net [get_bd_pins xlcons_BS_ID_Hardware_Acc_2/dout] [get_bd_pins HardwareAccelerator_2/bus_id]
-
-# Se agrega una constante para el fpga_id del multiplicador Wrapper_Matrix_Multi_2
-
-connect_bd_net [get_bd_pins xlcons_FPGA_ID_Hardware_Acc/dout] [get_bd_pins HardwareAccelerator_2/fpga_id]
-
-# Se agrega una constante para colocar el identificador único uid del nodo multiplicador Wrapper_Matrix_Multi_2
-
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlcons_UID_Hardware_Acc_2
-endgroup
-
-set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {4}] [get_bd_cells xlcons_UID_Hardware_Acc_2]
-
-connect_bd_net [get_bd_pins xlcons_UID_Hardware_Acc_2/dout] [get_bd_pins HardwareAccelerator_2/uid]
-# Se configura el multiplicador Wrapper_Matrix_Multi_2 para que trabaje en modo AutoStart. El ap_start se conecta a 1, miéntras
-# que el ap_ready se conecta al ap_continue
-
-connect_bd_net [get_bd_pins xconst_start_Hardware_Acc/dout] [get_bd_pins HardwareAccelerator_2/ap_start]
-connect_bd_net [get_bd_pins HardwareAccelerator_2/ap_continue] [get_bd_pins HardwareAccelerator_2/ap_ready]
-
-
 # Se hacen externos los pines de la unidad de desempaquetamiento
 startgroup
 make_bd_pins_external  [get_bd_pins unpackaging_IP_block_0/output_r_TREADY] [get_bd_pins unpackaging_IP_block_0/output_r_TDATA] [get_bd_pins unpackaging_IP_block_0/output_r_TVALID] [get_bd_pins unpackaging_IP_block_0/output_r_TLAST]
@@ -802,35 +723,34 @@ endgroup
 
 # Reset del sistema
 
+## La señal peripheral_reset es un reset activo en alto.
 
-
-
+# Se crea un pin de reset
+create_bd_port -dir I peripheral_reset
 
 # Se conecta el reset del bus y el reset del Aurora_init
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/reset]
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins Aurora_init_0/RST]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/reset]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins Aurora_init_0/RST]
 
 # Se conecta el reset de los FIFOS 8 y 9, esto porque estos FIFOs  sí tienen reset. Los Fifos que se conectan al Aurora, no tienen reset
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins fifo_generator_0/rst]
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins fifo_generator_1/rst]
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins fifo_generator_4/rst]
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins fifo_generator_5/rst]
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins fifo_generator_6/rst]
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins fifo_generator_7/rst]
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins fifo_generator_8/rst]
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins fifo_generator_9/rst]
-
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_0/rst]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_1/rst]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_4/rst]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_5/rst]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_6/rst]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins fifo_generator_7/rst]
 
 # Se conectan los reset de los aceleradores de hardware
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins HardwareAccelerator_0/ap_rst]
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins HardwareAccelerator_1/ap_rst]
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_reset] [get_bd_pins HardwareAccelerator_2/ap_rst]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins HardwareAccelerator_0/ap_rst]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins HardwareAccelerator_1/ap_rst]
 
 # Se invierte el reset para conectarlo a la unidad de empaquetamiento y desempaquetamiento
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_aresetn] [get_bd_pins packaging_IP_block_0/ap_rst_n]
-connect_bd_net [get_bd_pins rst_ps7_0_50M/peripheral_aresetn] [get_bd_pins unpackaging_IP_block_0/ap_rst_n]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins inverter_4/A]
+connect_bd_net [get_bd_pins inverter_4/Y] [get_bd_pins packaging_IP_block_0/ap_rst_n]
+connect_bd_net [get_bd_pins inverter_4/Y] [get_bd_pins unpackaging_IP_block_0/ap_rst_n]
 
-
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins GapJuntionGenerator_0/reset]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins GapJuntionChecker_0/reset]
 
 ######### Se conectan los relojes del sistema
 
@@ -838,32 +758,33 @@ create_bd_port -dir I clk_200MHz_p
 create_bd_port -dir I clk_200MHz_n
 
 # Se conecta el reloj del bus
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/clk]
 
 # Se conecta el reloj de la unidad de empaquetado de datos
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins packaging_IP_block_0/ap_clk]
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins unpackaging_IP_block_0/ap_clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins packaging_IP_block_0/ap_clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins unpackaging_IP_block_0/ap_clk]
 
 # Se conecta el reloj de los aceleradores de hardware
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins HardwareAccelerator_0/ap_clk]
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins HardwareAccelerator_1/ap_clk]
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins HardwareAccelerator_2/ap_clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins HardwareAccelerator_0/ap_clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins HardwareAccelerator_1/ap_clk]
 
 # Se conecta el reloj de los FIFOS
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins fifo_generator_0/clk]
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins fifo_generator_1/clk]
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins fifo_generator_4/clk]
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins fifo_generator_5/clk]
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins fifo_generator_6/clk]
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins fifo_generator_7/clk]
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins fifo_generator_8/clk]
-connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins fifo_generator_9/clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_0/clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_1/clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_4/clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_5/clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_6/clk]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins fifo_generator_7/clk]
 
-connect_bd_net [get_bd_pins fifo_generator_2/wr_clk] [get_bd_pins processing_system7_0/FCLK_CLK0]
+
+connect_bd_net [get_bd_pins fifo_generator_2/wr_clk] [get_bd_pins clk_wiz_0/clk_out3]
 connect_bd_net [get_bd_pins fifo_generator_2/rd_clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
 
 connect_bd_net [get_bd_pins fifo_generator_3/wr_clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
-connect_bd_net [get_bd_pins fifo_generator_3/rd_clk] [get_bd_pins processing_system7_0/FCLK_CLK0]
+connect_bd_net [get_bd_pins fifo_generator_3/rd_clk] [get_bd_pins clk_wiz_0/clk_out3]
+
+connect_bd_net [get_bd_pins GapJuntionGenerator_0/clk] [get_bd_pins clk_wiz_0/clk_out3]
+connect_bd_net [get_bd_pins GapJuntionChecker_0/clk] [get_bd_pins clk_wiz_0/clk_out3]
 
 
 # Se conecta el reloj de entrada en el clocking wizar
@@ -877,53 +798,56 @@ create_bd_port -dir O channel_up_0
 connect_bd_net [get_bd_ports channel_up_0] [get_bd_pins aurora_8b10b_0/channel_up]
 endgroup
 
-# Se agrega el ILA
+# Se agrega el ILA for debugging
+
 startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:ila:6.2 ila_0
 endgroup
 
-# Se  configura el ILA
+set_property -dict [list CONFIG.C_PROBE8_WIDTH {4} CONFIG.C_PROBE4_WIDTH {32} CONFIG.C_PROBE0_WIDTH {32} CONFIG.C_DATA_DEPTH {16384} CONFIG.C_NUM_OF_PROBES {15} CONFIG.C_ENABLE_ILA_AXI_MON {false} CONFIG.C_MONITOR_TYPE {Native}] [get_bd_cells ila_0]
 
-set_property -dict [list CONFIG.C_PROBE9_WIDTH {256} CONFIG.C_PROBE6_WIDTH {256} CONFIG.C_PROBE3_WIDTH {256} CONFIG.C_PROBE0_WIDTH {256} CONFIG.C_NUM_OF_PROBES {11} CONFIG.C_ENABLE_ILA_AXI_MON {false} CONFIG.C_MONITOR_TYPE {Native}] [get_bd_cells ila_0]
-
-startgroup
-set_property -dict [list CONFIG.C_PROBE9_WIDTH {1} CONFIG.C_PROBE8_WIDTH {256}] [get_bd_cells ila_0]
-endgroup
-
-startgroup
-set_property -dict [list CONFIG.C_DATA_DEPTH {16384}] [get_bd_cells ila_0]
-endgroup
-
-# Se conectan las diferentes puntas de prueba del ILA
-
-connect_bd_net [get_bd_pins ila_0/probe0] [get_bd_pins packaging_IP_block_0/out_fifo_V_din]
-connect_bd_net [get_bd_pins ila_0/probe1] [get_bd_pins packaging_IP_block_0/out_fifo_V_write]
-connect_bd_net [get_bd_pins ila_0/probe2] [get_bd_pins fifo_generator_1/full]
-
-connect_bd_net [get_bd_pins ila_0/probe3] [get_bd_pins fifo_generator_0/dout]
-connect_bd_net [get_bd_pins ila_0/probe4] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_read]
-connect_bd_net [get_bd_pins ila_0/probe5] [get_bd_pins fifo_generator_0/empty]
-
-connect_bd_net [get_bd_pins ila_0/probe6] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/D_push_drvr_1_bus_0]
-connect_bd_net [get_bd_pins ila_0/probe7] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/push_drvr_1_bus_0]
-
-connect_bd_net [get_bd_pins ila_0/probe8] [get_bd_pins fifo_generator_3/dout]
-connect_bd_net [get_bd_pins ila_0/probe9] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pop_drvr_1_bus_0]
-connect_bd_net [get_bd_pins ila_0/probe10] [get_bd_pins inverter_3/Y]
-
-# Se conecta el reloj del ILA al reloj de 200MHz
 
 connect_bd_net [get_bd_pins ila_0/clk] [get_bd_pins clk_wiz_0/clk_out3]
 
+connect_bd_net [get_bd_pins ila_0/probe0] [get_bd_pins GapJuntionGenerator_0/input_r_TDATA_0]
+connect_bd_net [get_bd_pins ila_0/probe1] [get_bd_pins GapJuntionGenerator_0/input_r_TLAST_0]
+connect_bd_net [get_bd_pins ila_0/probe2] [get_bd_pins GapJuntionGenerator_0/input_r_TVALID_0]
+connect_bd_net [get_bd_pins ila_0/probe3] [get_bd_pins packaging_IP_block_0/input_r_TREADY]
+
+connect_bd_net [get_bd_pins ila_0/probe4] [get_bd_pins unpackaging_IP_block_0/output_r_TDATA]
+connect_bd_net [get_bd_pins ila_0/probe5] [get_bd_pins unpackaging_IP_block_0/output_r_TLAST]
+connect_bd_net [get_bd_pins ila_0/probe6] [get_bd_pins unpackaging_IP_block_0/output_r_TVALID]
+connect_bd_net [get_bd_pins ila_0/probe7] [get_bd_pins GapJuntionChecker_0/output_r_TREADY_0]
+
+connect_bd_net [get_bd_pins ila_0/probe8] [get_bd_pins GapJuntionChecker_0/Error_Counter]
+
+
+connect_bd_net [get_bd_pins ila_0/probe9] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/push_drvr_0_bus_0]
+connect_bd_net [get_bd_pins ila_0/probe10] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_read]
+connect_bd_net [get_bd_pins ila_0/probe11] [get_bd_pins packaging_IP_block_0/out_fifo_V_write]
+
+connect_bd_net [get_bd_pins ila_0/probe12] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pop_drvr_0_bus_0]
+connect_bd_net [get_bd_pins ila_0/probe13] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/push_drvr_1_bus_0]
+connect_bd_net [get_bd_pins ila_0/probe14] [get_bd_pins prll_bs_gnrtr_n_rbtr_0/pop_drvr_1_bus_0]
+
+# Se ajusta el reloj principal a 100Mhz
+startgroup
+set_property -dict [list CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {100.000} CONFIG.MMCM_DIVCLK_DIVIDE {1} CONFIG.MMCM_CLKOUT2_DIVIDE {10} CONFIG.CLKOUT3_JITTER {112.316}] [get_bd_cells clk_wiz_0]
+endgroup
+
+# Se ajusta el Aurora a 1Gbps
+startgroup
+set_property -dict [list CONFIG.C_INIT_CLK.VALUE_SRC USER] [get_bd_cells aurora_8b10b_0]
+set_property -dict [list CONFIG.C_LINE_RATE {1} CONFIG.C_INIT_CLK {100.0000}] [get_bd_cells aurora_8b10b_0]
+endgroup
 
 
 save_bd_design
 validate_bd_design
 save_bd_design
 
-current_bd_design [get_bd_designs MatrixMultEmu]
-close_bd_design [get_bd_designs MatrixMultEmu]
-
+current_bd_design [get_bd_designs GapJuntionEmu]
+close_bd_design [get_bd_designs GapJuntionEmu]
 
 
 
