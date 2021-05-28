@@ -49,7 +49,7 @@
 #define NUM_OF_TESTS 1000
 #define PACKAGE_SIZE_BYTES 32
 #define MESSAGE_SIZE_BYTES 868
-#define MAXIMUM_MESSAGE_SIZE_BYTES 8192 // Para PlasticNet el valor máximo de los mensajes es siempre 8kB, por lo tanto, esto se
+#define MAXIMUM_MESSAGE_SIZE_BYTES 2000 // Para PlasticNet el valor máximo de los mensajes es siempre 8kB, por lo tanto, esto se
 										// debe colocar siempre en 8192
 
 
