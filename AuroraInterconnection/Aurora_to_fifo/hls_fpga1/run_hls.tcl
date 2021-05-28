@@ -9,13 +9,13 @@ add_files -tb Aurora_to_fifo_IP_tb.cpp -cflags "-std=c++11 -Wno-unknown-pragmas"
 
 open_solution -reset "Optimized"
 set_part  {xc7z020clg484-1} 
-create_clock -period 5 -name default  
+create_clock -period 2.0 -name default  
 
 config_compile  
 config_schedule -effort high  -relax_ii_for_timing=0 
 config_bind -effort high
 config_sdx -optimization_level s -target none
-set_clock_uncertainty 0.5
+set_clock_uncertainty 0.125
 
 source "directives.tcl"
 
