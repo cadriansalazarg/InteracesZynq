@@ -5,14 +5,17 @@ The drivers used will be a variable, ranging from 2 to 32. This program will gen
 in the HDLs mentioned before.'''
 
 drivers = input('Digite la cantidad de Drivers conectados al Bus deseados (en un rango de 2 a 32): ')
+drivers=int(drivers)
+
+nbits=input("Digite la cantidad de bits del Bus de Datos deseado: ")
 
 ###VERILOG###
 
-file = open("prll_bs_gnrtr_n_rbtr_wrap_V.v","w")
+file = open("prll_bs_gnrtr_n_rbtr_wrap_V_"+str(drivers)+"drvrs.v","w")
 
 file.write("`timescale 1ns / 1ps\n\n")
 
-file.write("module prll_bs_gnrtr_n_rbtr_wrap_V #(parameter buses = 1,parameter bits = 32,parameter drvrs = ")
+file.write("module prll_bs_gnrtr_n_rbtr_wrap_V_"+str(drivers)+"drvrs #(parameter buses = 1, parameter bits = "+str(nbits)+", parameter drvrs = ")
 file.write(str(drivers))
 file.write(", parameter broadcast = {8{1'b1}}) (\n\n")
 
@@ -48,7 +51,7 @@ for i in range(drivers):
         file.write(str(i))
         file.write("_bus_0,\n")
 
-file.write("prll_bs_gnrtr_n_rbtr_wrap_SV #(.buses(buses),.bits(bits),.drvrs(drvrs),.broadcast(broadcast)) bus_interfase (\n.clk(clk),\n.reset(reset),\n")
+file.write("prll_bs_gnrtr_n_rbtr_wrap_SV_"+str(drivers)+"drvrs #(.buses(buses),.bits(bits),.drvrs(drvrs),.broadcast(broadcast)) bus_interfase (\n.clk(clk),\n.reset(reset),\n")
 
 for i in range(drivers):
     file.write(".pndng_drvr_")
@@ -98,11 +101,11 @@ file.close()
 
 ###SYSTEM VERILOG###
 
-file = open("prll_bs_gnrtr_n_rbtr_wrap_SV.sv","w")
+file = open("prll_bs_gnrtr_n_rbtr_wrap_SV_"+str(drivers)+"drvrs.sv","w")
 
 file.write("`timescale 1ns / 1ps\n\n")
 
-file.write("module prll_bs_gnrtr_n_rbtr_wrap_SV #(parameter buses = 1,parameter bits = 32,parameter drvrs = ")
+file.write("module prll_bs_gnrtr_n_rbtr_wrap_SV_"+str(drivers)+"drvrs #(parameter buses = 1, parameter bits = "+str(nbits)+", parameter drvrs = ")
 file.write(str(drivers))
 file.write(", parameter broadcast = {8{1'b1}}) (\n\n")
 
