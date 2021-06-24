@@ -1,5 +1,5 @@
 # Se elimina en caso de que exista la carpeta del proyecto anterior para evitar conflictos por intentar crear un proyecto ya existente
-exec rm -rf project_1/ vivado.*
+exec rm -rf project_RingTopology/ vivado.*
 
 # Se crea el proyecto
 create_project project_RingTopology project_RingTopology -part xc7z045ffg900-2
@@ -10,13 +10,8 @@ set_property board_part xilinx.com:zc706:part0:1.4 [current_project]
 # Se agrega los constrainst contenidos en el archivo de pines
 # Para este caso, el archivo de pines únicamente contiene la excepción al Warning 52 y 56 para poner implementar las topologías
 # sin que se produzca un error en el Aurora.
-add_files -fileset constrs_1 -norecurse constraints/pines_different_topologies.xdc
+add_files -fileset constrs_1 -norecurse constraints/pinesRT_FPGA.xdc
 
-# Se agrega el testbench y se pone como principal
-add_files -fileset sim_1 -norecurse TestBench/testbench.sv
-add_files -fileset sim_1 -norecurse TestBench/testbench1.sv
-add_files -fileset sim_1 -norecurse TestBench/testbench2.sv
-add_files -fileset sim_1 -norecurse TestBench/testbench3.sv
 
 
 set_property top testbench2 [get_filesets sim_1]
@@ -30,37 +25,30 @@ add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/Library.sv
 
 update_compile_order -fileset sources_1
 add_files -norecurse ../../Buses_Serial_Paralelo/src_Verilog/fifo.sv
-
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_2drvrs.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_2drvrs.v                              
-
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_4drvrs.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_4drvrs.v
-
+                            
 add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_5drvrs.sv
 add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_5drvrs.v
 
 add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_6drvrs.sv
 add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_6drvrs.v
 
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_7drvrs.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_7drvrs.v
-
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_8drvrs.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_8drvrs.v
-
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_SV_9drvrs.sv
-add_files -norecurse src_Verilog/prll_bs_gnrtr_n_rbtr_wrap_V_9drvrs.v
-
-
 add_files -norecurse ../../AuroraInterconnection/src_Verilog/Aurora_init.v
+
+add_files -norecurse src_Verilog/MatrixCheckerRT.v
+add_files -norecurse src_Verilog/MatrixGeneratorRT.v
+
+#Se agregan archivos de simulación
+add_files -fileset sim_1 -norecurse {TestBench/MatrixGeneratorRT_tb.v TestBench/MatrixCheckerRT_tb.v}
+
+# Se agrega el testbench y se pone como principal
+add_files -fileset sim_1 -norecurse TestBench/Fpga1_tb.sv
 
 # Se agrega el inversor en Verilog
 add_files -norecurse src_Verilog/inverter.v
 update_compile_order -fileset sources_1
 
 # Se agregan los IPs generados en HLS
-set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../AuroraInterconnection/fifo_to_Aurora/hls/hls_fifo_to_aurora_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/Aurora_to_fifo/hls_fpga1/hls_aurora_to_fifo_fpga1_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
+set_property  ip_repo_paths  {../hls/hls_matrixmul_prj/solution1/impl/ip ../../AuroraInterconnection/fifo_to_Aurora/hls/hls_fifo_to_aurora_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/Aurora_to_fifo/hls_fpga1/hls_aurora_to_fifo_fpga1_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/Aurora_to_fifo/hls_fpga2/hls_aurora_to_fifo_fpga2_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/Aurora_to_fifo/hls_fpga3/hls_aurora_to_fifo_fpga3_hw_prj/Optimized/impl/ip ../../AuroraInterconnection/Aurora_to_fifo/hls_fpga4/hls_aurora_to_fifo_fpga4_hw_prj/Optimized/impl/ip ../../Packaging_Unit/hls/hls_packaging_block_hw_prj/Optimized/impl/ip ../../Unpackaging_Unit/Point-to-Point/hls/hls_unpackaging_block_hw_prj/solution1/impl/ip} [current_project]
 update_ip_catalog
 
 
@@ -205,24 +193,23 @@ endgroup
 
 
 startgroup
-set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_0]
-set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_1]
-set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_6]
-set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_7]
-set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_8]
-set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_9]
+set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {2048} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {2048} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {11} CONFIG.Write_Data_Count_Width {11} CONFIG.Read_Data_Count_Width {11} CONFIG.Full_Threshold_Assert_Value {2047} CONFIG.Full_Threshold_Negate_Value {2046} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_0]
+set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {2048} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {2048} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {11} CONFIG.Write_Data_Count_Width {11} CONFIG.Read_Data_Count_Width {11} CONFIG.Full_Threshold_Assert_Value {2047} CONFIG.Full_Threshold_Negate_Value {2046} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_1]
+set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {2048} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {2048} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {11} CONFIG.Write_Data_Count_Width {11} CONFIG.Read_Data_Count_Width {11} CONFIG.Full_Threshold_Assert_Value {2047} CONFIG.Full_Threshold_Negate_Value {2046} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_6]
+set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {2048} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {2048} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {11} CONFIG.Write_Data_Count_Width {11} CONFIG.Read_Data_Count_Width {11} CONFIG.Full_Threshold_Assert_Value {2047} CONFIG.Full_Threshold_Negate_Value {2046} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_7]
+set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {2048} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {2048} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {11} CONFIG.Write_Data_Count_Width {11} CONFIG.Read_Data_Count_Width {11} CONFIG.Full_Threshold_Assert_Value {2047} CONFIG.Full_Threshold_Negate_Value {2046} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_8]
+set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {2048} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {2048} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {11} CONFIG.Write_Data_Count_Width {11} CONFIG.Read_Data_Count_Width {11} CONFIG.Full_Threshold_Assert_Value {2047} CONFIG.Full_Threshold_Negate_Value {2046} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_9]
 endgroup
 
-set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Pin {false} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_2]
-set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Pin {false} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_3]
-set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Pin {false} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_4]
-set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {512} CONFIG.Reset_Pin {false} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_5]
+set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {2048} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {2048} CONFIG.Reset_Pin {false} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {11} CONFIG.Write_Data_Count_Width {11} CONFIG.Read_Data_Count_Width {11} CONFIG.Full_Threshold_Assert_Value {2047} CONFIG.Full_Threshold_Negate_Value {2046} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_2]
+set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {2048} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {2048} CONFIG.Reset_Pin {false} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {11} CONFIG.Write_Data_Count_Width {11} CONFIG.Read_Data_Count_Width {11} CONFIG.Full_Threshold_Assert_Value {2047} CONFIG.Full_Threshold_Negate_Value {2046} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_3]
+set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {2048} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {2048} CONFIG.Reset_Pin {false} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {11} CONFIG.Write_Data_Count_Width {11} CONFIG.Read_Data_Count_Width {11} CONFIG.Full_Threshold_Assert_Value {2047} CONFIG.Full_Threshold_Negate_Value {2046} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_4]
+set_property -dict [list CONFIG.Fifo_Implementation {Independent_Clocks_Distributed_RAM} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {256} CONFIG.Input_Depth {2048} CONFIG.Output_Data_Width {256} CONFIG.Output_Depth {2048} CONFIG.Reset_Pin {false} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {11} CONFIG.Write_Data_Count_Width {11} CONFIG.Read_Data_Count_Width {11} CONFIG.Full_Threshold_Assert_Value {2047} CONFIG.Full_Threshold_Negate_Value {2046} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_5]
 
 
 # Se configura el FIFO de la salida del Aurora
-set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {32} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {32} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5}] [get_bd_cells fifo_generator_OutputAurora0]
-set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {32} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {32} CONFIG.Output_Depth {512} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {511} CONFIG.Full_Threshold_Negate_Value {510} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5}] [get_bd_cells fifo_generator_OutputAurora1]
-
+set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {32} CONFIG.Input_Depth {4096} CONFIG.Output_Data_Width {32} CONFIG.Output_Depth {4096} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {12} CONFIG.Write_Data_Count_Width {12} CONFIG.Read_Data_Count_Width {12} CONFIG.Full_Threshold_Assert_Value {4095} CONFIG.Full_Threshold_Negate_Value {4094} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_OutputAurora0]
+set_property -dict [list CONFIG.Fifo_Implementation {Common_Clock_Builtin_FIFO} CONFIG.INTERFACE_TYPE {Native} CONFIG.Performance_Options {First_Word_Fall_Through} CONFIG.Input_Data_Width {32} CONFIG.Input_Depth {4096} CONFIG.Output_Data_Width {32} CONFIG.Output_Depth {4096} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Use_Dout_Reset {false} CONFIG.Data_Count_Width {12} CONFIG.Write_Data_Count_Width {12} CONFIG.Read_Data_Count_Width {12} CONFIG.Full_Threshold_Assert_Value {4095} CONFIG.Full_Threshold_Negate_Value {4094} CONFIG.Empty_Threshold_Assert_Value {4} CONFIG.Empty_Threshold_Negate_Value {5} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.Enable_Safety_Circuit {false}] [get_bd_cells fifo_generator_OutputAurora1]
 
 
 
@@ -629,15 +616,25 @@ connect_bd_net [get_bd_pins unpackaging_IP_block_0/in_fifo_V_read] [get_bd_pins 
 connect_bd_net [get_bd_pins inverter_2/Y] [get_bd_pins unpackaging_IP_block_0/in_fifo_V_empty_n]
 connect_bd_net [get_bd_pins inverter_2/A] [get_bd_pins fifo_generator_0/empty]
 
-# Se hacen externos los pines de la unidad de desempaquetamiento
-startgroup
-make_bd_pins_external  [get_bd_pins unpackaging_IP_block_0/output_r_TREADY] [get_bd_pins unpackaging_IP_block_0/output_r_TDATA] [get_bd_pins unpackaging_IP_block_0/output_r_TVALID] [get_bd_pins unpackaging_IP_block_0/output_r_TLAST]
-endgroup
+create_bd_cell -type module -reference MatrixGeneratorRT MatrixGenerator_0
 
-# Se hacen externos los pines de la unidad de empaquetamiento
-startgroup
-make_bd_pins_external  [get_bd_pins packaging_IP_block_0/input_r_TDATA] [get_bd_pins packaging_IP_block_0/input_r_TVALID] [get_bd_pins packaging_IP_block_0/input_r_TREADY] [get_bd_pins packaging_IP_block_0/input_r_TLAST]
-endgroup
+set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /MatrixGenerator_0/reset]
+
+create_bd_cell -type module -reference MatrixCheckerRT MatrixChecker_0
+
+set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /MatrixChecker_0/reset]
+
+
+connect_bd_net [get_bd_pins packaging_IP_block_0/input_r_TDATA] [get_bd_pins MatrixGenerator_0/input_r_TDATA_0]
+connect_bd_net [get_bd_pins packaging_IP_block_0/input_r_TVALID] [get_bd_pins MatrixGenerator_0/input_r_TVALID_0]
+connect_bd_net [get_bd_pins packaging_IP_block_0/input_r_TREADY] [get_bd_pins MatrixGenerator_0/input_r_TREADY_0]
+connect_bd_net [get_bd_pins packaging_IP_block_0/input_r_TLAST] [get_bd_pins MatrixGenerator_0/input_r_TLAST_0]
+
+connect_bd_net [get_bd_pins unpackaging_IP_block_0/output_r_TDATA] [get_bd_pins MatrixChecker_0/output_r_TDATA_0]
+connect_bd_net [get_bd_pins unpackaging_IP_block_0/output_r_TVALID] [get_bd_pins MatrixChecker_0/output_r_TVALID_0]
+connect_bd_net [get_bd_pins unpackaging_IP_block_0/output_r_TREADY] [get_bd_pins MatrixChecker_0/output_r_TREADY_0]
+connect_bd_net [get_bd_pins unpackaging_IP_block_0/output_r_TLAST] [get_bd_pins MatrixChecker_0/output_r_TLAST_0]
+
 
 
 
@@ -837,7 +834,9 @@ connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins inverter_reset/A]
 connect_bd_net [get_bd_pins inverter_reset/Y] [get_bd_pins packaging_IP_block_0/ap_rst_n]
 connect_bd_net [get_bd_pins inverter_reset/Y] [get_bd_pins unpackaging_IP_block_0/ap_rst_n]
 
-
+# Se conecta el reset de la unidad generadora
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins MatrixGenerator_0/reset]
+connect_bd_net [get_bd_ports peripheral_reset] [get_bd_pins MatrixChecker_0/reset]
 
 # Las banderas de channel_up se hacen externas para efectos de Testing
 startgroup
@@ -850,17 +849,35 @@ create_bd_port -dir O channel_up_1
 connect_bd_net [get_bd_ports channel_up_1] [get_bd_pins aurora_8b10b_1/channel_up]
 endgroup
 
-# Los relojes se hacen externos para efectos de testing
 
-create_bd_port -dir O clk_200MHz
-create_bd_port -dir O gt_refclk
-create_bd_port -dir O init_clk
-create_bd_port -dir O user_clk
+connect_bd_net [get_bd_pins MatrixGenerator_0/clk] [get_bd_pins clk_wiz_0/clk_out3]
+connect_bd_net [get_bd_pins MatrixChecker_0/clk] [get_bd_pins clk_wiz_0/clk_out3]
 
-connect_bd_net [get_bd_ports user_clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
-connect_bd_net [get_bd_ports init_clk] [get_bd_pins clk_wiz_0/clk_out2]
-connect_bd_net [get_bd_ports gt_refclk] [get_bd_pins clk_wiz_0/clk_out1]
-connect_bd_net [get_bd_ports clk_200MHz] [get_bd_pins clk_wiz_0/clk_out3]
+
+# Se agrega el ILA for debugging
+
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:ila:6.2 ila_0
+endgroup
+
+
+
+set_property -dict [list CONFIG.C_PROBE8_WIDTH {4} CONFIG.C_PROBE4_WIDTH {32} CONFIG.C_PROBE0_WIDTH {32} CONFIG.C_DATA_DEPTH {2048} CONFIG.C_NUM_OF_PROBES {9} CONFIG.C_ENABLE_ILA_AXI_MON {false} CONFIG.C_MONITOR_TYPE {Native}] [get_bd_cells ila_0]
+
+
+connect_bd_net [get_bd_pins ila_0/clk] [get_bd_pins clk_wiz_0/clk_out3]
+
+connect_bd_net [get_bd_pins ila_0/probe0] [get_bd_pins MatrixGenerator_0/input_r_TDATA_0]
+connect_bd_net [get_bd_pins ila_0/probe1] [get_bd_pins MatrixGenerator_0/input_r_TLAST_0]
+connect_bd_net [get_bd_pins ila_0/probe2] [get_bd_pins MatrixGenerator_0/input_r_TVALID_0]
+connect_bd_net [get_bd_pins ila_0/probe3] [get_bd_pins packaging_IP_block_0/input_r_TREADY]
+
+connect_bd_net [get_bd_pins ila_0/probe4] [get_bd_pins unpackaging_IP_block_0/output_r_TDATA]
+connect_bd_net [get_bd_pins ila_0/probe5] [get_bd_pins unpackaging_IP_block_0/output_r_TLAST]
+connect_bd_net [get_bd_pins ila_0/probe6] [get_bd_pins unpackaging_IP_block_0/output_r_TVALID]
+connect_bd_net [get_bd_pins ila_0/probe7] [get_bd_pins MatrixChecker_0/output_r_TREADY_0]
+
+connect_bd_net [get_bd_pins ila_0/probe8] [get_bd_pins MatrixChecker_0/Error_Counter]
 
 save_bd_design
 validate_bd_design
@@ -868,6 +885,14 @@ save_bd_design
 
 current_bd_design [get_bd_designs FPGA1_design]
 close_bd_design [get_bd_designs FPGA1_design]
+
+
+
+
+
+
+
+
 
 
 
@@ -1196,7 +1221,7 @@ set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_0/reset_TX_RX
 
 # Se agrega el IP core de HLS llamado Aurora to fifo
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga1_block:1.0 Aurora_to_fifo_0
+create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga2_block:1.0 Aurora_to_fifo_0
 endgroup
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el FIFO Generator y el Aurora
@@ -1342,7 +1367,7 @@ connect_bd_net [get_bd_pins xconst_keep/dout] [get_bd_pins aurora_8b10b_1/s_axi_
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el Aurora y el FIFO
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga1_block:1.0 Aurora_to_fifo_1
+create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga2_block:1.0 Aurora_to_fifo_1
 endgroup
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el FIFO Generator y el Aurora
@@ -1749,17 +1774,7 @@ create_bd_port -dir O channel_up_1
 connect_bd_net [get_bd_ports channel_up_1] [get_bd_pins aurora_8b10b_1/channel_up]
 endgroup
 
-# Los relojes se hacen externos para efectos de testing
 
-create_bd_port -dir O clk_200MHz
-create_bd_port -dir O gt_refclk
-create_bd_port -dir O init_clk
-create_bd_port -dir O user_clk
-
-connect_bd_net [get_bd_ports user_clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
-connect_bd_net [get_bd_ports init_clk] [get_bd_pins clk_wiz_0/clk_out2]
-connect_bd_net [get_bd_ports gt_refclk] [get_bd_pins clk_wiz_0/clk_out1]
-connect_bd_net [get_bd_ports clk_200MHz] [get_bd_pins clk_wiz_0/clk_out3]
 
 save_bd_design
 validate_bd_design
@@ -2104,7 +2119,7 @@ set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_0/reset_TX_RX
 
 # Se agrega el IP core de HLS llamado Aurora to fifo
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga1_block:1.0 Aurora_to_fifo_0
+create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga3_block:1.0 Aurora_to_fifo_0
 endgroup
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el FIFO Generator y el Aurora
@@ -2250,7 +2265,7 @@ connect_bd_net [get_bd_pins xconst_keep/dout] [get_bd_pins aurora_8b10b_1/s_axi_
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el Aurora y el FIFO
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga1_block:1.0 Aurora_to_fifo_1
+create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga3_block:1.0 Aurora_to_fifo_1
 endgroup
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el FIFO Generator y el Aurora
@@ -2657,17 +2672,7 @@ create_bd_port -dir O channel_up_1
 connect_bd_net [get_bd_ports channel_up_1] [get_bd_pins aurora_8b10b_1/channel_up]
 endgroup
 
-# Los relojes se hacen externos para efectos de testing
 
-create_bd_port -dir O clk_200MHz
-create_bd_port -dir O gt_refclk
-create_bd_port -dir O init_clk
-create_bd_port -dir O user_clk
-
-connect_bd_net [get_bd_ports user_clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
-connect_bd_net [get_bd_ports init_clk] [get_bd_pins clk_wiz_0/clk_out2]
-connect_bd_net [get_bd_ports gt_refclk] [get_bd_pins clk_wiz_0/clk_out1]
-connect_bd_net [get_bd_ports clk_200MHz] [get_bd_pins clk_wiz_0/clk_out3]
 
 save_bd_design
 validate_bd_design
@@ -2675,19 +2680,6 @@ save_bd_design
 
 current_bd_design [get_bd_designs FPGA3_design]
 close_bd_design [get_bd_designs FPGA3_design]
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3024,7 +3016,7 @@ set_property CONFIG.POLARITY ACTIVE_HIGH [get_bd_pins /Aurora_init_0/reset_TX_RX
 
 # Se agrega el IP core de HLS llamado Aurora to fifo
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga1_block:1.0 Aurora_to_fifo_0
+create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga4_block:1.0 Aurora_to_fifo_0
 endgroup
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el FIFO Generator y el Aurora
@@ -3170,7 +3162,7 @@ connect_bd_net [get_bd_pins xconst_keep/dout] [get_bd_pins aurora_8b10b_1/s_axi_
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el Aurora y el FIFO
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga1_block:1.0 Aurora_to_fifo_1
+create_bd_cell -type ip -vlnv xilinx.com:hls:Aurora_to_fifo_IP_fpga4_block:1.0 Aurora_to_fifo_1
 endgroup
 
 # Se agrega un bloque de hardware que sirve como interfaz entre el FIFO Generator y el Aurora
@@ -3577,17 +3569,7 @@ create_bd_port -dir O channel_up_1
 connect_bd_net [get_bd_ports channel_up_1] [get_bd_pins aurora_8b10b_1/channel_up]
 endgroup
 
-# Los relojes se hacen externos para efectos de testing
 
-create_bd_port -dir O clk_200MHz
-create_bd_port -dir O gt_refclk
-create_bd_port -dir O init_clk
-create_bd_port -dir O user_clk
-
-connect_bd_net [get_bd_ports user_clk] [get_bd_pins aurora_8b10b_0/user_clk_out]
-connect_bd_net [get_bd_ports init_clk] [get_bd_pins clk_wiz_0/clk_out2]
-connect_bd_net [get_bd_ports gt_refclk] [get_bd_pins clk_wiz_0/clk_out1]
-connect_bd_net [get_bd_ports clk_200MHz] [get_bd_pins clk_wiz_0/clk_out3]
 
 save_bd_design
 validate_bd_design
@@ -3595,5 +3577,3 @@ save_bd_design
 
 current_bd_design [get_bd_designs FPGA4_design]
 close_bd_design [get_bd_designs FPGA4_design]
-
-
