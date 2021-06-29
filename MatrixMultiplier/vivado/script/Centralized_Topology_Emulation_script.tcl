@@ -1589,7 +1589,7 @@ startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xconst_id_next_fpga_3
 endgroup
 
-set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {2}] [get_bd_cells xconst_id_next_fpga_3]
+set_property -dict [list CONFIG.CONST_WIDTH {8} CONFIG.CONST_VAL {0}] [get_bd_cells xconst_id_next_fpga_3]
 
 connect_bd_net [get_bd_pins xconst_id_next_fpga_3/dout] [get_bd_pins fifo_to_Aurora_3/id_next_fpga]
 
