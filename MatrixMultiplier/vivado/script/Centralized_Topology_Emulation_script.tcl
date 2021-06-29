@@ -32,13 +32,11 @@ set_property board_part xilinx.com:zc706:part0:1.4 [current_project]
 add_files -fileset constrs_1 -norecurse constraints/pines_CT_Slave.xdc
 
 # Se agrega el testbench y se pone como principal
-add_files -fileset sim_1 -norecurse TestBench/testbench.sv
-add_files -fileset sim_1 -norecurse TestBench/testbench1.sv
-add_files -fileset sim_1 -norecurse TestBench/testbench2.sv
-add_files -fileset sim_1 -norecurse TestBench/testbench3.sv
+add_files -fileset sim_1 -norecurse TestBench/testbench_CT.sv
 
 
-set_property top testbench2 [get_filesets sim_1]
+
+set_property top testbench_CT [get_filesets sim_1]
 set_property top_lib xil_defaultlib [get_filesets sim_1]
 
 # Se agrega la biblioteca de buses de Verilog, Nótese que tanto el el archivo Library.sv, como fifo.sv, se toman 
