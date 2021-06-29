@@ -18,10 +18,10 @@
 
 
 # Se elimina en caso de que exista la carpeta del proyecto anterior para evitar conflictos por intentar crear un proyecto ya existente
-exec rm -rf Centralized_Topology/ vivado.*
+exec rm -rf Centralized_Topology_Master/ vivado.*
 
 # Se crea el proyecto
-create_project Centralized_Topology Centralized_Topology -part xc7z045ffg900-2
+create_project Centralized_Topology_Master Centralized_Topology_Master -part xc7z045ffg900-2
 
 # Se selecciona la tarjeta ZC706
 set_property board_part xilinx.com:zc706:part0:1.4 [current_project]

@@ -33,9 +33,9 @@ module MatrixChecker_tb;
     
     wire output_r_TREADY_0;
     wire [3:0] Error_Counter;
-    reg [9:0] Q_counter = 10'd0;
+    reg [11:0] Q_counter = 10'd0;
     
-    MatrixChecker #(.Stop_Counter_Value(Stop_Counter_Value)) uut (
+    MatrixCheckerRT #(.Stop_Counter_Value(Stop_Counter_Value)) uut (
     .clk(clk), 
     .reset(reset), 
     .output_r_TVALID_0(output_r_TVALID_0), 
@@ -51,8 +51,8 @@ module MatrixChecker_tb;
     
         output_r_TVALID_0 = 0;
         output_r_TLAST_0 = 0;
-        output_r_TDATA_0 = 32'd12;
-        Q_counter = 10'd0;
+        output_r_TDATA_0 = 32'd42;
+        Q_counter = 12'd0;
         
         #250 reset = 0;
          
@@ -67,7 +67,7 @@ module MatrixChecker_tb;
     
       
    always @ (posedge clk) begin
-        if (output_r_TVALID_0 == 1'b1 && Q_counter < 32'd216) begin
+        if (output_r_TVALID_0 == 1'b1 && Q_counter < 32'd1764) begin
             Q_counter <= Q_counter + 1'b1;
         end else begin
             output_r_TVALID_0 = 1'b0;

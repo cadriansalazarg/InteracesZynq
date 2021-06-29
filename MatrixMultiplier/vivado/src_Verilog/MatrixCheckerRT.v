@@ -21,7 +21,6 @@ module MatrixCheckerRT #(parameter Stop_Counter_Value = 20'd20000)
     reg output_r_TVALID_0_reg1 = 1'b0;
     reg [31:0] output_r_TDATA_0_reg = 32'd0;
     
-    reg [7:0] Q_counter = 8'd1;
     reg comparison; 
     
     wire enable;
@@ -58,20 +57,14 @@ module MatrixCheckerRT #(parameter Stop_Counter_Value = 20'd20000)
          end
     end 
     
-    always @(posedge clk) begin
-        if (reset) begin
-            Q_counter <= 8'd1;
-        end else if (output_r_TVALID_0_reg) begin
-            Q_counter <=  Q_counter + 1; 
-        end
-    end
+   
     
    
    
      
     
     always @(posedge clk) begin
-        if (output_r_TDATA_0_reg[7:0] == 8'd12)
+        if (output_r_TDATA_0_reg[7:0] == 8'd42)
             comparison <= 1'b0;
         else
             comparison <= 1'b1;

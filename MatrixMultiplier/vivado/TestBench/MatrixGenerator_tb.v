@@ -32,7 +32,7 @@ module MatrixGenerator_tb;
     wire input_r_TVALID_0;
     wire [31:0] input_r_TDATA_0;
     
-    MatrixGenerator #(.Stop_Counter_Value(Stop_Counter_Value)) uut(
+    MatrixGeneratorRT #(.Stop_Counter_Value(Stop_Counter_Value)) uut(
     .clk(clk), 
     .reset(reset), 
     .input_r_TVALID_0(input_r_TVALID_0), 
