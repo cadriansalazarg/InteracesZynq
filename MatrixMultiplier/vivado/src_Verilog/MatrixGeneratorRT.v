@@ -11,7 +11,7 @@ module MatrixGeneratorRT #(parameter Stop_Counter_Value = 20'd20000)
     output reg [31:0] input_r_TDATA_0 = 0;
     reg Enable_counter, Enable_counter_start;
     
-    reg [11:0] Q_counter = 12'd0;
+    reg [13:0] Q_counter = 13'd0;
     
     reg [19:0] Q_counter_start = 20'd0;
     reg input_r_TREADY_0_reg = 1'b0;
@@ -30,7 +30,7 @@ module MatrixGeneratorRT #(parameter Stop_Counter_Value = 20'd20000)
 
     always @(posedge clk) begin
         if (reset)
-            Q_counter <= 12'd0;
+            Q_counter <= 13'd0;
         else if (valid)
             Q_counter <= Q_counter + 1'b1;
     end
@@ -52,7 +52,7 @@ module MatrixGeneratorRT #(parameter Stop_Counter_Value = 20'd20000)
     
     
     always @(posedge clk) begin
-        if (Q_counter < 12'd3126)
+        if (Q_counter < 13'd8126)
             Enable_counter<= 1'b1;
          else
             Enable_counter <= 1'b0;   
@@ -60,13 +60,13 @@ module MatrixGeneratorRT #(parameter Stop_Counter_Value = 20'd20000)
    
    
    assign valid = ((~Enable_counter_start) & Enable_counter & input_r_TREADY_0); 
-   assign valid1 = valid & ((Q_counter <= 12'd1764) | ((Q_counter >= 12'd3000) & (Q_counter <= 12'd3126))); 
-   assign last = ((Q_counter == 12'd1764) | (Q_counter == 12'd3126))? 1'b1 : 1'b0;
+   assign valid1 = valid & ((Q_counter <= 13'd1764) | ((Q_counter >= 13'd8000) & (Q_counter <= 13'd8126))); 
+   assign last = ((Q_counter == 13'd1764) | (Q_counter == 13'd8126))? 1'b1 : 1'b0;
    
    always @* begin
-        if (Q_counter == 12'd0) 
+        if (Q_counter == 13'd0) 
             out_mux <= 32'hFF001B90;
-        else if (Q_counter == 12'd3000) 
+        else if (Q_counter == 13'd8000) 
             out_mux <= 32'hFF0001F8; 
         else     
             out_mux <= 32'h00000001;
